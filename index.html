@@ -721,6 +721,10 @@ header p { font-size: 12px; opacity: 0.85; margin-top: 2px; }
 .legend-row { display: flex; flex-wrap: wrap; gap: 6px; }
 .legend-dot { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; color: #555; }
 .legend-dot span { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.scroll-hint { display: none; }
+@media (max-width: 680px) {
+  .scroll-hint { display: block; text-align: center; font-size: 11px; color: #0ea5e9; padding: 5px; background: #f0f9ff; border-bottom: 1px solid #bae6fd; }
+}
 </style>
 <script>
 /* @preserve
@@ -739,6 +743,7 @@ header p { font-size: 12px; opacity: 0.85; margin-top: 2px; }
 <div class="container">
   <div id="map"></div>
   <div class="sidebar">
+    <div class="scroll-hint">👆 上滑查看行程 · 下方有携带清单和行前必做</div>
     <div class="day-tabs">
       <button class="day-tab active" style="background:#6366f1" onclick="selectDay(0)">D1 抵达</button>
       <button class="day-tab" style="background:#0ea5e9" onclick="selectDay(1)">D2 潜水</button>
