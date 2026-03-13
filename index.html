@@ -667,13 +667,36 @@ svg.leaflet-image-layer.leaflet-interactive path {
 		}
 	}
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, 'PingFang SC', sans-serif; background: #f5f7fa; color: #333; }
-header { background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); color: white; padding: 20px 24px 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
-header h1 { font-size: 20px; font-weight: 700; }
-header p { font-size: 13px; opacity: 0.85; margin-top: 4px; }
-.container { display: flex; height: calc(100vh - 74px); }
+body { font-family: -apple-system, 'PingFang SC', sans-serif; background: #f5f7fa; color: #333; height: 100dvh; display: flex; flex-direction: column; overflow: hidden; }
+header { background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); color: white; padding: 12px 16px 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); flex-shrink: 0; }
+header h1 { font-size: 17px; font-weight: 700; }
+header p { font-size: 12px; opacity: 0.85; margin-top: 2px; }
+
+/* ── Desktop: side-by-side ── */
+.container { display: flex; flex: 1; overflow: hidden; }
 #map { flex: 1; z-index: 1; }
-.sidebar { width: 360px; overflow-y: auto; background: white; box-shadow: -2px 0 12px rgba(0,0,0,0.08); z-index: 2; }
+.sidebar { width: 360px; overflow-y: auto; background: white; box-shadow: -2px 0 12px rgba(0,0,0,0.08); z-index: 2; display: flex; flex-direction: column; }
+
+/* ── Mobile: top tabs + bottom map ── */
+@media (max-width: 680px) {
+  .container { flex-direction: column; }
+  .sidebar { width: 100%; flex: 0 0 auto; max-height: 52vh; overflow-y: auto; box-shadow: 0 2px 10px rgba(0,0,0,0.1); order: 1; }
+  #map { flex: 1; min-height: 0; order: 2; }
+  /* day tabs strip */
+  .day-tabs { display: flex; overflow-x: auto; gap: 6px; padding: 8px 12px; background: #f8fafc; border-bottom: 1px solid #e2e8f0; flex-shrink: 0; scrollbar-width: none; }
+  .day-tabs::-webkit-scrollbar { display: none; }
+  .day-tab { flex-shrink: 0; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; border: none; cursor: pointer; color: white; opacity: 0.6; transition: opacity 0.2s; }
+  .day-tab.active { opacity: 1; transform: scale(1.05); }
+  /* hide all cards except active */
+  .day-card { display: none; margin: 10px 12px; }
+  .day-card.active { display: block; }
+  .legend { display: none; }
+}
+@media (min-width: 681px) {
+  .day-tabs { display: none; }
+  .day-card { display: block; }
+}
+
 .day-card { border-left: 4px solid #ddd; margin: 12px 16px; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.08); cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; }
 .day-card:hover { transform: translateX(2px); box-shadow: 0 3px 10px rgba(0,0,0,0.12); }
 .day-header { padding: 10px 14px; color: white; display: flex; align-items: center; gap: 10px; }
@@ -716,6 +739,15 @@ header p { font-size: 13px; opacity: 0.85; margin-top: 4px; }
 <div class="container">
   <div id="map"></div>
   <div class="sidebar">
+    <div class="day-tabs">
+      <button class="day-tab active" style="background:#6366f1" onclick="selectDay(0)">D1 抵达</button>
+      <button class="day-tab" style="background:#0ea5e9" onclick="selectDay(1)">D2 潜水</button>
+      <button class="day-tab" style="background:#10b981" onclick="selectDay(2)">D3 蜈支洲</button>
+      <button class="day-tab" style="background:#f59e0b" onclick="selectDay(3)">D4 亚特兰蒂斯</button>
+      <button class="day-tab" style="background:#ef4444" onclick="selectDay(4)">D5 大东海</button>
+      <button class="day-tab" style="background:#8b5cf6" onclick="selectDay(5)">D6 休闲</button>
+      <button class="day-tab" style="background:#64748b" onclick="selectDay(6)">D7 返京</button>
+    </div>
     <div class="legend">
       <div class="legend-title">图例</div>
       <div class="legend-row">
@@ -727,7 +759,7 @@ header p { font-size: 13px; opacity: 0.85; margin-top: 4px; }
         <span class="legend-dot"><span style="background:#8b5cf6"></span>Day6</span>
       </div>
     </div>
-    <div class="day-card" style="border-color:#6366f1" onclick="flyTo(18.3847,109.7752,13)">
+    <div class="day-card active" data-day="0" style="border-color:#6366f1" onclick="flyTo(18.3847,109.7752,13)">
       <div class="day-header" style="background:#6366f1"><span class="day-label">DAY 1</span><span class="day-title">✈️ 抵达 · 入住</span><span class="day-date">4/12 周六</span></div>
       <div class="day-body">
         <div class="segment"><span class="seg-time">下午</span><div class="seg-content"><div class="seg-place">✈️ 三亚凤凰国际机场</div><div class="seg-detail">抵达</div><span class="transport-tag car">🚕 滴滴 约50分钟 → 酒店</span></div></div>
@@ -735,7 +767,7 @@ header p { font-size: 13px; opacity: 0.85; margin-top: 4px; }
         <div class="segment"><span class="seg-time">晚餐</span><div class="seg-content"><div class="seg-place">🍽️ 酒店餐厅 or 附近海鲜馆</div></div></div>
       </div>
     </div>
-    <div class="day-card" style="border-color:#0ea5e9" onclick="flyTo(18.3847,109.7752,14)">
+    <div class="day-card" data-day="1" style="border-color:#0ea5e9" onclick="flyTo(18.3847,109.7752,14)">
       <div class="day-header" style="background:#0ea5e9"><span class="day-label">DAY 2</span><span class="day-title">🤿 酒店体验潜水</span><span class="day-date">4/13 周日</span></div>
       <div class="day-body">
         <div class="segment"><span class="seg-time">上午</span><div class="seg-content"><div class="seg-place">🤿 特缔思潜水（酒店驻场）</div><div class="seg-detail">PADI 5星，孔雀体验水肺，玥玥浮潜</div><span class="transport-tag walk">🚶 步行，酒店内</span></div></div>
@@ -743,7 +775,7 @@ header p { font-size: 13px; opacity: 0.85; margin-top: 4px; }
         <div class="segment"><span class="seg-time">下午</span><div class="seg-content"><div class="seg-place">🏖️ 酒店海滩 / 泳池</div></div></div>
       </div>
     </div>
-    <div class="day-card" style="border-color:#10b981" onclick="flyTo(18.2722,109.7281,12)">
+    <div class="day-card" data-day="2" style="border-color:#10b981" onclick="flyTo(18.2722,109.7281,12)">
       <div class="day-header" style="background:#10b981"><span class="day-label">DAY 3</span><span class="day-title">🏝️ 蜈支洲岛全天</span><span class="day-date">4/14 周一</span></div>
       <div class="day-body">
         <div class="segment"><span class="seg-time">8:00</span><div class="seg-content"><div class="seg-place">🚕 酒店 → 蜈支洲岛码头</div><span class="transport-tag car">🚕 滴滴 约30分钟</span></div></div>
@@ -754,7 +786,7 @@ header p { font-size: 13px; opacity: 0.85; margin-top: 4px; }
         <div class="segment"><span class="seg-time">17:00</span><div class="seg-content"><div class="seg-place">⛵ 返回 → 酒店</div><span class="transport-tag boat">⛵ 快艇15分 + </span><span class="transport-tag car">🚕 滴滴30分</span></div></div>
       </div>
     </div>
-    <div class="day-card" style="border-color:#f59e0b" onclick="flyTo(18.3750,109.7680,14)">
+    <div class="day-card" data-day="3" style="border-color:#f59e0b" onclick="flyTo(18.3750,109.7680,14)">
       <div class="day-header" style="background:#f59e0b"><span class="day-label">DAY 4</span><span class="day-title">🐠 亚特兰蒂斯 + 免税城</span><span class="day-date">4/15 周二</span></div>
       <div class="day-body">
         <div class="segment"><span class="seg-time">上午</span><div class="seg-content"><div class="seg-place">🦈 亚特兰蒂斯水族馆</div><div class="seg-detail">玻璃隧道看鲨鱼、魔鬼鱼</div><span class="transport-tag car">🚕 滴滴 约5-10分钟</span></div></div>
@@ -762,7 +794,7 @@ header p { font-size: 13px; opacity: 0.85; margin-top: 4px; }
         <div class="segment"><span class="seg-time">下午</span><div class="seg-content"><div class="seg-place">🛍️ 海棠湾国际免税城</div><span class="transport-tag walk">🚶 步行 约10-15分钟</span></div></div>
       </div>
     </div>
-    <div class="day-card" style="border-color:#ef4444" onclick="flyTo(18.2219,109.5106,13)">
+    <div class="day-card" data-day="4" style="border-color:#ef4444" onclick="flyTo(18.2219,109.5106,13)">
       <div class="day-header" style="background:#ef4444"><span class="day-label">DAY 5</span><span class="day-title">🌊 大东海二潜</span><span class="day-date">4/16 周三</span></div>
       <div class="day-body">
         <div class="segment"><span class="seg-time">上午</span><div class="seg-content"><div class="seg-place">🤿 大东海潜水</div><div class="seg-detail">水浅2-4米，现场找俱乐部报名</div><span class="transport-tag car">🚕 滴滴 约25-30分钟</span></div></div>
@@ -770,13 +802,13 @@ header p { font-size: 13px; opacity: 0.85; margin-top: 4px; }
         <div class="segment"><span class="seg-time">晚餐</span><div class="seg-content"><div class="seg-place">🎉 庆祝晚餐！两宝完成海底探险</div></div></div>
       </div>
     </div>
-    <div class="day-card" style="border-color:#8b5cf6" onclick="flyTo(18.3847,109.7752,13)">
+    <div class="day-card" data-day="5" style="border-color:#8b5cf6" onclick="flyTo(18.3847,109.7752,13)">
       <div class="day-header" style="background:#8b5cf6"><span class="day-label">DAY 6</span><span class="day-title">🛍️ 休闲 · 备行</span><span class="day-date">4/17 周四</span></div>
       <div class="day-body">
         <div class="segment"><span class="seg-time">全天</span><div class="seg-content"><div class="seg-place">☕ 轻松早餐 + 特产采购</div><div class="seg-detail">椰子糖、三亚咖啡、整理行李</div></div></div>
       </div>
     </div>
-    <div class="day-card" style="border-color:#64748b" onclick="flyTo(18.3069,109.4122,12)">
+    <div class="day-card" data-day="6" style="border-color:#64748b" onclick="flyTo(18.3069,109.4122,12)">
       <div class="day-header" style="background:#64748b"><span class="day-label">DAY 7</span><span class="day-title">✈️ 返京</span><span class="day-date">4/18 周五</span></div>
       <div class="day-body">
         <div class="segment"><span class="seg-time">上午</span><div class="seg-content"><div class="seg-place">🚕 酒店 → 凤凰机场</div><span class="transport-tag car">🚕 滴滴 约50分钟</span></div></div>
@@ -823,6 +855,20 @@ L.polyline([[18.2950,109.7120],[18.2722,109.7281]],{color:'#10b981',weight:2.5,o
 L.polyline([[18.3847,109.7752],[18.2219,109.5106]],{color:'#ef4444',weight:2,dashArray:'6,4',opacity:0.6}).addTo(map);
 L.polyline([[18.3847,109.7752],[18.3069,109.4122]],{color:'#64748b',weight:2,dashArray:'4,6',opacity:0.5}).addTo(map);
 
+function selectDay(n) {
+  document.querySelectorAll('.day-card').forEach(function(c,i){ 
+    c.classList.toggle('active', i===n); 
+  });
+  document.querySelectorAll('.day-tab').forEach(function(t,i){ 
+    t.classList.toggle('active', i===n); 
+  });
+  var card = document.querySelector('.day-card[data-day="'+n+'"]');
+  if(card) {
+    var onclick = card.getAttribute('onclick');
+    if(onclick) { eval(onclick); }
+    card.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+}
 function flyTo(lat,lng,zoom){map.flyTo([lat,lng],zoom,{duration:1});}
 </script>
 </body>
