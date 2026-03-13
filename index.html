@@ -749,9 +749,10 @@ header p { font-size: 12px; opacity: 0.85; margin-top: 2px; }
       <button class="day-tab" style="background:#0ea5e9" onclick="selectDay(1)">D2 潜水</button>
       <button class="day-tab" style="background:#10b981" onclick="selectDay(2)">D3 蜈支洲</button>
       <button class="day-tab" style="background:#f59e0b" onclick="selectDay(3)">D4 亚特兰蒂斯</button>
-      <button class="day-tab" style="background:#ef4444" onclick="selectDay(4)">D5 大东海</button>
+      <button class="day-tab" style="background:#ef4444" onclick="selectDay(4)">D5 柏悦</button>
       <button class="day-tab" style="background:#8b5cf6" onclick="selectDay(5)">D6 休闲</button>
       <button class="day-tab" style="background:#64748b" onclick="selectDay(6)">D7 返京</button>
+      <button class="day-tab checklist-tab" style="background:#0f766e" onclick="selectDay(7)">📋 清单</button>
     </div>
     <div class="legend">
       <div class="legend-title">图例</div>
@@ -819,11 +820,11 @@ header p { font-size: 12px; opacity: 0.85; margin-top: 2px; }
         <div class="segment"><span class="seg-time">上午</span><div class="seg-content"><div class="seg-place">🚕 酒店 → 凤凰机场</div><span class="transport-tag car">🚕 滴滴 约50分钟</span></div></div>
       </div>
     </div>
-    <div class="alert-tip">
+    <div class="alert-tip" data-day="7" style="display:none">
       <strong>⚠️ 过敏提醒（每次点餐必查）</strong>
       孔雀：核桃过敏<br>玥玥：开心果 / 腰果 / 山药过敏<br>Amy：过敏性鼻炎、轻微哮喘（随身带药）
     </div>
-    <div class="alert-tip" style="background:#f0fdf4;border-color:#bbf7d0;color:#14532d;margin-top:6px;">
+    <div class="alert-tip" data-day="7" style="background:#f0fdf4;border-color:#bbf7d0;color:#14532d;margin-top:6px;display:none">
       <strong>🏝️ 蜈支洲岛浮潜 · 携带清单（Day3）</strong>
       <b>👙 穿着</b><br>
       泳衣（孩子建议连体） · 换洗衣服×每人1套 · 薄外套/防晒衣 · 拖鞋<br><br>
@@ -839,7 +840,7 @@ header p { font-size: 12px; opacity: 0.85; margin-top: 2px; }
       Amy 过敏鼻炎药 · 创可贴/湿疹膏<br><br>
       <b>✅ 不需要带</b>：成人浮潜面罩、救生衣（岛上提供）
     </div>
-    <div class="alert-tip" style="background:#fdf4ff;border-color:#e9d5ff;color:#581c87;margin-top:6px;">
+    <div class="alert-tip" data-day="7" style="background:#fdf4ff;border-color:#e9d5ff;color:#581c87;margin-top:6px;display:none">
       <strong>📋 行前必做清单</strong>
       ☐ 联系酒店管家：要求高楼层海景房（12/15楼中轴线）+ 床围<br>
       ☐ 洲际小程序预约：船上喂海龟（容易约满！）<br>
@@ -885,17 +886,28 @@ L.polyline([[18.3847,109.7752],[18.2219,109.5106]],{color:'#ef4444',weight:2,das
 L.polyline([[18.3847,109.7752],[18.3069,109.4122]],{color:'#64748b',weight:2,dashArray:'4,6',opacity:0.5}).addTo(map);
 
 function selectDay(n) {
+  // toggle day cards
   document.querySelectorAll('.day-card').forEach(function(c,i){ 
     c.classList.toggle('active', i===n); 
   });
+  // toggle checklist items (data-day="7")
+  document.querySelectorAll('[data-day="7"]').forEach(function(el){
+    el.style.display = (n===7) ? 'block' : 'none';
+  });
+  // toggle map visibility
+  document.getElementById('map').style.visibility = (n===7) ? 'hidden' : 'visible';
+  // toggle tabs
   document.querySelectorAll('.day-tab').forEach(function(t,i){ 
     t.classList.toggle('active', i===n); 
   });
-  var card = document.querySelector('.day-card[data-day="'+n+'"]');
-  if(card) {
-    var onclick = card.getAttribute('onclick');
-    if(onclick) { eval(onclick); }
-    card.scrollIntoView({behavior:'smooth', block:'nearest'});
+  // fly map
+  if(n!==7) {
+    var card = document.querySelector('.day-card[data-day="'+n+'"]');
+    if(card) {
+      var onclick = card.getAttribute('onclick');
+      if(onclick) { eval(onclick); }
+      card.scrollIntoView({behavior:'smooth', block:'nearest'});
+    }
   }
 }
 function flyTo(lat,lng,zoom){map.flyTo([lat,lng],zoom,{duration:1});}
