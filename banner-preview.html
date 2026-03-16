@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Banner 方案预览</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #1a1a2e; padding: 20px; }
+h2 { color: #fff; text-align: center; margin: 30px 0 10px; font-size: 16px; opacity: 0.7; }
+h2:first-of-type { margin-top: 10px; }
+.label { color: #aaa; text-align: center; font-size: 12px; margin-bottom: 16px; }
+
+.banner {
+  position: relative;
+  overflow: hidden;
+  color: white;
+  padding: 20px 20px 20px 24px;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  border-radius: 12px;
+  margin: 0 auto 8px;
+  max-width: 500px;
+}
+.banner h1 { font-size: 20px; font-weight: 800; letter-spacing: 0.3px; text-shadow: 0 2px 8px rgba(0,0,0,0.5); position: relative; z-index: 2; }
+.banner p { font-size: 13px; opacity: 0.9; margin-top: 4px; position: relative; z-index: 2; }
+
+/* ── 方案 A：照片 + 暗色蒙版 ── */
+.banner-a {
+  background:
+    linear-gradient(rgba(13,27,62,0.65), rgba(13,27,62,0.8)),
+    url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800&q=80');
+  background-size: cover;
+  background-position: center 30%;
+}
+
+/* ── 方案 B：照片 + 底部毛玻璃 ── */
+.banner-b {
+  background: url('https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=800&q=80');
+  background-size: cover;
+  background-position: center 40%;
+  min-height: 120px;
+  align-items: flex-end;
+  padding-bottom: 16px;
+}
+.banner-b::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(13,27,62,0.92) 0%, rgba(13,27,62,0.4) 50%, transparent 100%);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  pointer-events: none;
+}
+
+/* ── 方案 C：照片 + 彩色渐变 ── */
+.banner-c {
+  background:
+    linear-gradient(135deg, rgba(200,150,12,0.55) 0%, rgba(13,27,62,0.75) 100%),
+    url('https://images.unsplash.com/photo-1431274172761-fca41d930114?w=800&q=80');
+  background-size: cover;
+  background-position: center 35%;
+}
+
+/* ── 当前：纯渐变（对照组） ── */
+.banner-current {
+  background: linear-gradient(135deg, #0d1b3e 0%, #1a2f5e 40%, #c8960c 100%);
+}
+.banner-current::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 80% 50%, rgba(200,150,12,0.35) 0%, transparent 70%),
+    radial-gradient(ellipse 30% 60% at 95% 80%, rgba(255,200,60,0.2) 0%, transparent 60%);
+  pointer-events: none;
+}
+</style>
+</head>
+<body>
+
+<h2>📌 当前样式（对照）</h2>
+<p class="label">纯色渐变 + SVG 剪影</p>
+<div class="banner banner-current">
+  <div>
+    <h1>巴黎亲子游 🗼</h1>
+    <p>6天5晚 · 全家四口 · 孔雀 & 玥玥</p>
+  </div>
+</div>
+
+<h2>🅰️ 方案 A — 照片 + 暗色蒙版</h2>
+<p class="label">经典旅行网站风格（Airbnb / Booking）</p>
+<div class="banner banner-a">
+  <div>
+    <h1>巴黎亲子游 🗼</h1>
+    <p>6天5晚 · 全家四口 · 孔雀 & 玥玥</p>
+  </div>
+</div>
+
+<h2>🅱️ 方案 B — 照片 + 底部毛玻璃</h2>
+<p class="label">Apple 风格，照片更突出</p>
+<div class="banner banner-b">
+  <div>
+    <h1>巴黎亲子游 🗼</h1>
+    <p>6天5晚 · 全家四口 · 孔雀 & 玥玥</p>
+  </div>
+</div>
+
+<h2>🅲️ 方案 C — 照片 + 彩色渐变</h2>
+<p class="label">Pinterest / 杂志风，金蓝色调</p>
+<div class="banner banner-c">
+  <div>
+    <h1>巴黎亲子游 🗼</h1>
+    <p>6天5晚 · 全家四口 · 孔雀 & 玥玥</p>
+  </div>
+</div>
+
+</body>
+</html>
