@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>巴黎亲子游 🗼 孔雀&玥玥</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f7f7f7; }
+header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); color: white; padding: 14px 16px; }
+header h1 { font-size: 18px; font-weight: 700; }
+header p { font-size: 12px; opacity: 0.8; margin-top: 3px; }
+.tabs { display: flex; overflow-x: auto; background: white; border-bottom: 2px solid #e8e8e8; padding: 0 8px; gap: 4px; }
+.tab { padding: 10px 12px; font-size: 13px; cursor: pointer; white-space: nowrap; border-bottom: 3px solid transparent; color: #666; font-weight: 500; transition: all 0.2s; }
+.tab.active { color: #0f3460; border-bottom-color: #0f3460; font-weight: 700; }
+.allergy-banner { background: #fff3cd; border-left: 4px solid #ffc107; padding: 10px 14px; margin: 10px; border-radius: 0 8px 8px 0; font-size: 13px; line-height: 1.6; }
+.allergy-banner strong { display: block; margin-bottom: 4px; color: #856404; }
+.layout { display: flex; height: calc(100vh - 110px); flex-direction: column; }
+.sidebar { overflow-y: auto; padding: 10px; max-height: 52vh; }
+#map { flex: 1; min-height: 200px; }
+.day-card { background: white; border-radius: 10px; margin-bottom: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.day-card h3 { background: #0f3460; color: white; padding: 8px 12px; font-size: 14px; }
+.spot { display: flex; align-items: flex-start; padding: 8px 12px; border-bottom: 1px solid #f0f0f0; gap: 8px; cursor: pointer; transition: background 0.15s; }
+.spot:hover { background: #f0f4ff; }
+.spot:last-child { border-bottom: none; }
+.dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+.spot-info { flex: 1; }
+.spot-name { font-size: 14px; font-weight: 600; color: #1a1a2e; }
+.spot-desc { font-size: 12px; color: #777; margin-top: 2px; line-height: 1.4; }
+.spot-time { font-size: 11px; color: #999; margin-top: 2px; }
+.allergy-tag { display: inline-block; background: #fff3cd; color: #856404; font-size: 10px; padding: 1px 5px; border-radius: 3px; margin-top: 3px; }
+/* 清单 tab */
+.checklist-wrap { padding: 10px; display: none; }
+.checklist-section { background: white; border-radius: 10px; padding: 12px 14px; margin-bottom: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.checklist-section h3 { font-size: 14px; color: #0f3460; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid #eee; }
+.check-item { display: flex; align-items: flex-start; gap: 8px; padding: 5px 0; font-size: 13px; color: #444; line-height: 1.4; }
+.check-item input[type=checkbox] { margin-top: 2px; flex-shrink: 0; }
+/* Legend */
+.legend { position: absolute; bottom: 20px; right: 10px; background: white; border-radius: 8px; padding: 8px 10px; font-size: 11px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index: 999; }
+.legend-item { display: flex; align-items: center; gap: 6px; margin: 3px 0; }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+@media (min-width: 680px) {
+  .layout { flex-direction: row; height: calc(100vh - 110px); }
+  .sidebar { width: 360px; max-height: none; overflow-y: auto; flex-shrink: 0; }
+  #map { flex: 1; }
+}
+/* 清单全屏 */
+.checklist-fullscreen .sidebar { max-height: 100dvh; flex: 1 1 auto; overflow-y: auto; }
+.checklist-fullscreen #map { display: none; }
+</style>
+</head>
+<body>
+<header>
+  <h1>🗼 巴黎亲子游 · 孔雀&玥玥</h1>
+  <p>全家4口 · 5-6天 · 铁塔点灯心愿 ✨</p>
+</header>
+<div class="tabs" id="tabs">
+  <div class="tab active" onclick="selectDay(1)">D1 抵达·铁塔</div>
+  <div class="tab" onclick="selectDay(2)">D2 博物馆</div>
+  <div class="tab" onclick="selectDay(3)">D3 塞纳河</div>
+  <div class="tab" onclick="selectDay(4)">D4 凡尔赛</div>
+  <div class="tab" onclick="selectDay(5)">D5 迪士尼</div>
+  <div class="tab" onclick="selectDay(6)">D6 自由日</div>
+  <div class="tab" onclick="selectDay(7)">📋 清单</div>
+</div>
+<div class="allergy-banner" id="allergy-banner">
+  <strong>⚠️ 过敏提醒（每次点餐必确认）</strong>
+  孔雀：核桃（noix）｜玥玥：开心果（pistache）、腰果（cajou）、山药｜Amy：过敏性鼻炎（春季注意花粉）
+</div>
+<div class="layout" id="layout">
+  <div class="sidebar" id="sidebar">
+    <div id="day-content"></div>
+    <div class="checklist-wrap" id="checklist-wrap"></div>
+  </div>
+  <div id="map"></div>
+</div>
+
+<script>
+const days = [
+  {
+    title: "D1 · 抵达 · 铁塔夜景",
+    spots: [
+      { name: "戴高乐机场 CDG", desc: "入境，乘 RER B 约35分钟进市区", time: "下午抵达", lat: 49.0097, lng: 2.5479, type: "hotel", emoji: "✈️" },
+      { name: "酒店 check-in", desc: "建议7区或1区，铁塔步行可达", time: "下午", lat: 48.8582, lng: 2.2963, type: "hotel", emoji: "🏨" },
+      { name: "战神广场 Champ de Mars + 铁塔亮灯", desc: "每晚整点亮灯5分钟，21:00后最明显。满足孔雀最大心愿！✨", time: "傍晚~21:00+", lat: 48.8556, lng: 2.2986, type: "attraction", emoji: "🗼" },
+    ]
+  },
+  {
+    title: "D2 · 博物馆日",
+    spots: [
+      { name: "卢浮宫 Louvre", desc: "带孩子重点看：蒙娜丽莎、胜利女神、Venus de Milo。建议2-3小时。提前网上买票！", time: "上午", lat: 48.8606, lng: 2.3376, type: "attraction", emoji: "🏛️" },
+      { name: "杜乐丽花园 Tuileries Garden", desc: "卢浮宫旁，大草坪让孩子尽情跑，有旋转木马。", time: "中午后", lat: 48.8637, lng: 2.3276, type: "kids", emoji: "🌳" },
+      { name: "蓬皮杜广场 附近午餐", desc: "⚠️ 点餐前确认过敏原（noix/pistache/cajou）", time: "午餐", lat: 48.8606, lng: 2.3522, type: "food", emoji: "🍽️", allergy: true },
+    ]
+  },
+  {
+    title: "D3 · 塞纳河 + 圣母院",
+    spots: [
+      { name: "巴黎圣母院外观", desc: "2024年底已重新开放，建议外围拍照+广场。室内需预约。", time: "上午", lat: 48.8530, lng: 2.3499, type: "attraction", emoji: "⛪" },
+      { name: "莎士比亚书店", desc: "网红打卡地，对面塞纳河景色很好，孩子可摸一摸老书。", time: "上午", lat: 48.8527, lng: 2.3471, type: "attraction", emoji: "📚" },
+      { name: "塞纳河游船 Bateaux Mouches（Seine River）", desc: "约1小时，沿途看铁塔/圣母院/卢浮宫，孩子很爱。从 Pont de l'Alma 上船。", time: "下午", lat: 48.8636, lng: 2.2990, type: "kids", emoji: "⛵" },
+      { name: "晚餐 · 圣日耳曼区", desc: "⚠️ 坚果甜点多，必须提前告知服务员过敏情况", time: "晚餐", lat: 48.8535, lng: 2.3329, type: "food", emoji: "🍷", allergy: true },
+    ]
+  },
+  {
+    title: "D4 · 凡尔赛宫",
+    spots: [
+      { name: "凡尔赛宫 Château de Versailles", desc: "宫殿+花园半天。镜厅必看，花园极大，孩子可以奔跑！需提前买票。", time: "上午", lat: 48.8048, lng: 2.1203, type: "attraction", emoji: "🏰" },
+      { name: "凡尔赛小镇午餐", desc: "宫殿外有多家餐厅，⚠️ 注意甜点坚果", time: "午餐", lat: 48.8014, lng: 2.1301, type: "food", emoji: "🥗", allergy: true },
+      { name: "蒙马特高地 Montmartre + 圣心堂 Sacré-Cœur", desc: "下午回市区，登高看巴黎全景，街头艺人、画家，氛围很好", time: "下午", lat: 48.8867, lng: 2.3431, type: "attraction", emoji: "🎨" },
+    ]
+  },
+  {
+    title: "D5 · 迪士尼乐园",
+    spots: [
+      { name: "巴黎迪士尼乐园", desc: "距市区约40分钟（RER A）。5岁+7岁是迪士尼黄金年龄！建议全天，早开园入场。", time: "全天", lat: 48.8674, lng: 2.7812, type: "kids", emoji: "🎡" },
+      { name: "迪士尼园内餐厅", desc: "⚠️ 园内餐厅有过敏原菜单可要求查看（allergen menu）", time: "午/晚餐", lat: 48.8678, lng: 2.7820, type: "food", emoji: "🍔", allergy: true },
+    ]
+  },
+  {
+    title: "D6 · 自由日 + 返程",
+    spots: [
+      { name: "卢森堡公园 Luxembourg Gardens", desc: "骑小马（Poney Club，约4€），船模租借，孩子最爱户外公园之一", time: "上午", lat: 48.8462, lng: 2.3372, type: "kids", emoji: "🐴" },
+      { name: "法国微型景观园 France Miniature", desc: "1:30比例法国全景，30分钟车程，适合孩子！若有时间可选。", time: "可选", lat: 48.7853, lng: 1.9552, type: "kids", emoji: "🗺️" },
+      { name: "CDG机场 返程", desc: "返程航班", time: "傍晚/晚上", lat: 49.0097, lng: 2.5479, type: "hotel", emoji: "✈️" },
+    ]
+  }
+];
+
+const typeColor = {
+  attraction: "#e74c3c",
+  food: "#e67e22",
+  kids: "#27ae60",
+  hotel: "#2980b9"
+};
+
+let map, markers = [], currentDay = 1;
+
+function initMap() {
+  map = L.map('map').setView([48.8566, 2.3522], 12);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Legend
+  const legend = document.createElement('div');
+  legend.className = 'legend';
+  legend.innerHTML = `
+    <div class="legend-item"><div class="legend-dot" style="background:#e74c3c"></div> 景点</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#e67e22"></div> 美食</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#27ae60"></div> 亲子</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#2980b9"></div> 酒店/交通</div>
+  `;
+  document.getElementById('map').appendChild(legend);
+}
+
+function clearMarkers() {
+  markers.forEach(m => map.removeLayer(m));
+  markers = [];
+}
+
+function selectDay(n) {
+  currentDay = n;
+  document.querySelectorAll('.tab').forEach((t, i) => t.classList.toggle('active', i === n - 1));
+  const layout = document.getElementById('layout');
+  const dayContent = document.getElementById('day-content');
+  const checklistWrap = document.getElementById('checklist-wrap');
+  const allergyBanner = document.getElementById('allergy-banner');
+
+  if (n === 7) {
+    layout.classList.add('checklist-fullscreen');
+    document.getElementById('map').style.display = 'none';
+    allergyBanner.style.display = 'none';
+    dayContent.style.display = 'none';
+    checklistWrap.style.display = 'block';
+    renderChecklist();
+    return;
+  }
+
+  layout.classList.remove('checklist-fullscreen');
+  document.getElementById('map').style.display = '';
+  allergyBanner.style.display = '';
+  dayContent.style.display = '';
+  checklistWrap.style.display = 'none';
+
+  clearMarkers();
+  const day = days[n - 1];
+  dayContent.innerHTML = `
+    <div class="day-card">
+      <h3>${day.title}</h3>
+      ${day.spots.map((s, i) => `
+        <div class="spot" onclick="focusSpot(${i}, ${n})">
+          <div class="dot" style="background:${typeColor[s.type]}"></div>
+          <div class="spot-info">
+            <div class="spot-name">${s.emoji} ${s.name}</div>
+            <div class="spot-desc">${s.desc}</div>
+            ${s.time ? `<div class="spot-time">🕐 ${s.time}</div>` : ''}
+            ${s.allergy ? `<span class="allergy-tag">⚠️ 查过敏原</span>` : ''}
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+
+  const bounds = [];
+  day.spots.forEach((s, i) => {
+    const icon = L.divIcon({
+      html: `<div style="background:${typeColor[s.type]};color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;box-shadow:0 2px 6px rgba(0,0,0,0.3)">${i+1}</div>`,
+      iconSize: [28, 28], iconAnchor: [14, 14], className: ''
+    });
+    const m = L.marker([s.lat, s.lng], { icon })
+      .addTo(map)
+      .bindPopup(`<b>${s.emoji} ${s.name}</b><br><small>${s.desc}</small>`);
+    markers.push(m);
+    bounds.push([s.lat, s.lng]);
+  });
+
+  if (bounds.length > 0) {
+    map.fitBounds(bounds, { padding: [40, 40] });
+  }
+}
+
+function focusSpot(idx, dayN) {
+  const s = days[dayN - 1].spots[idx];
+  map.setView([s.lat, s.lng], 15);
+  markers[idx].openPopup();
+}
+
+function renderChecklist() {
+  const cw = document.getElementById('checklist-wrap');
+  cw.innerHTML = `
+    <div class="checklist-section">
+      <h3>✈️ 出发前必做</h3>
+      <div class="check-item"><input type="checkbox"> 申根签证（提前2个月办理）</div>
+      <div class="check-item"><input type="checkbox"> 购买机票（建议提前3-6个月）</div>
+      <div class="check-item"><input type="checkbox"> 预订酒店（7区或1区，亲子友好）</div>
+      <div class="check-item"><input type="checkbox"> 卢浮宫门票（网上提前购，避开排队）</div>
+      <div class="check-item"><input type="checkbox"> 凡尔赛宫门票（提前购）</div>
+      <div class="check-item"><input type="checkbox"> 巴黎迪士尼门票（官网购，价格优惠）</div>
+      <div class="check-item"><input type="checkbox"> 购置欧插转换器</div>
+      <div class="check-item"><input type="checkbox"> 开通境外流量/购买SIM卡</div>
+    </div>
+    <div class="checklist-section">
+      <h3>⚠️ 过敏必备</h3>
+      <div class="check-item"><input type="checkbox"> 准备过敏药（孔雀/玥玥/Amy）</div>
+      <div class="check-item"><input type="checkbox"> 打印/保存法语过敏原卡片（noix核桃 / pistache开心果 / cajou腰果）</div>
+      <div class="check-item"><input type="checkbox"> Amy备好抗组胺药（春季花粉）</div>
+    </div>
+    <div class="checklist-section">
+      <h3>🎒 行李清单</h3>
+      <div class="check-item"><input type="checkbox"> 护照（全家）有效期6个月以上</div>
+      <div class="check-item"><input type="checkbox"> 孩子舒适运动鞋（巴黎走路多）</div>
+      <div class="check-item"><input type="checkbox"> 雨具（巴黎天气多变）</div>
+      <div class="check-item"><input type="checkbox"> 孩子零食（机场/高价区备用）</div>
+      <div class="check-item"><input type="checkbox"> 推车（玥玥5岁，长途行走可能需要）</div>
+    </div>
+    <div class="checklist-section">
+      <h3>🗺️ 实用提示</h3>
+      <div class="check-item"><input type="checkbox"> 下载 Navigo/Bonjour RATP app（地铁出行）</div>
+      <div class="check-item"><input type="checkbox"> 铁塔亮灯时间：日落后整点，每次5分钟（21:00-23:00最佳）</div>
+      <div class="check-item"><input type="checkbox"> 巴黎地铁带娃建议多打车（Uber France）</div>
+    </div>
+  `;
+}
+
+window.onload = () => {
+  initMap();
+  selectDay(1);
+};
+</script>
+</body>
+</html>
