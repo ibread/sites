@@ -84,9 +84,45 @@ header p  { font-size: 12px; opacity: 0.85; margin-top: 3px; }
 /* Checklist fullscreen */
 .checklist-fullscreen .sidebar { width: 100% !important; max-height: 100dvh; flex: 1 1 auto; overflow-y: auto; }
 .checklist-fullscreen #map { display: none; }
+
+/* ── Passcode overlay ── */
+.passcode-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: linear-gradient(135deg, #0d1b3e 0%, #1a2f5e 50%, #2a4a8e 100%);
+  display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 16px;
+  overflow: hidden;
+}
+.passcode-overlay h2 { color: white; font-size: 20px; }
+.passcode-overlay input {
+  width: 200px; padding: 12px 16px; font-size: 18px; text-align: center;
+  border: 2px solid rgba(255,255,255,0.3); border-radius: 10px;
+  background: rgba(255,255,255,0.1); color: white; letter-spacing: 6px;
+  outline: none; -webkit-text-security: disc;
+}
+.passcode-overlay input:focus { border-color: #c8960c; }
+.passcode-overlay .hint { color: rgba(255,255,255,0.5); font-size: 12px; }
+.passcode-overlay .error { color: #f87171; font-size: 13px; display: none; }
+
+/* ── Overview tab ── */
+.overview-wrap { padding: 10px; display: none; }
+.overview-day { background: white; border-radius: 10px; padding: 12px 14px; margin-bottom: 10px; box-shadow: 0 1px 4px rgba(100,70,0,0.08); cursor: pointer; transition: background 0.15s; }
+.overview-day:hover { background: #fff8e8; }
+.overview-day h4 { font-size: 14px; color: #1a2f5e; margin-bottom: 6px; }
+.overview-day .route { font-size: 12px; color: #666; line-height: 1.6; }
+
+/* ── Route polyline label ── */
+.route-label { background: rgba(255,255,255,0.92); border-radius: 4px; padding: 2px 6px; font-size: 11px; color: #555; white-space: nowrap; box-shadow: 0 1px 3px rgba(0,0,0,0.15); border: none; }
 </style>
 </head>
 <body>
+
+<!-- Passcode overlay -->
+<div class="passcode-overlay" id="passcode-overlay">
+  <h2>🗼 家庭行程</h2>
+  <input type="tel" id="passcode-input" maxlength="4" placeholder="····" autocomplete="off" inputmode="numeric">
+  <div class="error" id="passcode-error">密码不对，再试一次</div>
+  <div class="hint">输入 4 位密码查看行程</div>
+</div>
 
 <header>
   <div class="header-text">
@@ -102,7 +138,8 @@ header p  { font-size: 12px; opacity: 0.85; margin-top: 3px; }
   <div class="tab" onclick="selectDay(4)">D4 凡尔赛</div>
   <div class="tab" onclick="selectDay(5)">D5 迪士尼</div>
   <div class="tab" onclick="selectDay(6)">D6 自由日</div>
-  <div class="tab" onclick="selectDay(7)">📋 清单</div>
+  <div class="tab" onclick="selectDay(0)">📋 总览</div>
+  <div class="tab" onclick="selectDay(7)">✅ 清单</div>
 </div>
 
 <div class="allergy-banner" id="allergy-banner">
@@ -114,57 +151,86 @@ header p  { font-size: 12px; opacity: 0.85; margin-top: 3px; }
   <div id="map"></div>
   <div class="sidebar" id="sidebar">
     <div id="day-content"></div>
+    <div class="overview-wrap" id="overview-wrap"></div>
     <div class="checklist-wrap" id="checklist-wrap"></div>
   </div>
 </div>
 
 <script>
+// ── Passcode (SHA-256 hash of the code) ──
+const PASSCODE_HASH = '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4'; // 1234
+async function sha256(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2,'0')).join('');
+}
+(function initPasscode() {
+  const overlay = document.getElementById('passcode-overlay');
+  const input = document.getElementById('passcode-input');
+  const error = document.getElementById('passcode-error');
+  if (sessionStorage.getItem('itinerary_auth') === '1') { overlay.style.display = 'none'; return; }
+  input.addEventListener('input', async () => {
+    if (input.value.length === 4) {
+      const h = await sha256(input.value);
+      if (h === PASSCODE_HASH) {
+        sessionStorage.setItem('itinerary_auth', '1');
+        overlay.style.display = 'none';
+      } else {
+        error.style.display = 'block';
+        input.value = '';
+        setTimeout(() => error.style.display = 'none', 2000);
+      }
+    }
+  });
+  input.focus();
+})();
+
+// ── Data ──
 const days = [
   {
     title: "D1 · 抵达 · 铁塔夜景",
     spots: [
-      { name: "戴高乐机场 CDG", desc: "入境，乘 RER B 约35分钟进市区", time: "下午抵达", lat: 49.0097, lng: 2.5479, type: "hotel", emoji: "✈️" },
-      { name: "酒店 check-in", desc: "建议7区或1区，铁塔步行可达", time: "下午", lat: 48.8582, lng: 2.2963, type: "hotel", emoji: "🏨" },
+      { name: "戴高乐机场 CDG", desc: "入境，乘 RER B 约35分钟进市区", time: "下午抵达", lat: 49.0097, lng: 2.5479, type: "hotel", emoji: "✈️", travelNext: "🚇 RER B ~35min" },
+      { name: "酒店 check-in", desc: "建议7区或1区，铁塔步行可达", time: "下午", lat: 48.8582, lng: 2.2963, type: "hotel", emoji: "🏨", travelNext: "🚶 步行 ~15min" },
       { name: "战神广场 Champ de Mars + 铁塔亮灯 Eiffel Tower", desc: "每晚整点亮灯5分钟，21:00后最明显。满足孔雀最大心愿！✨", time: "傍晚~21:00+", lat: 48.8556, lng: 2.2986, type: "attraction", emoji: "🗼" },
     ]
   },
   {
     title: "D2 · 博物馆日",
     spots: [
-      { name: "卢浮宫 Louvre Museum", desc: "带孩子重点看：蒙娜丽莎 Mona Lisa、胜利女神 Winged Victory。建议2-3小时，提前网上买票！", time: "上午", lat: 48.8606, lng: 2.3376, type: "attraction", emoji: "🏛️" },
-      { name: "杜乐丽花园 Tuileries Garden", desc: "卢浮宫旁，大草坪让孩子尽情跑，有旋转木马 Carousel。", time: "中午后", lat: 48.8637, lng: 2.3276, type: "kids", emoji: "🌳" },
+      { name: "卢浮宫 Louvre Museum", desc: "带孩子重点看：蒙娜丽莎 Mona Lisa、胜利女神 Winged Victory。建议2-3小时，提前网上买票！", time: "上午", lat: 48.8606, lng: 2.3376, type: "attraction", emoji: "🏛️", travelNext: "🚶 步行 ~5min" },
+      { name: "杜乐丽花园 Tuileries Garden", desc: "卢浮宫旁，大草坪让孩子尽情跑，有旋转木马 Carousel。", time: "中午后", lat: 48.8637, lng: 2.3276, type: "kids", emoji: "🌳", travelNext: "🚶 步行 ~8min" },
       { name: "附近午餐", desc: "⚠️ 点餐前确认过敏原（noix/pistache/cajou）", time: "午餐", lat: 48.8606, lng: 2.3522, type: "food", emoji: "🍽️", allergy: true },
     ]
   },
   {
     title: "D3 · 塞纳河 + 圣母院",
     spots: [
-      { name: "巴黎圣母院 Notre-Dame Cathedral", desc: "2024年底已重新开放！建议外围拍照+广场，室内需预约。", time: "上午", lat: 48.8530, lng: 2.3499, type: "attraction", emoji: "⛪" },
-      { name: "莎士比亚书店 Shakespeare and Company", desc: "网红打卡地，对面塞纳河景色很好，孩子可摸一摸老书。", time: "上午", lat: 48.8527, lng: 2.3471, type: "attraction", emoji: "📚" },
-      { name: "塞纳河游船 Bateaux Mouches", desc: "约1小时，沿途看铁塔/圣母院/卢浮宫，孩子很爱。从 Pont de l'Alma 上船。", time: "下午", lat: 48.8636, lng: 2.2990, type: "kids", emoji: "⛵" },
+      { name: "巴黎圣母院 Notre-Dame Cathedral", desc: "2024年底已重新开放！建议外围拍照+广场，室内需预约。", time: "上午", lat: 48.8530, lng: 2.3499, type: "attraction", emoji: "⛪", travelNext: "🚶 步行 ~2min" },
+      { name: "莎士比亚书店 Shakespeare and Company", desc: "网红打卡地，对面塞纳河景色很好，孩子可摸一摸老书。", time: "上午", lat: 48.8527, lng: 2.3471, type: "attraction", emoji: "📚", travelNext: "🚕 打车 ~10min" },
+      { name: "塞纳河游船 Bateaux Mouches", desc: "约1小时，沿途看铁塔/圣母院/卢浮宫，孩子很爱。从 Pont de l'Alma 上船。", time: "下午", lat: 48.8636, lng: 2.2990, type: "kids", emoji: "⛵", travelNext: "🚇 Metro ~15min" },
       { name: "晚餐 · 圣日耳曼区 Saint-Germain", desc: "⚠️ 坚果甜点多，必须提前告知服务员过敏情况", time: "晚餐", lat: 48.8535, lng: 2.3329, type: "food", emoji: "🍷", allergy: true },
     ]
   },
   {
     title: "D4 · 凡尔赛宫",
     spots: [
-      { name: "凡尔赛宫 Palace of Versailles", desc: "宫殿+花园半天。镜厅 Hall of Mirrors 必看，花园极大，孩子可以奔跑！需提前买票。", time: "上午", lat: 48.8048, lng: 2.1203, type: "attraction", emoji: "🏰" },
-      { name: "凡尔赛小镇午餐", desc: "宫殿外有多家餐厅，⚠️ 注意甜点坚果", time: "午餐", lat: 48.8014, lng: 2.1301, type: "food", emoji: "🥗", allergy: true },
+      { name: "凡尔赛宫 Palace of Versailles", desc: "宫殿+花园半天。镜厅 Hall of Mirrors 必看，花园极大，孩子可以奔跑！需提前买票。", time: "上午", lat: 48.8048, lng: 2.1203, type: "attraction", emoji: "🏰", travelNext: "🚇 RER C ~50min" },
+      { name: "凡尔赛小镇午餐", desc: "宫殿外有多家餐厅，⚠️ 注意甜点坚果", time: "午餐", lat: 48.8014, lng: 2.1301, type: "food", emoji: "🥗", allergy: true, travelNext: "🚇 RER C ~50min" },
       { name: "蒙马特高地 Montmartre + 圣心堂 Sacré-Cœur", desc: "下午回市区，登高看巴黎全景，街头艺人、画家，氛围很好", time: "下午", lat: 48.8867, lng: 2.3431, type: "attraction", emoji: "🎨" },
     ]
   },
   {
     title: "D5 · 迪士尼乐园",
     spots: [
-      { name: "巴黎迪士尼乐园 Disneyland Paris", desc: "距市区约40分钟（RER A）。5岁+7岁是迪士尼黄金年龄！建议全天，早开园入场。", time: "全天", lat: 48.8674, lng: 2.7812, type: "kids", emoji: "🎡" },
+      { name: "巴黎迪士尼乐园 Disneyland Paris", desc: "距市区约40分钟（RER A）。5岁+7岁是迪士尼黄金年龄！建议全天，早开园入场。", time: "全天", lat: 48.8674, lng: 2.7812, type: "kids", emoji: "🎡", travelNext: "园内步行" },
       { name: "迪士尼园内餐厅", desc: "⚠️ 园内餐厅有过敏原菜单可要求查看（allergen menu）", time: "午/晚餐", lat: 48.8678, lng: 2.7820, type: "food", emoji: "🍔", allergy: true },
     ]
   },
   {
     title: "D6 · 自由日 + 返程",
     spots: [
-      { name: "卢森堡公园 Luxembourg Gardens", desc: "骑小马（Poney Club，约4€），船模租借，孩子最爱户外公园之一", time: "上午", lat: 48.8462, lng: 2.3372, type: "kids", emoji: "🐴" },
-      { name: "法国微型景观园 France Miniature", desc: "1:30比例法国全景，30分钟车程，适合孩子！若有时间可选。", time: "可选", lat: 48.7853, lng: 1.9552, type: "kids", emoji: "🗺️" },
+      { name: "卢森堡公园 Luxembourg Gardens", desc: "骑小马（Poney Club，约4€），船模租借，孩子最爱户外公园之一", time: "上午", lat: 48.8462, lng: 2.3372, type: "kids", emoji: "🐴", travelNext: "🚕 打车 ~30min" },
+      { name: "法国微型景观园 France Miniature", desc: "1:30比例法国全景，30分钟车程，适合孩子！若有时间可选。", time: "可选", lat: 48.7853, lng: 1.9552, type: "kids", emoji: "🗺️", travelNext: "🚕 打车 ~50min" },
       { name: "戴高乐机场 CDG 返程", desc: "返程航班", time: "傍晚/晚上", lat: 49.0097, lng: 2.5479, type: "hotel", emoji: "✈️" },
     ]
   }
@@ -177,7 +243,7 @@ const typeColor = {
   hotel: "#2980b9"
 };
 
-let map, markers = [], currentDay = 1;
+let map, markers = [], polylines = [], routeLabels = [], currentDay = 1;
 
 function initMap() {
   map = L.map('map').setView([48.8566, 2.3522], 12);
@@ -198,33 +264,54 @@ function initMap() {
 
 function clearMarkers() {
   markers.forEach(m => map.removeLayer(m));
-  markers = [];
+  polylines.forEach(p => map.removeLayer(p));
+  routeLabels.forEach(l => map.removeLayer(l));
+  markers = []; polylines = []; routeLabels = [];
 }
 
 function selectDay(n) {
   currentDay = n;
-  document.querySelectorAll('.tab').forEach((t, i) => t.classList.toggle('active', i === n - 1));
+  const tabs = document.querySelectorAll('.tab');
+  // tab indices: 0=overview, 1-6=days, 7=checklist → tab 0 is overview, tab 7 is checklist
+  tabs.forEach((t, i) => {
+    if (n === 0) t.classList.toggle('active', i === 6); // 📋 总览 is 7th tab (index 6)
+    else if (n === 7) t.classList.toggle('active', i === 7); // ✅ 清单 is 8th tab (index 7)
+    else t.classList.toggle('active', i === n - 1);
+  });
+
   const layout = document.getElementById('layout');
   const dayContent = document.getElementById('day-content');
   const checklistWrap = document.getElementById('checklist-wrap');
+  const overviewWrap = document.getElementById('overview-wrap');
   const allergyBanner = document.getElementById('allergy-banner');
+
+  // Reset visibility
+  layout.classList.remove('checklist-fullscreen');
+  document.getElementById('map').style.display = '';
+  allergyBanner.style.display = '';
+  dayContent.style.display = 'none';
+  checklistWrap.style.display = 'none';
+  overviewWrap.style.display = 'none';
+
+  if (n === 0) {
+    // Overview
+    layout.classList.add('checklist-fullscreen');
+    document.getElementById('map').style.display = 'none';
+    overviewWrap.style.display = 'block';
+    renderOverview();
+    return;
+  }
 
   if (n === 7) {
     layout.classList.add('checklist-fullscreen');
     document.getElementById('map').style.display = 'none';
     allergyBanner.style.display = 'none';
-    dayContent.style.display = 'none';
     checklistWrap.style.display = 'block';
     renderChecklist();
     return;
   }
 
-  layout.classList.remove('checklist-fullscreen');
-  document.getElementById('map').style.display = '';
-  allergyBanner.style.display = '';
   dayContent.style.display = '';
-  checklistWrap.style.display = 'none';
-
   clearMarkers();
   const day = days[n - 1];
   dayContent.innerHTML = `
@@ -237,6 +324,7 @@ function selectDay(n) {
             <div class="spot-name">${s.emoji} ${s.name}</div>
             <div class="spot-desc">${s.desc}</div>
             ${s.time ? `<div class="spot-time">🕐 ${s.time}</div>` : ''}
+            ${s.travelNext ? `<div class="spot-time" style="color:#2980b9">→ ${s.travelNext}</div>` : ''}
             ${s.allergy ? `<span class="allergy-tag">⚠️ 查过敏原</span>` : ''}
           </div>
         </div>
@@ -255,6 +343,25 @@ function selectDay(n) {
       .bindPopup(`<b>${s.emoji} ${s.name}</b><br><small>${s.desc}</small>`);
     markers.push(m);
     bounds.push([s.lat, s.lng]);
+
+    // Draw route line to next spot
+    if (i < day.spots.length - 1) {
+      const next = day.spots[i + 1];
+      const line = L.polyline([[s.lat, s.lng], [next.lat, next.lng]], {
+        color: typeColor[s.type], weight: 2, opacity: 0.5, dashArray: '6,8'
+      }).addTo(map);
+      polylines.push(line);
+
+      // Travel time label at midpoint
+      if (s.travelNext) {
+        const midLat = (s.lat + next.lat) / 2;
+        const midLng = (s.lng + next.lng) / 2;
+        const label = L.marker([midLat, midLng], {
+          icon: L.divIcon({ html: `<div class="route-label">${s.travelNext}</div>`, className: '', iconAnchor: [40, 10] })
+        }).addTo(map);
+        routeLabels.push(label);
+      }
+    }
   });
 
   if (bounds.length > 0) {
@@ -266,6 +373,15 @@ function focusSpot(idx, dayN) {
   const s = days[dayN - 1].spots[idx];
   map.setView([s.lat, s.lng], 15);
   markers[idx].openPopup();
+}
+
+function renderOverview() {
+  document.getElementById('overview-wrap').innerHTML = days.map((day, i) => `
+    <div class="overview-day" onclick="selectDay(${i+1})">
+      <h4>${day.title}</h4>
+      <div class="route">${day.spots.map(s => s.emoji + ' ' + s.name.split(' ')[0]).join(' → ')}</div>
+    </div>
+  `).join('');
 }
 
 function renderChecklist() {
