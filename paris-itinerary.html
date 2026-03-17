@@ -170,7 +170,7 @@ header p  { font-size: 12px; opacity: 0.85; margin-top: 3px; }
 
 <script>
 // ── Passcode ──
-const PASSCODE_HASH = '47ad898a4b3e4c5cbdee52e8b7de7a36e6e1c2e79de1f95e2e58d4ea07a2cd9f';
+const PASSCODE_HASH = 'edf47512eec1fbc8389dda7f4212505250ef02cc376487bdc8abefe8489cb035';
 async function sha256(str) {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
   return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2,'0')).join('');
