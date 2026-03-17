@@ -21,10 +21,32 @@ header {
   padding: 16px 20px 14px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
   flex-shrink: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
 }
-.header-text { position: relative; z-index: 1; }
+.header-text { position: relative; z-index: 1; flex: 1; }
 header h1 { font-size: 18px; font-weight: 800; letter-spacing: 0.3px; text-shadow: 0 1px 4px rgba(0,0,0,0.4); }
 header p  { font-size: 12px; opacity: 0.85; margin-top: 3px; }
+
+/* ── Lang toggle button ── */
+.lang-btn {
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.45);
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  white-space: nowrap;
+  letter-spacing: 0.5px;
+  transition: background 0.2s;
+  flex-shrink: 0;
+  margin-left: 10px;
+  margin-top: 2px;
+}
+.lang-btn:hover { background: rgba(255,255,255,0.3); }
 
 /* ── Tabs ── */
 .tabs { display: flex; overflow-x: auto; background: #fff8ee; border-bottom: 2px solid #e8d8b0; padding: 0 8px; gap: 4px; scrollbar-width: none; }
@@ -49,7 +71,7 @@ header p  { font-size: 12px; opacity: 0.85; margin-top: 3px; }
   .sidebar { order: 2; width: 360px; flex-shrink: 0; max-height: 100%; }
 }
 
-/* Mobile: sidebar top, map bottom (same as 三亚) */
+/* Mobile: sidebar top, map bottom */
 @media (max-width: 679px) {
   .layout { flex-direction: column; }
   .sidebar { width: 100%; flex: 0 0 auto; max-height: 52vh; overflow-y: auto; box-shadow: 0 2px 10px rgba(0,0,0,0.1); order: 1; }
@@ -119,34 +141,23 @@ header p  { font-size: 12px; opacity: 0.85; margin-top: 3px; }
 
 <!-- Passcode overlay -->
 <div class="passcode-overlay" id="passcode-overlay">
-  <h2>🗼 家庭行程</h2>
+  <h2>🗼 家庭行程 · Family Trip</h2>
   <input type="tel" id="passcode-input" maxlength="4" placeholder="····" autocomplete="off" inputmode="numeric">
-  <div class="error" id="passcode-error">密码不对，再试一次</div>
-  <div class="hint">输入 4 位密码查看行程</div>
+  <div class="error" id="passcode-error">密码不对，再试一次 · Wrong passcode</div>
+  <div class="hint">输入 4 位密码查看行程 · Enter 4-digit passcode</div>
 </div>
 
 <header>
   <div class="header-text">
-    <h1>🗼 巴黎亲子游 · 孔雀 &amp; 玥玥</h1>
-    <p>全家4口 · 5-6天 · 铁塔点灯心愿 ✨</p>
+    <h1 id="hdr-title">🗼 巴黎亲子游 · 孔雀 &amp; 玥玥</h1>
+    <p id="hdr-sub">全家4口 · 5-6天 · 铁塔点灯心愿 ✨</p>
   </div>
+  <button class="lang-btn" onclick="toggleLang()" id="lang-btn">EN</button>
 </header>
 
-<div class="tabs" id="tabs">
-  <div class="tab active" onclick="selectDay(1)">D1 抵达·铁塔</div>
-  <div class="tab" onclick="selectDay(2)">D2 博物馆</div>
-  <div class="tab" onclick="selectDay(3)">D3 塞纳河</div>
-  <div class="tab" onclick="selectDay(4)">D4 凡尔赛</div>
-  <div class="tab" onclick="selectDay(5)">D5 迪士尼</div>
-  <div class="tab" onclick="selectDay(6)">D6 自由日</div>
-  <div class="tab" onclick="selectDay(0)">📋 总览</div>
-  <div class="tab" onclick="selectDay(7)">✅ 清单</div>
-</div>
+<div class="tabs" id="tabs"></div>
 
-<div class="allergy-banner" id="allergy-banner">
-  <strong>⚠️ 过敏提醒（每次点餐必确认）</strong>
-  孔雀：核桃（noix）｜玥玥：开心果（pistache）、腰果（cajou）、山药｜Amy：过敏性鼻炎（春季注意花粉）
-</div>
+<div class="allergy-banner" id="allergy-banner"></div>
 
 <div class="layout" id="layout">
   <div id="map"></div>
@@ -158,8 +169,8 @@ header p  { font-size: 12px; opacity: 0.85; margin-top: 3px; }
 </div>
 
 <script>
-// ── Passcode (SHA-256 hash of the code) ──
-const PASSCODE_HASH = 'edf47512eec1fbc8389dda7f4212505250ef02cc376487bdc8abefe8489cb035';
+// ── Passcode ──
+const PASSCODE_HASH = '47ad898a4b3e4c5cbdee52e8b7de7a36e6e1c2e79de1f95e2e58d4ea07a2cd9f';
 async function sha256(str) {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
   return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2,'0')).join('');
@@ -185,66 +196,173 @@ async function sha256(str) {
   input.focus();
 })();
 
-// ── Data ──
+// ── Language ──
+let lang = 'zh';
+
+const i18n = {
+  zh: {
+    title: '🗼 巴黎亲子游 · 孔雀 &amp; 玥玥',
+    sub: '全家4口 · 5-6天 · 铁塔点灯心愿 ✨',
+    langBtn: 'EN',
+    allergy: '<strong>⚠️ 过敏提醒（每次点餐必确认）</strong>孔雀：核桃（noix）｜玥玥：开心果（pistache）、腰果（cajou）、山药｜Amy：过敏性鼻炎（春季注意花粉）',
+    allergyTag: '⚠️ 查过敏原',
+    tabs: ['D1 抵达·铁塔','D2 博物馆','D3 塞纳河','D4 凡尔赛','D5 迪士尼','D6 自由日','📋 总览','✅ 清单'],
+    legend: ['景点','美食','亲子','酒店/交通'],
+    checklist: {
+      pre: '✈️ 出发前必做',
+      preItems: [
+        '申根签证 Schengen Visa（提前2个月办理）',
+        '购买机票（建议提前3-6个月）',
+        '预订酒店（7区或1区，亲子友好）',
+        '卢浮宫 Louvre 门票（网上提前购，避开排队）',
+        '凡尔赛宫 Versailles 门票（提前购）',
+        '巴黎迪士尼 Disneyland Paris 门票（官网购）',
+        '购置欧插转换器',
+        '开通境外流量/购买SIM卡',
+      ],
+      allergy: '⚠️ 过敏必备',
+      allergyItems: [
+        '准备过敏药（孔雀/玥玥/Amy）',
+        '法语过敏原卡片：noix核桃 / pistache开心果 / cajou腰果',
+        'Amy备好抗组胺药（春季花粉 pollen）',
+      ],
+      luggage: '🎒 行李清单',
+      luggageItems: [
+        '护照 Passport（全家，有效期6个月以上）',
+        '孩子舒适运动鞋（巴黎走路多）',
+        '雨具（巴黎天气多变）',
+        '孩子零食（机场/高价区备用）',
+        '推车 Stroller（玥玥5岁，长途行走可能需要）',
+      ],
+      tips: '🗺️ 实用提示',
+      tipsItems: [
+        '下载 Bonjour RATP app（地铁 Metro 出行）',
+        '铁塔亮灯 Light Show：日落后整点，21:00-23:00最佳',
+        '带娃多打车 Uber France，避免地铁台阶',
+      ],
+    },
+  },
+  en: {
+    title: '🗼 Paris Family Trip · KongQue &amp; YueYue',
+    sub: 'Family of 4 · 5-6 days · Eiffel Tower Light Show Dream ✨',
+    langBtn: '中',
+    allergy: '<strong>⚠️ Allergy Alert (check every meal)</strong>KongQue: Walnuts (noix) ｜ YueYue: Pistachios, Cashews, Yam ｜ Amy: Allergic rhinitis (watch spring pollen)',
+    allergyTag: '⚠️ Check allergens',
+    tabs: ['D1 Arrive·Tower','D2 Museum','D3 Seine River','D4 Versailles','D5 Disneyland','D6 Free Day','📋 Overview','✅ Checklist'],
+    legend: ['Attraction','Food','Kids','Hotel/Transit'],
+    checklist: {
+      pre: '✈️ Before You Go',
+      preItems: [
+        'Schengen Visa (apply 2 months in advance)',
+        'Book flights (3-6 months ahead recommended)',
+        'Book hotel (7th or 1st arrondissement, family-friendly)',
+        'Louvre tickets (buy online to skip queues)',
+        'Versailles tickets (book in advance)',
+        'Disneyland Paris tickets (official website)',
+        'EU power adapter',
+        'International data plan / SIM card',
+      ],
+      allergy: '⚠️ Allergy Essentials',
+      allergyItems: [
+        'Pack allergy medication (KongQue / YueYue / Amy)',
+        'French allergy card: noix (walnut) / pistache / cajou (cashew)',
+        'Amy: antihistamines for spring pollen season',
+      ],
+      luggage: '🎒 Packing List',
+      luggageItems: [
+        'Passports (all, valid 6+ months)',
+        'Comfortable walking shoes for kids',
+        'Rain gear (Paris weather is unpredictable)',
+        'Snacks for kids (airport/tourist areas are expensive)',
+        'Stroller (YueYue is 5, may need it for long walks)',
+      ],
+      tips: '🗺️ Practical Tips',
+      tipsItems: [
+        'Download Bonjour RATP app for Metro navigation',
+        'Eiffel Tower Light Show: every hour after sunset, best 21:00-23:00',
+        'Use Uber France with kids to avoid Metro stairs',
+      ],
+    },
+  }
+};
+
 const days = [
   {
-    title: "D1 · 抵达 · 铁塔夜景",
+    title: { zh: 'D1 · 抵达 · 铁塔夜景', en: 'D1 · Arrival · Eiffel Tower Night' },
     spots: [
-      { name: "戴高乐机场 CDG", desc: "入境，乘 RER B 约35分钟进市区", time: "下午抵达", lat: 49.0097, lng: 2.5479, type: "hotel", emoji: "✈️", travelNext: "🚇 RER B ~35min" },
-      { name: "酒店 check-in", desc: "建议7区或1区，铁塔步行可达", time: "下午", lat: 48.8582, lng: 2.2963, type: "hotel", emoji: "🏨", travelNext: "🚶 步行 ~15min" },
-      { name: "战神广场 Champ de Mars + 铁塔亮灯 Eiffel Tower", desc: "每晚整点亮灯5分钟，21:00后最明显。满足孔雀最大心愿！✨", time: "傍晚~21:00+", lat: 48.8556, lng: 2.2986, type: "attraction", emoji: "🗼" },
+      { name: { zh: '戴高乐机场 CDG', en: 'Charles de Gaulle Airport CDG' }, desc: { zh: '入境，乘 RER B 约35分钟进市区', en: 'Clear customs, take RER B ~35min to city center' }, time: { zh: '下午抵达', en: 'Afternoon arrival' }, lat: 49.0097, lng: 2.5479, type: 'hotel', emoji: '✈️', travelNext: { zh: '🚇 RER B ~35分钟', en: '🚇 RER B ~35min' } },
+      { name: { zh: '酒店 check-in', en: 'Hotel Check-in' }, desc: { zh: '建议7区或1区，铁塔步行可达', en: '7th or 1st arrondissement recommended, walkable to Eiffel Tower' }, time: { zh: '下午', en: 'Afternoon' }, lat: 48.8582, lng: 2.2963, type: 'hotel', emoji: '🏨', travelNext: { zh: '🚶 步行 ~15分钟', en: '🚶 Walk ~15min' } },
+      { name: { zh: '战神广场 + 铁塔亮灯 Eiffel Tower', en: 'Champ de Mars + Eiffel Tower Light Show' }, desc: { zh: '每晚整点亮灯5分钟，21:00后最明显。满足孔雀最大心愿！✨', en: 'Sparkles every hour on the hour, best after 21:00. KongQue\'s biggest wish! ✨' }, time: { zh: '傍晚~21:00+', en: 'Evening ~21:00+' }, lat: 48.8556, lng: 2.2986, type: 'attraction', emoji: '🗼' },
     ]
   },
   {
-    title: "D2 · 博物馆日",
+    title: { zh: 'D2 · 博物馆日', en: 'D2 · Museum Day' },
     spots: [
-      { name: "卢浮宫 Louvre Museum", desc: "带孩子重点看：蒙娜丽莎 Mona Lisa、胜利女神 Winged Victory。建议2-3小时，提前网上买票！", time: "上午", lat: 48.8606, lng: 2.3376, type: "attraction", emoji: "🏛️", travelNext: "🚶 步行 ~5min" },
-      { name: "杜乐丽花园 Tuileries Garden", desc: "卢浮宫旁，大草坪让孩子尽情跑，有旋转木马 Carousel。", time: "中午后", lat: 48.8637, lng: 2.3276, type: "kids", emoji: "🌳", travelNext: "🚶 步行 ~8min" },
-      { name: "附近午餐", desc: "⚠️ 点餐前确认过敏原（noix/pistache/cajou）", time: "午餐", lat: 48.8606, lng: 2.3522, type: "food", emoji: "🍽️", allergy: true },
+      { name: { zh: '卢浮宫 Louvre Museum', en: 'Louvre Museum' }, desc: { zh: '带孩子重点看：蒙娜丽莎、胜利女神。建议2-3小时，提前网上买票！', en: 'Must-see with kids: Mona Lisa, Winged Victory. Allow 2-3 hrs, buy tickets online!' }, time: { zh: '上午', en: 'Morning' }, lat: 48.8606, lng: 2.3376, type: 'attraction', emoji: '🏛️', travelNext: { zh: '🚶 步行 ~5分钟', en: '🚶 Walk ~5min' } },
+      { name: { zh: '杜乐丽花园 Tuileries Garden', en: 'Tuileries Garden' }, desc: { zh: '卢浮宫旁，大草坪让孩子尽情跑，有旋转木马 Carousel。', en: 'Next to Louvre, big lawn for kids to run, Carousel ride available.' }, time: { zh: '中午后', en: 'After noon' }, lat: 48.8637, lng: 2.3276, type: 'kids', emoji: '🌳', travelNext: { zh: '🚶 步行 ~8分钟', en: '🚶 Walk ~8min' } },
+      { name: { zh: '附近午餐', en: 'Nearby Lunch' }, desc: { zh: '⚠️ 点餐前确认过敏原（noix/pistache/cajou）', en: '⚠️ Confirm allergens before ordering (noix/pistache/cajou)' }, time: { zh: '午餐', en: 'Lunch' }, lat: 48.8606, lng: 2.3522, type: 'food', emoji: '🍽️', allergy: true },
     ]
   },
   {
-    title: "D3 · 塞纳河 + 圣母院",
+    title: { zh: 'D3 · 塞纳河 + 圣母院', en: 'D3 · Seine River + Notre-Dame' },
     spots: [
-      { name: "巴黎圣母院 Notre-Dame Cathedral", desc: "2024年底已重新开放！建议外围拍照+广场，室内需预约。", time: "上午", lat: 48.8530, lng: 2.3499, type: "attraction", emoji: "⛪", travelNext: "🚶 步行 ~2min" },
-      { name: "莎士比亚书店 Shakespeare and Company", desc: "网红打卡地，对面塞纳河景色很好，孩子可摸一摸老书。", time: "上午", lat: 48.8527, lng: 2.3471, type: "attraction", emoji: "📚", travelNext: "🚕 打车 ~10min" },
-      { name: "塞纳河游船 Bateaux Mouches", desc: "约1小时，沿途看铁塔/圣母院/卢浮宫，孩子很爱。从 Pont de l'Alma 上船。", time: "下午", lat: 48.8636, lng: 2.2990, type: "kids", emoji: "⛵", travelNext: "🚇 Metro ~15min" },
-      { name: "晚餐 · 圣日耳曼区 Saint-Germain", desc: "⚠️ 坚果甜点多，必须提前告知服务员过敏情况", time: "晚餐", lat: 48.8535, lng: 2.3329, type: "food", emoji: "🍷", allergy: true },
+      { name: { zh: '巴黎圣母院 Notre-Dame Cathedral', en: 'Notre-Dame Cathedral' }, desc: { zh: '2024年底已重新开放！建议外围拍照+广场，室内需预约。', en: 'Reopened late 2024! Exterior photo + plaza recommended; interior requires reservation.' }, time: { zh: '上午', en: 'Morning' }, lat: 48.8530, lng: 2.3499, type: 'attraction', emoji: '⛪', travelNext: { zh: '🚶 步行 ~2分钟', en: '🚶 Walk ~2min' } },
+      { name: { zh: '莎士比亚书店 Shakespeare and Company', en: 'Shakespeare and Company' }, desc: { zh: '网红打卡地，对面塞纳河景色很好，孩子可摸一摸老书。', en: 'Iconic bookstore with great Seine views; kids enjoy browsing old books.' }, time: { zh: '上午', en: 'Morning' }, lat: 48.8527, lng: 2.3471, type: 'attraction', emoji: '📚', travelNext: { zh: '🚕 打车 ~10分钟', en: '🚕 Taxi ~10min' } },
+      { name: { zh: '塞纳河游船 Bateaux Mouches', en: 'Seine River Cruise · Bateaux Mouches' }, desc: { zh: '约1小时，沿途看铁塔/圣母院/卢浮宫，孩子很爱。', en: '~1 hour cruise past Eiffel Tower, Notre-Dame, Louvre — kids love it!' }, time: { zh: '下午', en: 'Afternoon' }, lat: 48.8636, lng: 2.2990, type: 'kids', emoji: '⛵', travelNext: { zh: '🚇 地铁 ~15分钟', en: '🚇 Metro ~15min' } },
+      { name: { zh: '晚餐 · 圣日耳曼区', en: 'Dinner · Saint-Germain district' }, desc: { zh: '⚠️ 坚果甜点多，必须提前告知服务员过敏情况', en: '⚠️ Many nut-based desserts; inform server of allergies before ordering' }, time: { zh: '晚餐', en: 'Dinner' }, lat: 48.8535, lng: 2.3329, type: 'food', emoji: '🍷', allergy: true },
     ]
   },
   {
-    title: "D4 · 凡尔赛宫",
+    title: { zh: 'D4 · 凡尔赛宫', en: 'D4 · Palace of Versailles' },
     spots: [
-      { name: "凡尔赛宫 Palace of Versailles", desc: "宫殿+花园半天。镜厅 Hall of Mirrors 必看，花园极大，孩子可以奔跑！需提前买票。", time: "上午", lat: 48.8048, lng: 2.1203, type: "attraction", emoji: "🏰", travelNext: "🚇 RER C ~50min" },
-      { name: "凡尔赛小镇午餐", desc: "宫殿外有多家餐厅，⚠️ 注意甜点坚果", time: "午餐", lat: 48.8014, lng: 2.1301, type: "food", emoji: "🥗", allergy: true, travelNext: "🚇 RER C ~50min" },
-      { name: "蒙马特高地 Montmartre + 圣心堂 Sacré-Cœur", desc: "下午回市区，登高看巴黎全景，街头艺人、画家，氛围很好", time: "下午", lat: 48.8867, lng: 2.3431, type: "attraction", emoji: "🎨" },
+      { name: { zh: '凡尔赛宫 Palace of Versailles', en: 'Palace of Versailles' }, desc: { zh: '宫殿+花园半天。镜厅必看，花园极大，孩子可以奔跑！需提前买票。', en: 'Half day for palace + gardens. Hall of Mirrors is a must; huge gardens for kids to run!' }, time: { zh: '上午', en: 'Morning' }, lat: 48.8048, lng: 2.1203, type: 'attraction', emoji: '🏰', travelNext: { zh: '🚇 RER C ~50分钟', en: '🚇 RER C ~50min' } },
+      { name: { zh: '凡尔赛小镇午餐', en: 'Lunch in Versailles Town' }, desc: { zh: '宫殿外有多家餐厅，⚠️ 注意甜点坚果', en: 'Several restaurants outside the palace. ⚠️ Watch for nuts in desserts' }, time: { zh: '午餐', en: 'Lunch' }, lat: 48.8014, lng: 2.1301, type: 'food', emoji: '🥗', allergy: true, travelNext: { zh: '🚇 RER C ~50分钟', en: '🚇 RER C ~50min' } },
+      { name: { zh: '蒙马特高地 + 圣心堂 Sacré-Cœur', en: 'Montmartre + Sacré-Cœur Basilica' }, desc: { zh: '下午回市区，登高看巴黎全景，街头艺人、画家，氛围很好', en: 'Return to city, panoramic Paris views, street artists and painters — great atmosphere' }, time: { zh: '下午', en: 'Afternoon' }, lat: 48.8867, lng: 2.3431, type: 'attraction', emoji: '🎨' },
     ]
   },
   {
-    title: "D5 · 迪士尼乐园",
+    title: { zh: 'D5 · 迪士尼乐园', en: 'D5 · Disneyland Paris' },
     spots: [
-      { name: "巴黎迪士尼乐园 Disneyland Paris", desc: "距市区约40分钟（RER A）。5岁+7岁是迪士尼黄金年龄！建议全天，早开园入场。", time: "全天", lat: 48.8674, lng: 2.7812, type: "kids", emoji: "🎡", travelNext: "园内步行" },
-      { name: "迪士尼园内餐厅", desc: "⚠️ 园内餐厅有过敏原菜单可要求查看（allergen menu）", time: "午/晚餐", lat: 48.8678, lng: 2.7820, type: "food", emoji: "🍔", allergy: true },
+      { name: { zh: '巴黎迪士尼乐园 Disneyland Paris', en: 'Disneyland Paris' }, desc: { zh: '距市区约40分钟（RER A）。5岁+7岁是迪士尼黄金年龄！建议全天，早开园入场。', en: '~40min from city (RER A). Ages 5 & 7 are the golden Disneyland age! Go full day, arrive at opening.' }, time: { zh: '全天', en: 'All day' }, lat: 48.8674, lng: 2.7812, type: 'kids', emoji: '🎡', travelNext: { zh: '园内步行', en: 'Walk within park' } },
+      { name: { zh: '迪士尼园内餐厅', en: 'Park Restaurants' }, desc: { zh: '⚠️ 园内餐厅有过敏原菜单可要求查看（allergen menu）', en: '⚠️ Ask for the allergen menu (allergen menu available at all park restaurants)' }, time: { zh: '午/晚餐', en: 'Lunch / Dinner' }, lat: 48.8678, lng: 2.7820, type: 'food', emoji: '🍔', allergy: true },
     ]
   },
   {
-    title: "D6 · 自由日 + 返程",
+    title: { zh: 'D6 · 自由日 + 返程', en: 'D6 · Free Day + Departure' },
     spots: [
-      { name: "卢森堡公园 Luxembourg Gardens", desc: "骑小马（Poney Club，约4€），船模租借，孩子最爱户外公园之一", time: "上午", lat: 48.8462, lng: 2.3372, type: "kids", emoji: "🐴", travelNext: "🚕 打车 ~30min" },
-      { name: "法国微型景观园 France Miniature", desc: "1:30比例法国全景，30分钟车程，适合孩子！若有时间可选。", time: "可选", lat: 48.7853, lng: 1.9552, type: "kids", emoji: "🗺️", travelNext: "🚕 打车 ~50min" },
-      { name: "戴高乐机场 CDG 返程", desc: "返程航班", time: "傍晚/晚上", lat: 49.0097, lng: 2.5479, type: "hotel", emoji: "✈️" },
+      { name: { zh: '卢森堡公园 Luxembourg Gardens', en: 'Luxembourg Gardens' }, desc: { zh: '骑小马（Poney Club，约4€），船模租借，孩子最爱户外公园之一', en: 'Pony rides (Poney Club ~€4), toy sailboat rental — one of the best parks for kids' }, time: { zh: '上午', en: 'Morning' }, lat: 48.8462, lng: 2.3372, type: 'kids', emoji: '🐴', travelNext: { zh: '🚕 打车 ~30分钟', en: '🚕 Taxi ~30min' } },
+      { name: { zh: '法国微型景观园 France Miniature', en: 'France Miniature' }, desc: { zh: '1:30比例法国全景，30分钟车程，适合孩子！若有时间可选。', en: '1:30 scale model of France, 30min drive. Great for kids if time allows.' }, time: { zh: '可选', en: 'Optional' }, lat: 48.7853, lng: 1.9552, type: 'kids', emoji: '🗺️', travelNext: { zh: '🚕 打车 ~50分钟', en: '🚕 Taxi ~50min' } },
+      { name: { zh: '戴高乐机场 CDG 返程', en: 'CDG Airport · Departure' }, desc: { zh: '返程航班', en: 'Departure flight' }, time: { zh: '傍晚/晚上', en: 'Evening / Night' }, lat: 49.0097, lng: 2.5479, type: 'hotel', emoji: '✈️' },
     ]
   }
 ];
 
-const typeColor = {
-  attraction: "#e74c3c",
-  food: "#e67e22",
-  kids: "#27ae60",
-  hotel: "#2980b9"
-};
-
+const typeColor = { attraction: '#e74c3c', food: '#e67e22', kids: '#27ae60', hotel: '#2980b9' };
 let map, markers = [], polylines = [], routeLabels = [], currentDay = 1;
+
+function toggleLang() {
+  lang = lang === 'zh' ? 'en' : 'zh';
+  document.getElementById('lang-btn').textContent = i18n[lang].langBtn;
+  document.getElementById('hdr-title').innerHTML = i18n[lang].title;
+  document.getElementById('hdr-sub').textContent = i18n[lang].sub;
+  document.getElementById('allergy-banner').innerHTML = i18n[lang].allergy;
+  renderTabs();
+  selectDay(currentDay);
+}
+
+function renderTabs() {
+  const labels = i18n[lang].tabs;
+  document.getElementById('tabs').innerHTML = [
+    `<div class="tab ${currentDay===1?'active':''}" onclick="selectDay(1)">${labels[0]}</div>`,
+    `<div class="tab ${currentDay===2?'active':''}" onclick="selectDay(2)">${labels[1]}</div>`,
+    `<div class="tab ${currentDay===3?'active':''}" onclick="selectDay(3)">${labels[2]}</div>`,
+    `<div class="tab ${currentDay===4?'active':''}" onclick="selectDay(4)">${labels[3]}</div>`,
+    `<div class="tab ${currentDay===5?'active':''}" onclick="selectDay(5)">${labels[4]}</div>`,
+    `<div class="tab ${currentDay===6?'active':''}" onclick="selectDay(6)">${labels[5]}</div>`,
+    `<div class="tab ${currentDay===0?'active':''}" onclick="selectDay(0)">${labels[6]}</div>`,
+    `<div class="tab ${currentDay===7?'active':''}" onclick="selectDay(7)">${labels[7]}</div>`,
+  ].join('');
+}
 
 function initMap() {
   map = L.map('map').setView([48.8566, 2.3522], 12);
@@ -254,13 +372,16 @@ function initMap() {
 
   const legend = document.createElement('div');
   legend.className = 'legend';
-  legend.innerHTML = `
-    <div class="legend-item"><div class="legend-dot" style="background:#e74c3c"></div> 景点</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#e67e22"></div> 美食</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#27ae60"></div> 亲子</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#2980b9"></div> 酒店/交通</div>
-  `;
+  legend.id = 'legend';
   document.getElementById('map').appendChild(legend);
+}
+
+function updateLegend() {
+  const labels = i18n[lang].legend;
+  const colors = ['#e74c3c','#e67e22','#27ae60','#2980b9'];
+  document.getElementById('legend').innerHTML = labels.map((l,i) =>
+    `<div class="legend-item"><div class="legend-dot" style="background:${colors[i]}"></div> ${l}</div>`
+  ).join('');
 }
 
 function clearMarkers() {
@@ -272,13 +393,7 @@ function clearMarkers() {
 
 function selectDay(n) {
   currentDay = n;
-  const tabs = document.querySelectorAll('.tab');
-  // tab indices: 0=overview, 1-6=days, 7=checklist → tab 0 is overview, tab 7 is checklist
-  tabs.forEach((t, i) => {
-    if (n === 0) t.classList.toggle('active', i === 6); // 📋 总览 is 7th tab (index 6)
-    else if (n === 7) t.classList.toggle('active', i === 7); // ✅ 清单 is 8th tab (index 7)
-    else t.classList.toggle('active', i === n - 1);
-  });
+  renderTabs();
 
   const layout = document.getElementById('layout');
   const dayContent = document.getElementById('day-content');
@@ -286,7 +401,6 @@ function selectDay(n) {
   const overviewWrap = document.getElementById('overview-wrap');
   const allergyBanner = document.getElementById('allergy-banner');
 
-  // Reset visibility
   layout.classList.remove('checklist-fullscreen');
   document.getElementById('map').style.display = '';
   allergyBanner.style.display = '';
@@ -295,14 +409,12 @@ function selectDay(n) {
   overviewWrap.style.display = 'none';
 
   if (n === 0) {
-    // Overview
     layout.classList.add('checklist-fullscreen');
     document.getElementById('map').style.display = 'none';
     overviewWrap.style.display = 'block';
     renderOverview();
     return;
   }
-
   if (n === 7) {
     layout.classList.add('checklist-fullscreen');
     document.getElementById('map').style.display = 'none';
@@ -317,50 +429,49 @@ function selectDay(n) {
   const day = days[n - 1];
   dayContent.innerHTML = `
     <div class="day-card">
-      <h3>${day.title}</h3>
+      <h3>${day.title[lang]}</h3>
       ${day.spots.map((s, i) => `
         <div class="spot" onclick="focusSpot(${i}, ${n})">
           <div class="dot" style="background:${typeColor[s.type]}"></div>
           <div class="spot-info">
-            <div class="spot-name">${s.emoji} ${s.name}</div>
-            <div class="spot-desc">${s.desc}</div>
-            ${s.time ? `<div class="spot-time">🕐 ${s.time}</div>` : ''}
-            ${s.travelNext ? `<div class="spot-time" style="color:#2980b9">→ ${s.travelNext}</div>` : ''}
-            ${s.allergy ? `<span class="allergy-tag">⚠️ 查过敏原</span>` : ''}
+            <div class="spot-name">${s.emoji} ${s.name[lang]}</div>
+            <div class="spot-desc">${s.desc[lang]}</div>
+            ${s.time ? `<div class="spot-time">🕐 ${s.time[lang]}</div>` : ''}
+            ${s.travelNext ? `<div class="spot-time" style="color:#2980b9">→ ${s.travelNext[lang]}</div>` : ''}
+            ${s.allergy ? `<span class="allergy-tag">${i18n[lang].allergyTag}</span>` : ''}
           </div>
         </div>
       `).join('')}
     </div>
   `;
 
+  updateLegend();
   const bounds = [];
   day.spots.forEach((s, i) => {
     const icon = L.divIcon({
       html: `<div style="background:${typeColor[s.type]};color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;box-shadow:0 2px 6px rgba(0,0,0,0.3)">${i+1}</div>`,
-      iconSize: [28, 28], iconAnchor: [14, 14], className: ''
+      iconSize: [28,28], iconAnchor: [14,14], className: ''
     });
     const m = L.marker([s.lat, s.lng], { icon })
       .addTo(map)
-      .bindPopup(`<b>${s.emoji} ${s.name}</b><br><small>${s.desc}</small>`);
+      .bindPopup(`<b>${s.emoji} ${s.name[lang]}</b><br><small>${s.desc[lang]}</small>`);
     markers.push(m);
     bounds.push([s.lat, s.lng]);
 
-    // Draw route line to next spot
     if (i < day.spots.length - 1) {
       const next = day.spots[i + 1];
-      const line = L.polyline([[s.lat, s.lng], [next.lat, next.lng]], {
+      const line = L.polyline([[s.lat, s.lng],[next.lat, next.lng]], {
         color: typeColor[s.type], weight: 4, opacity: 0.7, dashArray: '6,8'
       }).addTo(map);
       polylines.push(line);
 
-      // Travel time label at midpoint
       if (s.travelNext) {
         const midLat = (s.lat + next.lat) / 2;
         const midLng = (s.lng + next.lng) / 2;
         const labelColor = typeColor[s.type] || 'rgba(26,47,94,0.85)';
         const label = L.tooltip({ permanent: true, direction: 'right', className: 'route-label', offset: [12, 0] })
           .setLatLng([midLat, midLng])
-          .setContent(`<span style="background:${labelColor};padding:3px 8px;border-radius:6px;color:#fff;white-space:nowrap;font-size:11px;font-weight:500;box-shadow:0 2px 6px rgba(0,0,0,0.25)">${s.travelNext}</span>`)
+          .setContent(`<span style="background:${labelColor};padding:3px 8px;border-radius:6px;color:#fff;white-space:nowrap;font-size:11px;font-weight:500;box-shadow:0 2px 6px rgba(0,0,0,0.25)">${s.travelNext[lang]}</span>`)
           .addTo(map);
         routeLabels.push(label);
       }
@@ -368,12 +479,11 @@ function selectDay(n) {
   });
 
   if (bounds.length > 0) {
-    // Include route label midpoints in bounds
     for (let i = 0; i < day.spots.length - 1; i++) {
-      const s = day.spots[i], n = day.spots[i+1];
-      bounds.push([(s.lat+n.lat)/2, (s.lng+n.lng)/2]);
+      const s = day.spots[i], nx = day.spots[i+1];
+      bounds.push([(s.lat+nx.lat)/2, (s.lng+nx.lng)/2]);
     }
-    map.fitBounds(bounds, { padding: [60, 60] });
+    map.fitBounds(bounds, { padding: [60,60] });
   }
 }
 
@@ -386,50 +496,30 @@ function focusSpot(idx, dayN) {
 function renderOverview() {
   document.getElementById('overview-wrap').innerHTML = days.map((day, i) => `
     <div class="overview-day" onclick="selectDay(${i+1})">
-      <h4>${day.title}</h4>
-      <div class="route">${day.spots.map(s => s.emoji + ' ' + s.name.split(' ')[0]).join(' → ')}</div>
+      <h4>${day.title[lang]}</h4>
+      <div class="route">${day.spots.map(s => s.emoji + ' ' + s.name[lang].split(' ')[0]).join(' → ')}</div>
     </div>
   `).join('');
 }
 
 function renderChecklist() {
-  document.getElementById('checklist-wrap').innerHTML = `
+  const c = i18n[lang].checklist;
+  const section = (title, items) => `
     <div class="checklist-section">
-      <h3>✈️ 出发前必做</h3>
-      <div class="check-item"><input type="checkbox"> 申根签证 Schengen Visa（提前2个月办理）</div>
-      <div class="check-item"><input type="checkbox"> 购买机票（建议提前3-6个月）</div>
-      <div class="check-item"><input type="checkbox"> 预订酒店（7区或1区，亲子友好）</div>
-      <div class="check-item"><input type="checkbox"> 卢浮宫 Louvre 门票（网上提前购，避开排队）</div>
-      <div class="check-item"><input type="checkbox"> 凡尔赛宫 Versailles 门票（提前购）</div>
-      <div class="check-item"><input type="checkbox"> 巴黎迪士尼 Disneyland Paris 门票（官网购）</div>
-      <div class="check-item"><input type="checkbox"> 购置欧插转换器</div>
-      <div class="check-item"><input type="checkbox"> 开通境外流量/购买SIM卡</div>
-    </div>
-    <div class="checklist-section">
-      <h3>⚠️ 过敏必备</h3>
-      <div class="check-item"><input type="checkbox"> 准备过敏药（孔雀/玥玥/Amy）</div>
-      <div class="check-item"><input type="checkbox"> 法语过敏原卡片：noix核桃 / pistache开心果 / cajou腰果</div>
-      <div class="check-item"><input type="checkbox"> Amy备好抗组胺药（春季花粉 pollen）</div>
-    </div>
-    <div class="checklist-section">
-      <h3>🎒 行李清单</h3>
-      <div class="check-item"><input type="checkbox"> 护照 Passport（全家，有效期6个月以上）</div>
-      <div class="check-item"><input type="checkbox"> 孩子舒适运动鞋（巴黎走路多）</div>
-      <div class="check-item"><input type="checkbox"> 雨具（巴黎天气多变）</div>
-      <div class="check-item"><input type="checkbox"> 孩子零食（机场/高价区备用）</div>
-      <div class="check-item"><input type="checkbox"> 推车 Stroller（玥玥5岁，长途行走可能需要）</div>
-    </div>
-    <div class="checklist-section">
-      <h3>🗺️ 实用提示</h3>
-      <div class="check-item"><input type="checkbox"> 下载 Bonjour RATP app（地铁 Metro 出行）</div>
-      <div class="check-item"><input type="checkbox"> 铁塔亮灯 Light Show：日落后整点，21:00-23:00最佳</div>
-      <div class="check-item"><input type="checkbox"> 带娃多打车 Uber France，避免地铁台阶</div>
-    </div>
-  `;
+      <h3>${title}</h3>
+      ${items.map(t => `<div class="check-item"><input type="checkbox"> ${t}</div>`).join('')}
+    </div>`;
+  document.getElementById('checklist-wrap').innerHTML =
+    section(c.pre, c.preItems) +
+    section(c.allergy, c.allergyItems) +
+    section(c.luggage, c.luggageItems) +
+    section(c.tips, c.tipsItems);
 }
 
 window.onload = () => {
   initMap();
+  renderTabs();
+  document.getElementById('allergy-banner').innerHTML = i18n[lang].allergy;
   selectDay(1);
 };
 </script>
