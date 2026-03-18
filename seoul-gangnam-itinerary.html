@@ -43,14 +43,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 <body>
 <div class="banner" style="position:relative">
   <button class="lang-btn" onclick="toggleLang()" id="langBtn">EN</button>
-  <h1 data-zh="🇰🇷 首尔江南半日游" data-en="🇰🇷 Seoul Gangnam Half-Day">🇰🇷 首尔江南半日游</h1>
-  <div class="sub" data-zh="ZQ · 半天轻松散步" data-en="ZQ · Half-day leisurely walk">ZQ · 半天轻松散步</div>
+  <h1 data-zh="🇰🇷 首尔江南半日游" data-en="🇰🇷 Seoul Gangnam Half-Day" data-ko="🇰🇷 서울 강남 반나절 투어">🇰🇷 首尔江南半日游</h1>
+  <div class="sub" data-zh="ZQ · 半天轻松散步" data-en="ZQ · Half-day leisurely walk" data-ko="ZQ · 반나절 여유로운 산책">ZQ · 半天轻松散步</div>
 </div>
 
 <div class="tabs" id="tabs">
-  <div class="tab active" data-plan="A" data-zh="Plan A 文艺散步" data-en="Plan A Art Walk">Plan A 文艺散步</div>
-  <div class="tab" data-plan="B" data-zh="Plan B 城市体验" data-en="Plan B City Vibe">Plan B 城市体验</div>
-  <div class="tab" data-plan="list" data-zh="📋 清单" data-en="📋 List">📋 清单</div>
+  <div class="tab active" data-plan="A" data-zh="Plan A 文艺散步" data-en="Plan A Art Walk" data-ko="Plan A 예술 산책">Plan A 文艺散步</div>
+  <div class="tab" data-plan="B" data-zh="Plan B 城市体验" data-en="Plan B City Vibe" data-ko="Plan B 도시 체험">Plan B 城市体验</div>
+  <div class="tab" data-plan="list" data-zh="📋 清单" data-en="📋 List" data-ko="📋 목록">📋 清单</div>
 </div>
 
 <div id="map"></div>
@@ -58,46 +58,57 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 <div class="sidebar" id="sidebar"></div>
 
 <div class="legend">
-  <span class="cat-sight" data-zh="景点" data-en="Sight">景点</span>
-  <span class="cat-food" data-zh="美食" data-en="Food">美食</span>
-  <span class="cat-cafe" data-zh="咖啡" data-en="Café">咖啡</span>
-  <span class="cat-shop" data-zh="购物" data-en="Shopping">购物</span>
+  <span class="cat-sight" data-zh="景点" data-en="Sight" data-ko="명소">景点</span>
+  <span class="cat-food" data-zh="美食" data-en="Food" data-ko="맛집">美食</span>
+  <span class="cat-cafe" data-zh="咖啡" data-en="Café" data-ko="카페">咖啡</span>
+  <span class="cat-shop" data-zh="购物" data-en="Shopping" data-ko="쇼핑">购物</span>
 </div>
 
 <script>
 const COLORS={sight:'#e74c3c',food:'#e67e22',cafe:'#8e44ad',shop:'#2ecc71'};
 const PLANS={
   A:[
-    {name:'岛山公园 Dosan Park',lat:37.5224,lng:127.0398,cat:'sight',time:'10:00-11:00',
+    {name:'岛山公园 Dosan Park 도산공원',lat:37.5224,lng:127.0398,cat:'sight',time:'10:00-11:00',
      desc_zh:'江南最有氛围感的街区，散步+咖啡。Hermès 爱马仕之家有免费博物馆和咖啡厅。',
-     desc_en:'Most atmospheric neighborhood in Gangnam. Hermès Maison has a free museum & café.'},
-    {name:'岛山公园咖啡街 Dosan Café Street',lat:37.5218,lng:127.0385,cat:'cafe',time:'11:00-11:30',
+     desc_en:'Most atmospheric neighborhood in Gangnam. Hermès Maison has a free museum & café.',
+     desc_ko:'강남에서 가장 분위기 있는 동네. 에르메스 메종에 무료 박물관과 카페가 있어요.'},
+    {name:'岛山公园咖啡街 Dosan Café Street 도산 카페거리',lat:37.5218,lng:127.0385,cat:'cafe',time:'11:00-11:30',
      desc_zh:'周边独立精品咖啡馆密集，随便走进一家都不错。',
-     desc_en:'Dense cluster of indie specialty cafés. Pick any one—they\'re all good.'},
-    {name:'新沙洞林荫道 Garosugil',lat:37.5193,lng:127.0233,cat:'sight',time:'11:30-13:00',
+     desc_en:'Dense cluster of indie specialty cafés. Pick any one—they\'re all good.',
+     desc_ko:'독립 스페셜티 카페가 밀집해 있어요. 아무 데나 들어가도 괜찮아요.'},
+    {name:'新沙洞林荫道 Garosugil 가로수길',lat:37.5193,lng:127.0233,cat:'sight',time:'11:30-13:00',
      desc_zh:'首尔最经典的银杏林荫道，两边全是设计师店、买手店、甜品店。不用特意找，随意逛。',
-     desc_en:'Seoul\'s iconic ginkgo-lined avenue. Designer boutiques, pastry shops on both sides.'},
-    {name:'校村炸鸡（新沙店）Kyochon Chicken Sinsa',lat:37.5175,lng:127.0221,cat:'food',time:'13:00-14:00',
+     desc_en:'Seoul\'s iconic ginkgo-lined avenue. Designer boutiques, pastry shops on both sides.',
+     desc_ko:'서울의 대표 은행나무 가로수길. 양쪽에 디자이너숍, 디저트 가게가 가득해요.'},
+    {name:'校村炸鸡（新沙店）Kyochon Chicken 교촌치킨 신사점',lat:37.5175,lng:127.0221,cat:'food',time:'13:00-14:00',
      desc_zh:'原味+芝士粉双拼配啤酒，本地人午餐热门选择。',
-     desc_en:'Original + cheese powder combo with beer. Popular local lunch spot.'},
+     desc_en:'Original + cheese powder combo with beer. Popular local lunch spot.',
+     desc_ko:'오리지널+치즈가루 콤보에 맥주. 현지인 인기 점심 맛집.'},
   ],
   B:[
-    {name:'COEX Mall 星空图书馆 Starfield Library',lat:37.5113,lng:127.0594,cat:'sight',time:'10:00-12:00',
+    {name:'COEX Mall 星空图书馆 코엑스몰 별마당도서관',lat:37.5113,lng:127.0594,cat:'sight',time:'10:00-12:00',
      desc_zh:'韩国最大地下商城，星空图书馆免费拍照超出片。Line Friends 旗舰店在这。',
-     desc_en:'Korea\'s largest underground mall. Starfield Library is free & photogenic. Line Friends flagship here.'},
-    {name:'COEX 美食区 COEX Food Court',lat:37.5110,lng:127.0600,cat:'food',time:'12:00-13:00',
+     desc_en:'Korea\'s largest underground mall. Starfield Library is free & photogenic. Line Friends flagship here.',
+     desc_ko:'한국 최대 지하 쇼핑몰. 별마당도서관은 무료이고 포토존으로 유명해요.'},
+    {name:'COEX 美食区 COEX Food Court 코엑스 푸드코트',lat:37.5110,lng:127.0600,cat:'food',time:'12:00-13:00',
      desc_zh:'地下层选择丰富，韩式/日式/西式都有，人均合理。',
-     desc_en:'Basement level with Korean/Japanese/Western options. Reasonably priced.'},
-    {name:'狎鸥亭罗德奥街 Apgujeong Rodeo',lat:37.5269,lng:127.0403,cat:'shop',time:'13:30-15:00',
+     desc_en:'Basement level with Korean/Japanese/Western options. Reasonably priced.',
+     desc_ko:'지하층에 한식/일식/양식 다양. 가격도 합리적이에요.'},
+    {name:'狎鸥亭罗德奥街 Apgujeong Rodeo 압구정로데오',lat:37.5269,lng:127.0403,cat:'shop',time:'13:30-15:00',
      desc_zh:'江南"潮牌街"。Gentle Monster 狎鸥亭店像逛展览馆，Galleria 百货顶楼有江南夜景。',
-     desc_en:'Gangnam\'s fashion street. Gentle Monster flagship is like an art gallery. Galleria rooftop has great views.'},
-    {name:'清潭洞十字路口 Cheongdam Intersection',lat:37.5245,lng:127.0503,cat:'sight',time:'15:00-15:30',
+     desc_en:'Gangnam\'s fashion street. Gentle Monster flagship is like an art gallery. Galleria rooftop has great views.',
+     desc_ko:'강남 패션 거리. 젠틀몬스터 플래그십은 전시관 같아요. 갤러리아 옥상 뷰도 최고.'},
+    {name:'清潭洞十字路口 Cheongdam Intersection 청담사거리',lat:37.5245,lng:127.0503,cat:'sight',time:'15:00-15:30',
      desc_zh:'韩剧取景地，霓虹灯+车水马龙。路过 SM 公司碰运气。',
-     desc_en:'K-drama filming spot. Neon lights & traffic. SM Entertainment HQ nearby—might spot an idol.'},
+     desc_en:'K-drama filming spot. Neon lights & traffic. SM Entertainment HQ nearby—might spot an idol.',
+     desc_ko:'한드 촬영지. 네온사인과 도심 야경. SM 본사 지나가면 아이돌 만날 수도?'},
   ]
 };
 
 let currentPlan='A', currentLang='zh';
+const LANGS=['zh','en','ko'];
+const LANG_LABELS={zh:'中',en:'EN',ko:'한'};
+const LANG_NEXT={zh:'en',en:'ko',ko:'zh'};
 const map=L.map('map').setView([37.52,127.04],14);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(map);
 
@@ -114,10 +125,10 @@ function renderPlan(plan){
     sidebar.classList.add('show');
     let html='';
     ['A','B'].forEach(p=>{
-      const label=currentLang==='zh'?(p==='A'?'Plan A 文艺散步':'Plan B 城市体验'):(p==='A'?'Plan A Art Walk':'Plan B City Vibe');
+      const label=currentLang==='zh'?(p==='A'?'Plan A 文艺散步':'Plan B 城市体验'):currentLang==='en'?(p==='A'?'Plan A Art Walk':'Plan B City Vibe'):(p==='A'?'Plan A 예술 산책':'Plan B 도시 체험');
       html+=`<h3 style="margin:12px 0 6px">${label}</h3>`;
       PLANS[p].forEach(s=>{
-        const desc=currentLang==='zh'?s.desc_zh:s.desc_en;
+        const desc=s['desc_'+currentLang]||s.desc_en;
         html+=`<div class="spot"><div class="name" style="color:${COLORS[s.cat]}">${s.name}</div><div class="meta">⏰ ${s.time}</div><div class="desc">${desc}</div></div>`;
       });
     });
@@ -133,7 +144,7 @@ function renderPlan(plan){
   const spots=PLANS[plan];
   const latlngs=[];
   spots.forEach((s,i)=>{
-    const desc=currentLang==='zh'?s.desc_zh:s.desc_en;
+    const desc=s['desc_'+currentLang]||s.desc_en;
     const icon=L.divIcon({className:'',html:`<div style="background:${COLORS[s.cat]};color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.3)">${i+1}</div>`,iconSize:[24,24],iconAnchor:[12,12]});
     const m=L.marker([s.lat,s.lng],{icon}).addTo(map).bindPopup(`<b>${s.name}</b><br>⏰ ${s.time}<br>${desc}`);
     markers.push(m);
@@ -144,7 +155,7 @@ function renderPlan(plan){
   // render itinerary panel
   let ih='';
   spots.forEach((s,i)=>{
-    const desc=currentLang==='zh'?s.desc_zh:s.desc_en;
+    const desc=s['desc_'+currentLang]||s.desc_en;
     ih+=`<div class="itin-step"><div class="itin-num" style="background:${COLORS[s.cat]}">${i+1}</div><div class="itin-body"><div class="itin-name">${s.name}</div><div class="itin-time">⏰ ${s.time}</div><div class="itin-desc">${desc}</div></div></div>`;
   });
   itin.innerHTML=ih;
@@ -159,11 +170,12 @@ document.querySelectorAll('.tab').forEach(t=>{
 });
 
 function toggleLang(){
-  currentLang=currentLang==='zh'?'en':'zh';
-  document.getElementById('langBtn').textContent=currentLang==='zh'?'EN':'中';
+  currentLang=LANG_NEXT[currentLang];
+  document.getElementById('langBtn').textContent=LANG_LABELS[LANG_NEXT[currentLang]];
   document.querySelectorAll('[data-zh]').forEach(el=>{
     if(el.tagName==='INPUT'||el.tagName==='BUTTON')return;
-    el.textContent=el.getAttribute('data-'+currentLang);
+    const val=el.getAttribute('data-'+currentLang);
+    if(val)el.textContent=val;
   });
   renderPlan(currentPlan);
 }
