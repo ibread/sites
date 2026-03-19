@@ -26,6 +26,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .itin-body .itin-name{font-weight:600;font-size:.95em}
 .itin-body .itin-time{font-size:.8em;color:#888;margin-top:1px}
 .itin-body .itin-desc{font-size:.85em;color:#555;margin-top:3px;line-height:1.4}
+.itin-transit{padding:4px 0 4px 14px;display:flex;align-items:center;gap:6px;font-size:.8em;color:#888;position:relative}
+.itin-transit::before{content:'';position:absolute;left:13px;top:0;bottom:0;width:2px;background:#ddd}
 .spot{padding:10px 0;border-bottom:1px solid #eee}
 .spot .name{font-weight:600;font-size:.95em}
 .spot .meta{font-size:.8em;color:#666;margin-top:2px}
@@ -67,7 +69,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 <script>
 const COLORS={sight:'#e74c3c',food:'#e67e22',cafe:'#8e44ad',shop:'#2ecc71'};
 const PLANS={
-  A:[
+  A:{
+    spots:[
     {name:'岛山公园 Dosan Park 도산공원',lat:37.5224,lng:127.0398,cat:'sight',time:'10:00-11:00',
      desc_zh:'江南最有氛围感的街区，散步+咖啡。Hermès 爱马仕之家有免费博物馆和咖啡厅。',
      desc_en:'Most atmospheric neighborhood in Gangnam. Hermès Maison has a free museum & café.',
@@ -84,8 +87,15 @@ const PLANS={
      desc_zh:'原味+芝士粉双拼配啤酒，本地人午餐热门选择。',
      desc_en:'Original + cheese powder combo with beer. Popular local lunch spot.',
      desc_ko:'오리지널+치즈가루 콤보에 맥주. 현지인 인기 점심 맛집.'},
-  ],
-  B:[
+    ],
+    transit:[
+      {zh:'🚶 步行 2 分钟',en:'🚶 2 min walk',ko:'🚶 도보 2분'},
+      {zh:'🚶 步行 15 分钟（沿街逛过去）',en:'🚶 15 min walk (stroll along the street)',ko:'🚶 도보 15분 (거리 구경하며)'},
+      {zh:'🚶 步行 3 分钟',en:'🚶 3 min walk',ko:'🚶 도보 3분'},
+    ]
+  },
+  B:{
+    spots:[
     {name:'COEX Mall 星空图书馆 코엑스몰 별마당도서관',lat:37.5113,lng:127.0594,cat:'sight',time:'10:00-12:00',
      desc_zh:'韩国最大地下商城，星空图书馆免费拍照超出片。Line Friends 旗舰店在这。',
      desc_en:'Korea\'s largest underground mall. Starfield Library is free & photogenic. Line Friends flagship here.',
@@ -102,7 +112,13 @@ const PLANS={
      desc_zh:'韩剧取景地，霓虹灯+车水马龙。路过 SM 公司碰运气。',
      desc_en:'K-drama filming spot. Neon lights & traffic. SM Entertainment HQ nearby—might spot an idol.',
      desc_ko:'한드 촬영지. 네온사인과 도심 야경. SM 본사 지나가면 아이돌 만날 수도?'},
-  ]
+    ],
+    transit:[
+      {zh:'🚶 步行 1 分钟（同一商城内）',en:'🚶 1 min walk (same mall)',ko:'🚶 도보 1분 (같은 몰 내)'},
+      {zh:'🚇 地铁 2 站 约 10 分钟（三成→狎鸥亭罗德奥）',en:'🚇 Subway 2 stops ~10 min (Samseong→Apgujeong Rodeo)',ko:'🚇 지하철 2정거장 ~10분 (삼성→압구정로데오)'},
+      {zh:'🚶 步行 12 分钟',en:'🚶 12 min walk',ko:'🚶 도보 12분'},
+    ]
+  }
 };
 
 let currentPlan='A', currentLang='zh';
@@ -127,9 +143,10 @@ function renderPlan(plan){
     ['A','B'].forEach(p=>{
       const label=currentLang==='zh'?(p==='A'?'Plan A 文艺散步':'Plan B 城市体验'):currentLang==='en'?(p==='A'?'Plan A Art Walk':'Plan B City Vibe'):(p==='A'?'Plan A 예술 산책':'Plan B 도시 체험');
       html+=`<h3 style="margin:12px 0 6px">${label}</h3>`;
-      PLANS[p].forEach(s=>{
+      PLANS[p].spots.forEach((s,i)=>{
         const desc=s['desc_'+currentLang]||s.desc_en;
         html+=`<div class="spot"><div class="name" style="color:${COLORS[s.cat]}">${s.name}</div><div class="meta">⏰ ${s.time}</div><div class="desc">${desc}</div></div>`;
+        if(PLANS[p].transit[i]){const t=PLANS[p].transit[i];html+=`<div class="itin-transit">${t[currentLang]||t.en}</div>`;}
       });
     });
     sidebar.innerHTML=html;
@@ -141,7 +158,9 @@ function renderPlan(plan){
   markers.forEach(m=>map.removeLayer(m));
   markers=[];
   if(polyline)map.removeLayer(polyline);
-  const spots=PLANS[plan];
+  const planData=PLANS[plan];
+  const spots=planData.spots;
+  const transit=planData.transit;
   const latlngs=[];
   spots.forEach((s,i)=>{
     const desc=s['desc_'+currentLang]||s.desc_en;
@@ -157,6 +176,7 @@ function renderPlan(plan){
   spots.forEach((s,i)=>{
     const desc=s['desc_'+currentLang]||s.desc_en;
     ih+=`<div class="itin-step"><div class="itin-num" style="background:${COLORS[s.cat]}">${i+1}</div><div class="itin-body"><div class="itin-name">${s.name}</div><div class="itin-time">⏰ ${s.time}</div><div class="itin-desc">${desc}</div></div></div>`;
+    if(transit[i]){ih+=`<div class="itin-transit">${transit[i][currentLang]||transit[i].en}</div>`;}
   });
   itin.innerHTML=ih;
 }
