@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>西归浦一日 · Seogwipo Day Trip · 서귀포 하루</title>
+<title>济州岛两日 · Jeju 2-Day Trip · 제주 2일</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
@@ -21,9 +21,9 @@
   /* Banner */
   header {
     position: relative;
-    padding: 14px 18px;
+    padding: 13px 16px;
     background:
-      linear-gradient(rgba(0,30,20,0.55), rgba(0,20,15,0.70)),
+      linear-gradient(rgba(0,30,20,0.55), rgba(0,20,15,0.72)),
       url('https://images.unsplash.com/photo-1548115184-bc6544d06a58?w=800&q=80') center 40% / cover;
     color: white;
     flex-shrink: 0;
@@ -31,202 +31,133 @@
     align-items: center;
     justify-content: space-between;
   }
-  header .title-area h1 {
-    font-size: 17px;
-    font-weight: 700;
-    text-shadow: 0 1px 4px rgba(0,0,0,0.6);
-    letter-spacing: 0.3px;
-  }
-  header .title-area p {
-    font-size: 12px;
-    opacity: 0.88;
-    margin-top: 3px;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
-  }
+  header h1 { font-size: 16px; font-weight: 700; text-shadow: 0 1px 4px rgba(0,0,0,0.6); }
+  header p  { font-size: 11px; opacity: 0.87; margin-top: 3px; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
   .lang-btn {
-    background: rgba(255,255,255,0.2);
-    border: 1px solid rgba(255,255,255,0.4);
-    color: white;
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 11px;
-    cursor: pointer;
-    flex-shrink: 0;
-    backdrop-filter: blur(4px);
+    background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.38);
+    color: white; padding: 4px 9px; border-radius: 12px; font-size: 11px;
+    cursor: pointer; flex-shrink: 0; backdrop-filter: blur(4px);
   }
-  .lang-btn:hover { background: rgba(255,255,255,0.35); }
+  .lang-btn:hover { background: rgba(255,255,255,0.32); }
+
+  /* Day tabs */
+  .day-tabs {
+    display: flex; background: #1a5c3a; flex-shrink: 0;
+  }
+  .day-tab {
+    flex: 1; padding: 8px 4px; text-align: center; font-size: 12px; font-weight: 600;
+    color: rgba(255,255,255,0.65); cursor: pointer; border-bottom: 3px solid transparent;
+    transition: all 0.15s;
+  }
+  .day-tab.active { color: white; border-bottom-color: #7ed8a8; background: rgba(255,255,255,0.1); }
 
   /* Weather strip */
   .weather-strip {
-    background: #1a5c3a;
-    color: #d4f7e7;
-    font-size: 11px;
-    padding: 5px 14px;
-    display: flex;
-    gap: 16px;
-    flex-shrink: 0;
+    background: #145230; color: #c8f0dc; font-size: 10.5px;
+    padding: 4px 12px; display: flex; gap: 12px; flex-shrink: 0; flex-wrap: wrap;
   }
-  .weather-strip span { display: flex; align-items: center; gap: 4px; }
+  .weather-strip span { display: flex; align-items: center; gap: 3px; }
 
   /* Layout */
-  .layout {
-    display: flex;
-    flex: 1;
-    overflow: hidden;
-  }
-  #map {
-    flex: 1;
-    order: 1;
-    min-height: 0;
-  }
+  .layout { display: flex; flex: 1; overflow: hidden; }
+  #map { flex: 1; order: 1; min-height: 0; }
   .sidebar {
-    width: 340px;
-    order: 2;
-    overflow-y: auto;
-    background: #f0f7f4;
-    padding: 10px;
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    width: 340px; order: 2; overflow-y: auto; background: #f0f7f4;
+    padding: 10px; flex-shrink: 0; display: flex; flex-direction: column; gap: 8px;
   }
 
-  /* Spot cards */
-  .day-card {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 1px 5px rgba(0,50,30,0.1);
-    overflow: hidden;
-  }
+  /* Cards */
+  .day-card { background: white; border-radius: 10px; box-shadow: 0 1px 5px rgba(0,50,30,0.1); overflow: hidden; }
   .day-card h3 {
     background: linear-gradient(135deg, #1a5c3a 0%, #2e8b57 100%);
-    color: white;
-    padding: 8px 12px;
-    font-size: 13px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    color: white; padding: 8px 12px; font-size: 12.5px; font-weight: 600;
   }
   .spot-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 9px;
-    padding: 9px 12px;
-    border-bottom: 1px solid #f0f5f2;
-    cursor: pointer;
-    transition: background 0.15s;
+    display: flex; align-items: flex-start; gap: 9px; padding: 9px 12px;
+    border-bottom: 1px solid #f0f5f2; cursor: pointer; transition: background 0.15s;
   }
   .spot-item:last-child { border-bottom: none; }
   .spot-item:hover { background: #f5fbf7; }
   .spot-dot {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 11px;
-    font-weight: 700;
-    flex-shrink: 0;
-    margin-top: 1px;
+    width: 26px; height: 26px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 11px; font-weight: 700; flex-shrink: 0; margin-top: 1px;
   }
   .spot-info { flex: 1; min-width: 0; }
-  .spot-name {
-    font-size: 12.5px;
-    font-weight: 600;
-    color: #1a2e1a;
-    line-height: 1.3;
-  }
-  .spot-name .ko { font-size: 10.5px; color: #666; font-weight: 400; margin-left: 4px; }
-  .spot-desc { font-size: 11px; color: #555; margin-top: 2px; line-height: 1.4; }
+  .spot-name { font-size: 12.5px; font-weight: 600; color: #1a2e1a; line-height: 1.3; }
+  .spot-desc { font-size: 11px; color: #555; margin-top: 2px; line-height: 1.4; display: none; }
   .spot-time {
-    font-size: 10px;
-    color: #2e8b57;
-    background: #e8f5ed;
-    padding: 1px 6px;
-    border-radius: 8px;
-    margin-top: 4px;
-    display: inline-block;
-    font-weight: 500;
+    font-size: 10px; color: #2e8b57; background: #e8f5ed;
+    padding: 1px 6px; border-radius: 8px; margin-top: 4px; display: inline-block; font-weight: 500;
   }
   .spot-tip {
-    font-size: 10px;
-    color: #b45309;
-    background: #fef3c7;
-    padding: 1px 6px;
-    border-radius: 8px;
-    margin-top: 3px;
-    display: inline-block;
+    font-size: 10px; color: #b45309; background: #fef3c7;
+    padding: 1px 6px; border-radius: 8px; margin-top: 3px; display: inline-block;
+  }
+  .itin-transit {
+    font-size: 10px; color: #888; padding: 3px 12px 3px 47px;
+    border-bottom: 1px dashed #e8f0eb;
   }
 
-  /* Color classes */
+  /* Colors */
+  .c-forest     { background: #2d6a4f; }
   .c-attraction { background: #e74c3c; }
   .c-food       { background: #e67e22; }
   .c-walk       { background: #27ae60; }
   .c-cafe       { background: #8e44ad; }
+  .c-hotel      { background: #2980b9; }
 
-  /* Map legend */
+  /* Legend */
   .legend {
-    background: rgba(255,255,255,0.92);
-    border-radius: 8px;
-    padding: 7px 10px;
-    font-size: 11px;
-    line-height: 1.8;
-    backdrop-filter: blur(4px);
+    background: rgba(255,255,255,0.92); border-radius: 8px; padding: 7px 10px;
+    font-size: 11px; line-height: 1.8; backdrop-filter: blur(4px);
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
   }
   .legend-item { display: flex; align-items: center; gap: 6px; }
-  .legend-dot {
-    width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0;
-  }
+  .legend-dot  { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+
+  /* Lang */
+  .lang-zh, .lang-en, .lang-ko { display: none; }
+  body.zh .lang-zh { display: inline; }
+  body.en .lang-en { display: inline; }
+  body.ko .lang-ko { display: inline; }
+  body.zh .spot-desc.zh { display: block; }
+  body.en .spot-desc.en { display: block; }
+  body.ko .spot-desc.ko { display: block; }
 
   /* Mobile */
   @media (max-width: 680px) {
     body { overflow: auto; }
     .layout { flex-direction: column; overflow: visible; }
-    #map { order: 2; height: 45vh; flex: none; }
+    #map { order: 2; height: 44vh; flex: none; }
     .sidebar { order: 1; width: 100%; overflow: visible; max-height: none; }
   }
-
-  /* Scrollbar */
   .sidebar::-webkit-scrollbar { width: 4px; }
   .sidebar::-webkit-scrollbar-thumb { background: #b2d8c2; border-radius: 4px; }
-
-  /* Lang layers */
-  .lang-zh, .lang-en, .lang-ko { display: none; }
-  body.zh .lang-zh { display: inline; }
-  body.en .lang-en { display: inline; }
-  body.ko .lang-ko { display: inline; }
-  body.zh .spot-desc.zh, body.en .spot-desc.en, body.ko .spot-desc.ko { display: block; }
-  .spot-desc { display: none; }
 </style>
 </head>
 <body class="zh">
 
 <header>
-  <div class="title-area">
-    <h1>
-      <span class="lang-zh">🌊 西归浦一日轻松游</span>
-      <span class="lang-en">🌊 Seogwipo Easy Day Trip</span>
-      <span class="lang-ko">🌊 서귀포 하루 여행</span>
-    </h1>
-    <p>
-      <span class="lang-zh">济州岛西南 · 带鱼 · 市场 · 海岸漫步</span>
-      <span class="lang-en">Jeju South · Hairtail · Market · Coastal Walk</span>
-      <span class="lang-ko">제주 남서부 · 갈치 · 시장 · 올레길</span>
-    </p>
+  <div>
+    <h1>🗺️ <span class="lang-zh">济州岛两日</span><span class="lang-en">Jeju 2-Day Trip</span><span class="lang-ko">제주 2일 여행</span></h1>
+    <p><span class="lang-zh">3/27 森林摄影 · 3/28 西归浦轻松一日</span>
+       <span class="lang-en">3/27 Forest Photo · 3/28 Seogwipo Easy Day</span>
+       <span class="lang-ko">3/27 곶자왈 · 3/28 서귀포</span></p>
   </div>
   <button class="lang-btn" onclick="cycleLang()">🌐 中/EN/한</button>
 </header>
 
-<div class="weather-strip">
-  <span>📅 3/27 金</span>
-  <span>☀️ 11–16°C</span>
-  <span>🌬️ 阵风21km/h</span>
-  <span>🧴 UV指数6 防晒</span>
+<div class="day-tabs">
+  <div class="day-tab active" onclick="switchDay(0)" id="tab0">
+    <span class="lang-zh">📅 3/27 周五</span><span class="lang-en">📅 3/27 Fri</span><span class="lang-ko">📅 3/27 금</span>
+  </div>
+  <div class="day-tab" onclick="switchDay(1)" id="tab1">
+    <span class="lang-zh">📅 3/28 周六</span><span class="lang-en">📅 3/28 Sat</span><span class="lang-ko">📅 3/28 토</span>
+  </div>
 </div>
+
+<div class="weather-strip" id="weatherStrip"></div>
 
 <div class="layout">
   <div id="map"></div>
@@ -241,192 +172,267 @@ function cycleLang() {
   document.body.className = LANGS[langIdx];
 }
 
-// 住处坐标：칠십리로139번길 5, 서귀포 (33.2439, 126.5679)
 const HOME = { lat: 33.2439, lng: 126.5679 };
 
-const spots = [
-  {
-    id: 0,
-    nameZh: '🏠 住处 · Chilsimni-ro 139',
-    nameEn: '🏠 Your Stay · Chilsimni-ro 139',
-    nameKo: '🏠 숙소 · 칠십리로139번길',
-    descZh: '你的住处，出发点。步行到正房瀑布约10分钟。',
-    descEn: 'Your base. ~10 min walk to Jeongbang Waterfall.',
-    descKo: '숙소 위치. 정방폭포까지 도보 약 10분.',
-    time: '출발점',
-    lat: 33.2439, lng: 126.5679,
-    type: 'hotel', emoji: '🏠',
-    isHome: true
-  },
-  {
-    id: 1,
-    nameZh: '정방폭포 · 正房瀑布',
-    nameEn: 'Jeongbang Waterfall',
-    nameKo: '정방폭포',
-    descZh: '住处步行10分钟！亚洲少见的"入海瀑布"——瀑布直接落入大海。早上人少，光线好。',
-    descEn: '10 min walk from your stay! Rare waterfall that falls directly into the sea. Go early for fewer crowds.',
-    descKo: '숙소에서 도보 10분! 바다로 직접 떨어지는 희귀 폭포. 아침에 방문 추천.',
-    time: '09:00–10:00',
-    lat: 33.2449, lng: 126.5683,
-    type: 'attraction', emoji: '💧'
-  },
-  {
-    id: 2,
-    nameZh: '올레길 7코스 · 奥莱步道7号',
-    nameEn: 'Olle Trail Route 7',
-    nameKo: '올레길 7코스',
-    descZh: '正房瀑布起步，沿海岸向西。海风+火山岩+碧绿海水，走1小时即可，节奏自己控制。',
-    descEn: 'Start from Jeongbang, walk west along the coast. Sea breeze + volcanic rock + emerald water. ~1hr easy walk.',
-    descKo: '정방폭포에서 서쪽으로 해안 걷기. 1시간 정도 편안한 산책.',
-    time: '10:00–11:30',
-    lat: 33.2435, lng: 126.5700,
-    type: 'walk', emoji: '🚶'
-  },
-  {
-    id: 3,
-    nameZh: '서귀포매일올레시장 · 西归浦市场',
-    nameEn: 'Seogwipo Daily Olle Market',
-    nameKo: '서귀포매일올레시장',
-    descZh: '步道结束后步行过来。当地人菜市场，不是旅游市场。鱼饼、黑猪肉煎饼、汉拿峰橘子现买现吃。',
-    descEn: 'Walk over after the trail. Authentic local market. Try fish cake, black pork jeon, Hallabong oranges.',
-    descKo: '올레길 후 도보 이동. 현지인 시장. 어묵, 흑돼지 전, 한라봉 추천.',
-    time: '11:30–12:30',
-    lat: 33.2497, lng: 126.5624,
-    type: 'attraction', emoji: '🏪'
-  },
-  {
-    id: 4,
-    nameZh: '갈치조림 · 带鱼午餐',
-    nameEn: 'Galchi · Hairtail Lunch',
-    nameKo: '갈치조림 점심',
-    descZh: '市场附近找갈치집。갈치조림（红烧带鱼配萝卜）或갈치회（带鱼刺身）——西归浦专属，其他地方很少见。',
-    descEn: 'Find a 갈치집 near the market. Braised hairtail with radish, or hairtail sashimi — Seogwipo specialty.',
-    descKo: '시장 근처 갈치집. 갈치조림 또는 갈치회 — 서귀포 특산.',
-    time: '12:30–14:00',
-    lat: 33.2490, lng: 126.5610,
-    type: 'food', emoji: '🐟',
-    tip: '招牌：갈치조림 / 갈치회'
-  },
-  {
-    id: 5,
-    nameZh: '이중섭거리 · 李仲燮街',
-    nameEn: 'Lee Jung-seop Street',
-    nameKo: '이중섭거리',
-    descZh: '饭后散步5分钟即到。西归浦艺术小街，不拥挤，喝杯咖啡、看看画廊。',
-    descEn: '5min walk after lunch. Quiet art street, coffee, galleries. No crowds.',
-    descKo: '점심 후 도보 5분. 조용한 예술 거리, 카페, 갤러리.',
-    time: '14:30–16:00',
-    lat: 33.2498, lng: 126.5560,
-    type: 'cafe', emoji: '☕'
-  },
-  {
-    id: 6,
-    nameZh: '서귀포 해안 · 海边日落',
-    nameEn: 'Seogwipo Sunset Coast',
-    nameKo: '서귀포 해안 일몰',
-    descZh: '住处附近的海边。西归浦朝南，傍晚光线绝佳。找块礁石坐着看日落。',
-    descEn: 'Near your stay. South-facing coast, stunning golden hour. Find a rock, watch the sunset.',
-    descKo: '숙소 근처 해안. 남향이라 일몰 장관. 바위에 앉아 노을 감상.',
-    time: '17:30–18:30',
-    lat: 33.2440, lng: 126.5650,
-    type: 'walk', emoji: '🌅'
-  }
+const weatherData = [
+  [
+    { icon:'☀️', zh:'晴 11–16°C', en:'Sunny 11–16°C', ko:'맑음 11–16°C' },
+    { icon:'🌬️', zh:'下午阵风21km/h', en:'PM gusts 21km/h', ko:'오후 돌풍 21km/h' },
+    { icon:'🌲', zh:'森林遮蔽，风影响小', en:'Forest sheltered', ko:'숲 속 바람 약함' },
+    { icon:'🧴', zh:'UV 6 防晒', en:'UV 6 sunscreen', ko:'자외선 6 선크림' },
+  ],
+  [
+    { icon:'☀️', zh:'晴 10–16°C', en:'Sunny 10–16°C', ko:'맑음 10–16°C' },
+    { icon:'🍃', zh:'湿度低，体感舒适', en:'Low humidity, comfortable', ko:'저습도 쾌적' },
+    { icon:'🧥', zh:'早晚偏凉，带外套', en:'Cool AM/PM, bring jacket', ko:'아침저녁 쌀쌀, 겉옷 필요' },
+  ]
 ];
 
 const typeColor = {
-  attraction: '#e74c3c',
-  food:       '#e67e22',
-  walk:       '#27ae60',
-  cafe:       '#8e44ad',
-  hotel:      '#2980b9'
+  forest: '#2d6a4f', attraction: '#e74c3c', food: '#e67e22',
+  walk: '#27ae60', cafe: '#8e44ad', hotel: '#2980b9'
 };
-const typeLabelZh = { attraction: '景点', food: '美食', walk: '步道', cafe: '咖啡', hotel: '住处' };
+const typeLabelZh = {
+  forest:'森林', attraction:'景点', food:'美食', walk:'步道', cafe:'咖啡', hotel:'住处'
+};
 
-// Render sidebar
-const sidebar = document.getElementById('sidebar');
-const card = document.createElement('div');
-card.className = 'day-card';
-card.innerHTML = `<h3>🗓️ <span class="lang-zh">西归浦轻松一日</span><span class="lang-en">Seogwipo Easy Day</span><span class="lang-ko">서귀포 하루</span></h3>`;
-let sidebarNum = 0;
-spots.forEach((s) => {
-  const item = document.createElement('div');
-  item.className = 'spot-item';
-  item.id = `spot-${s.id}`;
-  const dotLabel = s.isHome ? '🏠' : (++sidebarNum);
-  item.innerHTML = `
-    <div class="spot-dot" style="background:${typeColor[s.type]};font-size:${s.isHome?'13px':'11px'}">${dotLabel}</div>
-    <div class="spot-info">
-      <div class="spot-name">
-        ${s.isHome ? '' : s.emoji + ' '}<span class="lang-zh">${s.nameZh}</span><span class="lang-en">${s.nameEn}</span><span class="lang-ko">${s.nameKo}</span>
-      </div>
-      <div class="spot-desc zh">${s.descZh}</div>
-      <div class="spot-desc en">${s.descEn}</div>
-      <div class="spot-desc ko">${s.descKo}</div>
-      <span class="spot-time">${s.time}</span>
-      ${s.tip ? `<br><span class="spot-tip">💡 ${s.tip}</span>` : ''}
-    </div>
-  `;
-  item.addEventListener('click', () => flyTo(s));
-  card.appendChild(item);
-});
-sidebar.appendChild(card);
-
-// Map
-const map = L.map('map').setView([33.2460, 126.5640], 14);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '© OpenStreetMap contributors',
-  maxZoom: 18
-}).addTo(map);
-
-const markers = {};
-let spotNum = 0;
-spots.forEach((s) => {
-  let html;
-  if (s.isHome) {
-    html = `<div style="width:32px;height:32px;border-radius:50%;background:#2980b9;
-      border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.4);
-      display:flex;align-items:center;justify-content:center;
-      font-size:14px;">🏠</div>`;
-  } else {
-    spotNum++;
-    html = `<div style="width:28px;height:28px;border-radius:50%;background:${typeColor[s.type]};
-      border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.3);
-      display:flex;align-items:center;justify-content:center;
-      color:white;font-weight:700;font-size:12px;">${spotNum}</div>`;
+const days = [
+  {
+    title: { zh:'3/27 周五下午 · 곶자왈 森林摄影', en:'3/27 Fri PM · Gotjawal Forest Photo', ko:'3/27 금요일 오후 · 곶자왈 숲 사진' },
+    center: [33.5200, 126.6650], zoom: 10,
+    spots: [
+      {
+        id:'d1-0', isHome:true,
+        nameZh:'🏠 住处出发', nameEn:'🏠 Depart from Stay', nameKo:'🏠 숙소 출발',
+        descZh:'西归浦住处，上午工作完毕后出发。', descEn:'Work in AM, depart after lunch.', descKo:'오전 업무 후 출발.',
+        time:'~13:00', lat:33.2439, lng:126.5679, type:'hotel'
+      },
+      {
+        id:'d1-t1', isTransit:true,
+        zh:'🚗 驾车约55分钟北上', en:'🚗 ~55 min drive north', ko:'🚗 북쪽으로 약 55분'
+      },
+      {
+        id:'d1-1', emoji:'🌲',
+        nameZh:'동백동산 곶자왈 · 冬青树哥佳瓦尔森林', nameEn:'Dongbaek Gotjawal Forest', nameKo:'동백동산 곶자왈',
+        descZh:'济州最神秘的火山熔岩森林，Airbnb体验（摄影师Kyoungjin带领，¥134/人，约1小时）。5.0分24条评价。可能遇到濒危野生动植物。',
+        descEn:'Jeju\'s most mysterious lava forest. Airbnb experience with photographer Kyoungjin (¥134/person, ~1hr, 5.0★ 24 reviews). Rare wildlife possible.',
+        descKo:'제주의 신비로운 곶자왈. 사진작가 경진과 함께 (¥134/인, 약 1시간, 5.0★).',
+        time:'14:00–15:00', lat:33.5220, lng:126.6640, type:'forest',
+        tip:'Airbnb 体验 · 需提前预订'
+      },
+      {
+        id:'d1-t2', isTransit:true,
+        zh:'🚗 返程约55分钟南下', en:'🚗 ~55 min drive back south', ko:'🚗 남쪽으로 약 55분'
+      },
+      {
+        id:'d1-2', emoji:'🍜',
+        nameZh:'제주시 순대국밥 · 顺路吃顿饭', nameEn:'Jeju City · Quick Lunch/Dinner', nameKo:'제주시 간단 식사',
+        descZh:'返程前在제주市区顺路吃一顿，순대국밥（猪血肠汤饭）或黑猪肉定食都不错。', descEn:'Grab a meal in Jeju City before driving back. Try Sundae gukbap or black pork set.', descKo:'귀환 전 제주시에서 식사. 순대국밥 또는 흑돼지 추천.',
+        time:'15:30–16:30', lat:33.4890, lng:126.4983, type:'food'
+      },
+      {
+        id:'d1-t3', isTransit:true,
+        zh:'🚗 继续南下约35分钟回西归浦', en:'🚗 ~35 min back to Seogwipo', ko:'🚗 서귀포까지 약 35분'
+      },
+      {
+        id:'d1-3', emoji:'🌅',
+        nameZh:'西归浦住处 · 回来休息', nameEn:'Back to Seogwipo · Rest', nameKo:'서귀포 숙소 귀환',
+        descZh:'约17:00回到住处，轻松收尾。附近找个咖啡馆或在海边坐坐。', descEn:'~17:00 back to stay. Relax at a café or by the sea.', descKo:'약 17시 귀환. 근처 카페나 해안에서 여유.',
+        time:'~17:00', lat:33.2439, lng:126.5679, type:'hotel'
+      }
+    ]
+  },
+  {
+    title: { zh:'3/28 周六 · 西归浦轻松全天', en:'3/28 Sat · Seogwipo Full Day', ko:'3/28 토요일 · 서귀포 하루' },
+    center: [33.2470, 126.5640], zoom: 14,
+    spots: [
+      {
+        id:'d2-0', isHome:true,
+        nameZh:'🏠 住处', nameEn:'🏠 Your Stay', nameKo:'🏠 숙소',
+        descZh:'칠십리로139번길 5。全天步行，无需开车。', descEn:'Chilsimni-ro 139-5. All walking today, no car needed.', descKo:'칠십리로139번길 5. 오늘은 도보 일정.',
+        time:'출발점', lat:33.2439, lng:126.5679, type:'hotel'
+      },
+      {
+        id:'d2-t1', isTransit:true,
+        zh:'🚶 步行约10分钟', en:'🚶 ~10 min walk', ko:'🚶 도보 약 10분'
+      },
+      {
+        id:'d2-1', emoji:'💧',
+        nameZh:'정방폭포 · 正房瀑布', nameEn:'Jeongbang Waterfall', nameKo:'정방폭포',
+        descZh:'亚洲少见的"入海瀑布"，瀑布直接落入大海。早上人少，光线好。', descEn:'Rare waterfall that falls directly into the sea. Go early for fewer crowds.', descKo:'바다로 직접 떨어지는 희귀 폭포. 아침 방문 추천.',
+        time:'09:00–10:00', lat:33.2449, lng:126.5683, type:'attraction'
+      },
+      {
+        id:'d2-t2', isTransit:true,
+        zh:'🚶 沿海岸步行，自由节奏', en:'🚶 Walk along coast at your pace', ko:'🚶 해안 따라 자유롭게 산책'
+      },
+      {
+        id:'d2-2', emoji:'🚶',
+        nameZh:'올레길 7코스 · 奥莱步道7号', nameEn:'Olle Trail Route 7', nameKo:'올레길 7코스',
+        descZh:'正房瀑布起步，沿海岸散步。海风+火山岩+碧绿海水，走1小时即可。', descEn:'Start from Jeongbang, stroll along the coast. ~1hr easy walk.', descKo:'정방폭포에서 출발해 해안 산책. 약 1시간.',
+        time:'10:00–11:30', lat:33.2435, lng:126.5700, type:'walk'
+      },
+      {
+        id:'d2-t3', isTransit:true,
+        zh:'🚶 步行约15分钟到市场', en:'🚶 ~15 min walk to market', ko:'🚶 시장까지 도보 약 15분'
+      },
+      {
+        id:'d2-3', emoji:'🏪',
+        nameZh:'서귀포매일올레시장 · 西归浦市场', nameEn:'Seogwipo Daily Olle Market', nameKo:'서귀포매일올레시장',
+        descZh:'当地人菜市场，不是旅游市场。鱼饼、黑猪肉煎饼、汉拿峰橘子现买现吃。', descEn:'Authentic local market. Fish cake, black pork jeon, Hallabong oranges.', descKo:'현지인 시장. 어묵, 흑돼지 전, 한라봉.',
+        time:'11:30–12:30', lat:33.2497, lng:126.5624, type:'attraction'
+      },
+      {
+        id:'d2-4', emoji:'🐟',
+        nameZh:'갈치조림 · 带鱼午餐', nameEn:'Galchi · Hairtail Lunch', nameKo:'갈치조림 점심',
+        descZh:'市场附近找갈치집。갈치조림（红烧带鱼配萝卜）或갈치회（带鱼刺身）——西归浦专属。', descEn:'Find a 갈치집 near market. Braised or sashimi hairtail — Seogwipo specialty.', descKo:'시장 근처 갈치집. 갈치조림 또는 갈치회.',
+        time:'12:30–14:00', lat:33.2490, lng:126.5610, type:'food',
+        tip:'招牌：갈치조림 / 갈치회'
+      },
+      {
+        id:'d2-t4', isTransit:true,
+        zh:'🚶 步行约5分钟', en:'🚶 ~5 min walk', ko:'🚶 도보 약 5분'
+      },
+      {
+        id:'d2-5', emoji:'☕',
+        nameZh:'이중섭거리 · 李仲燮街', nameEn:'Lee Jung-seop Street', nameKo:'이중섭거리',
+        descZh:'西归浦艺术小街，不拥挤。喝杯咖啡、看看画廊，放松收尾。', descEn:'Quiet art street. Coffee, galleries, no crowds.', descKo:'조용한 예술 거리. 카페, 갤러리.',
+        time:'14:30–16:00', lat:33.2498, lng:126.5560, type:'cafe'
+      },
+      {
+        id:'d2-6', emoji:'🌅',
+        nameZh:'서귀포 해안 · 海边日落', nameEn:'Seogwipo Sunset Coast', nameKo:'서귀포 해안 일몰',
+        descZh:'住处附近的海边。西归浦朝南，傍晚光线绝佳。找块礁石坐着看日落。', descEn:'Near your stay. South-facing coast, stunning golden hour.', descKo:'숙소 근처 남향 해안. 일몰 장관.',
+        time:'17:30–18:30', lat:33.2440, lng:126.5650, type:'walk'
+      }
+    ]
   }
-  const icon = L.divIcon({ className: '', html, iconSize: [32,32], iconAnchor: [16,16] });
-  const m = L.marker([s.lat, s.lng], {icon}).addTo(map);
-  m.bindPopup(`<b>${s.emoji} ${s.nameZh}</b><br>${s.nameEn}<br><small style="color:#2e8b57">${s.time}</small>`);
-  markers[s.id] = m;
-});
+];
 
-// Route line (skip home marker from route)
-const routeSpots = spots.filter(s => !s.isHome);
-const latlngs = routeSpots.map(s => [s.lat, s.lng]);
-L.polyline(latlngs, {color: '#2e8b57', weight: 2, dashArray: '5,6', opacity: 0.6}).addTo(map);
+let currentDay = 0;
+let map, markers = {}, routeLines = [];
 
-// Dashed line from home to first spot
-L.polyline([[HOME.lat, HOME.lng], [routeSpots[0].lat, routeSpots[0].lng]],
-  {color: '#2980b9', weight: 2, dashArray: '4,5', opacity: 0.5}).addTo(map);
+function initMap() {
+  map = L.map('map').setView(days[0].center, days[0].zoom);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors', maxZoom: 18
+  }).addTo(map);
+
+  const legend = L.control({position:'bottomleft'});
+  legend.onAdd = () => {
+    const div = L.DomUtil.create('div','legend');
+    div.innerHTML = Object.entries(typeColor).map(([t,c]) =>
+      `<div class="legend-item"><div class="legend-dot" style="background:${c}"></div>${typeLabelZh[t]}</div>`
+    ).join('');
+    return div;
+  };
+  legend.addTo(map);
+}
+
+function clearMap() {
+  routeLines.forEach(l => map.removeLayer(l));
+  routeLines = [];
+  Object.values(markers).forEach(m => map.removeLayer(m));
+  markers = {};
+}
+
+function renderDay(dayIdx) {
+  clearMap();
+  const day = days[dayIdx];
+  map.setView(day.center, day.zoom, {animate: true, duration: 0.6});
+
+  const spots = day.spots.filter(s => !s.isTransit);
+  let num = 0;
+  spots.forEach(s => {
+    let html;
+    if (s.isHome) {
+      html = `<div style="width:30px;height:30px;border-radius:50%;background:#2980b9;border:2px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;font-size:13px;">🏠</div>`;
+    } else {
+      num++;
+      html = `<div style="width:28px;height:28px;border-radius:50%;background:${typeColor[s.type]};border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:12px;">${num}</div>`;
+    }
+    const icon = L.divIcon({className:'', html, iconSize:[30,30], iconAnchor:[15,15]});
+    const m = L.marker([s.lat, s.lng], {icon}).addTo(map);
+    m.bindPopup(`<b>${(s.emoji||'🏠')} ${s.nameZh}</b><br>${s.nameEn}<br><small style="color:#2e8b57">${s.time}</small>`);
+    markers[s.id] = m;
+  });
+
+  // Route line
+  const pts = spots.map(s => [s.lat, s.lng]);
+  if (pts.length > 1) {
+    const col = dayIdx === 0 ? '#2d6a4f' : '#2e8b57';
+    const line = L.polyline(pts, {color: col, weight: 2, dashArray:'5,6', opacity:0.55}).addTo(map);
+    routeLines.push(line);
+  }
+}
+
+function renderSidebar(dayIdx) {
+  const sidebar = document.getElementById('sidebar');
+  sidebar.innerHTML = '';
+  const day = days[dayIdx];
+  const card = document.createElement('div');
+  card.className = 'day-card';
+  const titleZh = day.title.zh, titleEn = day.title.en, titleKo = day.title.ko;
+  card.innerHTML = `<h3><span class="lang-zh">${titleZh}</span><span class="lang-en">${titleEn}</span><span class="lang-ko">${titleKo}</span></h3>`;
+
+  let sNum = 0;
+  day.spots.forEach(s => {
+    if (s.isTransit) {
+      const t = document.createElement('div');
+      t.className = 'itin-transit';
+      t.innerHTML = `<span class="lang-zh">${s.zh}</span><span class="lang-en">${s.en}</span><span class="lang-ko">${s.ko}</span>`;
+      card.appendChild(t);
+      return;
+    }
+    const item = document.createElement('div');
+    item.className = 'spot-item';
+    item.id = `spot-${s.id}`;
+    const dotLabel = s.isHome ? '🏠' : ++sNum;
+    const dotSize = s.isHome ? '13px' : '11px';
+    item.innerHTML = `
+      <div class="spot-dot" style="background:${typeColor[s.type]};font-size:${dotSize}">${dotLabel}</div>
+      <div class="spot-info">
+        <div class="spot-name">
+          ${s.isHome ? '' : (s.emoji+' ')}<span class="lang-zh">${s.nameZh}</span><span class="lang-en">${s.nameEn}</span><span class="lang-ko">${s.nameKo}</span>
+        </div>
+        <div class="spot-desc zh">${s.descZh}</div>
+        <div class="spot-desc en">${s.descEn}</div>
+        <div class="spot-desc ko">${s.descKo}</div>
+        <span class="spot-time">${s.time}</span>
+        ${s.tip ? `<br><span class="spot-tip">💡 ${s.tip}</span>` : ''}
+      </div>
+    `;
+    item.addEventListener('click', () => flyTo(s));
+    card.appendChild(item);
+  });
+  sidebar.appendChild(card);
+}
+
+function renderWeather(dayIdx) {
+  const strip = document.getElementById('weatherStrip');
+  strip.innerHTML = weatherData[dayIdx].map(w =>
+    `<span>${w.icon} <span class="lang-zh">${w.zh}</span><span class="lang-en">${w.en}</span><span class="lang-ko">${w.ko}</span></span>`
+  ).join('');
+}
+
+function switchDay(dayIdx) {
+  currentDay = dayIdx;
+  document.querySelectorAll('.day-tab').forEach((t,i) => t.classList.toggle('active', i===dayIdx));
+  renderDay(dayIdx);
+  renderSidebar(dayIdx);
+  renderWeather(dayIdx);
+}
 
 function flyTo(s) {
   map.flyTo([s.lat, s.lng], 16, {duration: 0.8});
-  markers[s.id].openPopup();
+  if (markers[s.id]) markers[s.id].openPopup();
   document.querySelectorAll('.spot-item').forEach(el => el.style.background = '');
   const el = document.getElementById(`spot-${s.id}`);
   if (el) { el.style.background = '#e8f5ed'; el.scrollIntoView({behavior:'smooth',block:'nearest'}); }
 }
 
-// Legend
-const legend = L.control({position:'bottomleft'});
-legend.onAdd = () => {
-  const div = L.DomUtil.create('div','legend');
-  div.innerHTML = Object.entries(typeColor).map(([t,c]) =>
-    `<div class="legend-item"><div class="legend-dot" style="background:${c}"></div>${typeLabelZh[t]}</div>`
-  ).join('');
-  return div;
-};
-legend.addTo(map);
+initMap();
+switchDay(0);
 </script>
 </body>
 </html>
