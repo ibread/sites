@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📜 望庐山瀑布 · 孔雀中文</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: #F0F4FF; color: #3A3A5C; min-height: 100vh; }
+.banner { background: linear-gradient(135deg, #6C63FF, #48C6EF); padding: 24px 16px 16px; text-align: center; color: #fff; text-shadow: 1px 1px 2px rgba(0,0,0,.15); }
+.banner h1 { font-size: 22px; margin-bottom: 4px; }
+.banner p { font-size: 14px; opacity: .9; }
+.progress { display: flex; justify-content: center; gap: 8px; padding: 14px 16px; background: #fff; border-bottom: 1px solid #e0e0f0; position: sticky; top: 0; z-index: 10; }
+.step-dot { font-size: 13px; padding: 6px 12px; border-radius: 20px; background: #e0e0f0; color: #8888aa; transition: all .3s; }
+.step-dot.active { background: #6C63FF; color: #fff; font-weight: 600; }
+.step-dot.done { background: #66BB6A; color: #fff; cursor: pointer; }
+.container { max-width: 500px; margin: 0 auto; padding: 20px 16px 40px; }
+section { display: none; }
+section.active { display: block; }
+
+/* Poem display */
+.poem-box { background: #fff; border-radius: 20px; padding: 24px; text-align: center; box-shadow: 0 4px 16px rgba(0,0,0,.06); margin: 16px 0; position: relative; }
+.poem-box img { width: 100%; border-radius: 14px; margin-bottom: 16px; }
+.poem-title { font-size: 20px; font-weight: 700; color: #6C63FF; margin-bottom: 4px; }
+.poem-author { font-size: 14px; color: #999; margin-bottom: 16px; }
+.poem-line { font-size: 22px; line-height: 2.2; font-weight: 500; letter-spacing: 2px; }
+.poem-line ruby rt { font-size: 11px; color: #999; }
+
+.video-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 16px; margin: 10px 0; border: none; border-radius: 16px; font-size: 17px; font-weight: 600; cursor: pointer; background: linear-gradient(135deg, #00A1D6, #00B5E5); color: #fff; box-shadow: 0 4px 12px rgba(0,161,214,.3); text-decoration: none; }
+.video-btn.orange { background: linear-gradient(135deg, #FF9A56, #FFCB57); box-shadow: 0 4px 12px rgba(255,154,86,.3); }
+.next-btn { display: block; width: 100%; padding: 16px; margin: 20px 0 0; border: none; border-radius: 16px; font-size: 18px; font-weight: 600; cursor: pointer; background: linear-gradient(135deg, #6C63FF, #48C6EF); color: #fff; box-shadow: 0 4px 12px rgba(108,99,255,.3); }
+.next-btn:active { transform: scale(.97); }
+.next-btn:disabled { opacity: .4; }
+.note { text-align: center; color: #8888aa; font-size: 13px; margin-top: 8px; }
+
+.card { background: #fff; border-radius: 20px; padding: 24px 20px; box-shadow: 0 4px 16px rgba(0,0,0,.06); margin-bottom: 16px; display: none; }
+.card.active { display: block; animation: fadeIn .3s; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.card h3 { font-size: 20px; margin-bottom: 12px; }
+.card p, .card li { font-size: 16px; line-height: 1.8; }
+.card-nav { display: flex; justify-content: center; gap: 12px; margin: 8px 0 4px; }
+.card-nav button { width: 48px; height: 48px; border-radius: 50%; border: none; font-size: 20px; background: #6C63FF; color: #fff; cursor: pointer; }
+.card-nav button:disabled { opacity: .3; }
+.card-dots { text-align: center; margin-bottom: 12px; font-size: 22px; letter-spacing: 6px; }
+
+.listen-btn { display: inline-flex; align-items: center; gap: 6px; background: none; border: 1.5px solid #6C63FF; color: #6C63FF; border-radius: 12px; padding: 8px 16px; font-size: 15px; cursor: pointer; margin-bottom: 14px; }
+.listen-btn:active { background: #F0EFFF; }
+.listen-btn.playing { background: #6C63FF; color: #fff; }
+
+.quiz-card { background: #fff; border-radius: 20px; padding: 20px; box-shadow: 0 4px 16px rgba(0,0,0,.06); margin-bottom: 16px; }
+.quiz-card h3 { font-size: 17px; line-height: 1.6; margin-bottom: 14px; }
+.option { display: block; width: 100%; padding: 14px 16px; margin: 8px 0; border: 2px solid #e0e0f0; border-radius: 14px; background: #FAFAFF; font-size: 16px; text-align: left; cursor: pointer; transition: all .2s; }
+.option:active { transform: scale(.98); }
+.option.correct { border-color: #66BB6A; background: #E8F5E9; }
+.option.wrong { border-color: #EF5350; background: #FFEBEE; }
+.option:disabled { cursor: default; }
+.feedback { font-size: 15px; margin-top: 10px; font-weight: 600; }
+.result-box { background: #fff; border-radius: 20px; padding: 30px 20px; text-align: center; box-shadow: 0 4px 16px rgba(0,0,0,.06); }
+.result-box .score { font-size: 48px; font-weight: 700; color: #6C63FF; }
+
+.explain { background: #FFFDE7; border-radius: 14px; padding: 14px; margin-top: 12px; font-size: 14px; line-height: 1.7; border: 1px solid #FFF9C4; }
+.explain b { color: #F57F17; }
+</style>
+</head>
+<body>
+<div class="banner">
+  <h1>📜 望庐山瀑布</h1>
+  <p>李白 · 二年级语文 · 孔雀中文</p>
+</div>
+<div class="progress">
+  <span class="step-dot active" id="dot0" onclick="goBackTo(0)">📺 看视频</span>
+  <span class="step-dot" id="dot1" onclick="goBackTo(1)">📖 学知识</span>
+  <span class="step-dot" id="dot2" onclick="goBackTo(2)">🧠 答题</span>
+</div>
+<div class="container">
+
+  <!-- Step 1: Watch + Read Poem -->
+  <section id="sec0" class="active">
+    <div class="poem-box">
+      <img src="img/waterfall.png" alt="庐山瀑布">
+      <div class="poem-title">望庐山瀑布</div>
+      <div class="poem-author">【唐】李白</div>
+      <button class="listen-btn" onclick="playAudio('poem',this)" style="margin:10px 0;">🔊 听朗诵</button>
+      <div>
+        <div class="poem-line"><ruby>日<rt>rì</rt></ruby><ruby>照<rt>zhào</rt></ruby><ruby>香<rt>xiāng</rt></ruby><ruby>炉<rt>lú</rt></ruby><ruby>生<rt>shēng</rt></ruby><ruby>紫<rt>zǐ</rt></ruby><ruby>烟<rt>yān</rt></ruby>，</div>
+        <div class="poem-line"><ruby>遥<rt>yáo</rt></ruby><ruby>看<rt>kàn</rt></ruby><ruby>瀑<rt>pù</rt></ruby><ruby>布<rt>bù</rt></ruby><ruby>挂<rt>guà</rt></ruby><ruby>前<rt>qián</rt></ruby><ruby>川<rt>chuān</rt></ruby>。</div>
+        <div class="poem-line"><ruby>飞<rt>fēi</rt></ruby><ruby>流<rt>liú</rt></ruby><ruby>直<rt>zhí</rt></ruby><ruby>下<rt>xià</rt></ruby><ruby>三<rt>sān</rt></ruby><ruby>千<rt>qiān</rt></ruby><ruby>尺<rt>chǐ</rt></ruby>，</div>
+        <div class="poem-line"><ruby>疑<rt>yí</rt></ruby><ruby>是<rt>shì</rt></ruby><ruby>银<rt>yín</rt></ruby><ruby>河<rt>hé</rt></ruby><ruby>落<rt>luò</rt></ruby><ruby>九<rt>jiǔ</rt></ruby><ruby>天<rt>tiān</rt></ruby>。</div>
+      </div>
+    </div>
+
+    <h2 style="font-size:18px;margin:16px 0 10px;">📺 看两个视频了解这首诗</h2>
+    <div style="background:#fff;border-radius:16px;padding:16px;box-shadow:0 4px 16px rgba(0,0,0,.06);margin-bottom:16px;">
+      <button class="listen-btn" onclick="playAudio('intro',this)" style="margin-bottom:10px;">🔊 听听今天学什么</button>
+      <p style="font-size:15px;line-height:1.8;">🎬 <b>视频1</b>：看动画了解这首诗的故事（4分钟）</p>
+      <p style="font-size:15px;line-height:1.8;">🎬 <b>视频2</b>：认识写这首诗的大诗人李白（10分钟）</p>
+    </div>
+
+    <a href="https://www.bilibili.com/video/BV1VMW3e6EUQ?p=67" target="_blank" rel="noopener" class="video-btn">🎬 《爱上古诗》望庐山瀑布（4分钟）</a>
+    <a href="https://www.bilibili.com/video/BV13NkwYqEXC?p=1" target="_blank" rel="noopener" class="video-btn orange">🎬 《唐诗大电影》大摄影师李白（10分钟）</a>
+
+    <button class="next-btn" onclick="goStep(1)">✅ 看完了，下一步</button>
+  </section>
+
+  <!-- Step 2: Knowledge Cards -->
+  <section id="sec1">
+    <h2 style="font-size:20px;margin-bottom:14px;">📖 来了解这首诗的故事</h2>
+    <div class="card-dots" id="cardDots">● ○ ○</div>
+    <div class="card-wrapper">
+      <div class="card active" id="card0">
+        <h3>✍️ 诗人李白</h3>
+        <button class="listen-btn" onclick="playAudio('card1',this)">🔊 听一听</button>
+        <div style="text-align:center;margin-bottom:14px;">
+          <img src="img/libai.png" alt="李白" style="width:60%;border-radius:16px;">
+          <p style="font-size:12px;color:#999;margin-top:4px;">👆 旅行诗人李白</p>
+        </div>
+        <p>李白是中国最有名的大诗人，大家叫他<b>「诗仙」</b>🧙‍♂️</p>
+        <p style="margin-top:8px;">他特别爱到处旅游——爬山、坐船、喝酒、写诗，走了大半个中国！</p>
+        <p style="margin-top:8px;">有一天他来到<b>庐山</b>，看到一个巨大的瀑布从山顶冲下来，太壮观了，就写下了这首千古名诗 ✨</p>
+      </div>
+      <div class="card" id="card1">
+        <h3>📖 逐句讲解</h3>
+        <button class="listen-btn" onclick="playAudio('card2',this)">🔊 听一听</button>
+        <img src="img/waterfall.png" alt="庐山瀑布" style="width:100%;border-radius:14px;margin-bottom:12px;">
+        <div class="explain">
+          <b>日照香炉生紫烟</b><br>
+          ☀️ 太阳照着山顶的「香炉峰」，升起了紫色的烟雾
+        </div>
+        <div class="explain" style="margin-top:8px;">
+          <b>遥看瀑布挂前川</b><br>
+          👀 远远看去，瀑布就像一块白布挂在山前
+        </div>
+        <div class="explain" style="margin-top:8px;">
+          <b>飞流直下三千尺</b><br>
+          💧 水从很高的地方直直地冲下来！「三千尺」是夸张说法，不是真的三千尺哦
+        </div>
+        <div class="explain" style="margin-top:8px;">
+          <b>疑是银河落九天</b><br>
+          🌌 让人怀疑是银河从天上掉下来了！这就是李白最厉害的地方——用超级夸张的想象力写诗
+        </div>
+      </div>
+      <div class="card" id="card2">
+        <h3>🤓 冷知识</h3>
+        <button class="listen-btn" onclick="playAudio('card3',this)">🔊 听一听</button>
+        <p>🏔️ 庐山在<b>江西省</b>，现在还可以去看这个瀑布哦！</p>
+        <p style="margin-top:10px;">🚶 李白活着的时候没有飞机高铁，全靠走路和坐船。他从四川出发，一路旅行了大半个中国！</p>
+        <p style="margin-top:10px;">📝 他一辈子写了差不多<b>一千首诗</b>，是最厉害的旅行诗人！</p>
+        <p style="margin-top:10px;">💡 这首诗里的<b>「夸张」</b>手法很重要：三千尺、银河落九天——不是真的，但让你一下子就感受到瀑布有多壮观。这就是诗的魔力 ✨</p>
+      </div>
+    </div>
+    <div class="card-nav">
+      <button id="prevCard" onclick="moveCard(-1)" disabled>◀</button>
+      <button id="nextCard" onclick="moveCard(1)">▶</button>
+    </div>
+    <button class="next-btn" id="toQuiz" disabled onclick="goStep(2)">📝 开始答题</button>
+    <p class="note" id="cardNote">翻完所有卡片才能答题哦</p>
+  </section>
+
+  <!-- Step 3: Quiz -->
+  <section id="sec2">
+    <h2 style="font-size:20px;margin-bottom:14px;">🧠 答题时间！</h2>
+    <div id="quizArea"></div>
+    <div id="resultArea" style="display:none;"></div>
+  </section>
+</div>
+
+<script>
+const AUDIO_BASE = 'audio/';
+let currentAudio = null;
+
+function playAudio(name, btn) {
+  if (currentAudio) { currentAudio.pause(); currentAudio = null; }
+  document.querySelectorAll('.listen-btn').forEach(b => b.classList.remove('playing'));
+  const a = new Audio(AUDIO_BASE + name + '.mp3');
+  currentAudio = a;
+  if (btn) btn.classList.add('playing');
+  a.onended = () => { if (btn) btn.classList.remove('playing'); currentAudio = null; };
+  a.onerror = () => { if (btn) btn.classList.remove('playing'); };
+  a.play();
+}
+
+let curStep = 0, maxStep = 0;
+function stopAudio() {
+  if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; currentAudio = null; }
+  document.querySelectorAll('.listen-btn').forEach(b => b.classList.remove('playing'));
+}
+function goStep(s) {
+  stopAudio();
+  document.getElementById('sec'+curStep).classList.remove('active');
+  document.getElementById('dot'+curStep).classList.remove('active');
+  document.getElementById('dot'+curStep).classList.add('done');
+  curStep = s; if (s > maxStep) maxStep = s;
+  document.getElementById('sec'+s).classList.add('active');
+  document.getElementById('dot'+s).classList.remove('done');
+  document.getElementById('dot'+s).classList.add('active');
+  window.scrollTo(0,0);
+  if (s === 2 && !document.getElementById('quizArea').innerHTML) renderQuiz();
+}
+function goBackTo(s) {
+  if (s === curStep || s > maxStep) return;
+  stopAudio();
+  document.getElementById('sec'+curStep).classList.remove('active');
+  document.getElementById('dot'+curStep).classList.remove('active');
+  document.getElementById('dot'+curStep).classList.add('done');
+  curStep = s;
+  document.getElementById('sec'+s).classList.add('active');
+  document.getElementById('dot'+s).classList.remove('done');
+  document.getElementById('dot'+s).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+let curCard = 0, maxCard = 0;
+const totalCards = 3;
+function moveCard(d) {
+  document.getElementById('card'+curCard).classList.remove('active');
+  curCard += d;
+  if (curCard > maxCard) maxCard = curCard;
+  document.getElementById('card'+curCard).classList.add('active');
+  document.getElementById('prevCard').disabled = curCard === 0;
+  document.getElementById('nextCard').disabled = curCard === totalCards - 1;
+  updateDots();
+  if (maxCard >= totalCards - 1) {
+    document.getElementById('toQuiz').disabled = false;
+    document.getElementById('cardNote').textContent = '✅ 全部看完啦，可以答题了！';
+  }
+}
+function updateDots() {
+  let s = '';
+  for (let i = 0; i < totalCards; i++) s += (i === curCard ? '● ' : '○ ');
+  document.getElementById('cardDots').textContent = s.trim();
+}
+
+const questions = [
+  {q:'第一题：望庐山瀑布是谁写的？', opts:['杜甫','李白','白居易'], ans:1, audio:'q1', explain:'李白是唐代最有名的诗人，号称「诗仙」！'},
+  {q:'第二题：「日照香炉生紫烟」的「香炉」是什么？', opts:['烧香的炉子','一座山峰的名字','做饭的锅'], ans:1, audio:'q2', explain:'香炉是庐山上一座山峰的名字——「香炉峰」，因为形状像香炉得名。'},
+  {q:'第三题：「飞流直下三千尺」是真的三千尺吗？', opts:['是真的，量过的','不是，是夸张的写法','差不多，大概那么高'], ans:1, audio:'q3', explain:'这是李白最擅长的「夸张」写法！用夸张让你感受到瀑布有多壮观。'},
+  {q:'第四题：「疑是银河落九天」说瀑布像什么？', opts:['像一条白色的龙','像银河从天上掉下来','像下雨一样'], ans:1, audio:'q4', explain:'李白觉得瀑布太壮观了，像天上的银河掉到了人间！'},
+  {q:'第五题：李白被大家叫做什么？', opts:['诗圣','诗仙','诗王'], ans:1, audio:'q5', explain:'李白是「诗仙」，杜甫才是「诗圣」哦！仙人嘛，就是写诗像神仙一样厉害～'},
+];
+let score = 0, answered = 0;
+
+function renderQuiz() {
+  const area = document.getElementById('quizArea');
+  area.innerHTML = '';
+  questions.forEach((q, qi) => {
+    const div = document.createElement('div');
+    div.className = 'quiz-card';
+    div.innerHTML = `<h3>${q.q}</h3><button class="listen-btn" onclick="playAudio('${q.audio}',this)">🔊 再听一遍</button><div class="opts" id="opts${qi}"></div><div class="feedback" id="fb${qi}"></div>`;
+    area.appendChild(div);
+    const optsDiv = div.querySelector('.opts');
+    q.opts.forEach((o, oi) => {
+      const btn = document.createElement('button');
+      btn.className = 'option';
+      btn.textContent = String.fromCharCode(65+oi) + '. ' + o;
+      btn.onclick = () => answer(qi, oi, btn);
+      optsDiv.appendChild(btn);
+    });
+  });
+  setTimeout(() => playAudio('q1', null), 500);
+}
+
+function answer(qi, oi, btn) {
+  const optsDiv = document.getElementById('opts'+qi);
+  const fb = document.getElementById('fb'+qi);
+  if (optsDiv.dataset.done) return;
+  optsDiv.dataset.done = '1';
+  const correct = questions[qi].ans === oi;
+  if (correct) {
+    score++;
+    btn.classList.add('correct');
+    fb.innerHTML = '✅ 对了！' + questions[qi].explain;
+    fb.style.color = '#43A047';
+  } else {
+    btn.classList.add('wrong');
+    optsDiv.children[questions[qi].ans].classList.add('correct');
+    fb.innerHTML = '❌ ' + questions[qi].explain;
+    fb.style.color = '#E53935';
+  }
+  [...optsDiv.children].forEach(b => b.disabled = true);
+  answered++;
+  if (answered === questions.length) {
+    setTimeout(showResult, 800);
+  } else {
+    setTimeout(() => playAudio(questions[qi+1].audio, null), 600);
+  }
+}
+
+function showResult() {
+  const r = document.getElementById('resultArea');
+  r.style.display = 'block';
+  const msgs = ['🎉 满分！你是古诗小天才！','✨ 很棒！再接再厉！','💪 不错哦！','📺 可以再看看视频复习','❤️ 没关系，下次更好！'];
+  const mi = score===5?0:score>=4?1:score>=3?2:score>=2?3:4;
+  r.innerHTML = `<div class="result-box"><p>答题结束！</p><div class="score">${score} / 5</div><p>${msgs[mi]}</p></div>`;
+  r.scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>
