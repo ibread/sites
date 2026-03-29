@@ -100,15 +100,31 @@ section.active { display: block; }
       <div class="card active" id="card0">
         <h3>😺 主角喵们</h3>
         <button class="listen-btn" onclick="playAudio('card1',this)">🔊 听一听</button>
-        <ul style="list-style:none;padding:0;">
-          <li style="margin-bottom:12px;">🌾 <b>炎帝喵</b> — 教大家种粮食、认草药<br>是「农业发明家」</li>
-          <li style="margin-bottom:12px;">🔧 <b>黄帝喵</b> — 造车、造船、做衣服<br>是「科技发明家」</li>
-          <li>⚔️ <b>蚩尤喵</b> — 超级勇猛的战士<br>铜头铁额，太厉害了！</li>
-        </ul>
+        <div style="display:flex;gap:12px;margin-bottom:14px;">
+          <div style="flex:1;text-align:center;">
+            <div style="font-size:48px;">🌾</div>
+            <b style="color:#E65100;">炎帝喵</b>
+            <p style="font-size:13px;line-height:1.5;margin-top:4px;">教大家种粮食、认草药<br>「农业发明家」</p>
+          </div>
+          <div style="flex:1;text-align:center;">
+            <div style="font-size:48px;">🔧</div>
+            <b style="color:#F9A825;">黄帝喵</b>
+            <p style="font-size:13px;line-height:1.5;margin-top:4px;">造车、造船、做衣服<br>「科技发明家」</p>
+          </div>
+          <div style="flex:1;text-align:center;">
+            <div style="font-size:48px;">⚔️</div>
+            <b style="color:#B71C1C;">蚩尤喵</b>
+            <p style="font-size:13px;line-height:1.5;margin-top:4px;">超级勇猛的战士<br>铜头铁额！</p>
+          </div>
+        </div>
+        <img src="img/huangdi.jpg" alt="黄帝古画像" style="width:100%;border-radius:12px;margin-top:8px;">
+        <p style="font-size:12px;color:#b0906a;text-align:center;margin-top:4px;">👆 这是古人画的黄帝画像哦</p>
       </div>
       <div class="card" id="card1">
         <h3>⏳ 时间线</h3>
         <button class="listen-btn" onclick="playAudio('card2',this)">🔊 听一听</button>
+        <img src="img/landscape.jpg" alt="黄河风景" style="width:100%;border-radius:12px;margin-bottom:12px;">
+        <p style="font-size:12px;color:#b0906a;text-align:center;margin-bottom:12px;">👆 黄河流域——华夏文明开始的地方</p>
         <ul class="timeline">
           <li>远古时代……</li>
           <li>很多小部落，各过各的</li>
@@ -121,6 +137,7 @@ section.active { display: block; }
       <div class="card" id="card2">
         <h3>🤓 冷知识</h3>
         <button class="listen-btn" onclick="playAudio('card3',this)">🔊 听一听</button>
+        <img src="img/culture.jpg" alt="中国古建筑" style="width:100%;border-radius:12px;margin-bottom:12px;">
         <p style="font-size:17px;line-height:1.8;">「中华」这个词里的<b>「华」</b>，就来自<b>「华夏」</b>。</p>
         <p style="font-size:17px;line-height:1.8;margin-top:12px;">所以每次说「中华」，其实是在说五千年前炎帝和黄帝合并的那个故事！🐱✨</p>
       </div>
