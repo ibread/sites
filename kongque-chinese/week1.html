@@ -13,7 +13,8 @@ body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
 .progress { display: flex; justify-content: center; gap: 8px; padding: 14px 16px; background: #fff; border-bottom: 1px solid #f0e0d0; position: sticky; top: 0; z-index: 10; }
 .step-dot { font-size: 13px; padding: 6px 12px; border-radius: 20px; background: #f0e0d0; color: #a08060; transition: all .3s; }
 .step-dot.active { background: #FF9A56; color: #fff; font-weight: 600; }
-.step-dot.done { background: #66BB6A; color: #fff; }
+.step-dot.done { background: #66BB6A; color: #fff; cursor: pointer; }
+.step-dot.active { cursor: default; }
 .container { max-width: 500px; margin: 0 auto; padding: 20px 16px 40px; }
 section { display: none; }
 section.active { display: block; }
@@ -59,9 +60,9 @@ section.active { display: block; }
   <p>如果历史是一群喵 · 第1-2集</p>
 </div>
 <div class="progress">
-  <span class="step-dot active" id="dot0">📺 看视频</span>
-  <span class="step-dot" id="dot1">📖 学知识</span>
-  <span class="step-dot" id="dot2">🧠 答题</span>
+  <span class="step-dot active" id="dot0" onclick="goBackTo(0)">📺 看视频</span>
+  <span class="step-dot" id="dot1" onclick="goBackTo(1)">📖 学知识</span>
+  <span class="step-dot" id="dot2" onclick="goBackTo(2)">🧠 答题</span>
 </div>
 <div class="container">
 
@@ -139,15 +140,29 @@ function playAudio(name, btn) {
 }
 
 // Steps
-let curStep = 0;
+let curStep = 0, maxStep = 0;
 function goStep(s) {
   document.getElementById('sec'+curStep).classList.remove('active');
-  document.getElementById('dot'+curStep).classList.replace('active','done');
+  document.getElementById('dot'+curStep).classList.remove('active');
+  document.getElementById('dot'+curStep).classList.add('done');
   curStep = s;
+  if (s > maxStep) maxStep = s;
   document.getElementById('sec'+s).classList.add('active');
+  document.getElementById('dot'+s).classList.remove('done');
   document.getElementById('dot'+s).classList.add('active');
   window.scrollTo(0,0);
-  if (s === 2) renderQuiz();
+  if (s === 2 && !document.getElementById('quizArea').innerHTML) renderQuiz();
+}
+function goBackTo(s) {
+  if (s >= curStep || s > maxStep) return; // only go back to completed steps
+  document.getElementById('sec'+curStep).classList.remove('active');
+  document.getElementById('dot'+curStep).classList.remove('active');
+  document.getElementById('dot'+curStep).classList.add('done');
+  curStep = s;
+  document.getElementById('sec'+s).classList.add('active');
+  document.getElementById('dot'+s).classList.remove('done');
+  document.getElementById('dot'+s).classList.add('active');
+  window.scrollTo(0,0);
 }
 
 // Cards
