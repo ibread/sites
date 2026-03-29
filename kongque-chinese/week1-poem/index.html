@@ -288,18 +288,20 @@ function answer(qi, oi, btn) {
     btn.classList.add('correct');
     fb.innerHTML = '✅ 对了！' + questions[qi].explain;
     fb.style.color = '#43A047';
+    playAudio('correct', null);
   } else {
     btn.classList.add('wrong');
     optsDiv.children[questions[qi].ans].classList.add('correct');
     fb.innerHTML = '❌ ' + questions[qi].explain;
     fb.style.color = '#E53935';
+    playAudio('wrong', null);
   }
   [...optsDiv.children].forEach(b => b.disabled = true);
   answered++;
   if (answered === questions.length) {
-    setTimeout(showResult, 800);
+    setTimeout(showResult, 1500);
   } else {
-    setTimeout(() => playAudio(questions[qi+1].audio, null), 600);
+    setTimeout(() => playAudio(questions[qi+1].audio, null), 1500);
   }
 }
 
@@ -310,6 +312,9 @@ function showResult() {
   const mi = score===5?0:score>=4?1:score>=3?2:score>=2?3:4;
   r.innerHTML = `<div class="result-box"><p>答题结束！</p><div class="score">${score} / 5</div><p>${msgs[mi]}</p></div>`;
   r.scrollIntoView({behavior:'smooth'});
+  // Play result audio
+  const audioName = score >= 5 ? 'result5' : score >= 4 ? 'result4' : score >= 3 ? 'result3' : score >= 2 ? 'result2' : 'result1';
+  setTimeout(() => playAudio(audioName, null), 500);
 }
 </script>
 </body>
