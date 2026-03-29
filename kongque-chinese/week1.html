@@ -10,35 +10,34 @@ body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
 .banner { background: linear-gradient(135deg, #FF9A56, #FFCB57); padding: 24px 16px 16px; text-align: center; color: #fff; text-shadow: 1px 1px 2px rgba(0,0,0,.15); }
 .banner h1 { font-size: 22px; margin-bottom: 4px; }
 .banner p { font-size: 14px; opacity: .9; }
-.progress { display: flex; justify-content: center; gap: 8px; padding: 14px 16px; background: #fff; border-bottom: 1px solid #f0e0d0; }
-.progress .step-dot { font-size: 13px; padding: 6px 12px; border-radius: 20px; background: #f0e0d0; color: #a08060; transition: all .3s; }
-.progress .step-dot.active { background: #FF9A56; color: #fff; font-weight: 600; }
-.progress .step-dot.done { background: #66BB6A; color: #fff; }
+.progress { display: flex; justify-content: center; gap: 8px; padding: 14px 16px; background: #fff; border-bottom: 1px solid #f0e0d0; position: sticky; top: 0; z-index: 10; }
+.step-dot { font-size: 13px; padding: 6px 12px; border-radius: 20px; background: #f0e0d0; color: #a08060; transition: all .3s; }
+.step-dot.active { background: #FF9A56; color: #fff; font-weight: 600; }
+.step-dot.done { background: #66BB6A; color: #fff; }
 .container { max-width: 500px; margin: 0 auto; padding: 20px 16px 40px; }
 section { display: none; }
 section.active { display: block; }
-.video-btn { display: block; width: 100%; padding: 18px; margin: 12px 0; border: none; border-radius: 16px; font-size: 18px; font-weight: 600; cursor: pointer; background: linear-gradient(135deg, #00A1D6, #00B5E5); color: #fff; box-shadow: 0 4px 12px rgba(0,161,214,.3); }
+.video-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 18px; margin: 12px 0; border: none; border-radius: 16px; font-size: 18px; font-weight: 600; cursor: pointer; background: linear-gradient(135deg, #00A1D6, #00B5E5); color: #fff; box-shadow: 0 4px 12px rgba(0,161,214,.3); text-decoration: none; }
 .video-btn:active { transform: scale(.97); }
 .next-btn { display: block; width: 100%; padding: 16px; margin: 20px 0 0; border: none; border-radius: 16px; font-size: 18px; font-weight: 600; cursor: pointer; background: linear-gradient(135deg, #FF9A56, #FFCB57); color: #fff; box-shadow: 0 4px 12px rgba(255,154,86,.3); }
 .next-btn:active { transform: scale(.97); }
 .next-btn:disabled { opacity: .4; }
 .note { text-align: center; color: #b0906a; font-size: 13px; margin-top: 8px; }
-/* Cards */
-.card-wrapper { position: relative; overflow: hidden; }
 .card { background: #fff; border-radius: 20px; padding: 24px 20px; box-shadow: 0 4px 16px rgba(0,0,0,.06); margin-bottom: 16px; display: none; }
 .card.active { display: block; animation: fadeIn .3s; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 .card h3 { font-size: 20px; margin-bottom: 12px; }
-.card p, .card li { font-size: 16px; line-height: 1.7; }
+.card p, .card li { font-size: 16px; line-height: 1.8; }
 .card ul { padding-left: 20px; }
 .card-nav { display: flex; justify-content: center; gap: 12px; margin: 8px 0 4px; }
-.card-nav button { width: 44px; height: 44px; border-radius: 50%; border: none; font-size: 20px; background: #FF9A56; color: #fff; cursor: pointer; }
+.card-nav button { width: 48px; height: 48px; border-radius: 50%; border: none; font-size: 20px; background: #FF9A56; color: #fff; cursor: pointer; }
 .card-nav button:disabled { opacity: .3; }
 .card-dots { text-align: center; margin-bottom: 12px; font-size: 22px; letter-spacing: 6px; }
-/* Quiz */
+.listen-btn { display: inline-flex; align-items: center; gap: 6px; background: none; border: 1.5px solid #FF9A56; color: #FF9A56; border-radius: 12px; padding: 8px 16px; font-size: 15px; cursor: pointer; margin-bottom: 14px; }
+.listen-btn:active { background: #FFF0E0; }
+.listen-btn.playing { background: #FF9A56; color: #fff; }
 .quiz-card { background: #fff; border-radius: 20px; padding: 20px; box-shadow: 0 4px 16px rgba(0,0,0,.06); margin-bottom: 16px; }
 .quiz-card h3 { font-size: 17px; line-height: 1.6; margin-bottom: 14px; }
-.quiz-card .read-btn { background: none; border: 1px solid #FF9A56; color: #FF9A56; border-radius: 12px; padding: 6px 14px; font-size: 14px; cursor: pointer; margin-bottom: 12px; }
 .option { display: block; width: 100%; padding: 14px 16px; margin: 8px 0; border: 2px solid #f0e0d0; border-radius: 14px; background: #FFFAF5; font-size: 16px; text-align: left; cursor: pointer; transition: all .2s; }
 .option:active { transform: scale(.98); }
 .option.correct { border-color: #66BB6A; background: #E8F5E9; }
@@ -48,9 +47,9 @@ section.active { display: block; }
 .result-box { background: #fff; border-radius: 20px; padding: 30px 20px; text-align: center; box-shadow: 0 4px 16px rgba(0,0,0,.06); }
 .result-box .score { font-size: 48px; font-weight: 700; color: #FF9A56; }
 .result-box p { font-size: 18px; margin-top: 10px; }
-.timeline { position: relative; padding-left: 24px; }
+.timeline { position: relative; padding-left: 24px; list-style: none; }
 .timeline::before { content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px; width: 3px; background: #FFCB57; border-radius: 2px; }
-.timeline li { list-style: none; margin-bottom: 10px; position: relative; }
+.timeline li { margin-bottom: 10px; position: relative; }
 .timeline li::before { content: '🔸'; position: absolute; left: -24px; }
 </style>
 </head>
@@ -65,29 +64,33 @@ section.active { display: block; }
   <span class="step-dot" id="dot2">🧠 答题</span>
 </div>
 <div class="container">
-  <!-- Step 1 -->
+
+  <!-- Step 1: Watch Videos -->
   <section id="sec0" class="active">
     <h2 style="font-size:20px;margin-bottom:12px;">📺 先看两集动画片吧！</h2>
-    <p style="font-size:15px;margin-bottom:16px;color:#7a6050;">点下面的按钮去B站看《如果历史是一群喵》第1-2集，看完回来点「看完了」👇</p>
-    <a href="https://www.bilibili.com/bangumi/play/ep199612" target="_blank" rel="noopener"><button class="video-btn">🎬 看第1集：夏之初</button></a>
-    <a href="https://www.bilibili.com/bangumi/play/ep199613" target="_blank" rel="noopener"><button class="video-btn">🎬 看第2集：&zwnj;兄弟阋墙</button></a>
+    <p style="font-size:15px;margin-bottom:16px;color:#7a6050;">点下面的按钮去B站看《如果历史是一群喵》，看完回来点「看完了」👇</p>
+    <a href="https://www.bilibili.com/bangumi/play/ep246674" target="_blank" rel="noopener" class="video-btn">🎬 第1集：华夏诞生</a>
+    <a href="https://www.bilibili.com/bangumi/play/ep246803" target="_blank" rel="noopener" class="video-btn">🎬 第2集：统一战争</a>
     <button class="next-btn" onclick="goStep(1)">✅ 看完了，下一步</button>
   </section>
-  <!-- Step 2 -->
+
+  <!-- Step 2: Knowledge Cards -->
   <section id="sec1">
     <h2 style="font-size:20px;margin-bottom:14px;">📖 来认识一下主角们</h2>
     <div class="card-dots" id="cardDots">● ○ ○</div>
     <div class="card-wrapper">
       <div class="card active" id="card0">
         <h3>😺 主角喵们</h3>
-        <ul>
-          <li><b>🌾 炎帝喵</b> — 教大家种粮食、认草药<br>是「农业发明家」</li>
-          <li><b>🔧 黄帝喵</b> — 造车、造船、做衣服<br>是「科技发明家」</li>
-          <li><b>⚔️ 蚩尤喵</b> — 超级勇猛的战士<br>铜头铁额，太厉害了！</li>
+        <button class="listen-btn" onclick="playAudio('card1',this)">🔊 听一听</button>
+        <ul style="list-style:none;padding:0;">
+          <li style="margin-bottom:12px;">🌾 <b>炎帝喵</b> — 教大家种粮食、认草药<br>是「农业发明家」</li>
+          <li style="margin-bottom:12px;">🔧 <b>黄帝喵</b> — 造车、造船、做衣服<br>是「科技发明家」</li>
+          <li>⚔️ <b>蚩尤喵</b> — 超级勇猛的战士<br>铜头铁额，太厉害了！</li>
         </ul>
       </div>
       <div class="card" id="card1">
         <h3>⏳ 时间线</h3>
+        <button class="listen-btn" onclick="playAudio('card2',this)">🔊 听一听</button>
         <ul class="timeline">
           <li>远古时代……</li>
           <li>很多小部落，各过各的</li>
@@ -99,6 +102,7 @@ section.active { display: block; }
       </div>
       <div class="card" id="card2">
         <h3>🤓 冷知识</h3>
+        <button class="listen-btn" onclick="playAudio('card3',this)">🔊 听一听</button>
         <p style="font-size:17px;line-height:1.8;">「中华」这个词里的<b>「华」</b>，就来自<b>「华夏」</b>。</p>
         <p style="font-size:17px;line-height:1.8;margin-top:12px;">所以每次说「中华」，其实是在说五千年前炎帝和黄帝合并的那个故事！🐱✨</p>
       </div>
@@ -110,14 +114,30 @@ section.active { display: block; }
     <button class="next-btn" id="toQuiz" disabled onclick="goStep(2)">📝 开始答题</button>
     <p class="note" id="cardNote">翻完所有卡片才能答题哦</p>
   </section>
-  <!-- Step 3 -->
+
+  <!-- Step 3: Quiz -->
   <section id="sec2">
     <h2 style="font-size:20px;margin-bottom:14px;">🧠 答题时间！</h2>
     <div id="quizArea"></div>
     <div id="resultArea" style="display:none;"></div>
   </section>
 </div>
+
 <script>
+const AUDIO_BASE = 'audio/';
+let currentAudio = null;
+
+function playAudio(name, btn) {
+  if (currentAudio) { currentAudio.pause(); currentAudio = null; }
+  document.querySelectorAll('.listen-btn').forEach(b => b.classList.remove('playing'));
+  const a = new Audio(AUDIO_BASE + name + '.mp3');
+  currentAudio = a;
+  if (btn) btn.classList.add('playing');
+  a.onended = () => { if (btn) btn.classList.remove('playing'); currentAudio = null; };
+  a.onerror = () => { if (btn) btn.classList.remove('playing'); };
+  a.play();
+}
+
 // Steps
 let curStep = 0;
 function goStep(s) {
@@ -127,86 +147,95 @@ function goStep(s) {
   document.getElementById('sec'+s).classList.add('active');
   document.getElementById('dot'+s).classList.add('active');
   window.scrollTo(0,0);
-  if(s===2) renderQuiz();
+  if (s === 2) renderQuiz();
 }
+
 // Cards
 let curCard = 0, maxCard = 0;
 const totalCards = 3;
 function moveCard(d) {
   document.getElementById('card'+curCard).classList.remove('active');
   curCard += d;
-  if(curCard > maxCard) maxCard = curCard;
+  if (curCard > maxCard) maxCard = curCard;
   document.getElementById('card'+curCard).classList.add('active');
   document.getElementById('prevCard').disabled = curCard === 0;
   document.getElementById('nextCard').disabled = curCard === totalCards - 1;
   updateDots();
-  if(maxCard >= totalCards - 1) {
+  if (maxCard >= totalCards - 1) {
     document.getElementById('toQuiz').disabled = false;
     document.getElementById('cardNote').textContent = '✅ 全部看完啦，可以答题了！';
   }
 }
 function updateDots() {
   let s = '';
-  for(let i=0;i<totalCards;i++) s += (i===curCard?'● ':'○ ');
+  for (let i = 0; i < totalCards; i++) s += (i === curCard ? '● ' : '○ ');
   document.getElementById('cardDots').textContent = s.trim();
 }
+
 // Quiz
 const questions = [
-  {q:'1. 为什么我们叫「炎黄子孙」？', opts:['因为中国很热（炎）又很黄','因为炎帝和黄帝是华夏的共同祖先','因为有个皇帝姓炎黄'], ans:1},
-  {q:'2. 下面哪个是炎帝的贡献？', opts:['教人们种粮食','发明了车和船','铜头铁额打仗特别猛'], ans:0},
-  {q:'3. 蚩尤最后怎么样了？', opts:['当了皇帝','被炎帝和黄帝联手打败了','自己跑掉了'], ans:1},
-  {q:'4.「华夏」是怎么来的？', opts:['一个地方的名字','炎帝和黄帝的部落合并后的名字','一只猫的名字'], ans:1},
-  {q:'5. 黄帝被称为「发明家」，下面哪个和他有关？', opts:['文字和车','炸酱面','手机'], ans:0},
+  {q:'第一题：为什么我们叫「炎黄子孙」？', opts:['因为中国很热又很黄','因为炎帝和黄帝是华夏的共同祖先','因为有个皇帝姓炎黄'], ans:1, audio:'q1'},
+  {q:'第二题：下面哪个是炎帝的贡献？', opts:['教人们种粮食','发明了车和船','铜头铁额打仗特别猛'], ans:0, audio:'q2'},
+  {q:'第三题：蚩尤最后怎么样了？', opts:['当了皇帝','被炎帝和黄帝联手打败了','自己跑掉了'], ans:1, audio:'q3'},
+  {q:'第四题：「华夏」是怎么来的？', opts:['一个地方的名字','炎帝和黄帝的部落合并后的名字','一只猫的名字'], ans:1, audio:'q4'},
+  {q:'第五题：黄帝被称为「发明家」，下面哪个和他有关？', opts:['文字和车','炸酱面','手机'], ans:0, audio:'q5'},
 ];
 let score = 0, answered = 0;
-function speak(text) {
-  if(!window.speechSynthesis) return;
-  speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = 'zh-CN'; u.rate = 0.9;
-  speechSynthesis.speak(u);
-}
+
 function renderQuiz() {
   const area = document.getElementById('quizArea');
   area.innerHTML = '';
   questions.forEach((q, qi) => {
     const div = document.createElement('div');
     div.className = 'quiz-card';
-    div.innerHTML = `<h3>${q.q}</h3><button class="read-btn" onclick="speak(questions[${qi}].q)">🔊 再读一遍</button><div class="opts" id="opts${qi}"></div><div class="feedback" id="fb${qi}"></div>`;
+    div.innerHTML = `<h3>${q.q}</h3><button class="listen-btn" onclick="playAudio('${q.audio}',this)">🔊 再听一遍</button><div class="opts" id="opts${qi}"></div><div class="feedback" id="fb${qi}"></div>`;
     area.appendChild(div);
     const optsDiv = div.querySelector('.opts');
     q.opts.forEach((o, oi) => {
       const btn = document.createElement('button');
       btn.className = 'option';
-      btn.textContent = String.fromCharCode(97+oi) + ') ' + o;
+      btn.textContent = String.fromCharCode(65+oi) + '. ' + o;
       btn.onclick = () => answer(qi, oi, btn);
       optsDiv.appendChild(btn);
     });
   });
-  // auto-read first question
-  setTimeout(() => speak(questions[0].q), 500);
+  // Auto-play first question
+  setTimeout(() => playAudio('q1', null), 500);
 }
+
 function answer(qi, oi, btn) {
   const optsDiv = document.getElementById('opts'+qi);
   const fb = document.getElementById('fb'+qi);
-  if(optsDiv.dataset.done) return;
+  if (optsDiv.dataset.done) return;
   optsDiv.dataset.done = '1';
   const correct = questions[qi].ans === oi;
-  if(correct) { score++; btn.classList.add('correct'); fb.textContent='✅ 对了！太棒啦！'; fb.style.color='#43A047'; }
-  else { btn.classList.add('wrong'); optsDiv.children[questions[qi].ans].classList.add('correct'); fb.textContent='❌ 再想想～ 正确答案是 '+String.fromCharCode(97+questions[qi].ans)+') '+questions[qi].opts[questions[qi].ans]; fb.style.color='#E53935'; }
-  [...optsDiv.children].forEach(b=>b.disabled=true);
+  if (correct) {
+    score++;
+    btn.classList.add('correct');
+    fb.textContent = '✅ 对了！太棒啦！';
+    fb.style.color = '#43A047';
+  } else {
+    btn.classList.add('wrong');
+    optsDiv.children[questions[qi].ans].classList.add('correct');
+    fb.textContent = '❌ 没关系～ 正确答案是 ' + String.fromCharCode(65+questions[qi].ans) + '. ' + questions[qi].opts[questions[qi].ans];
+    fb.style.color = '#E53935';
+  }
+  [...optsDiv.children].forEach(b => b.disabled = true);
   answered++;
-  if(answered===questions.length) setTimeout(showResult, 800);
-  else setTimeout(()=>speak(questions[qi+1].q), 600);
+  if (answered === questions.length) {
+    setTimeout(showResult, 800);
+  } else {
+    setTimeout(() => playAudio(questions[qi+1].audio, null), 600);
+  }
 }
+
 function showResult() {
   const r = document.getElementById('resultArea');
-  r.style.display='block';
-  const msgs = ['满分！🎉 你是历史小天才！','很棒！再接再厉哦！✨','不错哦，继续加油！💪','还可以再看一遍视频复习哦 📺','没关系，下次会更好！❤️'];
+  r.style.display = 'block';
+  const msgs = ['🎉 满分！你是历史小天才！','✨ 很棒！再接再厉哦！','💪 不错哦，继续加油！','📺 可以再看一遍视频复习哦','❤️ 没关系，下次会更好！'];
   const mi = score===5?0:score>=4?1:score>=3?2:score>=2?3:4;
   r.innerHTML = `<div class="result-box"><p>答题结束！</p><div class="score">${score} / 5</div><p>${msgs[mi]}</p></div>`;
   r.scrollIntoView({behavior:'smooth'});
-  speak(`你答对了${score}道题！${msgs[mi].replace(/[🎉✨💪📺❤️]/g,'')}`);
 }
 </script>
 </body>
