@@ -185,7 +185,7 @@ function goStep(s) {
   if (s === 2 && !document.getElementById('quizArea').innerHTML) renderQuiz();
 }
 function goBackTo(s) {
-  if (s >= curStep || s > maxStep) return; // only go back to completed steps
+  if (s === curStep || s > maxStep) return;
   document.getElementById('sec'+curStep).classList.remove('active');
   document.getElementById('dot'+curStep).classList.remove('active');
   document.getElementById('dot'+curStep).classList.add('done');
