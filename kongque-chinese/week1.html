@@ -172,7 +172,12 @@ function playAudio(name, btn) {
 
 // Steps
 let curStep = 0, maxStep = 0;
+function stopAudio() {
+  if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; currentAudio = null; }
+  document.querySelectorAll('.listen-btn').forEach(b => b.classList.remove('playing'));
+}
 function goStep(s) {
+  stopAudio();
   document.getElementById('sec'+curStep).classList.remove('active');
   document.getElementById('dot'+curStep).classList.remove('active');
   document.getElementById('dot'+curStep).classList.add('done');
@@ -186,6 +191,7 @@ function goStep(s) {
 }
 function goBackTo(s) {
   if (s === curStep || s > maxStep) return;
+  stopAudio();
   document.getElementById('sec'+curStep).classList.remove('active');
   document.getElementById('dot'+curStep).classList.remove('active');
   document.getElementById('dot'+curStep).classList.add('done');
