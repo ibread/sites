@@ -69,9 +69,19 @@ section.active { display: block; }
   <!-- Step 1: Watch Videos -->
   <section id="sec0" class="active">
     <h2 style="font-size:20px;margin-bottom:12px;">📺 先看两集动画片吧！</h2>
-    <p style="font-size:15px;margin-bottom:16px;color:#7a6050;">点下面的按钮去B站看《如果历史是一群喵》，看完回来点「看完了」👇</p>
-    <a href="https://www.bilibili.com/bangumi/play/ep246674" target="_blank" rel="noopener" class="video-btn">🎬 第1集：华夏诞生</a>
-    <a href="https://www.bilibili.com/bangumi/play/ep246803" target="_blank" rel="noopener" class="video-btn">🎬 第2集：统一战争</a>
+    <p style="font-size:15px;margin-bottom:8px;color:#7a6050;">第1集：华夏诞生</p>
+    <div style="position:relative;width:100%;padding-bottom:62.5%;border-radius:16px;overflow:hidden;margin-bottom:16px;background:#000;">
+      <iframe src="//player.bilibili.com/player.html?bvid=BV1eW411f7Lh&page=1&autoplay=0&high_quality=1" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" allowfullscreen></iframe>
+    </div>
+    <p style="font-size:15px;margin-bottom:8px;color:#7a6050;">第2集：统一战争</p>
+    <div style="position:relative;width:100%;padding-bottom:62.5%;border-radius:16px;overflow:hidden;margin-bottom:16px;background:#000;">
+      <iframe src="//player.bilibili.com/player.html?bvid=BV1NW411o7UW&page=1&autoplay=0&high_quality=1" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" allowfullscreen></iframe>
+    </div>
+    <p style="font-size:13px;color:#b0906a;text-align:center;margin-bottom:4px;">如果视频无法播放，可以点下面按钮去B站看</p>
+    <div style="display:flex;gap:10px;">
+      <a href="https://www.bilibili.com/bangumi/play/ep246674" target="_blank" rel="noopener" class="video-btn" style="font-size:14px;padding:12px;">🎬 第1集</a>
+      <a href="https://www.bilibili.com/bangumi/play/ep246803" target="_blank" rel="noopener" class="video-btn" style="font-size:14px;padding:12px;">🎬 第2集</a>
+    </div>
     <button class="next-btn" onclick="goStep(1)">✅ 看完了，下一步</button>
   </section>
 
