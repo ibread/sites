@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>玥玥英语水平小测试 🌟</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+}
+.container {
+  background: white;
+  border-radius: 24px;
+  max-width: 420px;
+  width: 100%;
+  padding: 28px 24px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  margin-top: 10px;
+}
+h1 { font-size: 24px; text-align: center; margin-bottom: 6px; }
+.subtitle { text-align: center; color: #666; font-size: 14px; margin-bottom: 24px; }
+.section-title {
+  font-size: 18px; font-weight: 700; margin: 20px 0 12px;
+  padding: 8px 14px; border-radius: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.s1 { background: #FFF3E0; color: #E65100; }
+.s2 { background: #E8F5E9; color: #2E7D32; }
+.s3 { background: #E3F2FD; color: #1565C0; }
+.s4 { background: #F3E5F5; color: #7B1FA2; }
+.s5 { background: #FFF8E1; color: #F57F17; }
+
+.instruction {
+  font-size: 13px; color: #888; margin-bottom: 14px;
+  padding: 0 4px; line-height: 1.5;
+}
+.instruction b { color: #555; }
+
+/* Question card */
+.q-card {
+  background: #FAFAFA; border-radius: 16px;
+  padding: 16px; margin-bottom: 12px;
+  border: 2px solid transparent;
+  transition: border-color 0.3s;
+}
+.q-card.correct { border-color: #4CAF50; background: #F1F8E9; }
+.q-card.wrong { border-color: #EF5350; background: #FFEBEE; }
+
+.q-label {
+  font-size: 13px; color: #999; margin-bottom: 8px;
+  font-weight: 600;
+}
+.q-prompt {
+  font-size: 20px; font-weight: 700; margin-bottom: 12px;
+  text-align: center; letter-spacing: 2px;
+}
+.q-prompt.big { font-size: 36px; letter-spacing: 6px; }
+
+.options {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.options.three-col { grid-template-columns: 1fr 1fr 1fr; }
+
+.opt-btn {
+  padding: 12px 8px; border-radius: 12px;
+  border: 2px solid #E0E0E0; background: white;
+  font-size: 16px; font-weight: 600;
+  cursor: pointer; transition: all 0.2s;
+  text-align: center;
+}
+.opt-btn:active { transform: scale(0.95); }
+.opt-btn.selected { border-color: #1976D2; background: #E3F2FD; color: #1976D2; }
+.opt-btn.correct-answer { border-color: #4CAF50; background: #E8F5E9; color: #2E7D32; }
+.opt-btn.wrong-answer { border-color: #EF5350; background: #FFEBEE; color: #C62828; }
+.opt-btn:disabled { cursor: default; opacity: 0.7; }
+
+.emoji-opt { font-size: 28px; }
+
+/* Audio button */
+.audio-btn {
+  display: flex; align-items: center; justify-content: center;
+  gap: 8px; padding: 10px 20px; border-radius: 50px;
+  border: none; background: #7C4DFF; color: white;
+  font-size: 15px; font-weight: 600; cursor: pointer;
+  margin: 0 auto 14px; transition: background 0.2s;
+}
+.audio-btn:active { background: #651FFF; }
+
+/* Progress */
+.progress-bar {
+  height: 6px; background: #E0E0E0; border-radius: 3px;
+  margin-bottom: 20px; overflow: hidden;
+}
+.progress-fill {
+  height: 100%; background: linear-gradient(90deg, #667eea, #764ba2);
+  border-radius: 3px; transition: width 0.4s ease;
+}
+
+/* Results */
+.results { text-align: center; }
+.score-circle {
+  width: 120px; height: 120px; border-radius: 50%;
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; margin: 20px auto;
+  font-size: 36px; font-weight: 800; color: white;
+}
+.score-circle .label { font-size: 12px; font-weight: 400; opacity: 0.9; }
+.score-high { background: linear-gradient(135deg, #43A047, #66BB6A); }
+.score-mid { background: linear-gradient(135deg, #FB8C00, #FFA726); }
+.score-low { background: linear-gradient(135deg, #E53935, #EF5350); }
+
+.breakdown { text-align: left; margin: 20px 0; }
+.bd-row {
+  display: flex; justify-content: space-between;
+  align-items: center; padding: 10px 0;
+  border-bottom: 1px solid #F0F0F0;
+}
+.bd-row:last-child { border: none; }
+.bd-label { font-size: 14px; font-weight: 600; }
+.bd-score { font-size: 14px; }
+.bd-bar { flex: 1; height: 6px; background: #E0E0E0; border-radius: 3px; margin: 0 12px; }
+.bd-bar-fill { height: 100%; border-radius: 3px; }
+
+.level-tag {
+  display: inline-block; padding: 6px 16px;
+  border-radius: 50px; font-size: 14px; font-weight: 700;
+  margin: 8px 4px;
+}
+
+.tip-box {
+  background: #FFF8E1; border-radius: 12px;
+  padding: 14px; margin-top: 16px; text-align: left;
+  font-size: 13px; line-height: 1.6;
+}
+.tip-box b { color: #E65100; }
+
+.start-btn, .restart-btn {
+  display: block; width: 100%; padding: 16px;
+  border-radius: 16px; border: none;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white; font-size: 18px; font-weight: 700;
+  cursor: pointer; margin-top: 16px;
+  transition: transform 0.2s;
+}
+.start-btn:active, .restart-btn:active { transform: scale(0.97); }
+
+.feedback {
+  text-align: center; font-size: 24px;
+  margin-top: 8px; min-height: 32px;
+}
+
+/* Hide sections */
+.hidden { display: none; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- START SCREEN -->
+<div id="startScreen">
+  <h1>🌟 玥玥英语小测试</h1>
+  <p class="subtitle">Year 1 Ready 水平评估</p>
+  <div style="text-align:center; font-size:60px; margin:20px 0;">🦋</div>
+  <div style="padding:0 8px; font-size:14px; color:#555; line-height:1.7;">
+    <p>这个测试帮助了解玥玥目前的英语基础，一共 <b>20 道题</b>，大约 <b>10 分钟</b>。</p>
+    <br>
+    <p>📋 <b>测试内容：</b></p>
+    <p>① 字母发音识别</p>
+    <p>② 简单单词拼读</p>
+    <p>③ 高频词认读</p>
+    <p>④ 图片词汇配对</p>
+    <p>⑤ 简单句子理解</p>
+    <br>
+    <p>💡 <b>给爸爸妈妈：</b></p>
+    <p>• 念出题目中的字母/单词，让玥玥选答案</p>
+    <p>• 不用提示，看她自然反应</p>
+    <p>• 不会的直接跳过也没关系</p>
+  </div>
+  <button class="start-btn" onclick="startTest()">开始测试 🚀</button>
+</div>
+
+<!-- TEST SCREEN -->
+<div id="testScreen" class="hidden">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+    <span id="qCount" style="font-size:13px; color:#999; font-weight:600;"></span>
+    <span id="sectionName" style="font-size:13px; font-weight:600; padding:4px 10px; border-radius:8px;"></span>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+  <div id="questionArea"></div>
+</div>
+
+<!-- RESULTS SCREEN -->
+<div id="resultsScreen" class="hidden"></div>
+
+</div>
+
+<script>
+const questions = [
+  // === SECTION 1: Letter Sound Recognition (4 questions) ===
+  {
+    section: 1, sectionName: "字母发音", sectionClass: "s1",
+    instruction: "请念出这个字母的发音，问玥玥：这个字母发什么音？",
+    prompt: "s", promptClass: "big",
+    options: ["sss (蛇的声音)", "zee", "mmm", "fff"],
+    correct: 0
+  },
+  {
+    section: 1, sectionName: "字母发音", sectionClass: "s1",
+    instruction: "请问玥玥：这个字母发什么音？",
+    prompt: "m", promptClass: "big",
+    options: ["ttt", "ppp", "mmm (嗡嗡声)", "nnn"],
+    correct: 2
+  },
+  {
+    section: 1, sectionName: "字母发音", sectionClass: "s1",
+    instruction: "请问玥玥：这个字母发什么音？",
+    prompt: "a", promptClass: "big",
+    options: ["æ (apple的a)", "ee", "oh", "uh"],
+    correct: 0
+  },
+  {
+    section: 1, sectionName: "字母发音", sectionClass: "s1",
+    instruction: "请问玥玥：这个字母发什么音？",
+    prompt: "t", promptClass: "big",
+    options: ["ppp", "ddd", "ttt (短促的t)", "kkk"],
+    correct: 2
+  },
+
+  // === SECTION 2: CVC Blending (4 questions) ===
+  {
+    section: 2, sectionName: "单词拼读", sectionClass: "s2",
+    instruction: "请让玥玥看这个词，试着把每个字母的音拼在一起读出来",
+    prompt: "cat", promptClass: "big",
+    options: ["🐱 cat（猫）", "🚗 car（车）", "🧢 cap（帽子）", "🥤 cup（杯子）"],
+    correct: 0
+  },
+  {
+    section: 2, sectionName: "单词拼读", sectionClass: "s2",
+    instruction: "请让玥玥试着读出这个词",
+    prompt: "dog", promptClass: "big",
+    options: ["🚪 door（门）", "🐶 dog（狗）", "🦆 duck（鸭子）", "🍩 dot（点）"],
+    correct: 1
+  },
+  {
+    section: 2, sectionName: "单词拼读", sectionClass: "s2",
+    instruction: "请让玥玥试着读出这个词",
+    prompt: "sun", promptClass: "big",
+    options: ["🏃 run（跑）", "🧂 salt（盐）", "☀️ sun（太阳）", "🧦 sock（袜子）"],
+    correct: 2
+  },
+  {
+    section: 2, sectionName: "单词拼读", sectionClass: "s2",
+    instruction: "请让玥玥试着读出这个词",
+    prompt: "hop", promptClass: "big",
+    options: ["🔥 hot（热）", "🐰 hop（跳）", "🏠 home（家）", "🐷 hog（猪）"],
+    correct: 1
+  },
+
+  // === SECTION 3: Sight Words (4 questions) ===
+  {
+    section: 3, sectionName: "高频词", sectionClass: "s3",
+    instruction: "给玥玥看这个词，问她认不认识、怎么读？",
+    prompt: "the", promptClass: "big",
+    options: ["the（那个）", "he（他）", "she（她）", "不认识"],
+    correct: 0
+  },
+  {
+    section: 3, sectionName: "高频词", sectionClass: "s3",
+    instruction: "给玥玥看这个词，问她认不认识？",
+    prompt: "and", promptClass: "big",
+    options: ["an（一个）", "and（和）", "add（加）", "不认识"],
+    correct: 1
+  },
+  {
+    section: 3, sectionName: "高频词", sectionClass: "s3",
+    instruction: "给玥玥看这个词，问她认不认识？",
+    prompt: "is", promptClass: "big",
+    options: ["it（它）", "in（在…里）", "is（是）", "不认识"],
+    correct: 2
+  },
+  {
+    section: 3, sectionName: "高频词", sectionClass: "s3",
+    instruction: "给玥玥看这个词，问她认不认识？",
+    prompt: "said", promptClass: "big",
+    options: ["said（说）", "sad（伤心）", "sit（坐）", "不认识"],
+    correct: 0
+  },
+
+  // === SECTION 4: Picture-Word Matching (4 questions) ===
+  {
+    section: 4, sectionName: "图片词汇", sectionClass: "s4",
+    instruction: "问玥玥：这是什么？（用英语回答）",
+    prompt: "🍎", promptClass: "big",
+    options: ["apple", "orange", "banana", "不知道"],
+    correct: 0
+  },
+  {
+    section: 4, sectionName: "图片词汇", sectionClass: "s4",
+    instruction: "问玥玥：这是什么？（用英语回答）",
+    prompt: "🐟", promptClass: "big",
+    options: ["bird", "fish", "frog", "不知道"],
+    correct: 1
+  },
+  {
+    section: 4, sectionName: "图片词汇", sectionClass: "s4",
+    instruction: "问玥玥：这是什么颜色？",
+    prompt: "🔴", promptClass: "big",
+    options: ["blue", "green", "red", "不知道"],
+    correct: 2
+  },
+  {
+    section: 4, sectionName: "图片词汇", sectionClass: "s4",
+    instruction: "问玥玥：这是数字几？",
+    prompt: "5️⃣", promptClass: "big",
+    options: ["three", "five", "seven", "不知道"],
+    correct: 1
+  },
+
+  // === SECTION 5: Simple Sentence Comprehension (4 questions) ===
+  {
+    section: 5, sectionName: "句子理解", sectionClass: "s5",
+    instruction: "请读给玥玥听，问她：The cat is on the mat. 猫在哪里？",
+    prompt: "The cat is on the mat.",
+    options: ["在床上 (bed)", "在垫子上 (mat)", "在桌子下 (table)", "听不懂"],
+    correct: 1
+  },
+  {
+    section: 5, sectionName: "句子理解", sectionClass: "s5",
+    instruction: "请读给玥玥听，问她：I can see a big red bus. 她看到了什么？",
+    prompt: "I can see a big red bus.",
+    options: ["一只猫", "一辆大红巴士", "一个大红球", "听不懂"],
+    correct: 1
+  },
+  {
+    section: 5, sectionName: "句子理解", sectionClass: "s5",
+    instruction: "请读给玥玥听，问她：The dog is not happy. 狗狗开心吗？",
+    prompt: "The dog is not happy.",
+    options: ["开心", "不开心", "在睡觉", "听不懂"],
+    correct: 1
+  },
+  {
+    section: 5, sectionName: "句子理解", sectionClass: "s5",
+    instruction: "请读给玥玥听，问她：How many legs does a cat have?",
+    prompt: "How many legs does a cat have?",
+    options: ["2", "4", "6", "听不懂"],
+    correct: 1
+  }
+];
+
+let currentQ = 0;
+let answers = [];
+const sectionScores = {1:0, 2:0, 3:0, 4:0, 5:0};
+const sectionTotals = {1:4, 2:4, 3:4, 4:4, 5:4};
+const sectionNames = {
+  1: "🔤 字母发音",
+  2: "📖 单词拼读",
+  3: "👀 高频词",
+  4: "🖼 图片词汇",
+  5: "📝 句子理解"
+};
+const sectionColors = {
+  1: "#E65100", 2: "#2E7D32", 3: "#1565C0", 4: "#7B1FA2", 5: "#F57F17"
+};
+
+function startTest() {
+  document.getElementById('startScreen').classList.add('hidden');
+  document.getElementById('testScreen').classList.remove('hidden');
+  showQuestion();
+}
+
+function showQuestion() {
+  const q = questions[currentQ];
+  const total = questions.length;
+
+  document.getElementById('qCount').textContent = `${currentQ + 1} / ${total}`;
+  document.getElementById('progressFill').style.width = `${((currentQ) / total) * 100}%`;
+
+  const sn = document.getElementById('sectionName');
+  sn.textContent = q.sectionName;
+  sn.className = `section-title ${q.sectionClass}`;
+  sn.style.margin = '0';
+  sn.style.fontSize = '13px';
+  sn.style.padding = '4px 10px';
+
+  let html = `<div class="q-card" id="qCard">`;
+  html += `<div class="instruction">${q.instruction}</div>`;
+  html += `<div class="q-prompt ${q.promptClass || ''}">${q.prompt}</div>`;
+  html += `<div class="options">`;
+  q.options.forEach((opt, i) => {
+    html += `<button class="opt-btn" onclick="selectAnswer(${i})" id="opt${i}">${opt}</button>`;
+  });
+  html += `</div>`;
+  html += `<div class="feedback" id="feedback"></div>`;
+  html += `</div>`;
+
+  document.getElementById('questionArea').innerHTML = html;
+}
+
+function selectAnswer(idx) {
+  const q = questions[currentQ];
+  const isCorrect = idx === q.correct;
+
+  // Disable all buttons
+  q.options.forEach((_, i) => {
+    document.getElementById(`opt${i}`).disabled = true;
+  });
+
+  // Show correct/wrong
+  if (isCorrect) {
+    document.getElementById(`opt${idx}`).classList.add('correct-answer');
+    document.getElementById('feedback').textContent = '✅ 太棒了！';
+    sectionScores[q.section]++;
+  } else {
+    document.getElementById(`opt${idx}`).classList.add('wrong-answer');
+    document.getElementById(`opt${q.correct}`).classList.add('correct-answer');
+    const isSkip = q.options[idx].includes('不认识') || q.options[idx].includes('听不懂') || q.options[idx].includes('不知道');
+    document.getElementById('feedback').textContent = isSkip ? '⏭ 没关系，继续！' : '❌ 没关系！';
+  }
+
+  document.getElementById('qCard').classList.add(isCorrect ? 'correct' : 'wrong');
+  answers.push({ question: currentQ, selected: idx, correct: isCorrect });
+
+  // Auto advance
+  setTimeout(() => {
+    currentQ++;
+    if (currentQ < questions.length) {
+      showQuestion();
+    } else {
+      showResults();
+    }
+  }, 1200);
+}
+
+function showResults() {
+  document.getElementById('testScreen').classList.add('hidden');
+  const screen = document.getElementById('resultsScreen');
+  screen.classList.remove('hidden');
+
+  const totalCorrect = Object.values(sectionScores).reduce((a, b) => a + b, 0);
+  const totalQ = questions.length;
+  const pct = Math.round((totalCorrect / totalQ) * 100);
+
+  let scoreClass = pct >= 70 ? 'score-high' : pct >= 40 ? 'score-mid' : 'score-low';
+
+  let levelText, levelColor, levelEmoji, advice;
+  if (pct >= 80) {
+    levelText = 'Year 1 Ready! 🎉';
+    levelColor = '#4CAF50';
+    levelEmoji = '🌟';
+    advice = '玥玥的基础非常好！接下来3个月可以做提升巩固，重点放在阅读流畅度和书写练习上。';
+  } else if (pct >= 60) {
+    levelText = '接近 Ready ✨';
+    levelColor = '#2196F3';
+    levelEmoji = '💪';
+    advice = '基础不错！3个月时间抓薄弱环节完全来得及。重点看下面哪个模块得分低，针对性补。';
+  } else if (pct >= 35) {
+    levelText = '有一定基础 📚';
+    levelColor = '#FF9800';
+    levelEmoji = '📖';
+    advice = '有基础但需要系统补习。建议4月集中攻 Phonics，5月加高频词，6月综合练。每天15-20分钟。';
+  } else {
+    levelText = '需要从头开始 🌱';
+    levelColor = '#F44336';
+    levelEmoji = '🌱';
+    advice = '别担心！3个月从零开始学 Phonics 完全来得及。建议从 Phase 2 字母音开始，配合 Jolly Phonics 动画，每天15分钟。';
+  }
+
+  let html = `<h1>${levelEmoji} 测试结果</h1>`;
+  html += `<div class="score-circle ${scoreClass}">
+    <div>${totalCorrect}/${totalQ}</div>
+    <div class="label">正确率 ${pct}%</div>
+  </div>`;
+  html += `<div class="level-tag" style="background:${levelColor}22; color:${levelColor}; border:2px solid ${levelColor};">${levelText}</div>`;
+
+  // Breakdown
+  html += `<div class="breakdown">`;
+  for (let s = 1; s <= 5; s++) {
+    const score = sectionScores[s];
+    const total = sectionTotals[s];
+    const spct = Math.round((score / total) * 100);
+    const color = sectionColors[s];
+    const stars = score === total ? ' ⭐️' : score === 0 ? ' ⚠️' : '';
+    html += `<div class="bd-row">
+      <div class="bd-label" style="min-width:90px;">${sectionNames[s]}</div>
+      <div class="bd-bar"><div class="bd-bar-fill" style="width:${spct}%; background:${color};"></div></div>
+      <div class="bd-score">${score}/${total}${stars}</div>
+    </div>`;
+  }
+  html += `</div>`;
+
+  // Advice
+  html += `<div class="tip-box"><b>💡 评估建议</b><br><br>${advice}`;
+
+  // Specific weak areas
+  let weak = [];
+  if (sectionScores[1] <= 2) weak.push('字母发音（Phonics Phase 2）');
+  if (sectionScores[2] <= 1) weak.push('单词拼读（CVC Blending）');
+  if (sectionScores[3] <= 1) weak.push('高频词识别（Sight Words）');
+  if (sectionScores[4] <= 2) weak.push('基础词汇量');
+  if (sectionScores[5] <= 1) weak.push('听力句子理解');
+
+  if (weak.length > 0) {
+    html += `<br><br><b>⚠️ 需要重点关注：</b><br>`;
+    weak.forEach(w => { html += `• ${w}<br>`; });
+  }
+
+  let strong = [];
+  if (sectionScores[1] >= 3) strong.push('字母发音');
+  if (sectionScores[2] >= 3) strong.push('单词拼读');
+  if (sectionScores[3] >= 3) strong.push('高频词');
+  if (sectionScores[4] >= 3) strong.push('图片词汇');
+  if (sectionScores[5] >= 3) strong.push('句子理解');
+
+  if (strong.length > 0) {
+    html += `<br><b>✅ 已掌握较好：</b><br>`;
+    strong.forEach(s => { html += `• ${s}<br>`; });
+  }
+
+  html += `</div>`;
+
+  html += `<button class="restart-btn" onclick="location.reload()">重新测试 🔄</button>`;
+  html += `<p style="text-align:center; color:#999; font-size:12px; margin-top:12px;">测试完成后截图发给小管家，帮你定制补习计划 📋</p>`;
+
+  screen.innerHTML = html;
+}
+</script>
+</body>
+</html>
