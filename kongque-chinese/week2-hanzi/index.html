@@ -167,6 +167,7 @@ section.active { display: block; }
   <span class="step-dot" id="dot1" onclick="goBackTo(1)">📖 学知识</span>
   <span class="step-dot" id="dot2" onclick="goBackTo(2)">✍️ 试一试</span>
   <span class="step-dot" id="dot3" onclick="goBackTo(3)">🧠 答题</span>
+  <span class="step-dot" id="dot4" onclick="goBackTo(4)">🎬 奖励</span>
 </div>
 
 <div class="container">
@@ -185,17 +186,8 @@ section.active { display: block; }
     <div style="position:relative;width:100%;padding-bottom:62.5%;border-radius:16px;overflow:hidden;margin-bottom:16px;background:#000;">
       <iframe src="//player.bilibili.com/player.html?bvid=BV1v4411H79u&page=1&autoplay=0&high_quality=1" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" allowfullscreen></iframe>
     </div>
-
-    <p style="font-size:15px;margin-bottom:8px;color:#8898B8;">🎬 《神奇的汉字故事》第1集：最初的字不是写而是画</p>
-    <div style="position:relative;width:100%;padding-bottom:62.5%;border-radius:16px;overflow:hidden;margin-bottom:16px;background:#000;">
-      <iframe src="//player.bilibili.com/player.html?bvid=BV1Lg411C7LA&page=1&autoplay=0&high_quality=1" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" allowfullscreen></iframe>
-    </div>
-
     <p style="font-size:13px;color:#8898B8;text-align:center;margin-bottom:4px;">如果视频无法播放，可以点下面按钮去B站看</p>
-    <div style="display:flex;gap:10px;">
-      <a href="https://www.bilibili.com/video/BV1v4411H79u/" target="_blank" rel="noopener" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:12px;border:none;border-radius:16px;font-size:14px;font-weight:600;cursor:pointer;background:linear-gradient(135deg,#00A1D6,#00B5E5);color:#fff;box-shadow:0 4px 12px rgba(0,161,214,.3);text-decoration:none;">🎬 三十六个字</a>
-      <a href="https://www.bilibili.com/video/BV1Lg411C7LA/" target="_blank" rel="noopener" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:12px;border:none;border-radius:16px;font-size:14px;font-weight:600;cursor:pointer;background:linear-gradient(135deg,#00A1D6,#00B5E5);color:#fff;box-shadow:0 4px 12px rgba(0,161,214,.3);text-decoration:none;">🎬 汉字故事</a>
-    </div>
+    <a href="https://www.bilibili.com/video/BV1v4411H79u/" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;margin:8px 0;border:none;border-radius:16px;font-size:16px;font-weight:600;cursor:pointer;background:linear-gradient(135deg,#00A1D6,#00B5E5);color:#fff;box-shadow:0 4px 12px rgba(0,161,214,.3);text-decoration:none;">🎬 去B站观看</a>
 
     <button class="next-btn" onclick="goStep(1)">✅ 看完了，下一步</button>
   </section>
@@ -355,6 +347,26 @@ section.active { display: block; }
     <div id="resultArea" style="display:none;"></div>
   </section>
 
+  <!-- ===== Step 4: Reward Video ===== -->
+  <section id="sec4">
+    <h2 style="font-size:20px;margin-bottom:14px;">🎬🧜‍♀️ 奖励时间！</h2>
+    <div style="background:#fff;border-radius:16px;padding:18px;box-shadow:0 4px 16px rgba(0,0,0,.06);margin-bottom:16px;">
+      <p style="font-size:17px;line-height:1.8;text-align:center;">🎉 <b>恭喜你完成了今天的学习！</b></p>
+      <p style="font-size:15px;line-height:1.8;margin-top:8px;color:#5B86E5;text-align:center;">🧜‍♀️ 美人鱼送你一个奖励视频！<br>看看更多汉字是怎么从画变成字的～</p>
+    </div>
+    <p style="font-size:15px;margin-bottom:8px;color:#8898B8;">🎬 《神奇的汉字故事》第1集：最初的字不是写而是画</p>
+    <div style="position:relative;width:100%;padding-bottom:62.5%;border-radius:16px;overflow:hidden;margin-bottom:16px;background:#000;">
+      <iframe src="//player.bilibili.com/player.html?bvid=BV1Lg411C7LA&page=1&autoplay=0&high_quality=1" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" allowfullscreen></iframe>
+    </div>
+    <p style="font-size:13px;color:#8898B8;text-align:center;margin-bottom:4px;">如果视频无法播放，可以点下面按钮去B站看</p>
+    <a href="https://www.bilibili.com/video/BV1Lg411C7LA/" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;margin:8px 0;border:none;border-radius:16px;font-size:16px;font-weight:600;cursor:pointer;background:linear-gradient(135deg,#00A1D6,#00B5E5);color:#fff;box-shadow:0 4px 12px rgba(0,161,214,.3);text-decoration:none;">🎬 去B站观看</a>
+    <div style="background:linear-gradient(135deg,#E8F5E9,#F1F8E9);border-radius:16px;padding:20px;margin-top:16px;text-align:center;">
+      <p style="font-size:20px;margin-bottom:8px;">🧜‍♀️ ⭐⭐⭐</p>
+      <p style="font-size:16px;font-weight:700;color:#43A047;">今天的学习全部完成啦！</p>
+      <p style="font-size:14px;color:#66BB6A;margin-top:4px;">你已经认识了：山 水 火 日 月 明 家</p>
+    </div>
+  </section>
+
 </div>
 
 <script>
@@ -380,7 +392,7 @@ function stopAudio() {
 
 // ===== Steps =====
 let curStep = 0, maxStep = 0;
-const TOTAL_STEPS = 4;
+const TOTAL_STEPS = 5;
 
 function goStep(s) {
   stopAudio();
@@ -563,7 +575,7 @@ function showResult() {
   const audioName = score === 5 ? 'result_perfect' : score >= 3 ? 'result_good' : 'result_ok';
   const msgs = ['🧜‍♀️ 满分！你是汉字小天才！','🧜‍♀️ 很棒！大部分都记住啦！','🧜‍♀️ 不错哦！继续加油！','🧜‍♀️ 可以再看一遍卡片哦','🧜‍♀️ 没关系，下次更棒！'];
   const mi = score===5?0:score>=4?1:score>=3?2:score>=2?3:4;
-  r.innerHTML = `<div class="result-box"><p>🧜‍♀️ 答题结束！</p><div class="score">${score} / 5</div><p>${msgs[mi]}</p><p style="margin-top:16px;font-size:14px;color:#8898B8;">今天学了：山 水 火 日 月 明 家</p></div>`;
+  r.innerHTML = `<div class="result-box"><p>🧜‍♀️ 答题结束！</p><div class="score">${score} / 5</div><p>${msgs[mi]}</p><p style="margin-top:16px;font-size:14px;color:#8898B8;">今天学了：山 水 火 日 月 明 家</p><button class="next-btn" onclick="goStep(4)" style="margin-top:16px;">🎬 领取奖励视频！</button></div>`;
   r.scrollIntoView({behavior:'smooth'});
   setTimeout(() => playAudio(audioName, null), 500);
 }
