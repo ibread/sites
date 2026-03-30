@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>玥玥英语课堂 🌟</title>
+<style>
+:root {
+  --purple: #7C4DFF;
+  --purple-light: #EDE7F6;
+  --green: #4CAF50;
+  --green-light: #E8F5E9;
+  --orange: #FF9800;
+  --orange-light: #FFF3E0;
+  --blue: #2196F3;
+  --blue-light: #E3F2FD;
+  --pink: #E91E63;
+  --gray: #9E9E9E;
+  --gray-light: #F5F5F5;
+  --bg: #F8F6FF;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  min-height: 100vh;
+  color: #333;
+  -webkit-tap-highlight-color: transparent;
+}
+.app { max-width: 430px; margin: 0 auto; padding-bottom: 100px; }
+
+/* ===== HEADER ===== */
+.header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 24px 20px 28px;
+  color: white;
+  border-radius: 0 0 28px 28px;
+  position: relative;
+}
+.header h1 { font-size: 22px; margin-bottom: 4px; }
+.header .sub { font-size: 13px; opacity: 0.85; }
+.header .mascot {
+  position: absolute; right: 20px; top: 18px;
+  font-size: 44px;
+}
+
+/* ===== STATS ROW ===== */
+.stats-row {
+  display: flex; gap: 10px;
+  margin: -20px 16px 16px; position: relative; z-index: 2;
+}
+.stat-card {
+  flex: 1; background: white; border-radius: 16px;
+  padding: 14px 12px; text-align: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+}
+.stat-num { font-size: 28px; font-weight: 800; }
+.stat-label { font-size: 11px; color: var(--gray); margin-top: 2px; }
+.stat-num.purple { color: var(--purple); }
+.stat-num.green { color: var(--green); }
+.stat-num.orange { color: var(--orange); }
+
+/* ===== PROGRESS RING ===== */
+.progress-section {
+  background: white; border-radius: 20px; margin: 0 16px 16px;
+  padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+.progress-section h2 { font-size: 16px; margin-bottom: 16px; }
+.progress-ring-wrap {
+  display: flex; align-items: center; gap: 20px;
+}
+.ring-container { position: relative; width: 100px; height: 100px; flex-shrink: 0; }
+.ring-container svg { transform: rotate(-90deg); }
+.ring-text {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+.ring-pct { font-size: 24px; font-weight: 800; color: var(--purple); }
+.ring-label { font-size: 10px; color: var(--gray); }
+.milestone-list { flex: 1; }
+.milestone {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px; padding: 4px 0;
+}
+.milestone .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  flex-shrink: 0;
+}
+.milestone .dot.done { background: var(--green); }
+.milestone .dot.current { background: var(--orange); animation: pulse 1.5s infinite; }
+.milestone .dot.future { background: #E0E0E0; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+/* ===== STREAK / CHECK-IN ===== */
+.checkin-section {
+  background: white; border-radius: 20px; margin: 0 16px 16px;
+  padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+.checkin-section h2 { font-size: 16px; margin-bottom: 14px; }
+.week-dots {
+  display: flex; justify-content: space-between; margin-bottom: 16px;
+}
+.day-dot {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+}
+.day-dot .label { font-size: 11px; color: var(--gray); }
+.day-dot .circle {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; border: 2px solid #E0E0E0; background: white;
+}
+.day-dot .circle.checked { background: var(--green); border-color: var(--green); color: white; }
+.day-dot .circle.today { border-color: var(--purple); border-width: 3px; }
+.streak-badge {
+  background: linear-gradient(135deg, #FF6B35, #FF9800);
+  color: white; border-radius: 12px; padding: 10px 16px;
+  display: flex; align-items: center; gap: 10px;
+  font-size: 14px; font-weight: 600;
+}
+.streak-badge .fire { font-size: 24px; }
+
+/* ===== WEEK LESSONS ===== */
+.week-section {
+  margin: 0 16px 16px;
+}
+.week-section h2 {
+  font-size: 16px; margin-bottom: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.week-nav {
+  display: flex; gap: 8px; margin-bottom: 12px;
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  padding-bottom: 4px;
+}
+.week-tab {
+  padding: 6px 14px; border-radius: 20px;
+  font-size: 13px; font-weight: 600;
+  border: 2px solid #E0E0E0; background: white;
+  white-space: nowrap; cursor: pointer;
+  transition: all 0.2s;
+}
+.week-tab.active { border-color: var(--purple); background: var(--purple-light); color: var(--purple); }
+.week-tab.completed { border-color: var(--green); background: var(--green-light); color: var(--green); }
+
+.lesson-card {
+  background: white; border-radius: 16px;
+  padding: 16px; margin-bottom: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  display: flex; align-items: center; gap: 14px;
+  cursor: pointer; transition: transform 0.2s;
+  border: 2px solid transparent;
+}
+.lesson-card:active { transform: scale(0.98); }
+.lesson-card.completed { border-color: var(--green-light); background: #FAFFFE; }
+.lesson-card.locked { opacity: 0.5; cursor: default; }
+.lesson-card.current { border-color: var(--purple); }
+
+.lesson-icon {
+  width: 48px; height: 48px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; flex-shrink: 0;
+}
+.lesson-info { flex: 1; }
+.lesson-title { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
+.lesson-desc { font-size: 12px; color: var(--gray); }
+.lesson-status { font-size: 22px; }
+
+/* ===== LESSON PAGE ===== */
+.lesson-page { display: none; }
+.lesson-page.active { display: block; }
+
+.lesson-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px; color: white;
+  border-radius: 0 0 24px 24px;
+  display: flex; align-items: center; gap: 12px;
+}
+.back-btn {
+  background: rgba(255,255,255,0.2); border: none;
+  width: 36px; height: 36px; border-radius: 50%;
+  color: white; font-size: 18px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.lesson-header-info h2 { font-size: 18px; }
+.lesson-header-info p { font-size: 13px; opacity: 0.85; }
+
+.lesson-progress {
+  display: flex; gap: 4px; padding: 16px 20px;
+}
+.step-dot {
+  flex: 1; height: 5px; border-radius: 3px;
+  background: #E0E0E0; transition: background 0.3s;
+}
+.step-dot.active { background: var(--purple); }
+.step-dot.done { background: var(--green); }
+
+.lesson-content { padding: 0 20px; }
+
+/* Flashcard */
+.flashcard-container { perspective: 1000px; margin: 16px 0; }
+.flashcard {
+  width: 100%; height: 200px; border-radius: 20px;
+  position: relative; cursor: pointer;
+  transform-style: preserve-3d; transition: transform 0.6s;
+}
+.flashcard.flipped { transform: rotateY(180deg); }
+.flashcard-front, .flashcard-back {
+  position: absolute; inset: 0;
+  backface-visibility: hidden; border-radius: 20px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 20px;
+}
+.flashcard-front {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}
+.flashcard-back {
+  background: white; border: 3px solid var(--purple);
+  transform: rotateY(180deg);
+}
+.flash-word { font-size: 48px; font-weight: 800; letter-spacing: 4px; }
+.flash-hint { font-size: 14px; opacity: 0.7; margin-top: 8px; }
+.flash-meaning { font-size: 20px; font-weight: 700; color: var(--purple); }
+.flash-example { font-size: 14px; color: #666; margin-top: 8px; text-align: center; }
+.flash-phonics { font-size: 16px; color: var(--gray); margin-top: 4px; }
+
+.speak-btn {
+  display: flex; align-items: center; justify-content: center;
+  gap: 8px; padding: 12px 24px; border-radius: 50px;
+  border: none; background: var(--purple); color: white;
+  font-size: 15px; font-weight: 600; cursor: pointer;
+  margin: 12px auto;
+}
+.speak-btn:active { background: #651FFF; }
+
+/* Quiz */
+.quiz-question {
+  font-size: 18px; font-weight: 700; text-align: center;
+  margin: 20px 0 16px;
+}
+.quiz-context {
+  font-size: 22px; text-align: center; padding: 16px;
+  background: var(--gray-light); border-radius: 16px;
+  margin-bottom: 16px; font-weight: 700;
+  letter-spacing: 2px;
+}
+.quiz-options { display: flex; flex-direction: column; gap: 10px; }
+.quiz-opt {
+  padding: 14px 18px; border-radius: 14px;
+  border: 2px solid #E0E0E0; background: white;
+  font-size: 16px; font-weight: 600; cursor: pointer;
+  text-align: left; transition: all 0.2s;
+  display: flex; align-items: center; gap: 12px;
+}
+.quiz-opt:active { transform: scale(0.98); }
+.quiz-opt .letter {
+  width: 32px; height: 32px; border-radius: 10px;
+  background: var(--gray-light); display: flex;
+  align-items: center; justify-content: center;
+  font-weight: 800; font-size: 14px; flex-shrink: 0;
+}
+.quiz-opt.correct { border-color: var(--green); background: var(--green-light); }
+.quiz-opt.correct .letter { background: var(--green); color: white; }
+.quiz-opt.wrong { border-color: #EF5350; background: #FFEBEE; }
+.quiz-opt.wrong .letter { background: #EF5350; color: white; }
+.quiz-opt:disabled { cursor: default; }
+
+/* Sentence builder */
+.sentence-slots {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  min-height: 50px; padding: 14px;
+  background: var(--gray-light); border-radius: 14px;
+  margin-bottom: 14px; justify-content: center;
+}
+.word-bank {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  justify-content: center;
+}
+.word-chip {
+  padding: 10px 18px; border-radius: 12px;
+  background: white; border: 2px solid var(--purple);
+  color: var(--purple); font-size: 16px; font-weight: 700;
+  cursor: pointer; transition: all 0.2s;
+}
+.word-chip:active { transform: scale(0.95); }
+.word-chip.placed { opacity: 0.3; pointer-events: none; }
+.word-chip.in-slot {
+  background: var(--purple); color: white; cursor: pointer;
+}
+
+/* Complete */
+.complete-screen {
+  text-align: center; padding: 30px 0;
+}
+.complete-emoji { font-size: 64px; margin-bottom: 12px; }
+.complete-title { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+.complete-sub { font-size: 14px; color: var(--gray); margin-bottom: 24px; }
+.stars { font-size: 36px; margin: 12px 0; letter-spacing: 8px; }
+.complete-btn {
+  padding: 14px 32px; border-radius: 50px; border: none;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white; font-size: 16px; font-weight: 700;
+  cursor: pointer;
+}
+
+.next-step-btn {
+  display: block; width: 100%; padding: 16px;
+  border-radius: 16px; border: none;
+  background: var(--purple); color: white;
+  font-size: 16px; font-weight: 700;
+  cursor: pointer; margin-top: 20px;
+}
+.next-step-btn:active { background: #651FFF; }
+.next-step-btn.green { background: var(--green); }
+
+.tip-banner {
+  background: var(--orange-light); border-radius: 12px;
+  padding: 12px 14px; margin: 12px 0;
+  font-size: 13px; color: #E65100; line-height: 1.5;
+}
+
+/* Month tabs */
+.month-tabs {
+  display: flex; gap: 0; margin: 0 16px 12px;
+  background: white; border-radius: 14px; overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.month-tab {
+  flex: 1; padding: 12px 8px; text-align: center;
+  font-size: 14px; font-weight: 700; cursor: pointer;
+  border: none; background: white; color: var(--gray);
+  transition: all 0.2s;
+}
+.month-tab.active { background: var(--purple); color: white; }
+
+.hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <!-- ===== HOME PAGE ===== -->
+  <div id="homePage">
+    <div class="header">
+      <h1>🌟 玥玥英语课堂</h1>
+      <p class="sub">Year 1 Ready · 每天15分钟</p>
+      <div class="mascot">🦋</div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-num purple" id="statLessons">0</div>
+        <div class="stat-label">已完成课程</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num green" id="statWords">0</div>
+        <div class="stat-label">已学单词</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num orange" id="statStreak">0</div>
+        <div class="stat-label">连续打卡</div>
+      </div>
+    </div>
+
+    <div class="progress-section">
+      <h2>📊 课程进度</h2>
+      <div class="progress-ring-wrap">
+        <div class="ring-container">
+          <svg width="100" height="100">
+            <circle cx="50" cy="50" r="42" fill="none" stroke="#E0E0E0" stroke-width="8"/>
+            <circle id="progressCircle" cx="50" cy="50" r="42" fill="none" stroke="url(#grad)" stroke-width="8" stroke-linecap="round" stroke-dasharray="264" stroke-dashoffset="264"/>
+            <defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#667eea"/>
+              <stop offset="100%" style="stop-color:#764ba2"/>
+            </linearGradient></defs>
+          </svg>
+          <div class="ring-text">
+            <div class="ring-pct" id="ringPct">0%</div>
+            <div class="ring-label">完成</div>
+          </div>
+        </div>
+        <div class="milestone-list" id="milestones"></div>
+      </div>
+    </div>
+
+    <div class="checkin-section">
+      <h2>🔥 本周打卡</h2>
+      <div class="week-dots" id="weekDots"></div>
+      <div class="streak-badge">
+        <span class="fire">🔥</span>
+        <span id="streakText">开始学习，点亮第一天！</span>
+      </div>
+    </div>
+
+    <div class="week-section">
+      <h2>📚 课程列表</h2>
+      <div class="month-tabs">
+        <button class="month-tab active" onclick="switchMonth(0)">4月 基础</button>
+        <button class="month-tab" onclick="switchMonth(1)">5月 进阶</button>
+        <button class="month-tab" onclick="switchMonth(2)">6月 冲刺</button>
+      </div>
+      <div id="lessonList"></div>
+    </div>
+  </div>
+
+  <!-- ===== LESSON PAGE ===== -->
+  <div id="lessonPage" class="lesson-page">
+    <div class="lesson-header">
+      <button class="back-btn" onclick="goHome()">←</button>
+      <div class="lesson-header-info">
+        <h2 id="lessonPageTitle"></h2>
+        <p id="lessonPageSub"></p>
+      </div>
+    </div>
+    <div class="lesson-progress" id="lessonSteps"></div>
+    <div class="lesson-content" id="lessonContent"></div>
+  </div>
+</div>
+
+<script>
+// ===== COURSE DATA =====
+const COURSE = [
+  // === MONTH 1: April (Week 1-4) ===
+  // Week 1
+  { week:1, day:1, word:"the", meaning:"那个/这个", phonics:"/ðə/", example:"The cat is big.", month:0,
+    sentences: ["___ dog is happy.", "I see ___ sun."],
+    quiz: [
+      {q:"哪个是 'the'?", opts:["the","he","she","they"], ans:0},
+      {q:"The cat is ___.", opts:["big","the","cat","is"], ans:0, context:"The cat is big.（猫很大）"}
+    ]},
+  { week:1, day:2, word:"a", meaning:"一个", phonics:"/ə/", example:"I see a cat.", month:0,
+    quiz: [
+      {q:"哪个是 'a'?", opts:["a","an","at","as"], ans:0},
+      {q:"I see ___ dog.", opts:["the","a","is","in"], ans:1}
+    ]},
+  { week:1, day:3, word:"I", meaning:"我", phonics:"/aɪ/", example:"I am happy.", month:0,
+    quiz: [
+      {q:"'我' 用英语怎么说?", opts:["me","my","I","we"], ans:2},
+      {q:"___ like cats.", opts:["I","a","is","the"], ans:0}
+    ]},
+  { week:1, day:4, word:"to", meaning:"去/到", phonics:"/tuː/", example:"Go to the park.", month:0,
+    quiz: [
+      {q:"哪个是 'to'?", opts:["too","two","to","do"], ans:2},
+      {q:"I go ___ school.", opts:["a","the","in","to"], ans:3}
+    ]},
+  { week:1, day:5, word:"is", meaning:"是", phonics:"/ɪz/", example:"He is my friend.", month:0,
+    quiz: [
+      {q:"哪个是 'is'?", opts:["it","is","in","if"], ans:1},
+      {q:"The dog ___ big.", opts:["a","the","is","to"], ans:2}
+    ],
+    review: ["the","a","I","to"]},
+
+  // Week 2
+  { week:2, day:1, word:"and", meaning:"和", phonics:"/ænd/", example:"A cat and a dog.", month:0,
+    quiz: [
+      {q:"'和' 用英语怎么说?", opts:["an","and","add","at"], ans:1},
+      {q:"A cat ___ a dog.", opts:["is","a","and","the"], ans:2}
+    ]},
+  { week:2, day:2, word:"in", meaning:"在…里面", phonics:"/ɪn/", example:"The cat is in the box.", month:0,
+    quiz: [
+      {q:"哪个意思是 '在里面'?", opts:["on","in","it","is"], ans:1},
+      {q:"The ball is ___ the box.", opts:["in","on","a","to"], ans:0}
+    ]},
+  { week:2, day:3, word:"it", meaning:"它", phonics:"/ɪt/", example:"It is a cat.", month:0,
+    quiz: [
+      {q:"'它' 用英语怎么说?", opts:["is","in","it","at"], ans:2},
+      {q:"___ is a big dog.", opts:["It","In","Is","I"], ans:0}
+    ]},
+  { week:2, day:4, word:"he", meaning:"他", phonics:"/hiː/", example:"He is happy.", month:0,
+    quiz: [
+      {q:"'他' 用英语怎么说?", opts:["she","he","we","me"], ans:1},
+      {q:"___ is my dad.", opts:["She","It","He","We"], ans:2}
+    ]},
+  { week:2, day:5, word:"she", meaning:"她", phonics:"/ʃiː/", example:"She is my mum.", month:0,
+    quiz: [
+      {q:"'她' 用英语怎么说?", opts:["he","she","we","me"], ans:1},
+      {q:"___ is my sister.", opts:["He","She","It","We"], ans:1}
+    ],
+    review: ["and","in","it","he"]},
+
+  // Week 3
+  { week:3, day:1, word:"was", meaning:"是（过去）", phonics:"/wɒz/", example:"It was fun.", month:0,
+    quiz: [
+      {q:"'was' 是什么意思?", opts:["是(过去)","和","在","去"], ans:0},
+      {q:"It ___ a good day.", opts:["is","was","in","and"], ans:1}
+    ]},
+  { week:3, day:2, word:"you", meaning:"你", phonics:"/juː/", example:"You are kind.", month:0,
+    quiz: [
+      {q:"'你' 用英语怎么说?", opts:["your","you","yes","yet"], ans:1},
+      {q:"___ are my friend.", opts:["I","He","You","It"], ans:2}
+    ]},
+  { week:3, day:3, word:"they", meaning:"他们", phonics:"/ðeɪ/", example:"They are happy.", month:0,
+    quiz: [
+      {q:"'他们' 用英语怎么说?", opts:["the","they","them","this"], ans:1},
+      {q:"___ like to play.", opts:["They","The","This","That"], ans:0}
+    ]},
+  { week:3, day:4, word:"my", meaning:"我的", phonics:"/maɪ/", example:"This is my cat.", month:0,
+    quiz: [
+      {q:"'我的' 用英语怎么说?", opts:["me","I","my","mine"], ans:2},
+      {q:"This is ___ book.", opts:["I","me","my","we"], ans:2}
+    ]},
+  { week:3, day:5, word:"we", meaning:"我们", phonics:"/wiː/", example:"We go to school.", month:0,
+    quiz: [
+      {q:"'我们' 用英语怎么说?", opts:["we","me","he","be"], ans:0},
+      {q:"___ like ice cream.", opts:["I","We","My","Is"], ans:1}
+    ],
+    review: ["was","you","they","my"]},
+
+  // Week 4 - Review
+  { week:4, day:1, word:"Review", meaning:"复习第1-15个高频词", isReview:true, month:0,
+    reviewWords:["the","a","I","to","is","and","in","it","he","she","was","you","they","my","we"],
+    quiz: [
+      {q:"The dog ___ happy.", opts:["is","a","I","to"], ans:0},
+      {q:"___ and she are friends.", opts:["It","He","A","The"], ans:1},
+      {q:"___ go to the park.", opts:["Is","A","We","In"], ans:2},
+      {q:"It was ___ cat.", opts:["is","my","I","we"], ans:1}
+    ]},
+
+  // === MONTH 2: May (Week 5-8) ===
+  { week:5, day:1, word:"said", meaning:"说（过去）", phonics:"/sed/", example:"She said hello.", month:1,
+    quiz: [
+      {q:"'said' 是什么意思?", opts:["伤心","说(过去)","看见","坐"], ans:1},
+      {q:"He ___ goodbye.", opts:["say","said","sad","sit"], ans:1}
+    ]},
+  { week:5, day:2, word:"have", meaning:"有", phonics:"/hæv/", example:"I have a cat.", month:1,
+    quiz: [
+      {q:"'有' 用英语怎么说?", opts:["has","had","have","gave"], ans:2},
+      {q:"I ___ two dogs.", opts:["have","is","a","has"], ans:0}
+    ]},
+  { week:5, day:3, word:"like", meaning:"喜欢", phonics:"/laɪk/", example:"I like pizza.", month:1,
+    quiz: [
+      {q:"'喜欢' 用英语怎么说?", opts:["love","look","like","live"], ans:2},
+      {q:"I ___ to swim.", opts:["is","like","in","a"], ans:1}
+    ]},
+  { week:5, day:4, word:"so", meaning:"所以/很", phonics:"/səʊ/", example:"It is so big!", month:1,
+    quiz: [
+      {q:"It is ___ hot!", opts:["to","so","no","go"], ans:1},
+      {q:"'so' 是什么意思?", opts:["去","不","所以/很","和"], ans:2}
+    ]},
+  { week:5, day:5, word:"not", meaning:"不/没有", phonics:"/nɒt/", example:"I am not sad.", month:1,
+    quiz: [
+      {q:"'不' 用英语怎么说?", opts:["no","not","now","nor"], ans:1},
+      {q:"She is ___ happy.", opts:["is","a","not","so"], ans:2}
+    ],
+    review: ["said","have","like","so"]},
+
+  // Week 6
+  { week:6, day:1, word:"went", meaning:"去了（过去）", phonics:"/went/", example:"I went to school.", month:1,
+    quiz: [
+      {q:"'went' 是什么意思?", opts:["去了","想","看见","走"], ans:0},
+      {q:"She ___ to the park.", opts:["go","went","want","get"], ans:1}
+    ]},
+  { week:6, day:2, word:"are", meaning:"是（复数）", phonics:"/ɑː/", example:"You are kind.", month:1,
+    quiz: [
+      {q:"You ___ my friend.", opts:["is","are","am","was"], ans:1},
+      {q:"They ___ happy.", opts:["is","was","are","a"], ans:2}
+    ]},
+  { week:6, day:3, word:"on", meaning:"在…上面", phonics:"/ɒn/", example:"The cat is on the bed.", month:1,
+    quiz: [
+      {q:"'在上面' 用英语怎么说?", opts:["in","on","at","to"], ans:1},
+      {q:"The book is ___ the table.", opts:["in","to","on","at"], ans:2}
+    ]},
+  { week:6, day:4, word:"for", meaning:"为了/给", phonics:"/fɔː/", example:"This is for you.", month:1,
+    quiz: [
+      {q:"This gift is ___ you.", opts:["to","for","on","at"], ans:1},
+      {q:"'for' 是什么意思?", opts:["从","和","为了/给","在"], ans:2}
+    ]},
+  { week:6, day:5, word:"but", meaning:"但是", phonics:"/bʌt/", example:"I like cats but not dogs.", month:1,
+    quiz: [
+      {q:"'但是' 用英语怎么说?", opts:["and","but","so","or"], ans:1},
+      {q:"I like cats ___ not dogs.", opts:["and","so","but","for"], ans:2}
+    ],
+    review: ["went","are","on","for"]},
+
+  // Week 7
+  { week:7, day:1, word:"that", meaning:"那个", phonics:"/ðæt/", example:"Look at that bird!", month:1,
+    quiz: [
+      {q:"'那个' 用英语怎么说?", opts:["the","this","that","they"], ans:2},
+      {q:"Look at ___ star!", opts:["the","that","this","a"], ans:1}
+    ]},
+  { week:7, day:2, word:"with", meaning:"和…一起", phonics:"/wɪð/", example:"Come with me.", month:1,
+    quiz: [
+      {q:"'和…一起' 用英语怎么说?", opts:["and","with","for","to"], ans:1},
+      {q:"Play ___ me!", opts:["to","for","with","on"], ans:2}
+    ]},
+  { week:7, day:3, word:"all", meaning:"所有", phonics:"/ɔːl/", example:"We all like pizza.", month:1,
+    quiz: [
+      {q:"'所有' 用英语怎么说?", opts:["also","all","always","and"], ans:1},
+      {q:"We ___ go to school.", opts:["are","all","and","at"], ans:1}
+    ]},
+  { week:7, day:4, word:"at", meaning:"在（地点/时间）", phonics:"/æt/", example:"Look at me!", month:1,
+    quiz: [
+      {q:"Look ___ the dog!", opts:["on","in","at","to"], ans:2},
+      {q:"I am ___ school.", opts:["in","on","to","at"], ans:3}
+    ]},
+  { week:7, day:5, word:"this", meaning:"这个", phonics:"/ðɪs/", example:"This is my book.", month:1,
+    quiz: [
+      {q:"'这个' 用英语怎么说?", opts:["the","that","this","these"], ans:2},
+      {q:"___ is my cat.", opts:["That","This","The","They"], ans:1}
+    ],
+    review: ["that","with","all","at"]},
+
+  // Week 8 - Review
+  { week:8, day:1, word:"Review", meaning:"复习第16-30个高频词", isReview:true, month:1,
+    reviewWords:["said","have","like","so","not","went","are","on","for","but","that","with","all","at","this"],
+    quiz: [
+      {q:"I ___ to the park.", opts:["go","went","want","get"], ans:1},
+      {q:"This is ___ you.", opts:["to","for","on","at"], ans:1},
+      {q:"They ___ all happy.", opts:["is","are","was","a"], ans:1},
+      {q:"She said she ___ like it.", opts:["is","not","did","was"], ans:2}
+    ]},
+
+  // === MONTH 3: June (Week 9-12) ===
+  { week:9, day:1, word:"up", meaning:"上/起来", phonics:"/ʌp/", example:"Stand up!", month:2,
+    quiz: [
+      {q:"'起来' 用英语怎么说?", opts:["up","on","in","at"], ans:0},
+      {q:"Look ___!", opts:["in","on","up","at"], ans:2}
+    ]},
+  { week:9, day:2, word:"had", meaning:"有（过去）", phonics:"/hæd/", example:"I had a cat.", month:2,
+    quiz: [
+      {q:"'had' 是什么意思?", opts:["有(过去)","热的","头","手"], ans:0},
+      {q:"She ___ a red ball.", opts:["have","has","had","is"], ans:2}
+    ]},
+  { week:9, day:3, word:"her", meaning:"她的", phonics:"/hɜː/", example:"This is her bag.", month:2,
+    quiz: [
+      {q:"'她的' 用英语怎么说?", opts:["she","he","her","his"], ans:2},
+      {q:"This is ___ book.", opts:["she","her","he","his"], ans:1}
+    ]},
+  { week:9, day:4, word:"what", meaning:"什么", phonics:"/wɒt/", example:"What is this?", month:2,
+    quiz: [
+      {q:"'什么' 用英语怎么说?", opts:["when","where","what","who"], ans:2},
+      {q:"___ is your name?", opts:["Who","What","Where","When"], ans:1}
+    ]},
+  { week:9, day:5, word:"there", meaning:"那里", phonics:"/ðeə/", example:"Look over there!", month:2,
+    quiz: [
+      {q:"'那里' 用英语怎么说?", opts:["the","they","their","there"], ans:3},
+      {q:"The cat is over ___.", opts:["here","there","where","this"], ans:1}
+    ],
+    review: ["up","had","her","what"]},
+
+  // Week 10
+  { week:10, day:1, word:"out", meaning:"出去/外面", phonics:"/aʊt/", example:"Go out to play.", month:2,
+    quiz: [
+      {q:"'出去' 用英语怎么说?", opts:["up","out","on","off"], ans:1},
+      {q:"The cat went ___.", opts:["in","on","out","up"], ans:2}
+    ]},
+  { week:10, day:2, word:"be", meaning:"是/成为", phonics:"/biː/", example:"I want to be happy.", month:2,
+    quiz: [
+      {q:"I want to ___ a teacher.", opts:["is","be","am","was"], ans:1},
+      {q:"'be' 是什么意思?", opts:["是/成为","但是","被","大"], ans:0}
+    ]},
+  { week:10, day:3, word:"some", meaning:"一些", phonics:"/sʌm/", example:"I have some apples.", month:2,
+    quiz: [
+      {q:"'一些' 用英语怎么说?", opts:["so","some","same","sum"], ans:1},
+      {q:"I want ___ water.", opts:["a","the","some","in"], ans:2}
+    ]},
+  { week:10, day:4, word:"then", meaning:"然后", phonics:"/ðen/", example:"First eat, then play.", month:2,
+    quiz: [
+      {q:"'然后' 用英语怎么说?", opts:["the","them","then","than"], ans:2},
+      {q:"First run, ___ jump.", opts:["and","then","the","but"], ans:1}
+    ]},
+  { week:10, day:5, word:"were", meaning:"是（过去复数）", phonics:"/wɜː/", example:"They were happy.", month:2,
+    quiz: [
+      {q:"They ___ at school.", opts:["was","is","were","are"], ans:2},
+      {q:"We ___ friends.", opts:["is","was","are","were"], ans:3}
+    ],
+    review: ["out","be","some","then"]},
+
+  // Week 11
+  { week:11, day:1, word:"go", meaning:"去", phonics:"/ɡəʊ/", example:"Let's go!", month:2,
+    quiz: [
+      {q:"'去' 用英语怎么说?", opts:["get","go","got","good"], ans:1},
+      {q:"I want to ___ home.", opts:["go","went","going","gone"], ans:0}
+    ]},
+  { week:11, day:2, word:"little", meaning:"小的", phonics:"/ˈlɪtl/", example:"A little cat.", month:2,
+    quiz: [
+      {q:"'小的' 用英语怎么说?", opts:["big","little","long","let"], ans:1},
+      {q:"I have a ___ dog.", opts:["big","little","lot","long"], ans:1}
+    ]},
+  { week:11, day:3, word:"as", meaning:"像/当", phonics:"/æz/", example:"As big as a bus!", month:2,
+    quiz: [
+      {q:"As big ___ a house!", opts:["and","as","at","a"], ans:1},
+      {q:"'as' 是什么意思?", opts:["一个","在","像/当","和"], ans:2}
+    ]},
+  { week:11, day:4, word:"can", meaning:"能/会", phonics:"/kæn/", example:"I can swim.", month:2,
+    quiz: [
+      {q:"'能/会' 用英语怎么说?", opts:["cat","can","car","cup"], ans:1},
+      {q:"I ___ see the bird.", opts:["is","a","can","the"], ans:2}
+    ]},
+  { week:11, day:5, word:"do", meaning:"做", phonics:"/duː/", example:"What do you like?", month:2,
+    quiz: [
+      {q:"'做' 用英语怎么说?", opts:["do","to","go","so"], ans:0},
+      {q:"What ___ you see?", opts:["is","do","are","a"], ans:1}
+    ],
+    review: ["go","little","as","can"]},
+
+  // Week 12 - Final Review & Graduation
+  { week:12, day:1, word:"🎓 Graduation", meaning:"毕业测试！你已经学完45个高频词！", isReview:true, isFinal:true, month:2,
+    reviewWords:["the","a","I","to","is","and","in","it","he","she","was","you","they","my","we","said","have","like","so","not","went","are","on","for","but","that","with","all","at","this","up","had","her","what","there","out","be","some","then","were","go","little","as","can","do"],
+    quiz: [
+      {q:"___ cat is on ___ bed.", opts:["The / the","A / a","I / my","He / she"], ans:0},
+      {q:"She said ___ was not happy.", opts:["he","she","it","they"], ans:1},
+      {q:"We all went ___ the park.", opts:["in","on","at","to"], ans:3},
+      {q:"I have some, but ___ do not.", opts:["he","they","she","you"], ans:1},
+      {q:"What can you see out ___?", opts:["here","there","where","were"], ans:1}
+    ]}
+];
+
+// ===== STATE =====
+let state = JSON.parse(localStorage.getItem('yueyue_eng') || '{}');
+if (!state.completed) state.completed = {};
+if (!state.checkins) state.checkins = {};
+if (!state.streak) state.streak = 0;
+
+function saveState() {
+  localStorage.setItem('yueyue_eng', JSON.stringify(state));
+}
+
+function getToday() {
+  return new Date().toISOString().split('T')[0];
+}
+
+// ===== RENDER HOME =====
+let currentMonth = 0;
+
+function renderHome() {
+  const completed = Object.keys(state.completed).length;
+  const total = COURSE.length;
+  const pct = Math.round((completed / total) * 100);
+
+  // Stats
+  document.getElementById('statLessons').textContent = completed;
+  const wordsLearned = COURSE.filter((c, i) => state.completed[i] && !c.isReview).length;
+  document.getElementById('statWords').textContent = wordsLearned;
+
+  // Streak
+  calcStreak();
+  document.getElementById('statStreak').textContent = state.streak;
+
+  // Progress ring
+  const offset = 264 - (264 * pct / 100);
+  document.getElementById('progressCircle').style.strokeDashoffset = offset;
+  document.getElementById('ringPct').textContent = pct + '%';
+
+  // Milestones
+  const ms = document.getElementById('milestones');
+  const milestones = [
+    {label: '4月 基础15词', target: 16, done: completed >= 16},
+    {label: '5月 进阶15词', target: 32, done: completed >= 32},
+    {label: '6月 冲刺15词', target: 46, done: completed >= 46},
+    {label: '🎓 毕业', target: total, done: completed >= total}
+  ];
+  // find current
+  let currentMs = milestones.findIndex(m => !m.done);
+  ms.innerHTML = milestones.map((m, i) => {
+    const dotClass = m.done ? 'done' : i === currentMs ? 'current' : 'future';
+    const style = m.done ? 'color:#4CAF50;' : i === currentMs ? 'font-weight:700;' : 'color:#BBB;';
+    return `<div class="milestone"><div class="dot ${dotClass}"></div><span style="${style}">${m.label}</span></div>`;
+  }).join('');
+
+  // Week check-in dots
+  renderWeekDots();
+
+  // Streak text
+  const st = document.getElementById('streakText');
+  if (state.streak === 0) st.textContent = '开始学习，点亮第一天！';
+  else if (state.streak < 3) st.textContent = `已连续 ${state.streak} 天，继续加油！`;
+  else if (state.streak < 7) st.textContent = `🔥 ${state.streak} 天连续打卡！太棒了！`;
+  else st.textContent = `🔥🔥 ${state.streak} 天！玥玥超厉害！`;
+
+  // Lesson list
+  renderLessonList();
+}
+
+function calcStreak() {
+  let streak = 0;
+  let d = new Date();
+  // If today not checked in yet, start from yesterday
+  if (!state.checkins[getToday()]) {
+    d.setDate(d.getDate() - 1);
+  }
+  while (true) {
+    const ds = d.toISOString().split('T')[0];
+    if (state.checkins[ds]) {
+      streak++;
+      d.setDate(d.getDate() - 1);
+    } else break;
+  }
+  state.streak = streak;
+}
+
+function renderWeekDots() {
+  const container = document.getElementById('weekDots');
+  const today = new Date();
+  const dayOfWeek = today.getDay(); // 0=Sun
+  const monday = new Date(today);
+  monday.setDate(today.getDate() - ((dayOfWeek + 6) % 7));
+
+  const days = ['一','二','三','四','五','六','日'];
+  let html = '';
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(monday);
+    d.setDate(monday.getDate() + i);
+    const ds = d.toISOString().split('T')[0];
+    const isToday = ds === getToday();
+    const checked = state.checkins[ds];
+    html += `<div class="day-dot">
+      <span class="label">${days[i]}</span>
+      <div class="circle ${checked ? 'checked' : ''} ${isToday ? 'today' : ''}">
+        ${checked ? '✓' : isToday ? '🦋' : ''}
+      </div>
+    </div>`;
+  }
+  container.innerHTML = html;
+}
+
+function switchMonth(m) {
+  currentMonth = m;
+  document.querySelectorAll('.month-tab').forEach((t, i) => {
+    t.classList.toggle('active', i === m);
+  });
+  renderLessonList();
+}
+
+function renderLessonList() {
+  const container = document.getElementById('lessonList');
+  const lessons = COURSE.filter(c => c.month === currentMonth);
+  const colors = ['#667eea', '#4CAF50', '#FF9800', '#E91E63', '#00BCD4'];
+
+  let html = '';
+  let lastWeek = 0;
+
+  lessons.forEach(lesson => {
+    const idx = COURSE.indexOf(lesson);
+    const done = state.completed[idx];
+    const isNext = !done && !COURSE.slice(0, idx).some((_, i) => !state.completed[i] && COURSE[i].month <= lesson.month);
+    // simplified: allow any lesson to be clicked
+    const locked = false;
+
+    if (lesson.week !== lastWeek) {
+      const weekLabel = lesson.isReview && lesson.isFinal ? '第12周 · 毕业' :
+        lesson.isReview ? `第${lesson.week}周 · 复习` : `第${lesson.week}周`;
+      html += `<div style="font-size:13px; font-weight:700; color:var(--gray); margin:16px 0 8px; padding-left:4px;">${weekLabel}</div>`;
+      lastWeek = lesson.week;
+    }
+
+    const icon = lesson.isReview ? (lesson.isFinal ? '🎓' : '🔄') : '📖';
+    const bgColor = done ? var_green_light : (isNext ? 'var(--purple-light)' : '#F5F5F5');
+    const statusIcon = done ? '✅' : (isNext ? '👉' : '○');
+    const cardClass = done ? 'completed' : (isNext ? 'current' : '');
+
+    html += `<div class="lesson-card ${cardClass}" onclick="openLesson(${idx})">
+      <div class="lesson-icon" style="background:${done ? 'var(--green-light)' : isNext ? 'var(--purple-light)' : 'var(--gray-light)'}">
+        ${icon}
+      </div>
+      <div class="lesson-info">
+        <div class="lesson-title">${lesson.isReview ? lesson.word : `Day ${lesson.day}: ${lesson.word}`}</div>
+        <div class="lesson-desc">${lesson.meaning}</div>
+      </div>
+      <div class="lesson-status">${statusIcon}</div>
+    </div>`;
+  });
+
+  container.innerHTML = html;
+}
+
+var var_green_light = '#F0FFF0';
+
+// ===== LESSON PAGE =====
+let currentLesson = null;
+let lessonStep = 0;
+let lessonScore = 0;
+let quizIndex = 0;
+
+function openLesson(idx) {
+  currentLesson = idx;
+  lessonStep = 0;
+  lessonScore = 0;
+  quizIndex = 0;
+
+  const lesson = COURSE[idx];
+  document.getElementById('homePage').style.display = 'none';
+  document.getElementById('lessonPage').classList.add('active');
+
+  document.getElementById('lessonPageTitle').textContent = lesson.isReview ? lesson.word : `学习: ${lesson.word}`;
+  document.getElementById('lessonPageSub').textContent = lesson.isReview ? lesson.meaning : `${lesson.meaning} ${lesson.phonics || ''}`;
+
+  renderLessonStep();
+}
+
+function goHome() {
+  document.getElementById('lessonPage').classList.remove('active');
+  document.getElementById('homePage').style.display = 'block';
+  renderHome();
+}
+
+function renderLessonStep() {
+  const lesson = COURSE[currentLesson];
+  const totalSteps = lesson.isReview ? 2 : 3; // learn, quiz, complete OR quiz, complete
+
+  // Step dots
+  const stepsHtml = Array.from({length: totalSteps}, (_, i) => {
+    const cls = i < lessonStep ? 'done' : i === lessonStep ? 'active' : '';
+    return `<div class="step-dot ${cls}"></div>`;
+  }).join('');
+  document.getElementById('lessonSteps').innerHTML = stepsHtml;
+
+  const content = document.getElementById('lessonContent');
+
+  if (lesson.isReview) {
+    if (lessonStep === 0) renderReviewQuiz(content, lesson);
+    else renderComplete(content);
+  } else {
+    if (lessonStep === 0) renderFlashcard(content, lesson);
+    else if (lessonStep === 1) renderQuiz(content, lesson);
+    else renderComplete(content);
+  }
+}
+
+function renderFlashcard(el, lesson) {
+  el.innerHTML = `
+    <div class="tip-banner">👨‍👧 给爸爸妈妈：让玥玥看卡片，点击翻转看意思，点🔊听发音</div>
+    <div class="flashcard-container">
+      <div class="flashcard" id="flashcard" onclick="this.classList.toggle('flipped')">
+        <div class="flashcard-front">
+          <div class="flash-word">${lesson.word}</div>
+          <div class="flash-hint">👆 点击翻转</div>
+        </div>
+        <div class="flashcard-back">
+          <div class="flash-meaning">${lesson.meaning}</div>
+          <div class="flash-phonics">${lesson.phonics || ''}</div>
+          <div class="flash-example" style="margin-top:12px;">${lesson.example}</div>
+        </div>
+      </div>
+    </div>
+    <button class="speak-btn" onclick="speakWord('${lesson.word}')">🔊 听发音</button>
+    <button class="speak-btn" onclick="speakWord('${lesson.example}')" style="background:var(--green);">🔊 听例句</button>
+    ${lesson.review ? `<div style="margin-top:16px; padding:12px; background:var(--blue-light); border-radius:12px;">
+      <div style="font-size:13px; font-weight:700; color:var(--blue); margin-bottom:8px;">📝 今日复习词</div>
+      <div style="display:flex; flex-wrap:wrap; gap:6px;">
+        ${lesson.review.map(w => `<span style="padding:4px 10px; background:white; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer;" onclick="speakWord('${w}')">${w} 🔊</span>`).join('')}
+      </div>
+    </div>` : ''}
+    <button class="next-step-btn" onclick="lessonStep=1; quizIndex=0; renderLessonStep();">准备好了，开始练习 →</button>
+  `;
+}
+
+function renderQuiz(el, lesson) {
+  if (quizIndex >= lesson.quiz.length) {
+    lessonStep = 2;
+    renderLessonStep();
+    return;
+  }
+  const q = lesson.quiz[quizIndex];
+  el.innerHTML = `
+    <div style="text-align:center; font-size:13px; color:var(--gray); margin-top:12px;">第 ${quizIndex + 1} / ${lesson.quiz.length} 题</div>
+    ${q.context ? `<div class="quiz-context">${q.context}</div>` : ''}
+    <div class="quiz-question">${q.q}</div>
+    <div class="quiz-options">
+      ${q.opts.map((opt, i) => `
+        <button class="quiz-opt" id="qopt${i}" onclick="checkQuiz(${i}, ${q.ans})">
+          <span class="letter">${String.fromCharCode(65 + i)}</span>
+          <span>${opt}</span>
+        </button>
+      `).join('')}
+    </div>
+    <div id="quizFeedback" style="text-align:center; margin-top:16px; min-height:40px;"></div>
+  `;
+}
+
+function renderReviewQuiz(el, lesson) {
+  if (quizIndex >= lesson.quiz.length) {
+    lessonStep = 1;
+    renderLessonStep();
+    return;
+  }
+
+  const q = lesson.quiz[quizIndex];
+  el.innerHTML = `
+    ${quizIndex === 0 ? `<div class="tip-banner">${lesson.isFinal ? '🎓 最终毕业测试！看看45个词都记住了吗？' : '🔄 复习时间！看看这些词都记住了吗？'}</div>` : ''}
+    <div style="text-align:center; font-size:13px; color:var(--gray); margin-top:12px;">第 ${quizIndex + 1} / ${lesson.quiz.length} 题</div>
+    <div class="quiz-question">${q.q}</div>
+    <div class="quiz-options">
+      ${q.opts.map((opt, i) => `
+        <button class="quiz-opt" id="qopt${i}" onclick="checkQuiz(${i}, ${q.ans})">
+          <span class="letter">${String.fromCharCode(65 + i)}</span>
+          <span>${opt}</span>
+        </button>
+      `).join('')}
+    </div>
+    <div id="quizFeedback" style="text-align:center; margin-top:16px; min-height:40px;"></div>
+  `;
+}
+
+function checkQuiz(selected, correct) {
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach(o => o.disabled = true);
+
+  document.getElementById(`qopt${correct}`).classList.add('correct');
+  const fb = document.getElementById('quizFeedback');
+
+  if (selected === correct) {
+    lessonScore++;
+    fb.innerHTML = '<span style="font-size:28px;">🎉</span> <span style="font-weight:700; color:var(--green);">太棒了！</span>';
+  } else {
+    document.getElementById(`qopt${selected}`).classList.add('wrong');
+    fb.innerHTML = '<span style="font-size:28px;">💪</span> <span style="font-weight:700; color:var(--orange);">没关系，记住了！</span>';
+  }
+
+  setTimeout(() => {
+    quizIndex++;
+    const lesson = COURSE[currentLesson];
+    if (lesson.isReview) renderReviewQuiz(document.getElementById('lessonContent'), lesson);
+    else renderQuiz(document.getElementById('lessonContent'), lesson);
+  }, 1200);
+}
+
+function renderComplete(el) {
+  const lesson = COURSE[currentLesson];
+  const totalQ = lesson.quiz.length;
+  const stars = lessonScore === totalQ ? '⭐⭐⭐' : lessonScore >= totalQ * 0.5 ? '⭐⭐' : '⭐';
+  const msg = lessonScore === totalQ ? '全对！完美！' : lessonScore >= totalQ * 0.5 ? '做得很好！' : '继续加油！';
+  const done = state.completed[currentLesson];
+
+  el.innerHTML = `
+    <div class="complete-screen">
+      <div class="complete-emoji">${lesson.isFinal ? '🎓' : '🎉'}</div>
+      <div class="complete-title">${lesson.isFinal ? '恭喜毕业！' : '课程完成！'}</div>
+      <div class="stars">${stars}</div>
+      <div class="complete-sub">${msg} 答对 ${lessonScore}/${totalQ} 题</div>
+      ${lesson.isFinal ? '<div style="font-size:16px; margin:16px 0; color:var(--purple); font-weight:700;">🦋 玥玥已经学完所有45个高频词！<br>Year 1 Ready!</div>' : ''}
+      ${!done ? `<button class="complete-btn" onclick="completeLesson()" style="width:100%;">
+        ✅ 打卡完成
+      </button>` : `<div style="color:var(--green); font-weight:700; font-size:16px; margin:12px 0;">✅ 已完成</div>`}
+      <button class="next-step-btn" onclick="goHome()" style="background:var(--gray); margin-top:12px;">返回首页</button>
+    </div>
+  `;
+}
+
+function completeLesson() {
+  state.completed[currentLesson] = true;
+  state.checkins[getToday()] = true;
+  saveState();
+  renderComplete(document.getElementById('lessonContent'));
+}
+
+function speakWord(text) {
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-GB';
+    u.rate = 0.8;
+    u.pitch = 1.1;
+    window.speechSynthesis.speak(u);
+  }
+}
+
+// ===== INIT =====
+renderHome();
+</script>
+</body>
+</html>
