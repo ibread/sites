@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>保定一日游 🫏</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+:root{--primary:#d35400;--bg:#faf8f5;--card:#fff;--text:#333;--muted:#888;--accent:#e74c3c}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Helvetica Neue',sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column;height:100dvh;overflow:hidden}
+header{background:linear-gradient(135deg,#d35400,#e67e22);color:#fff;padding:14px 16px;text-align:center;flex-shrink:0}
+header h1{font-size:20px;font-weight:700}
+header p{font-size:12px;opacity:.85;margin-top:2px}
+.tabs{display:flex;gap:0;overflow-x:auto;flex-shrink:0;background:#fff;border-bottom:1px solid #eee;-webkit-overflow-scrolling:touch}
+.tabs button{flex-shrink:0;padding:10px 14px;border:none;background:none;font-size:13px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap}
+.tabs button.active{color:var(--primary);border-bottom-color:var(--primary);font-weight:600}
+#map{flex:1;min-height:200px}
+.sidebar{max-height:52dvh;overflow-y:auto;flex-shrink:0;padding:8px 12px 80px;-webkit-overflow-scrolling:touch}
+.sidebar.fullscreen{max-height:100dvh;flex:1 1 auto}
+.card{background:var(--card);border-radius:10px;padding:12px;margin-bottom:8px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.card-header{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.card-num{width:26px;height:26px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+.card-title{font-size:15px;font-weight:600}
+.card-time{font-size:12px;color:var(--accent);font-weight:600;margin-bottom:4px}
+.card-desc{font-size:13px;color:#555;line-height:1.5}
+.card-tag{display:inline-block;background:#fff3e0;color:#e65100;border-radius:4px;padding:1px 6px;font-size:11px;margin:4px 4px 0 0}
+.card-tag.green{background:#e8f5e9;color:#2e7d32}
+.card-tag.blue{background:#e3f2fd;color:#1565c0}
+.card-warn{font-size:12px;color:#e74c3c;margin-top:4px}
+.section-title{font-size:14px;font-weight:700;color:var(--primary);margin:12px 0 6px;padding-left:4px}
+.checklist-item{font-size:13px;padding:6px 0;border-bottom:1px solid #f0f0f0;line-height:1.5}
+@media(min-width:769px){
+  body{flex-direction:row}
+  .sidebar{width:380px;max-height:100dvh;border-right:1px solid #eee}
+  .sidebar.fullscreen{width:380px}
+  #map{flex:1}
+  header{display:none}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>🫏 保定一日游攻略</h1>
+  <p>自驾 · 朝阳公园出发 · 约2小时</p>
+</header>
+<div class="tabs" id="tabs">
+  <button onclick="selectTab(0)" class="active">🚗 行程</button>
+  <button onclick="selectTab(1)">🔥 首推驴火</button>
+  <button onclick="selectTab(2)">🫏 备选驴火</button>
+  <button onclick="selectTab(3)">📋 清单</button>
+</div>
+<div class="sidebar" id="sidebar"></div>
+<div id="map"></div>
+
+<script>
+const map = L.map('map',{zoomControl:false}).setView([38.878,115.468],13);
+L.control.zoom({position:'topright'}).addTo(map);
+L.tileLayer('https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}',{
+  attribution:'© 高德地图',maxZoom:18,subdomains:'1234'
+}).addTo(map);
+
+function icon(emoji,size=28){
+  return L.divIcon({html:`<span style="font-size:${size}px">${emoji}</span>`,iconSize:[32,32],iconAnchor:[16,28],popupAnchor:[0,-28],className:''});
+}
+
+const allMarkers = [];
+function addMarker(lat,lng,emoji,name,group){
+  const m = L.marker([lat,lng],{icon:icon(emoji)}).addTo(map).bindPopup(`<b>${name}</b>`);
+  m._group = group;
+  allMarkers.push(m);
+  return m;
+}
+
+// 行程点
+addMarker(38.8745,115.4688,'🏛️','直隶总督署','itinerary');
+addMarker(38.8772,115.4625,'🪷','古莲花池','itinerary');
+addMarker(38.8810,115.4615,'🛕','大慈阁','itinerary');
+
+// 首推驴火
+addMarker(38.8935,115.4785,'🔥','① 闫家驴肉老店（华电店）','top');
+addMarker(38.8780,115.4560,'🔥','② 永茂驴肉火烧（创始店）','top');
+addMarker(38.8860,115.4910,'🔥','③ 曹家驴肉火烧（曹老五）','top');
+addMarker(38.8850,115.4630,'🔥','④ 喜乐驴肉店','top');
+
+// 备选驴火
+addMarker(38.8700,115.4650,'🫏','⑤ 好滋味（南大街总店）','alt');
+addMarker(38.8820,115.4780,'🫏','⑥ 老驴头（军校广场店）','alt');
+addMarker(38.8680,115.4580,'🫏','⑦ 袁家驴肉火烧','alt');
+addMarker(38.8755,115.4530,'🫏','⑧ 苏家金饼','alt');
+addMarker(38.8690,115.4700,'🫏','⑨ 范家驴肉火烧','alt');
+
+// 交通
+addMarker(38.8530,115.5580,'🚄','保定东站','itinerary');
+
+// 路线
+const route=[[38.8530,115.5580],[38.8745,115.4688],[38.8935,115.4785],[38.8772,115.4625],[38.8810,115.4615]];
+const routeLine = L.polyline(route,{color:'#e74c3c',weight:3,dashArray:'8,8',opacity:.7}).addTo(map);
+
+const tabs = [
+  // Tab 0: 行程
+  ()=>`
+<div class="section-title">🚗 出发</div>
+<div class="card"><div class="card-header"><div class="card-num">0</div><div class="card-title">朝阳公园 → 保定</div></div>
+<div class="card-time">07:30 出发</div>
+<div class="card-desc">京港澳高速约180km，预计2小时<br>⚠️ 清明假期建议7:30前上高速避堵</div></div>
+
+<div class="section-title">🔟 上午</div>
+<div class="card"><div class="card-header"><div class="card-num">1</div><div class="card-title">🏛️ 直隶总督署</div></div>
+<div class="card-time">09:30 - 11:00</div>
+<div class="card-desc">全国唯一保存完好的清代省级衙署<br>孩子可了解历史，游览约1-1.5h<div class="card-tag blue">门票约¥30</div></div></div>
+
+<div class="section-title">🍽️ 午餐</div>
+<div class="card"><div class="card-header"><div class="card-num">2</div><div class="card-title">🔥 驴肉火烧</div></div>
+<div class="card-time">11:30 - 13:00</div>
+<div class="card-desc">首推闫家（华电店），距总督署车程5分钟<br>人均20-30元，配免费粥+咸菜<br>推荐：焖子肉火烧（一半肉一半肉冻，更香）
+<div class="card-warn">⚠️ 过敏提醒：驴肉火烧本身无坚果，但点其他菜注意核桃/腰果</div></div></div>
+
+<div class="section-title">🌿 下午</div>
+<div class="card"><div class="card-header"><div class="card-num">3</div><div class="card-title">🪷 古莲花池</div></div>
+<div class="card-time">13:30 - 15:00</div>
+<div class="card-desc">中国十大园林之一，小桥流水<br>春天正好看花，游览1-1.5h<div class="card-tag blue">门票约¥30</div></div></div>
+
+<div class="card"><div class="card-header"><div class="card-num">4</div><div class="card-title">🛕 大慈阁</div></div>
+<div class="card-time">15:00 - 15:40</div>
+<div class="card-desc">保定地标，登高可看全城<br>距莲花池步行10分钟</div></div>
+
+<div class="card"><div class="card-header"><div class="card-num">5</div><div class="card-title">🛍️ 西大街逛逛</div></div>
+<div class="card-time">15:40 - 16:30</div>
+<div class="card-desc">各种本地小吃，可给孩子买点零食</div></div>
+
+<div class="section-title">🚗 返程</div>
+<div class="card"><div class="card-header"><div class="card-num">6</div><div class="card-title">回京</div></div>
+<div class="card-time">16:30 出发</div>
+<div class="card-desc">约2小时到家，18:30前到<br>若走京昆高速可避开京港澳堵车</div></div>
+`,
+
+  // Tab 1: 首推驴火
+  ()=>`
+<div class="section-title">🔥 本地人口碑 TOP 4</div>
+<div class="card"><div class="card-header"><div class="card-num" style="background:#e74c3c">1</div><div class="card-title">闫家驴肉老店（华电一校店）</div></div>
+<div class="card-desc">📍 青年路华北电力大学对面<br>⭐ 携程保定驴肉火烧排名第一<br>💡 免费粥+咸菜绝配，推荐焖子肉火烧<br>⚠️ 跟五四路闫家不是一家，认准华电对面<div class="card-tag">人气最旺</div><div class="card-tag green">免费粥</div></div></div>
+
+<div class="card"><div class="card-header"><div class="card-num" style="background:#e74c3c">2</div><div class="card-title">永茂驴肉火烧（永华北大街创始店）</div></div>
+<div class="card-desc">📍 永华北大街<br>⭐ 20年老牌，本地人唯一认可创始店<br>💡 去晚了火烧卖完只剩驴肉<br>⚠️ 闫家旁也有永茂分店，口碑不如创始店<div class="card-tag">20年老店</div><div class="card-tag green">早去</div></div></div>
+
+<div class="card"><div class="card-header"><div class="card-num" style="background:#e74c3c">3</div><div class="card-title">土桥曹家驴肉火烧（曹老五）</div></div>
+<div class="card-desc">📍 韩村路五四路交叉口<br>⭐ 被称为"保定最好吃"<br>💡 认准曹老五的（曹老大偏咸）<div class="card-tag">本地吃货力荐</div></div></div>
+
+<div class="card"><div class="card-header"><div class="card-num" style="background:#e74c3c">4</div><div class="card-title">喜乐驴肉店</div></div>
+<div class="card-desc">📍 阳光北大街<br>⭐ 开了二十多年，老保定认可<br>💡 味道仅次于曹家<div class="card-tag">20+年</div></div></div>
+`,
+
+  // Tab 2: 备选驴火
+  ()=>`
+<div class="section-title">🫏 更多选择</div>
+<div class="card"><div class="card-header"><div class="card-num" style="background:#f39c12">5</div><div class="card-title">好滋味（南大街总店）</div></div>
+<div class="card-desc">📍 天威中路保定二中东行100米<br>保定最大连锁，19家直营+25加盟<br>环境最好，适合带娃<div class="card-tag green">环境好</div><div class="card-tag blue">连锁</div></div></div>
+
+<div class="card"><div class="card-header"><div class="card-num" style="background:#f39c12">6</div><div class="card-title">老驴头（军校广场店）</div></div>
+<div class="card-desc">📍 五四东路河大南行500米<br>名气最大连锁品牌，"中国汉堡包"<br>出炉10分钟后撤回，保证最佳口感<div class="card-tag">名气最大</div></div></div>
+
+<div class="card"><div class="card-header"><div class="card-num" style="background:#f39c12">7</div><div class="card-title">袁家驴肉火烧</div></div>
+<div class="card-desc">📍 盛兴西路46号（发展大厦对面）<br>清末就进了保定，吴佩孚最爱<br>徐水漕河驴肉，和永茂齐名的老字号<div class="card-tag">百年老店</div></div></div>
+
+<div class="card"><div class="card-header"><div class="card-num" style="background:#f39c12">8</div><div class="card-title">苏家金饼</div></div>
+<div class="card-desc">📍 红旗大街37号<br>独制金饼火烧，色泽金黄<br>和传统火烧不同，更酥脆<div class="card-tag">特色金饼</div></div></div>
+
+<div class="card"><div class="card-header"><div class="card-num" style="background:#f39c12">9</div><div class="card-title">老字号范家驴肉火烧</div></div>
+<div class="card-desc">📍 盛兴路保定市图书馆对面<div class="card-tag">老字号</div></div></div>
+`,
+
+  // Tab 3: 清单
+  ()=>`
+<div class="section-title">🎒 携带清单</div>
+<div class="checklist-item">☐ 外套/薄羽绒（清明北方10-20°C，早晚凉）</div>
+<div class="checklist-item">☐ 防晒霜+帽子（户外景点多）</div>
+<div class="checklist-item">☐ 充电宝+车载充电</div>
+<div class="checklist-item">☐ 现金零钱（个别小摊）</div>
+<div class="checklist-item">☐ 儿童零食+水杯</div>
+<div class="checklist-item">☐ 湿巾纸巾（吃火烧必备）</div>
+
+<div class="section-title">⚠️ 行前必做</div>
+<div class="checklist-item">☐ 查 ETC 余额</div>
+<div class="checklist-item">☐ 导航设「保定直隶总督署」，选京港澳或京昆高速</div>
+<div class="checklist-item">☐ 清明假期提前看实时路况，7:30前上高速</div>
+<div class="checklist-item">☐ 确认闫家驴肉是否营业（节假日可能调整）</div>
+
+<div class="section-title">⚠️ 过敏提醒</div>
+<div class="checklist-item" style="color:#e74c3c">🦚 孔雀：核桃过敏</div>
+<div class="checklist-item" style="color:#e74c3c">🐎 玥玥：开心果、腰果、山药过敏</div>
+<div class="checklist-item" style="color:#e74c3c">👩 Amy：过敏性鼻炎、轻微哮喘</div>
+<div class="checklist-item">💡 驴肉火烧本身不含坚果，但额外点菜时注意</div>
+
+<div class="section-title">💰 预算估算（4人）</div>
+<div class="checklist-item">🚗 油费+过路费：约¥250往返</div>
+<div class="checklist-item">🎫 门票：约¥60/人 × 4 = ¥240</div>
+<div class="checklist-item">🍽️ 餐饮：约¥150-200</div>
+<div class="checklist-item"><b>合计：约¥650-700（人均¥170左右）</b></div>
+`
+];
+
+const sidebar = document.getElementById('sidebar');
+const mapEl = document.getElementById('map');
+
+function selectTab(n){
+  document.querySelectorAll('.tabs button').forEach((b,i)=>b.classList.toggle('active',i===n));
+  sidebar.innerHTML = tabs[n]();
+  
+  if(n===3){
+    mapEl.style.display='none';
+    sidebar.classList.add('fullscreen');
+  } else {
+    mapEl.style.display='';
+    sidebar.classList.remove('fullscreen');
+    map.invalidateSize();
+  }
+
+  // 控制 marker 显示
+  const showGroups = n===0?['itinerary','top']:n===1?['top']:n===2?['alt']:[];
+  allMarkers.forEach(m=>{
+    if(showGroups.length===0 || showGroups.includes(m._group)){
+      m.setOpacity(1);
+    } else {
+      m.setOpacity(0.3);
+    }
+  });
+  
+  if(n===1) map.setView([38.885,115.470],13);
+  else if(n===2) map.setView([38.875,115.465],13);
+  else if(n===0) map.fitBounds(routeLine.getBounds().pad(0.1));
+}
+
+selectTab(0);
+</script>
+</body>
+</html>
