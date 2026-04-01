@@ -17,7 +17,7 @@ header p{font-size:12px;opacity:.85;margin-top:2px}
 .tabs button{flex-shrink:0;padding:10px 14px;border:none;background:none;font-size:13px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap}
 .tabs button.active{color:var(--primary);border-bottom-color:var(--primary);font-weight:600}
 #map{flex:1;min-height:200px}
-.sidebar{max-height:52dvh;overflow-y:auto;flex-shrink:0;padding:8px 12px 80px;-webkit-overflow-scrolling:touch}
+.sidebar{max-height:38dvh;overflow-y:auto;flex-shrink:0;padding:8px 12px 80px;-webkit-overflow-scrolling:touch}
 .sidebar.fullscreen{max-height:100dvh;flex:1 1 auto}
 .card{background:var(--card);border-radius:10px;padding:12px;margin-bottom:8px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
 .card-header{display:flex;align-items:center;gap:8px;margin-bottom:6px}
@@ -55,7 +55,7 @@ header p{font-size:12px;opacity:.85;margin-top:2px}
 <div id="map"></div>
 
 <script>
-const map = L.map('map',{zoomControl:false}).setView([38.878,115.468],13);
+const map = L.map('map',{zoomControl:false}).setView([38.882,115.470],14);
 L.control.zoom({position:'topright'}).addTo(map);
 L.tileLayer('https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}',{
   attribution:'© 高德地图',maxZoom:18,subdomains:'1234'
@@ -64,35 +64,45 @@ L.tileLayer('https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scal
 function icon(emoji,size=28){
   return L.divIcon({html:`<span style="font-size:${size}px">${emoji}</span>`,iconSize:[32,32],iconAnchor:[16,28],popupAnchor:[0,-28],className:''});
 }
+function labelIcon(emoji,label,color='#d35400'){
+  return L.divIcon({
+    html:`<div style="display:flex;flex-direction:column;align-items:center;pointer-events:auto">
+      <span style="font-size:30px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.3))">${emoji}</span>
+      <span style="font-size:11px;font-weight:700;color:#fff;background:${color};padding:1px 5px;border-radius:3px;white-space:nowrap;margin-top:-2px;box-shadow:0 1px 3px rgba(0,0,0,.3)">${label}</span>
+    </div>`,
+    iconSize:[80,50],iconAnchor:[40,45],popupAnchor:[0,-45],className:''
+  });
+}
 
 const allMarkers = [];
-function addMarker(lat,lng,emoji,name,group){
-  const m = L.marker([lat,lng],{icon:icon(emoji)}).addTo(map).bindPopup(`<b>${name}</b>`);
+function addMarker(lat,lng,emoji,name,group,label,color){
+  const ic = label ? labelIcon(emoji,label,color) : icon(emoji);
+  const m = L.marker([lat,lng],{icon:ic}).addTo(map).bindPopup(`<b>${name}</b>`);
   m._group = group;
   allMarkers.push(m);
   return m;
 }
 
 // 行程点
-addMarker(38.8745,115.4688,'🏛️','直隶总督署','itinerary');
-addMarker(38.8772,115.4625,'🪷','古莲花池','itinerary');
-addMarker(38.8810,115.4615,'🛕','大慈阁','itinerary');
+addMarker(38.8745,115.4688,'🏛️','直隶总督署','itinerary','直隶总督署','#2c3e50');
+addMarker(38.8772,115.4625,'🪷','古莲花池','itinerary','古莲花池','#27ae60');
+addMarker(38.8810,115.4615,'🛕','大慈阁','itinerary','大慈阁','#8e44ad');
 
 // 首推驴火
-addMarker(38.8935,115.4785,'🔥','① 闫家驴肉老店（华电店）','top');
-addMarker(38.8780,115.4560,'🔥','② 永茂驴肉火烧（创始店）','top');
-addMarker(38.8860,115.4910,'🔥','③ 曹家驴肉火烧（曹老五）','top');
-addMarker(38.8850,115.4630,'🔥','④ 喜乐驴肉店','top');
+addMarker(38.8935,115.4785,'🔥','① 闫家驴肉老店（华电店）','top','①闫家(华电)','#e74c3c');
+addMarker(38.8780,115.4560,'🔥','② 永茂驴肉火烧（创始店）','top','②永茂(创始)','#e74c3c');
+addMarker(38.8860,115.4910,'🔥','③ 曹家驴肉火烧（曹老五）','top','③曹老五','#e74c3c');
+addMarker(38.8850,115.4630,'🔥','④ 喜乐驴肉店','top','④喜乐','#e74c3c');
 
 // 备选驴火
-addMarker(38.8700,115.4650,'🫏','⑤ 好滋味（南大街总店）','alt');
-addMarker(38.8820,115.4780,'🫏','⑥ 老驴头（军校广场店）','alt');
-addMarker(38.8680,115.4580,'🫏','⑦ 袁家驴肉火烧','alt');
-addMarker(38.8755,115.4530,'🫏','⑧ 苏家金饼','alt');
-addMarker(38.8690,115.4700,'🫏','⑨ 范家驴肉火烧','alt');
+addMarker(38.8700,115.4650,'🫏','⑤ 好滋味（南大街总店）','alt','⑤好滋味','#f39c12');
+addMarker(38.8820,115.4780,'🫏','⑥ 老驴头（军校广场店）','alt','⑥老驴头','#f39c12');
+addMarker(38.8680,115.4580,'🫏','⑦ 袁家驴肉火烧','alt','⑦袁家','#f39c12');
+addMarker(38.8755,115.4530,'🫏','⑧ 苏家金饼','alt','⑧苏家金饼','#f39c12');
+addMarker(38.8690,115.4700,'🫏','⑨ 范家驴肉火烧','alt','⑨范家','#f39c12');
 
 // 交通
-addMarker(38.8530,115.5580,'🚄','保定东站','itinerary');
+addMarker(38.8530,115.5580,'🚄','保定东站','itinerary','保定东站','#7f8c8d');
 
 // 路线
 const route=[[38.8530,115.5580],[38.8745,115.4688],[38.8935,115.4785],[38.8772,115.4625],[38.8810,115.4615]];
@@ -227,9 +237,9 @@ function selectTab(n){
     }
   });
   
-  if(n===1) map.setView([38.885,115.470],13);
-  else if(n===2) map.setView([38.875,115.465],13);
-  else if(n===0) map.fitBounds(routeLine.getBounds().pad(0.1));
+  if(n===1) map.setView([38.885,115.470],14);
+  else if(n===2) map.setView([38.878,115.465],14);
+  else if(n===0) map.fitBounds(routeLine.getBounds().pad(0.15));
 }
 
 selectTab(0);
