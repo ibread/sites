@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>广州美食地图（For Amy）</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<style>
+  body { margin: 0; font-family: -apple-system, 'PingFang SC', sans-serif; }
+  #map { height: 100vh; width: 100%; }
+  .legend {
+    position: fixed; bottom: 20px; left: 20px; z-index: 999;
+    background: white; padding: 12px 16px; border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15); font-size: 13px; line-height: 1.8;
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+  .popup-title { font-size: 15px; font-weight: bold; margin-bottom: 4px; }
+  .popup-tag { font-size: 12px; color: #888; }
+  .popup-note { font-size: 13px; margin-top: 4px; color: #333; }
+  .warning { color: #e67e22; font-size: 12px; }
+</style>
+</head>
+<body>
+<div id="map"></div>
+<div class="legend">
+  <div style="font-weight:bold;margin-bottom:6px;">🗺 广州美食地图（For Amy）</div>
+  <div class="legend-item"><span class="dot" style="background:#e74c3c"></span> 早茶 / 正餐</div>
+  <div class="legend-item"><span class="dot" style="background:#e67e22"></span> 小吃 / 街区</div>
+  <div class="legend-item"><span class="dot" style="background:#9b59b6"></span> 糖水甜品</div>
+  <div class="legend-item"><span class="dot" style="background:#27ae60"></span> 亲子餐厅</div>
+  <div class="legend-item"><span class="dot" style="background:#2980b9"></span> ⭐ 萨其马</div>
+  <div style="margin-top:6px;font-size:11px;color:#aaa;">点击标记查看详情</div>
+</div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const map = L.map('map');
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '© OpenStreetMap contributors',
+  maxZoom: 19
+}).addTo(map);
+
+function makeIcon(color) {
+  return L.divIcon({
+    className: '',
+    html: `<div style="width:14px;height:14px;border-radius:50%;background:${color};border:2px solid white;box-shadow:0 1px 4px rgba(0,0,0,0.4)"></div>`,
+    iconSize: [14, 14],
+    iconAnchor: [7, 7],
+    popupAnchor: [0, -10]
+  });
+}
+
+const places = [
+  // 早茶 / 正餐 — 红色
+  {
+    name: "白天鹅宾馆 · 玉堂春暖",
+    lat: 23.1019, lng: 113.2456,
+    tag: "高端早茶 · 沙面岛", color: "#e74c3c",
+    note: "人均 ¥400，环境绝佳，适合家庭。<br>同址可买 <b>榄仁萨其马</b>（1楼饼屋，¥54/块）",
+    warn: "⚠️ 萨其马含榄仁，玥玥过敏清单无此项，现场再确认"
+  },
+  {
+    name: "禄运茶居",
+    lat: 23.1105, lng: 113.2612,
+    tag: "早茶 · 本地人推荐", color: "#e74c3c",
+    note: "现包虾饺皮薄馅靓，人均 ¥70-80"
+  },
+  {
+    name: "泮溪酒家",
+    lat: 23.1268, lng: 113.2321,
+    tag: "百年老字号早茶", color: "#e74c3c",
+    note: "马蹄糕非遗传承，园林风环境"
+  },
+  {
+    name: "道谷味道馆",
+    lat: 23.1082, lng: 113.2889,
+    tag: "早茶 · 珠江江景", color: "#e74c3c",
+    note: "必点：酱香蒸凤爪、海皇肠粉、鲜虾饺皇"
+  },
+  {
+    name: "利苑（中信广场店）",
+    lat: 23.1317, lng: 113.3200,
+    tag: "粤菜正餐", color: "#e74c3c",
+    note: "烧肉一绝，杨枝甘露水准稳定，服务贴心"
+  },
+  {
+    name: "新兴饭店",
+    lat: 23.1258, lng: 113.2690,
+    tag: "粤菜正餐 · 五代传承", color: "#e74c3c",
+    note: "羊肉煲配腐乳蘸料"
+  },
+  {
+    name: "丽的面家",
+    lat: 23.1189, lng: 113.2705,
+    tag: "粤菜 · 米其林必比登", color: "#e74c3c",
+    note: "米其林必比登推荐餐厅"
+  },
+
+  // 小吃街区 — 橙色
+  {
+    name: "宝华路三件套",
+    lat: 23.1068, lng: 113.2434,
+    tag: "老城小吃", color: "#e67e22",
+    note: "陈添记鱼皮 + 顺记椰子雪糕 + 吴财记云吞面"
+  },
+  {
+    name: "西华路美食街（英姐鲜奶）",
+    lat: 23.1123, lng: 113.2469,
+    tag: "小吃街", color: "#e67e22",
+    note: "姜撞奶 / 双皮奶招牌，多家老字号"
+  },
+  {
+    name: "源记肠粉（华贵路）",
+    lat: 23.1056, lng: 113.2498,
+    tag: "肠粉", color: "#e67e22",
+    note: "加蛋加肉 + 秘制辣椒酱，人均 ¥16"
+  },
+  {
+    name: "六记肠粉（多宝路）",
+    lat: 23.1072, lng: 113.2520,
+    tag: "肠粉", color: "#e67e22",
+    note: "人均 ¥18"
+  },
+
+  // 糖水甜品 — 紫色
+  {
+    name: "百花传统甜品店",
+    lat: 23.1088, lng: 113.2610,
+    tag: "糖水甜品", color: "#9b59b6",
+    note: "人均 ¥19"
+  },
+  {
+    name: "開记甜品（多宝路）",
+    lat: 23.1075, lng: 113.2515,
+    tag: "糖水甜品", color: "#9b59b6",
+    note: "人均 ¥18"
+  },
+
+  // 亲子 — 绿色
+  {
+    name: "kizfive 亲子餐厅（二沙岛）",
+    lat: 23.1194, lng: 113.3048,
+    tag: "亲子餐厅", color: "#27ae60",
+    note: "二沙岛文立方内，有儿童游乐区"
+  },
+  {
+    name: "花城广场（餐饮 + 游乐）",
+    lat: 23.1197, lng: 113.3205,
+    tag: "亲子友好", color: "#27ae60",
+    note: "各类餐饮 + 室内游艺区，适合带娃"
+  },
+  {
+    name: "长隆白虎自助餐厅",
+    lat: 22.9997, lng: 113.3321,
+    tag: "亲子餐厅 · 番禺", color: "#27ae60",
+    note: "边吃边看白虎和火烈鸟，孩子超爱<br>⚠️ 距市区约 40 分钟车程"
+  },
+
+  // 萨其马专项 — 蓝色
+  {
+    name: "⭐ 白天鹅宾馆饼屋（榄仁萨其马）",
+    lat: 23.1022, lng: 113.2450,
+    tag: "Amy 特别推荐 · 必买", color: "#2980b9",
+    note: "¥54/块，广州独一份。经常排队，建议早去或小程序预约。<br>广州机场 T2 亦有售",
+    warn: "⚠️ 含榄仁（橄榄仁），玥玥不在过敏清单，但现场确认"
+  },
+];
+
+places.forEach(p => {
+  const warn = p.warn ? `<div class="warning">${p.warn}</div>` : '';
+  const popup = `
+    <div class="popup-title">${p.name}</div>
+    <div class="popup-tag">${p.tag}</div>
+    <div class="popup-note">${p.note}</div>
+    ${warn}
+  `;
+  L.marker([p.lat, p.lng], { icon: makeIcon(p.color) })
+    .addTo(map)
+    .bindPopup(popup, { maxWidth: 260 });
+});
+
+// Auto-fit to all markers with 20% padding (exclude 长隆 which is far south)
+const fitPlaces = places.filter(p => !p.name.includes('长隆'));
+const lats = fitPlaces.map(p => p.lat);
+const lngs = fitPlaces.map(p => p.lng);
+const bounds = L.latLngBounds(
+  [Math.min(...lats), Math.min(...lngs)],
+  [Math.max(...lats), Math.max(...lngs)]
+);
+map.fitBounds(bounds, { padding: [60, 60] });
+</script>
+</body>
+</html>
