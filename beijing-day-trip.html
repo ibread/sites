@@ -11,7 +11,6 @@
 :root{--primary:#c41e3a;--accent:#d4a843;--warm-bg:#faf8f5;--card-bg:#fff;--text:#333;--sub:#666}
 body{font-family:-apple-system,'PingFang SC',BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--warm-bg);color:var(--text)}
 
-/* Banner */
 header{
   background:linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.6)),
     url('https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=800&q=80') center 30%/cover;
@@ -20,7 +19,6 @@ header{
 header h1{font-size:18px;font-weight:700;text-shadow:0 1px 4px rgba(0,0,0,.5)}
 header p{font-size:12px;opacity:.85;margin-top:2px}
 
-/* Lang toggle */
 .lang-btn{
   position:absolute;top:14px;right:14px;background:rgba(255,255,255,.2);
   border:1px solid rgba(255,255,255,.5);color:#fff;border-radius:16px;
@@ -28,14 +26,12 @@ header p{font-size:12px;opacity:.85;margin-top:2px}
 }
 .lang-btn:hover{background:rgba(255,255,255,.35)}
 
-/* Allergy */
 .allergy{
   background:#fffbeb;border-left:4px solid #f59e0b;padding:8px 12px;
   font-size:12px;line-height:1.6
 }
 .allergy b{color:#b45309}
 
-/* Layout */
 .layout{display:flex;flex-direction:column;height:calc(100vh - 120px);min-height:400px}
 #map{flex:1;min-height:200px;z-index:1}
 .sidebar{order:1;max-height:52vh;overflow-y:auto;padding:12px}
@@ -46,7 +42,6 @@ header p{font-size:12px;opacity:.85;margin-top:2px}
   .sidebar{order:2;width:380px;max-height:none}
 }
 
-/* Day card */
 .day-card{background:var(--card-bg);border-radius:10px;box-shadow:0 1px 6px rgba(0,0,0,.08);margin-bottom:12px;overflow:hidden}
 .day-card h3{
   background:linear-gradient(135deg,var(--primary),#a01830);
@@ -68,14 +63,19 @@ header p{font-size:12px;opacity:.85;margin-top:2px}
   padding:1px 6px;border-radius:8px;margin-left:6px
 }
 
-/* Marker */
 .marker{
   width:28px;height:28px;border-radius:50%;color:#fff;font-size:13px;font-weight:700;
   display:flex;align-items:center;justify-content:center;
   box-shadow:0 2px 6px rgba(0,0,0,.3);border:2px solid #fff
 }
 
-/* Legend */
+/* POI label marker */
+.poi-marker{
+  background:rgba(255,255,255,.92);border:1px solid #aaa;border-radius:4px;
+  padding:2px 6px;font-size:11px;font-weight:600;white-space:nowrap;
+  box-shadow:0 1px 3px rgba(0,0,0,.2);color:#333
+}
+
 .legend{
   background:rgba(255,255,255,.92);border-radius:8px;padding:8px 10px;
   font-size:11px;line-height:1.8;box-shadow:0 1px 4px rgba(0,0,0,.15)
@@ -101,7 +101,7 @@ header p{font-size:12px;opacity:.85;margin-top:2px}
 </div>
 
 <script>
-const COLORS = {attraction:'#e74c3c', food:'#e67e22', kids:'#27ae60'};
+const COLORS = {attraction:'#e74c3c', food:'#e67e22', kids:'#27ae60', hotel:'#2980b9'};
 
 const spots = [
   {
@@ -124,10 +124,25 @@ const spots = [
   }
 ];
 
+// Extra POI markers (not in itinerary sidebar)
+const pois = [
+  {
+    nameZh:'🏨 北京华尔道夫酒店', nameEn:'🏨 Waldorf Astoria Beijing',
+    label:'Hotel', lat:39.9148, lng:116.4137, color:COLORS.hotel
+  },
+  {
+    nameZh:'🏢 Airbnb Beijing Office', nameEn:'🏢 Airbnb Beijing Office',
+    label:'Airbnb', lat:39.9210, lng:116.4530, color:'#ff5a5f'
+  },
+  {
+    nameZh:'🧁 哈里小屋（蓝色港湾店）', nameEn:'🧁 Harry\'s Kitchen (Solana)',
+    label:'Harry\'s', lat:39.9480, lng:116.4610, color:COLORS.kids
+  }
+];
+
 let lang = 'zh';
 
 function renderSidebar(){
-  const sb = document.getElementById('sidebar');
   const title = document.getElementById('title');
   const subtitle = document.getElementById('subtitle');
   title.textContent = lang==='zh' ? '🏯 北京一日游' : '🏯 Beijing Day Trip';
@@ -150,16 +165,29 @@ function renderSidebar(){
     </div>`;
   });
   html += '</div>';
-  sb.innerHTML = html;
+
+  // POI section
+  html += '<div class="day-card"><h3>'+(lang==='zh'?'📌 其他标注':'📌 Other Landmarks')+'</h3>';
+  pois.forEach((p,i)=>{
+    const name = lang==='zh' ? p.nameZh : p.nameEn;
+    html += `<div class="spot" onclick="flyToPoi(${i})">
+      <div class="spot-dot" style="background:${p.color}">${p.label[0]}</div>
+      <div class="spot-info"><div class="spot-name">${name}</div></div>
+    </div>`;
+  });
+  html += '</div>';
+
+  document.getElementById('sidebar').innerHTML = html;
 }
 
-// Map
+// Map — English tiles (CartoDB Positron)
 const map = L.map('map',{zoomControl:false}).setView([39.92,116.45],12);
 L.control.zoom({position:'topright'}).addTo(map);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-  attribution:'© OpenStreetMap',maxZoom:18
+L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{
+  attribution:'© OpenStreetMap © CARTO',maxZoom:18
 }).addTo(map);
 
+// Itinerary markers
 const markers = [];
 spots.forEach((s,i)=>{
   const icon = L.divIcon({
@@ -172,17 +200,31 @@ spots.forEach((s,i)=>{
   markers.push(m);
 });
 
+// POI markers
+const poiMarkers = [];
+pois.forEach(p=>{
+  const icon = L.divIcon({
+    className:'',
+    html:`<div class="poi-marker" style="border-color:${p.color};color:${p.color}">${lang==='zh'?p.nameZh:p.nameEn}</div>`,
+    iconAnchor:[0,0]
+  });
+  const m = L.marker([p.lat,p.lng],{icon}).addTo(map);
+  m.bindPopup(`<b>${lang==='zh'?p.nameZh:p.nameEn}</b>`);
+  poiMarkers.push(m);
+});
+
 // Route line
 L.polyline(spots.map(s=>[s.lat,s.lng]),{color:COLORS.attraction,weight:2,dashArray:'6,8',opacity:.5}).addTo(map);
 
-// Fit bounds
-map.fitBounds(spots.map(s=>[s.lat,s.lng]),{padding:[40,40]});
+// Fit all points
+const allPts = [...spots,...pois].map(s=>[s.lat,s.lng]);
+map.fitBounds(allPts,{padding:[40,40]});
 
 // Legend
 const legend = L.control({position:'bottomleft'});
 legend.onAdd = function(){
   const d = L.DomUtil.create('div','legend');
-  d.innerHTML = '<i style="background:#e74c3c"></i>景点 Attraction<br><i style="background:#e67e22"></i>美食 Food<br><i style="background:#27ae60"></i>亲子 Kids';
+  d.innerHTML = '<i style="background:#e74c3c"></i>Attraction<br><i style="background:#e67e22"></i>Food<br><i style="background:#27ae60"></i>Kids<br><i style="background:#2980b9"></i>Hotel<br><i style="background:#ff5a5f"></i>Airbnb';
   return d;
 };
 legend.addTo(map);
@@ -191,16 +233,32 @@ function flyTo(i){
   map.flyTo([spots[i].lat,spots[i].lng],15,{duration:0.8});
   markers[i].openPopup();
 }
+function flyToPoi(i){
+  map.flyTo([pois[i].lat,pois[i].lng],15,{duration:0.8});
+  poiMarkers[i].openPopup();
+}
 
 function toggleLang(){
   lang = lang==='zh'?'en':'zh';
   renderSidebar();
-  // Update popups
+  // Update itinerary popups
   markers.forEach((m,i)=>{
     const s = spots[i];
     const name = lang==='zh' ? s.nameZh : s.nameEn;
     const time = lang==='zh' ? s.timeZh : s.timeEn;
     m.setPopupContent(`<b>${s.emoji} ${name}</b><br><small>${time}</small>`);
+  });
+  // Update POI markers & popups
+  poiMarkers.forEach((m,i)=>{
+    const p = pois[i];
+    const name = lang==='zh' ? p.nameZh : p.nameEn;
+    const icon = L.divIcon({
+      className:'',
+      html:`<div class="poi-marker" style="border-color:${p.color};color:${p.color}">${name}</div>`,
+      iconAnchor:[0,0]
+    });
+    m.setIcon(icon);
+    m.setPopupContent(`<b>${name}</b>`);
   });
 }
 
