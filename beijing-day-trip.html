@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>北京一日游 Beijing Day Trip</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--primary:#c41e3a;--accent:#d4a843;--warm-bg:#faf8f5;--card-bg:#fff;--text:#333;--sub:#666}
+body{font-family:-apple-system,'PingFang SC',BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--warm-bg);color:var(--text)}
+
+/* Banner */
+header{
+  background:linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.6)),
+    url('https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=800&q=80') center 30%/cover;
+  padding:18px 16px 14px;color:#fff;text-align:center;position:relative
+}
+header h1{font-size:18px;font-weight:700;text-shadow:0 1px 4px rgba(0,0,0,.5)}
+header p{font-size:12px;opacity:.85;margin-top:2px}
+
+/* Lang toggle */
+.lang-btn{
+  position:absolute;top:14px;right:14px;background:rgba(255,255,255,.2);
+  border:1px solid rgba(255,255,255,.5);color:#fff;border-radius:16px;
+  padding:4px 12px;font-size:12px;cursor:pointer;backdrop-filter:blur(4px)
+}
+.lang-btn:hover{background:rgba(255,255,255,.35)}
+
+/* Allergy */
+.allergy{
+  background:#fffbeb;border-left:4px solid #f59e0b;padding:8px 12px;
+  font-size:12px;line-height:1.6
+}
+.allergy b{color:#b45309}
+
+/* Layout */
+.layout{display:flex;flex-direction:column;height:calc(100vh - 120px);min-height:400px}
+#map{flex:1;min-height:200px;z-index:1}
+.sidebar{order:1;max-height:52vh;overflow-y:auto;padding:12px}
+
+@media(min-width:680px){
+  .layout{flex-direction:row}
+  #map{order:1;flex:1}
+  .sidebar{order:2;width:380px;max-height:none}
+}
+
+/* Day card */
+.day-card{background:var(--card-bg);border-radius:10px;box-shadow:0 1px 6px rgba(0,0,0,.08);margin-bottom:12px;overflow:hidden}
+.day-card h3{
+  background:linear-gradient(135deg,var(--primary),#a01830);
+  color:#fff;padding:10px 14px;font-size:14px;font-weight:600
+}
+.spot{display:flex;align-items:flex-start;padding:10px 14px;border-bottom:1px solid #f0ede8;cursor:pointer;transition:background .15s}
+.spot:last-child{border-bottom:none}
+.spot:hover{background:#faf5ee}
+.spot-dot{
+  width:26px;height:26px;border-radius:50%;color:#fff;font-size:12px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-right:10px;margin-top:2px
+}
+.spot-info{flex:1}
+.spot-name{font-size:14px;font-weight:600}
+.spot-desc{font-size:12px;color:var(--sub);margin-top:2px;line-height:1.5}
+.spot-time{font-size:11px;color:#999;margin-top:3px}
+.spot-allergy{
+  display:inline-block;background:#fef3c7;color:#b45309;font-size:10px;
+  padding:1px 6px;border-radius:8px;margin-left:6px
+}
+
+/* Marker */
+.marker{
+  width:28px;height:28px;border-radius:50%;color:#fff;font-size:13px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 6px rgba(0,0,0,.3);border:2px solid #fff
+}
+
+/* Legend */
+.legend{
+  background:rgba(255,255,255,.92);border-radius:8px;padding:8px 10px;
+  font-size:11px;line-height:1.8;box-shadow:0 1px 4px rgba(0,0,0,.15)
+}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px;vertical-align:middle}
+</style>
+</head>
+<body>
+
+<header>
+  <h1 id="title">🏯 北京一日游</h1>
+  <p id="subtitle">故宫 → 烤鸭 → Mini Mars</p>
+  <button class="lang-btn" onclick="toggleLang()" id="langBtn">EN</button>
+</header>
+
+<div class="allergy" id="allergyBar">
+  ⚠️ <b>过敏提醒：</b>孔雀：核桃 Walnut ｜ 玥玥：开心果 Pistachio、腰果 Cashew、山药 Yam ｜ Amy：过敏性鼻炎
+</div>
+
+<div class="layout">
+  <div class="sidebar" id="sidebar"></div>
+  <div id="map"></div>
+</div>
+
+<script>
+const COLORS = {attraction:'#e74c3c', food:'#e67e22', kids:'#27ae60'};
+
+const spots = [
+  {
+    nameZh:'故宫博物院', nameEn:'The Palace Museum (Forbidden City)',
+    descZh:'世界五大宫之首，明清两代皇宫。建议从午门进、神武门出。', descEn:'One of the world\'s five great palaces. Enter from Meridian Gate, exit via Gate of Divine Prowess.',
+    timeZh:'🕘 上午 9:00–12:00', timeEn:'🕘 Morning 9:00–12:00',
+    lat:39.9163, lng:116.3972, type:'attraction', emoji:'🏯', allergy:false
+  },
+  {
+    nameZh:'新拾玖·新京菜 CBD店', nameEn:'Xin Shi Jiu · New Beijing Cuisine (CBD)',
+    descZh:'招牌烤鸭，可看国贸三期落日。地址：光华路乙10号。', descEn:'Signature roast duck with a view of CCTC Tower at sunset. Address: No.10B Guanghua Rd.',
+    timeZh:'🕛 中午 12:30–14:00', timeEn:'🕛 Lunch 12:30–14:00',
+    lat:39.9089, lng:116.4599, type:'food', emoji:'🦆', allergy:true
+  },
+  {
+    nameZh:'Mini Mars 朝阳东坝店', nameEn:'Mini Mars (Dongba, Chaoyang)',
+    descZh:'大型室内亲子乐园，80+沉浸式玩乐项目，适合遛娃。', descEn:'Large indoor family playground with 80+ immersive play zones. Great for kids!',
+    timeZh:'🕑 下午 14:30–17:30', timeEn:'🕑 Afternoon 14:30–17:30',
+    lat:39.9350, lng:116.5150, type:'kids', emoji:'🎢', allergy:false
+  }
+];
+
+let lang = 'zh';
+
+function renderSidebar(){
+  const sb = document.getElementById('sidebar');
+  const title = document.getElementById('title');
+  const subtitle = document.getElementById('subtitle');
+  title.textContent = lang==='zh' ? '🏯 北京一日游' : '🏯 Beijing Day Trip';
+  subtitle.textContent = lang==='zh' ? '故宫 → 烤鸭 → Mini Mars' : 'Forbidden City → Roast Duck → Mini Mars';
+  document.getElementById('langBtn').textContent = lang==='zh' ? 'EN' : '中文';
+
+  let html = '<div class="day-card"><h3>'+(lang==='zh'?'📍 一日行程':'📍 Day Itinerary')+'</h3>';
+  spots.forEach((s,i)=>{
+    const name = lang==='zh' ? s.nameZh : s.nameEn;
+    const desc = lang==='zh' ? s.descZh : s.descEn;
+    const time = lang==='zh' ? s.timeZh : s.timeEn;
+    const allergyTag = s.allergy ? '<span class="spot-allergy">⚠️ '+(lang==='zh'?'查过敏原':'Check allergens')+'</span>' : '';
+    html += `<div class="spot" onclick="flyTo(${i})">
+      <div class="spot-dot" style="background:${COLORS[s.type]}">${i+1}</div>
+      <div class="spot-info">
+        <div class="spot-name">${s.emoji} ${name}${allergyTag}</div>
+        <div class="spot-desc">${desc}</div>
+        <div class="spot-time">${time}</div>
+      </div>
+    </div>`;
+  });
+  html += '</div>';
+  sb.innerHTML = html;
+}
+
+// Map
+const map = L.map('map',{zoomControl:false}).setView([39.92,116.45],12);
+L.control.zoom({position:'topright'}).addTo(map);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+  attribution:'© OpenStreetMap',maxZoom:18
+}).addTo(map);
+
+const markers = [];
+spots.forEach((s,i)=>{
+  const icon = L.divIcon({
+    className:'',
+    html:`<div class="marker" style="background:${COLORS[s.type]}">${i+1}</div>`,
+    iconSize:[28,28],iconAnchor:[14,14]
+  });
+  const m = L.marker([s.lat,s.lng],{icon}).addTo(map);
+  m.bindPopup(`<b>${s.emoji} ${s.nameZh}</b><br>${s.nameEn}<br><small>${s.timeZh}</small>`);
+  markers.push(m);
+});
+
+// Route line
+L.polyline(spots.map(s=>[s.lat,s.lng]),{color:COLORS.attraction,weight:2,dashArray:'6,8',opacity:.5}).addTo(map);
+
+// Fit bounds
+map.fitBounds(spots.map(s=>[s.lat,s.lng]),{padding:[40,40]});
+
+// Legend
+const legend = L.control({position:'bottomleft'});
+legend.onAdd = function(){
+  const d = L.DomUtil.create('div','legend');
+  d.innerHTML = '<i style="background:#e74c3c"></i>景点 Attraction<br><i style="background:#e67e22"></i>美食 Food<br><i style="background:#27ae60"></i>亲子 Kids';
+  return d;
+};
+legend.addTo(map);
+
+function flyTo(i){
+  map.flyTo([spots[i].lat,spots[i].lng],15,{duration:0.8});
+  markers[i].openPopup();
+}
+
+function toggleLang(){
+  lang = lang==='zh'?'en':'zh';
+  renderSidebar();
+  // Update popups
+  markers.forEach((m,i)=>{
+    const s = spots[i];
+    const name = lang==='zh' ? s.nameZh : s.nameEn;
+    const time = lang==='zh' ? s.timeZh : s.timeEn;
+    m.setPopupContent(`<b>${s.emoji} ${name}</b><br><small>${time}</small>`);
+  });
+}
+
+renderSidebar();
+</script>
+</body>
+</html>
