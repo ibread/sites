@@ -221,8 +221,19 @@ pois.forEach(p=>{
   poiMarkers.push(m);
 });
 
-// Route line
-L.polyline(spots.map(s=>[s.lat,s.lng]),{color:COLORS.attraction,weight:2,dashArray:'6,8',opacity:.5}).addTo(map);
+// Route lines with drive time labels
+const driveTimes = ['🚗 ~15 min','🚗 ~20 min'];
+for(let i=0;i<spots.length-1;i++){
+  const a=spots[i], b=spots[i+1];
+  L.polyline([[a.lat,a.lng],[b.lat,b.lng]],{color:'#888',weight:2.5,dashArray:'6,8',opacity:.6}).addTo(map);
+  const midLat=(a.lat+b.lat)/2, midLng=(a.lng+b.lng)/2;
+  const icon = L.divIcon({
+    className:'',
+    html:`<div style="background:rgba(255,255,255,.93);border:1px solid #bbb;border-radius:10px;padding:2px 8px;font-size:11px;font-weight:600;color:#555;white-space:nowrap;box-shadow:0 1px 3px rgba(0,0,0,.15)">${driveTimes[i]}</div>`,
+    iconAnchor:[40,10]
+  });
+  L.marker([midLat,midLng],{icon,interactive:false}).addTo(map);
+}
 
 // Fit all points
 const allPts = [...spots,...pois].map(s=>[s.lat,s.lng]);
