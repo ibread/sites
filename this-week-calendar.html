@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>本周日程 4/6 - 4/12</title>
+<style>
+@page { size: A4; margin: 15mm; }
+body { font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif; margin: 0; padding: 20px; background: white; color: #333; }
+h1 { text-align: center; font-size: 26px; margin-bottom: 5px; color: #2c3e50; }
+.subtitle { text-align: center; font-size: 14px; color: #7f8c8d; margin-bottom: 20px; }
+.week-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0; border: 2px solid #34495e; border-radius: 8px; overflow: hidden; }
+.day-header { background: #34495e; color: white; text-align: center; padding: 8px 4px; font-weight: 600; font-size: 13px; }
+.day-header.weekend { background: #8e44ad; }
+.day-header.today { background: #e74c3c; }
+.day-cell { min-height: 120px; border: 1px solid #ddd; padding: 6px; font-size: 12px; vertical-align: top; }
+.day-cell.weekend { background: #fdf2f8; }
+.day-cell.today { background: #fef3cd; }
+.date-num { font-weight: 700; font-size: 16px; margin-bottom: 6px; color: #2c3e50; }
+.event { margin-bottom: 6px; padding: 4px 6px; border-radius: 4px; font-size: 11px; line-height: 1.4; }
+.event-kongque { background: #dbeafe; border-left: 3px solid #3b82f6; }
+.event-yueyue { background: #fce7f3; border-left: 3px solid #ec4899; }
+.event-both { background: #f0fdf4; border-left: 3px solid #22c55e; }
+.event-family { background: #fef9c3; border-left: 3px solid #eab308; }
+.event-time { font-size: 10px; color: #6b7280; }
+.event-title { font-weight: 600; }
+.legend { display: flex; gap: 16px; justify-content: center; margin-top: 15px; font-size: 12px; flex-wrap: wrap; }
+.legend-item { display: flex; align-items: center; gap: 4px; }
+.legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+.allday-banner { background: #e8f5e9; border: 1px dashed #4caf50; padding: 3px 6px; border-radius: 4px; font-size: 11px; margin-bottom: 4px; text-align: center; color: #2e7d32; font-weight: 600; }
+.print-btn { display: block; margin: 20px auto; padding: 10px 30px; background: #3b82f6; color: white; border: none; border-radius: 6px; font-size: 14px; cursor: pointer; }
+.print-btn:hover { background: #2563eb; }
+@media print { .print-btn { display: none; } }
+</style>
+</head>
+<body>
+
+<h1>👧 孔雀 & 玥玥 本周日程</h1>
+<div class="subtitle">2026年4月6日（周一）— 4月12日（周日）</div>
+
+<div class="week-grid">
+  <!-- Headers -->
+  <div class="day-header today">周一<br>4/6</div>
+  <div class="day-header">周二<br>4/7</div>
+  <div class="day-header">周三<br>4/8</div>
+  <div class="day-header">周四<br>4/9</div>
+  <div class="day-header">周五<br>4/10</div>
+  <div class="day-header weekend">周六<br>4/11</div>
+  <div class="day-header weekend">周日<br>4/12</div>
+
+  <!-- Monday 4/6 -->
+  <div class="day-cell today">
+    <div class="date-num">6</div>
+    <div style="color:#999; font-size:11px; text-align:center; margin-top:30px;">无安排</div>
+  </div>
+
+  <!-- Tuesday 4/7 -->
+  <div class="day-cell">
+    <div class="date-num">7</div>
+    <div style="color:#999; font-size:11px; text-align:center; margin-top:30px;">无安排</div>
+  </div>
+
+  <!-- Wednesday 4/8 -->
+  <div class="day-cell">
+    <div class="date-num">8</div>
+    <div class="allday-banner">📋 给玥玥取护照</div>
+  </div>
+
+  <!-- Thursday 4/9 -->
+  <div class="day-cell">
+    <div class="date-num">9</div>
+    <div class="event event-kongque">
+      <div class="event-time">🕟 16:30 - 18:00</div>
+      <div class="event-title">⛸️ 孔雀滑冰</div>
+      <div style="font-size:10px; color:#6b7280;">焦姐接送</div>
+    </div>
+  </div>
+
+  <!-- Friday 4/10 -->
+  <div class="day-cell">
+    <div class="date-num">10</div>
+    <div style="color:#999; font-size:11px; text-align:center; margin-top:30px;">无安排</div>
+  </div>
+
+  <!-- Saturday 4/11 -->
+  <div class="day-cell weekend">
+    <div class="date-num">11</div>
+    <div class="allday-banner">🌸 孔雀春假开始</div>
+    <div class="event event-yueyue">
+      <div class="event-time">🕘 9:00 - 11:00</div>
+      <div class="event-title">🐴 玥玥骑马</div>
+    </div>
+    <div class="event event-both">
+      <div class="event-time">🕚 11:00 - 12:00</div>
+      <div class="event-title">🦷 孔雀玥玥涂氟</div>
+      <div style="font-size:10px; color:#6b7280;">瑞尔齿科</div>
+    </div>
+  </div>
+
+  <!-- Sunday 4/12 -->
+  <div class="day-cell weekend">
+    <div class="date-num">12</div>
+    <div class="allday-banner">🌸 孔雀春假</div>
+  </div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#dbeafe; border:1px solid #3b82f6;"></div> 孔雀</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#fce7f3; border:1px solid #ec4899;"></div> 玥玥</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#f0fdf4; border:1px solid #22c55e;"></div> 姐妹俩</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#fef9c3; border:1px solid #eab308;"></div> 家庭</div>
+</div>
+
+<button class="print-btn" onclick="window.print()">🖨️ 打印</button>
+
+</body>
+</html>
