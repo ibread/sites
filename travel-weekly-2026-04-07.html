@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌏 亚洲旅行周报 — 2026-03-31 ~ 2026-04-07</title>
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #2c5282;
+            --accent: #3182ce;
+            --bg: #f7fafc;
+            --card-bg: #ffffff;
+            --text: #1a202c;
+            --text-muted: #718096;
+            --border: #e2e8f0;
+            --china: #c53030;
+            --japan: #dc2626;
+            --korea: #0047a0;
+            --india: #ff9933;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro", "Noto Sans SC", "Segoe UI", Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 40px 30px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        header .date-range {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .trend-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+        }
+
+        .trend-card {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-left: 4px solid var(--accent);
+            padding: 16px;
+            border-radius: 8px;
+        }
+
+        .trend-card h4 {
+            font-size: 14px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .trend-card p {
+            font-size: 16px;
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        .country-section {
+            border-top: 3px solid;
+        }
+
+        .country-section.china { border-color: var(--china); }
+        .country-section.japan { border-color: var(--japan); }
+        .country-section.korea { border-color: var(--korea); }
+        .country-section.india { border-color: var(--india); }
+
+        .country-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .country-flag {
+            font-size: 36px;
+        }
+
+        .country-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .subsection {
+            margin-bottom: 20px;
+        }
+
+        .subsection:last-child {
+            margin-bottom: 0;
+        }
+
+        .subsection-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--secondary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .news-list {
+            list-style: none;
+        }
+
+        .news-item {
+            background: var(--bg);
+            padding: 14px 16px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .news-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .news-item a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .news-item a:hover {
+            text-decoration: underline;
+        }
+
+        .news-meta {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        .highlight {
+            background: #fef3c7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .competitor-card {
+            display: flex;
+            gap: 16px;
+            padding: 16px;
+            background: var(--bg);
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        .competitor-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .competitor-booking { background: #003580; }
+        .competitor-trip { background: #2874f0; }
+
+        .competitor-content {
+            flex: 1;
+        }
+
+        .competitor-name {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .competitor-news {
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .insights-box {
+            background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
+            color: white;
+            padding: 24px;
+            border-radius: 12px;
+        }
+
+        .insights-box h3 {
+            font-size: 18px;
+            margin-bottom: 16px;
+        }
+
+        .insight-item {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 14px;
+            font-size: 15px;
+        }
+
+        .insight-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .insight-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 12px;
+            }
+
+            header {
+                padding: 24px 16px;
+            }
+
+            header h1 {
+                font-size: 22px;
+            }
+
+            .section {
+                padding: 18px;
+            }
+
+            .section-title {
+                font-size: 18px;
+            }
+
+            .competitor-card {
+                flex-direction: column;
+            }
+
+            .competitor-logo {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌏 亚洲旅行周报</h1>
+            <div class="date-range">2026-03-31 ~ 2026-04-07</div>
+        </header>
+
+        <!-- 本周趋势信号 -->
+        <section class="section">
+            <h2 class="section-title">🔥 本周趋势信号</h2>
+            <div class="trend-grid">
+                <div class="trend-card">
+                    <h4>📈 亚太复苏超预期</h4>
+                    <p>PATA 预测：<strong>2026 年起亚太入境游将超越疫情前水平</strong>，2028 年达 7.61 亿人次。地缘政治仍是主要风险变量。</p>
+                </div>
+                <div class="trend-card">
+                    <h4>🎯 清明出行升级</h4>
+                    <p>中国清明假期国内游<strong>1.35 亿人次</strong>创历史新高，800 公里以上长线游增长超 30%，亲子游占比 37%。</p>
+                </div>
+                <div class="trend-card">
+                    <h4>⚠️ 航班大面积延误</h4>
+                    <p>4 月 7 日亚洲枢纽机场<strong>3800+ 航班延误</strong>、260 班取消，复活节 + 清明假期叠加影响显著。</p>
+                </div>
+                <div class="trend-card">
+                    <h4>🏨 竞对整合加速</h4>
+                    <p>Booking Holdings 3 月底宣布整合 Booking.com、Priceline、Agoda 的 B2B 业务，统一全球架构。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 中国 -->
+        <section class="section country-section china">
+            <div class="country-header">
+                <span class="country-flag">🇨🇳</span>
+                <span class="country-name">中国</span>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">📱 消费者信号</h3>
+                <ul class="news-list">
+                    <li class="news-item">
+                        <strong>春假经济爆发</strong>：江苏、浙江、安徽、贵州等地中小学春假与清明叠加形成 6 天连休，亲子游订单金额占全国 37%，未成年人航空/高铁占比显著提升。
+                        <div class="news-meta">来源：中新网 | 2026-04-07</div>
+                    </li>
+                    <li class="news-item">
+                        <strong>长线度假成主流</strong>：清明出行半径显著扩容，800 公里以上旅客同比增长超 30%。攀枝花出发机票量增长 1.2 倍，黄山增 80%，西昌增 72%。
+                        <div class="news-meta">来源：光明网 | 2026-04-07</div>
+                    </li>
+                    <li class="news-item">
+                        <strong>新业态激活消费</strong>：低空体验、春鲜美食、沉浸体验、夜间花灯等新场景成为热门选择，多元消费场景释放春日经济活力。
+                        <div class="news-meta">来源：新华网 | 2026-04-07</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">🏔️ 国内游趋势</h3>
+                <ul class="news-list">
+                    <li class="news-item">
+                        <strong>60 亿人次年度规模</strong>：中国国内旅游市场已成为全球最大，年 trips 超 60 亿。2026 年春节 9 天假期记录 5.96 亿人次国内游，旅游消费超 8000 亿元。
+                        <div class="news-meta">来源：Travel And Tour World | 2026-04-06</div>
+                    </li>
+                    <li class="news-item">
+                        <strong>燃油附加费调整</strong>：4 月起国内航线燃油附加费新调整，北京、上海、广州等枢纽城市预订量仍上升，航司正重新评估票价结构。
+                        <div class="news-meta">来源：Travel And Tour World | 2026-04-05</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">✈️ 出入境动态</h3>
+                <ul class="news-list">
+                    <li class="news-item">
+                        <strong>出境游预测</strong>：2026 年中国出境游预计达<span class="highlight">1.65-1.75 亿人次</span>（去年同期 1.55 亿），但赴日游客预计减半。
+                        <div class="news-meta">来源：SCMP | 2026-01-11</div>
+                    </li>
+                    <li class="news-item">
+                        <strong>出入境双向升温</strong>：清明假期返乡祭祖与春游踏春双重需求推动出入境客流双向走高，出入境旅游市场同步升温。
+                        <div class="news-meta">来源：光明网 | 2026-04-07</div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 日本 -->
+        <section class="section country-section japan">
+            <div class="country-header">
+                <span class="country-flag">🇯🇵</span>
+                <span class="country-name">日本</span>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">🌸 消费者信号</h3>
+                <ul class="news-list">
+                    <li class="news-item">
+                        <strong>BTS 东京巨蛋演唱会</strong>：4 月 BTS 演唱会带动国际粉丝赴日，酒店入住率、消费额和文化旅行在春季旺季显著增长。
+                        <div class="news-meta">来源：Travel And Tour World | 2026-04-05</div>
+                    </li>
+                    <li class="news-item">
+                        <strong>樱花季全境盛开</strong>：各地 hanami 赏花活动人流如织，4 月奈良监狱改造的 48 间奢华酒店（星野度假村）正式开业，附带博物馆。
+                        <div class="news-meta">来源：GLT JP | 2026-02-17</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">🗾 国内游趋势</h3>
+                <ul class="news-list">
+                    <li class="news-item">
+                        <strong>黄金周出境意愿</strong>：57.2 万日本人计划黄金周出境游，同比增 8.5%（JTB 调查）。
+                        <div class="news-meta">来源：The Japan Times | 2026-04-03</div>
+                    </li>
+                    <li class="news-item">
+                        <strong>签证费上调提案</strong>：政府提议单次入境签证费涨至<span class="highlight">¥15,000（$100）</span>、多次入境¥30,000（$200），4 月起实施。
+                        <div class="news-meta">来源：Forbes | 2026-02-14</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">🏯 入境/民宿市场</h3>
+                <ul class="news-list">
+                    <li class="news-item">
+                        <strong>过度旅游对策升级</strong>：日本观光厅修订基本计划，<strong>应对过度旅游的区域从 47 个增至 100 个</strong>，京都、姬路等地试点双层定价（非居民更高费用）。
+                        <div class="news-meta">来源：The Asahi Shimbun | 2026-03</div>
+                    </li>
+                    <li class="news-item">
+                        <strong>打击违规民宿</strong>：2026-2030 五年计划强调吸引外国游客至农村地区，同时加强对不当民宿运营商的执法力度。
+                        <div class="news-meta">来源：The Japan Times | 2026-03-27</div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 韩国 -->
+        <section class="section country-section korea">
+            <div class="country-header">
+                <span class="country-flag">🇰🇷</span>
+                <span class="country-name">韩国</span>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">🎭 消费者信号</h3>
+                <ul class="news-list">
+                    <li class="news-item">
+                        <strong>主题公园春季升级</strong>：爱宝乐园和乐天世界 2026 春季推出新景点、现场表演和刺激游乐设施，吸引家庭游客。
+                        <div class="news-meta">来源：Travel And Tour World | 2026-04-06</div>
+                    </li>
+                    <li class="news-item">
+                        <strong>全国购物节联动</strong>：4 月 7 日启动全国性倡议，将旅游、零售和小微企业联结，将本地消费转化为协调经济刺激。
+                        <div class="news-meta">来源：PR Newswire | 2026-04-07</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">🏔️ 国内游趋势</h3>
+                <ul class="news-list">
+                    <li class="news-item">
+                        <strong>质量增长战略</strong>：韩国文体部 2026 年新旅游战略从"数量驱动"转向<strong>"质量增长"模式</strong>，优先高价值游客和区域均衡发展。
+                        <div class="news-meta">来源：Travel And Tour World | 2026-03</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">🛂 入境动态</h3>
+                <ul class="news-list">
+                    <li class="news-item">
+                        <strong>朝鲜仍关闭</strong>：截至 2026 年 4 月 1 日，朝鲜仍正式关闭国际旅游，仅俄罗斯公民可在有限安排下访问。
+                        <div class="news-meta">来源：Young Pioneer Tours | 2026-04-01</div>
+                    </li>
+                    <li class="news-item">
+                        <strong>中国游客分流</strong>：受中日关系影响，中国出境游客赴日减半，韩国成为替代目的地之一。
+                        <div class="news-meta">来源：SCMP | 2026-01-11</div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 印度 -->
+        <section class="section country-section india">
+            <div class="country-header">
+                <span class="country-flag">🇮🇳</span>
+                <span class="country-name">印度</span>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">📊 消费者信号</h3>
+                <ul class="news-list">
+                    <li class="news-item">
+                        <strong>体验式旅游崛起</strong>：体验式旅游细分市场预计以<strong>14% 年复合增长率</strong>增长，2030 年成为旅游业核心支柱。数字化 AI、文化聚焦、体验驱动成为主流。
+                        <div class="news-meta">来源：ET Travel World | 2026-04-07</div>
+                    </li>
+                    <li class="news-item">
+                        <strong>Tripify 2026 趋势</strong>：印度最快增长在线旅游平台 Tripify 指出，2026 年趋势向数字化 AI、文化聚焦和体验驱动旅行转变。
+                        <div class="news-meta">来源：OpenPR | 2026-04-07</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">🏔️ 国内游趋势</h3>
+                <ul class="news-list">
+                    <li class="news-item">
+                        <strong>热门目的地</strong>：2026 年 4 月起印度最搜索目的地包括 Spiti、Kashmir、Sikkim、Coorg、Andaman 等。
+                        <div class="news-meta">来源：StayVista | 2026-04-01</div>
+                    </li>
+                    <li class="news-item">
+                        <strong>基建 + 可持续转型</strong>：战略投资基础设施、国内和商务旅游兴趣上升、可持续意识转变，旅游业成为经济增长和文化参与关键驱动力。
+                        <div class="news-meta">来源：Business News This Week | 2026-04-01</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">✈️ 出境/基建</h3>
+                <ul class="news-list">
+                    <li class="news-item">
+                        <strong>出境市场增长</strong>：印度出境旅游市场 2026-2036 年预计以<strong>11.4% CAGR</strong>增长，从 234 亿美元（2026）增至 688 亿美元（2036）。
+                        <div class="news-meta">来源：Future Market Insights | 2026-02-14</div>
+                    </li>
+                    <li class="news-item">
+                        <strong>热门出境目的地</strong>：泰国、美国、新加坡领先，斯里兰卡成为新兴目的地。印度 - 希腊首条直航开通推动希腊客流增长。
+                        <div class="news-meta">来源：Travel And Tour World | 2026-01-09</div>
+                    </li>
+                    <li class="news-item">
+                        <strong>机场扩建</strong>：印度计划<strong>2026 年前新建 100 座机场</strong>，IndiGo 等廉航通过代码共享和联盟扩大国际覆盖。
+                        <div class="news-meta">来源：India Outbound | 2025-10-02</div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 竞对 & 平台动态 -->
+        <section class="section">
+            <h2 class="section-title">🏢 竞对 & 平台动态</h2>
+
+            <div class="competitor-card">
+                <div class="competitor-logo competitor-booking">B</div>
+                <div class="competitor-content">
+                    <div class="competitor-name">Booking Holdings</div>
+                    <div class="competitor-news">
+                        <strong>3 月 30 日</strong>宣布整合 Booking.com、Priceline、Agoda 的战略 partnership 部门，统一全球 B2B 运营架构。Damien Pfirsch（Agoda CCO）确认整合旨在提升协同效应。
+                        <div class="news-meta">来源：TTG Asia | 2026-03-30</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="competitor-card">
+                <div class="competitor-logo competitor-trip">T</div>
+                <div class="competitor-content">
+                    <div class="competitor-name">Trip.com Group (TCOM)</div>
+                    <div class="competitor-news">
+                        <strong>4 月 6 日</strong>面临证券集体诉讼，指控其 AI 价格调整工具和反垄断监管风险披露不足。股价大幅下跌，诉讼代表 2024 年 4 月 30 日至 2026 年 1 月 13 日期间投资者。5 月 11 日为首席原告申请截止日。
+                        <div class="news-meta">来源：Globe Newswire | 2026-04-06 / PR Newswire | 2026-04-07</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Airbnb APAC 启示 -->
+        <section class="section">
+            <div class="insights-box">
+                <h3>💡 Airbnb APAC 启示</h3>
+
+                <div class="insight-item">
+                    <span class="insight-icon">🎯</span>
+                    <div>
+                        <strong>把握春假 + 清明连休机遇</strong><br>
+                        中国多地春假政策释放家庭亲子游需求，应针对性推出"亲子友好"房源标签和 6 天连休套餐，重点推广 800 公里以上长线目的地。
+                    </div>
+                </div>
+
+                <div class="insight-item">
+                    <span class="insight-icon">🏯</span>
+                    <div>
+                        <strong>日本过度旅游对策中的机会</strong><br>
+                        京都、姬路等地双层定价和农村引流政策下，可强化非热门城市房源推广，同时加强合规民宿审核以应对执法趋严。
+                    </div>
+                </div>
+
+                <div class="insight-item">
+                    <span class="insight-icon">🇰🇷</span>
+                    <div>
+                        <strong>韩国"质量增长"战略契合</strong><br>
+                        韩国从数量转向质量的旅游战略与 Airbnb 定位高度一致，可探索与韩国文体部合作推广高价值体验式住宿。
+                    </div>
+                </div>
+
+                <div class="insight-item">
+                    <span class="insight-icon">🇮🇳</span>
+                    <div>
+                        <strong>印度体验式旅游爆发前夜</strong><br>
+                        14% CAGR 的体验式旅游市场、100 座新机场基建投入，建议提前布局印度二三线城市特色房源，抢占体验式住宿先机。
+                    </div>
+                </div>
+
+                <div class="insight-item">
+                    <span class="insight-icon">⚠️</span>
+                    <div>
+                        <strong>竞对整合期的差异化窗口</strong><br>
+                        Booking Holdings B2B 整合可能带来短期运营摩擦，Trip.com 面临法律风险，这是 Airbnb 强化 APAC 市场份额的战略窗口期。
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>Powered by 🦞 小可 | 数据来源截止 2026-04-07</p>
+        </footer>
+    </div>
+</body>
+</html>
