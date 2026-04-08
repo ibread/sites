@@ -86,7 +86,18 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r
   attribution:'© OpenStreetMap © CARTO',maxZoom:19
 }).addTo(map);
 
-let markers=[],polylines=[];
+let markers=[],polylines=[],routeLabels=[];
+
+const ROUTE_TIMES={
+  '5/2':['🚗 5分钟','🚗 30分钟','🚗 30分钟'],
+  '5/3':['🚗 5分钟','🚗 15分钟','🚗 10分钟','🚗 5分钟','🚗 4分钟','🚗 3分钟','🚗 5分钟'],
+  '5/4':['🚗 20分钟','🚗 20分钟','🚗 5分钟']
+};
+
+function midpoint(a,b){return[(a[0]+b[0])/2,(a[1]+b[1])/2];}
+function routeLabel(pos,text){
+  return L.marker(pos,{interactive:false,icon:L.divIcon({className:'',html:`<div style="background:rgba(255,255,255,0.9);color:#333;font-size:11px;font-weight:600;padding:2px 6px;border-radius:10px;white-space:nowrap;box-shadow:0 1px 3px rgba(0,0,0,0.25);border:1px solid #ddd">${text}</div>`,iconSize:[0,0],iconAnchor:[0,10]})});
+}
 
 function makeIcon(color,num){
   return L.divIcon({className:'',html:`<div style="background:${color};color:#fff;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.3)">${num}</div>`,iconSize:[26,26],iconAnchor:[13,13]});
@@ -104,7 +115,8 @@ function render(filter){
   currentDay=filter;
   markers.forEach(m=>map.removeLayer(m));
   polylines.forEach(p=>map.removeLayer(p));
-  markers=[];polylines=[];
+  routeLabels.forEach(l=>map.removeLayer(l));
+  markers=[];polylines=[];routeLabels=[];
   const bounds=[[HOTEL.lat,HOTEL.lng]];
   const itin=document.getElementById('itinerary');
   let html='';
@@ -114,13 +126,14 @@ function render(filter){
     if(filter!=='all'&&d.day!==filter)return;
     const color=DAY_COLORS[d.day];
     html+=`<div class="day-header" style="color:${color}">📅 ${d.label}</div>`;
-    const latlngs=[];
+    const allPts=[[HOTEL.lat,HOTEL.lng]];
+    const times=ROUTE_TIMES[d.day]||[];
     d.spots.forEach((s,i)=>{
       globalIdx++;
       const m=L.marker([s.lat,s.lng],{icon:makeIcon(color,i+1)}).addTo(map)
         .bindPopup(`<b>${s.name}</b><br>⏰ ${s.time}<br>${s.desc}`);
       markers.push(m);
-      latlngs.push([s.lat,s.lng]);
+      allPts.push([s.lat,s.lng]);
       bounds.push([s.lat,s.lng]);
       const stepId=`step-${d.day}-${i}`;
       html+=`<div class="itin-step" id="${stepId}" onclick="flyTo(${s.lat},${s.lng},${markers.length-1})">
@@ -135,8 +148,15 @@ function render(filter){
         html+=`<div class="itin-transit">${d.transit[i]}</div>`;
       }
     });
-    const pl=L.polyline(latlngs,{color:color,weight:3,dashArray:'8 6',opacity:.7}).addTo(map);
-    polylines.push(pl);
+    // draw segments with labels
+    for(let k=0;k<allPts.length-1;k++){
+      const seg=L.polyline([allPts[k],allPts[k+1]],{color:color,weight:3,dashArray:'8 6',opacity:.7}).addTo(map);
+      polylines.push(seg);
+      if(times[k]){
+        const lb=routeLabel(midpoint(allPts[k],allPts[k+1]),times[k]).addTo(map);
+        routeLabels.push(lb);
+      }
+    }
   });
   itin.innerHTML=html;
   if(bounds.length>1)map.fitBounds(L.latLngBounds(bounds).pad(0.12));
