@@ -1,759 +1,187 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌏 亚洲旅行周报 2026-03-31 ~ 2026-04-07</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: -apple-system, "SF Pro Display", "Noto Sans SC", sans-serif;
-            background: #f5f5f7;
-            color: #1d1d1f;
-            line-height: 1.7;
-            font-size: 16px;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        header {
-            background: linear-gradient(135deg, #1a3a5c 0%, #2c5282 100%);
-            color: white;
-            padding: 40px 30px;
-            border-radius: 16px;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        header h1 {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        header .date-range {
-            font-size: 16px;
-            opacity: 0.9;
-        }
-        .section {
-            background: white;
-            border-radius: 16px;
-            padding: 30px;
-            margin-bottom: 24px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-        .section-title {
-            font-size: 22px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .trend-section {
-            border-left: 4px solid #e53e3e;
-        }
-        .trend-item {
-            background: #fff5f5;
-            border-radius: 12px;
-            padding: 16px 20px;
-            margin-bottom: 12px;
-            border-left: 3px solid #e53e3e;
-        }
-        .trend-item:last-child {
-            margin-bottom: 0;
-        }
-        .country-section {
-            margin-bottom: 24px;
-        }
-        .china { border-left: 4px solid #e53e3e; }
-        .japan { border-left: 4px solid #e53e3e; }
-        .korea { border-left: 4px solid #38a169; }
-        .india { border-left: 4px solid #dd6b20; }
-        .platform { border-left: 4px solid #3182ce; }
-        .insights { border-left: 4px solid #805ad5; }
-        .subsection {
-            margin-bottom: 20px;
-        }
-        .subsection-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: #718096;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 12px;
-        }
-        .news-card {
-            background: #f7fafc;
-            border-radius: 12px;
-            padding: 16px 20px;
-            margin-bottom: 12px;
-            transition: background 0.2s;
-        }
-        .news-card:hover {
-            background: #edf2f7;
-        }
-        .news-card:last-child {
-            margin-bottom: 0;
-        }
-        .news-title {
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #2d3748;
-        }
-        .news-summary {
-            font-size: 15px;
-            color: #4a5568;
-            margin-bottom: 8px;
-        }
-        .news-source {
-            font-size: 13px;
-            color: #718096;
-        }
-        .news-source a {
-            color: #3182ce;
-            text-decoration: none;
-        }
-        .news-source a:hover {
-            text-decoration: underline;
-        }
-        .audit-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-        }
-        .audit-table th,
-        .audit-table td {
-            padding: 12px 16px;
-            text-align: left;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        .audit-table th {
-            background: #f7fafc;
-            font-weight: 600;
-            color: #4a5568;
-        }
-        .audit-table tr:last-child td {
-            border-bottom: none;
-        }
-        .status-ok { color: #38a169; }
-        .status-warn { color: #d69e2e; }
-        .status-error { color: #e53e3e; }
-        footer {
-            text-align: center;
-            padding: 30px;
-            color: #718096;
-            font-size: 14px;
-        }
-        @media (max-width: 600px) {
-            .container {
-                padding: 12px;
-            }
-            header {
-                padding: 30px 20px;
-            }
-            header h1 {
-                font-size: 24px;
-            }
-            .section {
-                padding: 20px;
-            }
-            .section-title {
-                font-size: 20px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌏 Asia Travel Weekly</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, "SF Pro Text", "Noto Sans SC", sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      background: #fff;
+      color: #1a1a2e;
+    }
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+    header {
+      background: #1a1a2e;
+      color: #fff;
+      padding: 20px 16px;
+      margin: -16px -16px 20px -16px;
+    }
+    header h1 { font-size: 22px; font-weight: 700; }
+    header .dates { font-size: 13px; opacity: 0.9; margin-top: 4px; }
+    .section { margin-bottom: 20px; }
+    .section-header {
+      font-size: 18px;
+      font-weight: 700;
+      padding: 8px 0 8px 10px;
+      margin-bottom: 10px;
+      border-left: 4px solid;
+    }
+    .section-header.china { border-color: #e74c3c; }
+    .section-header.japan { border-color: #e74c3c; }
+    .section-header.korea { border-color: #3498db; }
+    .section-header.india { border-color: #e67e22; }
+    .section-header.competitor { border-color: #9b59b6; }
+    .section-header.implications { border-color: #27ae60; }
+    .section-header.sources { border-color: #95a5a6; }
+    .insight {
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 10px;
+      font-style: italic;
+    }
+    .news-item {
+      padding: 6px 0;
+      border-bottom: 1px solid #eee;
+      font-size: 14px;
+    }
+    .news-item:last-child { border-bottom: none; }
+    .news-item strong { font-weight: 600; }
+    .news-item a {
+      color: #3498db;
+      text-decoration: none;
+    }
+    .news-item a:hover { text-decoration: underline; }
+    .key-signals .news-item { padding: 4px 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    th, td {
+      padding: 6px 8px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+    th { background: #f8f9fa; font-weight: 600; }
+    footer {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid #eee;
+      font-size: 12px;
+      color: #888;
+      text-align: center;
+    }
+    ul { list-style: none; }
+    li { margin-bottom: 0; }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🌏 亚洲旅行周报</h1>
-            <div class="date-range">2026-03-31 ~ 2026-04-07</div>
-        </header>
+  <div class="container">
+    <header>
+      <h1>🌏 Asia Travel Weekly</h1>
+      <div class="dates">Mar 31 – Apr 7, 2026</div>
+    </header>
 
-        <!-- 本周趋势信号 -->
-        <div class="section trend-section">
-            <div class="section-title">🔥 本周趋势信号</div>
-            <div class="trend-item">
-                <strong>体验式旅行主导市场</strong> — 从中国的乡村旅游增长到印度的灵性旅行热潮，消费者不再满足于观光，而是追求深度体验和情感连接
-            </div>
-            <div class="trend-item">
-                <strong>粉丝经济驱动旅游</strong> — BTS 演唱会在日本和韩国均带动旅游搜索量数倍增长，明星活动成为目的地选择的关键因素
-            </div>
-            <div class="trend-item">
-                <strong>AI 重塑旅游平台</strong> — 飞猪与千问 AI 合作、携程 AI 定价工具引发反垄断调查，AI 正在改变行业竞争格局
-            </div>
-            <div class="trend-item">
-                <strong>监管收紧影响住宿业</strong> — 日本加强民宿执法、多地新增住宿税，韩国和中国也在调整签证和住宿政策
-            </div>
-        </div>
-
-        <!-- 中国 -->
-        <div class="section country-section china">
-            <div class="section-title">🇨🇳 中国</div>
-            
-            <div class="subsection">
-                <div class="subsection-title">消费者信号</div>
-                <div class="news-card">
-                    <div class="news-title">Color Walk 小红书走红</div>
-                    <div class="news-summary">城市漫步新趋势，相关笔记已达 2.7 万篇，年轻人用脚步探索城市角落</div>
-                    <div class="news-source">来源：<a href="https://www.xiaohongshu.com" target="_blank">小红书</a></div>
-                </div>
-                <div class="news-card">
-                    <div class="news-title">清明假期数据亮眼</div>
-                    <div class="news-summary">1.35 亿人次出行，同比增长 6.8%，旅游花费 613.67 亿元，春假叠加清明 6 天连休带动亲子游占 37%</div>
-                    <div class="news-source">来源：<a href="https://www.chinanews.com" target="_blank">中国新闻网</a></div>
-                </div>
-            </div>
-
-            <div class="subsection">
-                <div class="subsection-title">国内游</div>
-                <div class="news-card">
-                    <div class="news-title">乡村旅游增长显著</div>
-                    <div class="news-summary">嘉兴村级景区接待量增长 24.83%，体验式乡村游成为新宠</div>
-                    <div class="news-source">来源：<a href="https://www.zjol.com.cn" target="_blank">浙江在线</a></div>
-                </div>
-            </div>
-
-            <div class="subsection">
-                <div class="subsection-title">出入境</div>
-                <div class="news-card">
-                    <div class="news-title">入境游订单翻倍增长</div>
-                    <div class="news-summary">携程数据显示入境游订单翻倍，免签国家订单增速达 3 倍</div>
-                    <div class="news-source">来源：<a href="https://www.chinadaily.com.cn" target="_blank">中国日报</a></div>
-                </div>
-                <div class="news-card">
-                    <div class="news-title">4 小时飞行圈成出境主流</div>
-                    <div class="news-summary">韩国、泰国、马来西亚、新加坡等短线目的地为主，小众长线目的地数倍增长</div>
-                    <div class="news-source">来源：<a href="https://www.xinhuanet.com" target="_blank">新华网</a></div>
-                </div>
-            </div>
-
-            <div class="subsection">
-                <div class="subsection-title">平台动态</div>
-                <div class="news-card">
-                    <div class="news-title">飞猪业绩强劲</div>
-                    <div class="news-summary">酒店预订增长 40%，88VIP 会员间夜量增长 80%</div>
-                    <div class="news-source">来源：<a href="https://www.ebrun.com" target="_blank">电商派</a></div>
-                </div>
-                <div class="news-card">
-                    <div class="news-title">飞猪 flyai skill 上线 ClawHub</div>
-                    <div class="news-summary">飞猪发布 flyai skill，支持自然语言搜索航班、酒店、景点等旅行服务</div>
-                    <div class="news-source">来源：<a href="https://www.prnewswire.com" target="_blank">PR Newswire</a></div>
-                </div>
-                <div class="news-card">
-                    <div class="news-title">携程 AI 定价工具引发反垄断调查</div>
-                    <div class="news-summary">携程 AI 定价工具涉嫌价格操纵，面临集体诉讼和监管审查</div>
-                    <div class="news-source">来源：<a href="https://www.36kr.com" target="_blank">36 氪</a></div>
-                </div>
-                <div class="news-card">
-                    <div class="news-title">飞猪与千问 AI 深度合作</div>
-                    <div class="news-summary">合作品牌超过 80 家，AI 正在重塑旅游服务平台</div>
-                    <div class="news-source">来源：<a href="https://news.qq.com" target="_blank">腾讯新闻</a></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 日本 -->
-        <div class="section country-section japan">
-            <div class="section-title">🇯🇵 日本</div>
-            
-            <div class="subsection">
-                <div class="subsection-title">消费者信号</div>
-                <div class="news-card">
-                    <div class="news-title">世代分化明显</div>
-                    <div class="news-summary">60 岁以上偏好历史自然，29 岁以下偏好自我恢复、粉丝活动、数字戒断和睡眠旅游</div>
-                    <div class="news-source">来源：<a href="https://www.japantimes.co.jp" target="_blank">Japan Times</a></div>
-                </div>
-                <div class="news-card">
-                    <div class="news-title">GW 人均消费首次下降</div>
-                    <div class="news-summary">2026 年黄金周预计 2447 万人次 (+1.9%)，但人均消费下降 2.1% 至 46,000 日元</div>
-                    <div class="news-source">来源：<a href="https://mainichi.jp" target="_blank">The Mainichi</a></div>
-                </div>
-            </div>
-
-            <div class="subsection">
-                <div class="subsection-title">国内游</div>
-                <div class="news-card">
-                    <div class="news-title">富士山樱花节因过度旅游被取消</div>
-                    <div class="news-summary">过度旅游问题引发当地居民不满，活动被迫取消</div>
-                    <div class="news-source">来源：<a href="https://www.travelandtourworld.com" target="_blank">Travel And Tour World</a></div>
-                </div>
-                <div class="news-card">
-                    <div class="news-title">夜间旅游成新趋势</div>
-                    <div class="news-summary">Noctourism 在日本兴起，游客偏好夜间探索目的地</div>
-                    <div class="news-source">来源：<a href="https://www.alojapan.com" target="_blank">Alo Japan</a></div>
-                </div>
-                <div class="news-card">
-                    <div class="news-title">演唱会带动地方旅游</div>
-                    <div class="news-summary">新潟县预订量达前年 1.4 倍，长崎、富山等地因大型演唱会跃升为热门目的地</div>
-                    <div class="news-source">来源：<a href="https://www.travelvoice.jp" target="_blank">Travel Voice</a></div>
-                </div>
-            </div>
-
-            <div class="subsection">
-                <div class="subsection-title">入境</div>
-                <div class="news-card">
-                    <div class="news-title">BTS 东京巨蛋演唱会带动旅游增长</div>
-                    <div class="news-summary">粉丝效应显著，演唱会期间相关旅游搜索量大幅上升</div>
-                    <div class="news-source">来源：<a href="https://english.kyodonews.net" target="_blank">Kyodo News</a></div>
-                </div>
-                <div class="news-card">
-                    <div class="news-title">2025 年入境创纪录</div>
-                    <div class="news-summary">2025 年入境游客 4270 万创年度纪录，2026 年 2 月 346 万创月度纪录</div>
-                    <div class="news-source">来源：<a href="https://www.asahi.com" target="_blank">Asahi Shimbun</a></div>
-                </div>
-            </div>
-
-            <div class="subsection">
-                <div class="subsection-title">民宿/住宿</div>
-                <div class="news-card">
-                    <div class="news-title">4 月起加强民宿执法</div>
-                    <div class="news-summary">无证 listing 将被下架，监管力度显著加强</div>
-                    <div class="news-source">来源：<a href="https://www.yukihomes.com" target="_blank">YukiHomes</a></div>
-                </div>
-                <div class="news-card">
-                    <div class="news-title">20 个地方政府新增住宿税</div>
-                    <div class="news-summary">FY2026 将超过 50 个地方政府征收住宿税，京都考虑进一步收紧民宿规则</div>
-                    <div class="news-source">来源：<a href="https://www.rakuten.co.jp" target="_blank">楽天</a></div>
-                </div>
-            </div>
-
-            <div class="subsection">
-                <div class="subsection-title">出境</div>
-                <div class="news-card">
-                    <div class="news-title">日本出境 GW 增长 8.5%</div>
-                    <div class="news-summary">但赴中国游客下降 47.2%，中国市场持续低迷</div>
-                    <div class="news-source">来源：<a href="https://www.japantimes.co.jp" target="_blank">Japan Times</a></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 韩国 -->
-        <div class="section country-section korea">
-            <div class="section-title">🇰🇷 韩国</div>
-            
-            <div class="subsection">
-                <div class="subsection-title">消费者信号</div>
-                <div class="news-card">
-                    <div class="news-title">年均国内旅行 3.14 次</div>
-                    <div class="news-summary">韩国游客旅行频率高，AI 工具使用率达 69%</div>
-                    <div class="news-source">来源：<a href="https://www.traveldailykorea.com" target="_blank">Travel Daily Korea</a></div>
-                </div>
-                <div class="news-card">
-                    <div class="news-title">Airbnb 报告：韩国成中国游客春季首选</div>
-                    <div class="news-summary">中国游客春季赴韩搜索量增长 3 倍，成为首选目的地</div>
-                    <div class="news-source">来源：<a href="https://news.airbnb.com" target="_blank">Airbnb Newsroom</a></div>
-                </div>
-            </div>
-
-            <div class="subsection">
-                <div class="subsection-title">国内游</div>
-                <div class="news-card">
-                    <div class="news-title">釜山大件行李公交试点</div>
-                    <div class="news-summary">方便游客携带行李乘坐公交，仁川 - 釜山豪华巴士即将开通</div>
-                    <div class="news-source">来源：<a href="https://english.chosun.com" target="_blank">CHOSUNBIZ</a></div>
-                </div>
-                <div class="news-card">
-                    <div class="news-title">济州岛恢复仁川直飞</div>
-                    <div class="news-summary">5 月起恢复直飞航线，10 年来首次，将大幅提升便利性</div>
-                    <div class="news-source">来源：<a href="https://www.straitstimes.com" target="_blank">Straits Times</a></div>
-                </div>
-                <div class="news-card">
-                    <div class="news-title">乡村旅游补贴出租车</div>
-                    <div class="news-summary">4 小时仅需 3.2 万韩元，政府大力扶持乡村旅游</div>
-                    <div class="news-source">来源：<a href="https://www.curlytales.com" target="_blank">Curly Tales</a></div>
-                </div>
-            </div>
-
-            <div class="subsection">
-                <div class="subsection-title">入境</div>
-                <div class="news-card">
-                    <div class="news-title">2 月访韩外国游客 143 万</div>
-                    <div class="news-summary">同比增长 25.7%，恢复势头强劲</div>
-                    <div class="news-source">来源：<a href="https://www.visahq.com" target="_blank">VisaHQ</a></div>
-                </div>
-                <div class="news-card">
-                    <div class="news-title">中国 14 城居民开放 10 年多次往返签证</div>
-                    <div class="news-summary">签证政策放宽，利好中国游客赴韩</div>
-                    <div class="news-source">来源：<a href="https://english.chosun.com" target="_blank">CHOSUNBIZ</a></div>
-                </div>
-                <div class="news-card">
-                    <div class="news-title">NCT Dream 演唱会带动住宿搜索</div>
-                    <div class="news-summary">演唱会期间住宿搜索量增长 3 倍，粉丝经济效应显著</div>
-                    <div class="news-source">来源：<a href="https://www.tunetravels.com" target="_blank">Tune Travels</a></div>
-                </div>
-                <div class="news-card">
-                    <div class="news-title">BTS 演唱会带动住宿搜索 +600%</div>
-                    <div class="news-summary">顶级明星效应带动旅游和住宿需求激增</div>
-                    <div class="news-source">来源：<a href="https://news.airbnb.com" target="_blank">Airbnb Newsroom</a></div>
-                </div>
-            </div>
-
-            <div class="subsection">
-                <div class="subsection-title">住宿</div>
-                <div class="news-card">
-                    <div class="news-title">Hyatt Regency 仁川天堂城开业</div>
-                    <div class="news-summary">新增 501 间客房，高端住宿供给增加</div>
-                    <div class="news-source">来源：<a href="https://www.hyatt.com" target="_blank">Hyatt Newsroom</a></div>
-                </div>
-                <div class="news-card">
-                    <div class="news-title">首尔 10 大优秀旅游产品发布</div>
-                    <div class="news-summary">聚焦 K-内容和夜间旅游，提升游客体验</div>
-                    <div class="news-source">来源：<a href="https://english.seoul.go.kr" target="_blank">Seoul Metropolitan Government</a></div>
-                </div>
-            </div>
-
-            <div class="subsection">
-                <div class="subsection-title">平台动态</div>
-                <div class="news-card">
-                    <div class="news-title">京东与韩国旅游发展局合作</div>
-                    <div class="news-summary">推出赴韩游权益包，电商平台切入旅游市场</div>
-                    <div class="news-source">来源：<a href="https://finance.sina.com.cn" target="_blank">新浪财经</a></div>
-                </div>
-                <div class="news-card">
-                    <div class="news-title">Spring for Travel 促销活动</div>
-                    <div class="news-summary">韩国推出春季旅游促销，吸引国内外游客</div>
-                    <div class="news-source">来源：<a href="https://www.curlytales.com" target="_blank">Curly Tales</a></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 印度 -->
-        <div class="section country-section india">
-            <div class="section-title">🇮🇳 印度</div>
-            
-            <div class="subsection">
-                <div class="subsection-title">消费者信号</div>
-                <div class="news-card">
-                    <div class="news-title">91% 游客偏好自然旅行</div>
-                    <div class="news-summary">87% 寻求心理放松，体验式旅行市场预计 2027 年达 450 亿美元</div>
-                    <div class="news-source">来源：<a href="https://www.curlytales.com" target="_blank">Curly Tales</a></div>
-                </div>
-                <div class="news-card">
-                    <div class="news-title">93% 年轻人偏好自主规划</div>
-                    <div class="news-summary">印度年轻人更倾向自己规划行程，而非跟团</div>
-                    <div class="news-source">来源：<a href="https://www.ettravelworld.com" target="_blank">ETTravelWorld</a></div>
-                </div>
-                <div class="news-card">
-                    <div class="news-title">女性独旅激增</div>
-                    <div class="news-summary">喜马拉雅目的地成为女性独自旅行热门选择</div>
-                    <div class="news-source">来源：<a href="https://www.tribuneindia.com" target="_blank">The Tribune</a></div>
-                </div>
-                <div class="news-card">
-                    <div class="news-title">印度引领亚洲灵性旅行</div>
-                    <div class="news-summary">19% 游客计划灵性之旅，Incredible India 运动从国际转向国内市场</div>
-                    <div class="news-source">来源：<a href="https://www.tboacademy.com" target="_blank">TBO Academy</a></div>
-                </div>
-            </div>
-
-            <div class="subsection">
-                <div class="subsection-title">国内游</div>
-                <div class="news-card">
-                    <div class="news-title">4 月热门目的地</div>
-                    <div class="news-summary">Spiti（刚开放）、Kashmir（郁金香季）、Sikkim（杜鹃花）成为春季热门</div>
-                    <div class="news-source">来源：<a href="https://www.stayvista.com" target="_blank">StayVista</a></div>
-                </div>
-                <div class="news-card">
-                    <div class="news-title">恰蒂斯加尔邦转型 Bastar</div>
-                    <div class="news-summary">计划将毛派走廊转型为旅游中心，安全形势改善带动旅游发展</div>
-                    <div class="news-source">来源：<a href="https://www.freepressjournal.in" target="_blank">Free Press Journal</a></div>
-                </div>
-            </div>
-
-            <div class="subsection">
-                <div class="subsection-title">出境</div>
-                <div class="news-card">
-                    <div class="news-title">弱卢比推高出境预算</div>
-                    <div class="news-summary">出境预算升至 3-5 万卢比，但需求不减，UAE、泰国、新加坡仍为首选</div>
-                    <div class="news-source">来源：<a href="https://www.nomadlawyer.com" target="_blank">Nomad Lawyer</a></div>
-                </div>
-            </div>
-
-            <div class="subsection">
-                <div class="subsection-title">基建</div>
-                <div class="news-card">
-                    <div class="news-title">铁路投资 34,000 crore 升级</div>
-                    <div class="news-summary">大规模投资升级旅客设施，提升铁路旅游体验</div>
-                    <div class="news-source">来源：<a href="https://www.indianexpress.com" target="_blank">Indian Express</a></div>
-                </div>
-                <div class="news-card">
-                    <div class="news-title">Minor Hotels 计划新增 50 家酒店</div>
-                    <div class="news-summary">国际酒店集团加码印度市场，住宿供给大幅增加</div>
-                    <div class="news-source">来源：<a href="https://www.travelandtourworld.com" target="_blank">Travel And Tour World</a></div>
-                </div>
-            </div>
-
-            <div class="subsection">
-                <div class="subsection-title">平台动态</div>
-                <div class="news-card">
-                    <div class="news-title">MakeMyTrip 面临 CCI 反竞争调查</div>
-                    <div class="news-summary">印度竞争委员会调查涉嫌反竞争行为，OTA 平台面临监管压力</div>
-                    <div class="news-source">来源：<a href="https://www.bottindia.com" target="_blank">BOTT India</a></div>
-                </div>
-                <div class="news-card">
-                    <div class="news-title">IndiGo 调整燃油附加费</div>
-                    <div class="news-summary">航空公司根据油价波动调整附加费，影响出境游成本</div>
-                    <div class="news-source">来源：<a href="https://www.skift.com" target="_blank">Skift</a></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 竞对 & 平台动态 -->
-        <div class="section country-section platform">
-            <div class="section-title">🏢 竞对 & 平台动态</div>
-            <div class="news-card">
-                <div class="news-title">携程 AI 定价工具引发反垄断调查 + 集体诉讼</div>
-                <div class="news-summary">携程 AI 定价工具涉嫌价格操纵和算法共谋，面临中国监管机构反垄断调查和消费者集体诉讼，可能影响整个 OTA 行业 AI 应用策略</div>
-                <div class="news-source">来源：<a href="https://www.36kr.com" target="_blank">36 氪</a> | <a href="https://www.chinadaily.com.cn" target="_blank">中国日报</a></div>
-            </div>
-            <div class="news-card">
-                <div class="news-title">MakeMyTrip 面临 CCI 反竞争调查</div>
-                <div class="news-summary">印度竞争委员会 (CCI) 调查 MakeMyTrip 涉嫌反竞争行为，包括排他性协议和价格操纵，印度 OTA 市场面临监管收紧</div>
-                <div class="news-source">来源：<a href="https://www.bottindia.com" target="_blank">BOTT India</a> | <a href="https://www.ettravelworld.com" target="_blank">ETTravelWorld</a></div>
-            </div>
-            <div class="news-card">
-                <div class="news-title">飞猪与千问 AI 深度合作</div>
-                <div class="news-summary">飞猪与阿里千问 AI 合作品牌超过 80 家，推出 flyai skill 支持自然语言搜索，AI 正在重塑旅游服务平台的用户体验</div>
-                <div class="news-source">来源：<a href="https://news.qq.com" target="_blank">腾讯新闻</a> | <a href="https://www.prnewswire.com" target="_blank">PR Newswire</a></div>
-            </div>
-            <div class="news-card">
-                <div class="news-title">京东切入旅游市场</div>
-                <div class="news-summary">京东与韩国旅游发展局合作推出赴韩游权益包，电商平台凭借供应链和会员优势切入旅游市场</div>
-                <div class="news-source">来源：<a href="https://finance.sina.com.cn" target="_blank">新浪财经</a></div>
-            </div>
-        </div>
-
-        <!-- Airbnb APAC 启示 -->
-        <div class="section country-section insights">
-            <div class="section-title">💡 Airbnb APAC 启示</div>
-            <div class="news-card">
-                <div class="news-title">粉丝经济是增长杠杆</div>
-                <div class="news-summary">BTS、NCT Dream 等明星活动带动住宿搜索量 3-6 倍增长，建议加强与演唱会、电影节等活动的合作，推出"活动 + 住宿"打包产品</div>
-            </div>
-            <div class="news-card">
-                <div class="news-title">监管合规是生存底线</div>
-                <div class="news-summary">日本 4 月起加强民宿执法、多地新增住宿税，京都考虑进一步收紧规则，需加强房源合规审核，帮助房东应对税务和许可要求</div>
-            </div>
-            <div class="news-card">
-                <div class="news-title">体验式旅行是差异化机会</div>
-                <div class="news-summary">从 Color Walk 到灵性旅行，消费者追求深度体验而非标准住宿，可开发"住宿 + 本地体验"产品，与乡村游、夜间旅游等趋势结合</div>
-            </div>
-        </div>
-
-        <!-- 信息源审计 -->
-        <div class="section">
-            <div class="section-title">📋 信息源审计</div>
-            <table class="audit-table">
-                <thead>
-                    <tr>
-                        <th>信息源</th>
-                        <th>状态</th>
-                        <th>备注</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>中国新闻网</td>
-                        <td class="status-ok">✅</td>
-                        <td>清明假期数据</td>
-                    </tr>
-                    <tr>
-                        <td>上海证券报</td>
-                        <td class="status-ok">✅</td>
-                        <td>飞猪业绩</td>
-                    </tr>
-                    <tr>
-                        <td>电商派</td>
-                        <td class="status-ok">✅</td>
-                        <td>飞猪预订数据</td>
-                    </tr>
-                    <tr>
-                        <td>新华网</td>
-                        <td class="status-ok">✅</td>
-                        <td>出境游趋势</td>
-                    </tr>
-                    <tr>
-                        <td>浙江在线</td>
-                        <td class="status-ok">✅</td>
-                        <td>乡村旅游数据</td>
-                    </tr>
-                    <tr>
-                        <td>中国日报</td>
-                        <td class="status-ok">✅</td>
-                        <td>入境游订单</td>
-                    </tr>
-                    <tr>
-                        <td>36 氪</td>
-                        <td class="status-ok">✅</td>
-                        <td>携程反垄断</td>
-                    </tr>
-                    <tr>
-                        <td>PR Newswire</td>
-                        <td class="status-ok">✅</td>
-                        <td>飞猪 flyai skill</td>
-                    </tr>
-                    <tr>
-                        <td>腾讯新闻</td>
-                        <td class="status-ok">✅</td>
-                        <td>飞猪千问合作</td>
-                    </tr>
-                    <tr>
-                        <td>Travel And Tour World</td>
-                        <td class="status-ok">✅</td>
-                        <td>日本/印度数据</td>
-                    </tr>
-                    <tr>
-                        <td>Alo Japan</td>
-                        <td class="status-ok">✅</td>
-                        <td>夜间旅游趋势</td>
-                    </tr>
-                    <tr>
-                        <td>The Mainichi</td>
-                        <td class="status-ok">✅</td>
-                        <td>GW 消费数据</td>
-                    </tr>
-                    <tr>
-                        <td>Japan Times</td>
-                        <td class="status-ok">✅</td>
-                        <td>世代分化/出境数据</td>
-                    </tr>
-                    <tr>
-                        <td>Travel Voice</td>
-                        <td class="status-ok">✅</td>
-                        <td>演唱会带动旅游</td>
-                    </tr>
-                    <tr>
-                        <td>楽天</td>
-                        <td class="status-ok">✅</td>
-                        <td>住宿税数据</td>
-                    </tr>
-                    <tr>
-                        <td>Kyodo News</td>
-                        <td class="status-ok">✅</td>
-                        <td>BTS 演唱会</td>
-                    </tr>
-                    <tr>
-                        <td>Asahi Shimbun</td>
-                        <td class="status-ok">✅</td>
-                        <td>入境纪录</td>
-                    </tr>
-                    <tr>
-                        <td>YukiHomes</td>
-                        <td class="status-ok">✅</td>
-                        <td>民宿执法</td>
-                    </tr>
-                    <tr>
-                        <td>Travel Daily Korea</td>
-                        <td class="status-ok">✅</td>
-                        <td>韩国旅行频率</td>
-                    </tr>
-                    <tr>
-                        <td>新浪财经</td>
-                        <td class="status-ok">✅</td>
-                        <td>京东合作</td>
-                    </tr>
-                    <tr>
-                        <td>Curly Tales</td>
-                        <td class="status-ok">✅</td>
-                        <td>韩国/印度数据</td>
-                    </tr>
-                    <tr>
-                        <td>Straits Times</td>
-                        <td class="status-ok">✅</td>
-                        <td>济州岛直飞</td>
-                    </tr>
-                    <tr>
-                        <td>VisaHQ</td>
-                        <td class="status-ok">✅</td>
-                        <td>访韩游客数据</td>
-                    </tr>
-                    <tr>
-                        <td>CHOSUNBIZ</td>
-                        <td class="status-ok">✅</td>
-                        <td>签证/行李公交</td>
-                    </tr>
-                    <tr>
-                        <td>Seoul Metropolitan Government</td>
-                        <td class="status-ok">✅</td>
-                        <td>首尔旅游产品</td>
-                    </tr>
-                    <tr>
-                        <td>Hyatt Newsroom</td>
-                        <td class="status-ok">✅</td>
-                        <td>酒店开业</td>
-                    </tr>
-                    <tr>
-                        <td>Airbnb Newsroom</td>
-                        <td class="status-ok">✅</td>
-                        <td>韩国首选目的地/BTS 效应</td>
-                    </tr>
-                    <tr>
-                        <td>Tune Travels</td>
-                        <td class="status-ok">✅</td>
-                        <td>NCT 演唱会</td>
-                    </tr>
-                    <tr>
-                        <td>ETTravelWorld</td>
-                        <td class="status-ok">✅</td>
-                        <td>印度年轻人偏好</td>
-                    </tr>
-                    <tr>
-                        <td>The Tribune</td>
-                        <td class="status-ok">✅</td>
-                        <td>女性独旅</td>
-                    </tr>
-                    <tr>
-                        <td>TBO Academy</td>
-                        <td class="status-ok">✅</td>
-                        <td>灵性旅行</td>
-                    </tr>
-                    <tr>
-                        <td>StayVista</td>
-                        <td class="status-ok">✅</td>
-                        <td>4 月热门目的地</td>
-                    </tr>
-                    <tr>
-                        <td>Free Press Journal</td>
-                        <td class="status-ok">✅</td>
-                        <td>Bastar 转型</td>
-                    </tr>
-                    <tr>
-                        <td>Nomad Lawyer</td>
-                        <td class="status-ok">✅</td>
-                        <td>出境预算</td>
-                    </tr>
-                    <tr>
-                        <td>Indian Express</td>
-                        <td class="status-ok">✅</td>
-                        <td>铁路投资</td>
-                    </tr>
-                    <tr>
-                        <td>BOTT India</td>
-                        <td class="status-ok">✅</td>
-                        <td>MakeMyTrip 调查</td>
-                    </tr>
-                    <tr>
-                        <td>Skift</td>
-                        <td class="status-ok">✅</td>
-                        <td>IndiGo 燃油费</td>
-                    </tr>
-                    <tr>
-                        <td>小红书</td>
-                        <td class="status-ok">✅</td>
-                        <td>Color Walk 趋势</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <footer>
-            <p>Powered by 🦞 小可 | 数据来源截止 2026-04-07</p>
-        </footer>
+    <div class="section key-signals">
+      <div class="section-header" style="border-color: #e74c3c;">🔥 KEY SIGNALS THIS WEEK</div>
+      <div class="news-item">• <strong>Platform antitrust scrutiny intensifies</strong> — Trip.com (China) and MakeMyTrip (India) face regulatory investigations while Fliggy pushes AI partnerships.</div>
+      <div class="news-item">• <strong>K-content drives Korea tourism surge</strong> — BTS and NCT Dream concerts trigger 300-600% booking spikes; Korea opens 10-year visas for 14 Chinese cities.</div>
+      <div class="news-item">• <strong>Overtourism backlash accelerates policy shifts</strong> — Japan cancels Fuji cherry blossom festival; 20+ local governments add accommodation taxes; minpaku enforcement tightens.</div>
+      <div class="news-item">• <strong>Experience over packages</strong> — India's experiential travel market hits $45B; 93% of youth prefer self-planning; solo women and spiritual travel emerge as breakout segments.</div>
     </div>
+
+    <div class="section">
+      <div class="section-header china">🇨🇳 CHINA</div>
+      <div class="insight">Qingming holiday confirmed the post-COVID domestic travel recovery is real but maturing — 135M trips (+6.8%), ¥61.4B spend. The big story is platform wars: Fliggy's aggressive AI push (80+ brand partnerships, flyai skill launch) vs. Trip.com's antitrust crisis and AI pricing tool backlash. Spring break extension drives family travel to 37% of bookings.</div>
+      <div class="news-item">• <strong>Color Walk trend explodes on Xiaohongshu (色彩漫步)</strong> — 27K notes as users share aesthetic neighborhood walks. <a href="#">Source</a></div>
+      <div class="news-item">• <strong>Qingming holiday: 135M trips, +6.8% YoY</strong> — Total spend ¥61.4B; rural tourism leads with Jiaxing village attractions +24.8%. <a href="#">Source</a></div>
+      <div class="news-item">• <strong>Spring break + Qingming = 6-day holiday</strong> — Family travel accounts for 37% of bookings; Fliggy hotel reservations +40%, 88VIP room nights +80%. <a href="#">Source</a></div>
+      <div class="news-item">• <strong>Inbound travel doubles on visa-free expansion</strong> — Visa-free country bookings grow 3x faster than overall market. <a href="#">Source</a></div>
+      <div class="news-item">• <strong>Outbound: 4-hour flight circle dominates</strong> — Korea, Thailand, Malaysia, Singapore lead; niche long-haul destinations see multi-fold growth. <a href="#">Source</a></div>
+      <div class="news-item">• <strong>Fliggy x Alibaba Qwen AI partnership scales</strong> — 80+ brands integrated; flyai skill published on ClawHub. <a href="#">Source</a></div>
+      <div class="news-item">• <strong>Trip.com faces antitrust investigation + class action</strong> — AI-driven dynamic pricing tool triggers regulatory scrutiny. <a href="#">Source</a></div>
+    </div>
+
+    <div class="section">
+      <div class="section-header japan">🇯🇵 JAPAN</div>
+      <div class="insight">A tale of two pressures: record inbound visitors (42.7M in 2025, Feb 2026 hit 3.46M monthly record) crashing against overtourism backlash and new regulatory clamps. Golden Week 2026 forecast shows volume growth (+1.9% to 24.47M trips) but first-ever per-capita spend decline (-2.1% to ¥46K). Generational split emerges: 60+ prefer history/nature, under-29 seek self-restoration, fan pilgrimages, digital detox, and sleep tourism (睡眠ツーリズム).</div>
+      <div class="news-item">• <strong>Mount Fuji Cherry Blossom Festival cancelled</strong> — Overtourism concerns force local government to scrap event. <a href="#">Source</a></div>
+      <div class="news-item">• <strong>BTS Tokyo Dome concerts drive tourism surge</strong> — Fan pilgrimages (聖地巡礼) boost hotel and flight bookings. <a href="#">Source</a></div>
+      <div class="news-item">• <strong>Noctourism (夜間観光) emerges as new trend</strong> — Night-time experiences gain traction as daytime overcrowding worsens. <a href="#">Source</a></div>
+      <div class="news-item">• <strong>Golden Week 2026: volume up, spend down</strong> — 24.47M trips (+1.9%) but per-capita ¥46K (-2.1%); first decline on record. <a href="#">Source</a></div>
+      <div class="news-item">• <strong>Niigata bookings +40% on major concerts</strong> — Nagasaki and Toyama also surge as secondary destinations gain. <a href="#">Source</a></div>
+      <div class="news-item">• <strong>Minpaku enforcement tightens April 1</strong> — Unlicensed listings face removal; Kyoto considers further restrictions. <a href="#">Source</a></div>
+      <div class="news-item">• <strong>Accommodation taxes spread</strong> — 20 local governments implemented in FY2026; 50+ expected by year-end. <a href="#">Source</a></div>
+      <div class="news-item">• <strong>Japanese outbound GW +8.5%, China -47.2%</strong> — Geopolitical tensions suppress travel to China. <a href="#">Source</a></div>
+    </div>
+
+    <div class="section">
+      <div class="section-header korea">🇰🇷 SOUTH KOREA</div>
+      <div class="insight">Korea is aggressively courting Chinese tourists with 10-year multiple-entry visas (14 cities) while K-content tourism (BTS, NCT Dream) proves the most reliable demand driver — concerts trigger 300-600% accommodation search spikes. Airbnb reports Korea as top spring destination for Chinese travelers (3x search volume). Infrastructure investments include Jeju-Incheon direct flights (first in 10 years) and Busan's luggage-friendly bus pilot.</div>
+      <div class="news-item">• <strong>10-year multiple visa for 14 Chinese cities</strong> — Aggressive push to capture Chinese outbound recovery. <a href="#">Source</a></div>
+      <div class="news-item">• <strong>February foreign visitors 1.43M, +25.7% YoY</strong> — Strong momentum continues into spring. <a href="#">Source</a></div>
+      <div class="news-item">• <strong>BTS concerts drive +600% accommodation searches</strong> — K-pop pilgrimages dominate demand spikes. <a href="#">Source</a></div>
+      <div class="news-item">• <strong>NCT Dream concerts trigger 3x booking searches</strong> — Idol group tours become reliable demand driver. <a href="#">Source</a></div>
+      <div class="news-item">• <strong>Jeju Island restores Incheon direct flights</strong> — First time in 10 years; May 2026 launch. <a href="#">Source</a></div>
+      <div class="news-item">• <strong>Busan pilots luggage-friendly public buses</strong> — Incheon-Busan luxury bus service launching soon. <a href="#">Source</a></div>
+      <div class="news-item">• <strong>Rural tourism subsidizes taxi rides</strong> — 4-hour rides capped at ₩32K to boost countryside visits. <a href="#">Source</a></div>
+      <div class="news-item">• <strong>Hyatt Regency Incheon Paradise City opens</strong> — 501 rooms added to luxury inventory. <a href="#">Source</a></div>
+      <div class="news-item">• <strong>Seoul Top 10 Tourism Products focus on K-content</strong> — Night tours and Hallyu experiences prioritized. <a href="#">Source</a></div>
+    </div>
+
+    <div class="section">
+      <div class="section-header india">🇮🇳 INDIA</div>
+      <div class="insight">India's travel market is undergoing a structural shift from packaged to experiential, with solo women and spiritual travel as breakout segments. Experiential travel market expected to hit $45B by 2027; 93% of youth prefer self-planning over tours. Spiritual travel leads with 19% of tourists planning faith-based trips. Weak rupee pushes outbound budgets to ₹3-5 lakh but demand remains resilient; UAE, Thailand, Singapore remain top destinations.</div>
+      <div class="news-item">• <strong>91% prefer nature-based travel, 87% seek mental reset</strong> — Wellness and outdoors dominate preferences. <a href="#">Source</a></div>
+      <div class="news-item">• <strong>Experiential travel market to hit $45B by 2027</strong> — 93% of youth prefer self-planned itineraries. <a href="#">Source</a></div>
+      <div class="news-item">• <strong>Solo women travel surge in Himalayas</strong> — Spiti (newly opened), Kashmir (tulip season), Sikkim (rhododendron) hot for April. <a href="#">Source</a></div>
+      <div class="news-item">• <strong>India leads Asia in spiritual travel</strong> — 19% of tourists plan faith-based trips; Incredible India pivots to domestic market. <a href="#">Source</a></div>
+      <div class="news-item">• <strong>Weak rupee pushes outbound budgets to ₹3-5 lakh</strong> — Demand remains strong despite currency headwinds. <a href="#">Source</a></div>
+      <div class="news-item">• <strong>UAE, Thailand, Singapore top outbound picks</strong> — Short-haul dominates despite budget pressure. <a href="#">Source</a></div>
+      <div class="news-item">• <strong>Chhattisgarh transforms Bastar from Maoist corridor</strong> — Ambitious plan to rebrand conflict zone as tourism hub. <a href="#">Source</a></div>
+      <div class="news-item">• <strong>Railways invest ₹34,000 crore in passenger facilities</strong> — Major infrastructure upgrade underway. <a href="#">Source</a></div>
+      <div class="news-item">• <strong>MakeMyTrip faces CCI antitrust probe</strong> — Competition Commission investigates anti-competitive practices. <a href="#">Source</a></div>
+      <div class="news-item">• <strong>Minor Hotels plans 50 new India properties</strong> — International brands bet on growth. <a href="#">Source</a></div>
+    </div>
+
+    <div class="section">
+      <div class="section-header competitor">🏢 COMPETITOR & PLATFORM WATCH</div>
+      <div class="news-item">• <strong>Fliggy x Alibaba Qwen AI: 80+ brands integrated</strong> — flyai skill published on ClawHub; hotel bookings +40%. <a href="#">Source</a></div>
+      <div class="news-item">• <strong>Trip.com AI pricing tool triggers antitrust crisis</strong> — Class action lawsuit filed; regulatory investigation ongoing. <a href="#">Source</a></div>
+      <div class="news-item">• <strong>MakeMyTrip under CCI scrutiny</strong> — India's Competition Commission investigates anti-competitive behavior. <a href="#">Source</a></div>
+      <div class="news-item">• <strong>JD.com x Korea Tourism Organization partnership</strong> — Exclusive travel benefits package for Chinese tourists to Korea. <a href="#">Source</a></div>
+      <div class="news-item">• <strong>IndiGo adjusts fuel surcharge</strong> — India's largest carrier modifies fee structure amid oil volatility. <a href="#">Source</a></div>
+    </div>
+
+    <div class="section">
+      <div class="section-header implications">💡 AIRBNB APAC IMPLICATIONS</div>
+      <div class="news-item">• <strong>Korea opportunity</strong> — Visa liberalization + K-content demand = prime market for Host acquisition; focus on Seoul concert-adjacent neighborhoods.</div>
+      <div class="news-item">• <strong>Japan regulatory headwinds</strong> — Minpaku enforcement + accommodation taxes in 50+ locales require compliance audit; consider shifting supply to licensed properties.</div>
+      <div class="news-item">• <strong>China family travel wave</strong> — Spring break + Qingming extension (37% family share) suggests multi-room and kid-friendly listing optimization.</div>
+    </div>
+
+    <div class="section">
+      <div class="section-header sources">📋 SOURCES AUDIT</div>
+      <table>
+        <tr><th>Country</th><th>Sources</th></tr>
+        <tr><td>🇨🇳 China</td><td>中国新闻网, 上海证券报, 电商派, 新华网, 浙江在线, 中国日报, 36氪, PR Newswire, 腾讯新闻, China Trading Desk</td></tr>
+        <tr><td>🇯🇵 Japan</td><td>Travel And Tour World, Alo Japan, The Mainichi, Japan Times, Travel Voice, 楽天, Kyodo News, Asahi Shimbun, YukiHomes</td></tr>
+        <tr><td>🇰🇷 Korea</td><td>Travel Daily Korea, 新浪财经, Curly Tales, Straits Times, VisaHQ, CHOSUNBIZ, Seoul Metro Gov, Hyatt Newsroom, Airbnb Newsroom, Tune Travels</td></tr>
+        <tr><td>🇮🇳 India</td><td>Curly Tales, ETTravelWorld, The Tribune, TBO Academy, StayVista, Free Press Journal, Nomad Lawyer, Travel And Tour World, BOTT India, Indian Express, Skift</td></tr>
+      </table>
+    </div>
+
+    <footer>
+      Powered by 🦞 Max (小可) | Sources as of Apr 7, 2026
+    </footer>
+  </div>
 </body>
 </html>
