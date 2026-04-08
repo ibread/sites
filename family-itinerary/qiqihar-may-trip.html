@@ -156,7 +156,9 @@ function renderSpots(day){
   
   const filtered=day==='all'?spots:spots.filter(s=>s.day===day);
   
-  filtered.forEach(spot=>{
+  const isMobileList=window.innerWidth<680;
+  const listSpots=isMobileList&&day!=='all'?filtered.slice(0,3):filtered;
+  listSpots.forEach(spot=>{
     const item=document.createElement('div');
     item.className='spot-item';
     const typeColor=COLORS[spot.type]||'#999';
