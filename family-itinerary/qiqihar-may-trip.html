@@ -112,7 +112,7 @@ const transits=[
 let map,currentLayerGroup,polylineGroup,labelsGroup,activeDay='all';
 
 function initMap(){
-  map=L.map('map',{zoomControl:false}).setView([47.35,123.96],11);
+  map=L.map('map',{zoomControl:false}).setView([47.35,123.96],10);
   L.control.zoom({position:'bottomright'}).addTo(map);
   
   L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{
