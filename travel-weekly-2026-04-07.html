@@ -5,117 +5,238 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>🌏 Asia Travel Weekly</title>
   <style>
+    /* ============================================
+       PREMIUM NEWSLETTER DESIGN SYSTEM
+       Inspired by: Morning Brew × The Information × Apple Newsroom
+       ============================================ */
+    
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    
     body {
       font-family: -apple-system, "SF Pro Text", "Noto Sans SC", sans-serif;
-      font-size: 14px;
-      line-height: 1.6;
-      background: #fff;
+      font-size: 15px;
+      line-height: 1.7;
+      background: linear-gradient(180deg, #fafbfc 0%, #ffffff 100%);
       color: #1a1a2e;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
+    
     .container {
       max-width: 720px;
       margin: 0 auto;
-      padding: 16px;
+      padding: 0 20px 20px 20px;
     }
+    
+    /* ─────────────────────────────────────────────
+       HEADER: Premium gradient with depth
+       ───────────────────────────────────────────── */
     header {
-      background: #1a1a2e;
+      background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%);
       color: #fff;
-      padding: 20px 16px;
-      margin: -16px -16px 20px -16px;
+      padding: 28px 20px;
+      margin: -0 -20px 24px -20px;
+      box-shadow: 0 4px 12px rgba(26, 26, 46, 0.15);
+      position: relative;
+      overflow: hidden;
     }
-    header h1 { font-size: 22px; font-weight: 700; }
-    header .dates { font-size: 13px; opacity: 0.9; margin-top: 4px; }
+    header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    header h1 {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      margin-bottom: 6px;
+    }
+    header .dates {
+      font-size: 14px;
+      opacity: 0.85;
+      font-weight: 400;
+    }
+    
+    /* ─────────────────────────────────────────────
+       STICKY NAV: Pill-shaped with smooth transitions
+       ───────────────────────────────────────────── */
     .page-nav {
       position: sticky;
       top: 0;
-      background: #f8f9fa;
-      padding: 8px 0;
-      margin-bottom: 20px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 12px 0;
+      margin-bottom: 24px;
       border-bottom: 1px solid #e9ecef;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
       overflow-x: auto;
       white-space: nowrap;
       -webkit-overflow-scrolling: touch;
+      z-index: 100;
     }
     .page-nav a {
       display: inline-block;
-      padding: 4px 10px;
-      margin: 0 2px;
-      font-size: 12px;
-      color: #495057;
+      padding: 6px 14px;
+      margin: 0 3px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #6c757d;
       text-decoration: none;
-      border-radius: 4px;
-      transition: background 0.2s;
+      border-radius: 20px;
+      transition: all 0.2s ease;
+      background: transparent;
     }
-    .page-nav a:hover, .page-nav a.active {
-      background: #1a1a2e;
+    .page-nav a:hover {
+      background: #f1f3f5;
+      color: #1a1a2e;
+    }
+    .page-nav a.active {
+      background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%);
       color: #fff;
+      box-shadow: 0 2px 8px rgba(26, 26, 46, 0.2);
     }
-    .section { margin-bottom: 20px; }
+    
+    /* ─────────────────────────────────────────────
+       SECTIONS: Card-based with subtle shadows
+       ───────────────────────────────────────────── */
+    .section {
+      margin-bottom: 28px;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+    
     .section-header {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 700;
-      padding: 8px 0 8px 10px;
-      margin-bottom: 10px;
+      padding: 10px 0 10px 14px;
+      margin-bottom: 16px;
       border-left: 4px solid;
+      letter-spacing: -0.2px;
     }
-    .section-header.china { border-color: #e74c3c; }
-    .section-header.japan { border-color: #e74c3c; }
-    .section-header.korea { border-color: #3498db; }
-    .section-header.india { border-color: #e67e22; }
-    .section-header.competitor { border-color: #9b59b6; }
-    .section-header.implications { border-color: #27ae60; }
-    .section-header.sources { border-color: #95a5a6; }
+    
+    /* Country-specific accent colors (refined palette) */
+    .section-header.china { border-color: #dc3545; background: linear-gradient(90deg, rgba(220,53,69,0.04) 0%, transparent 100%); }
+    .section-header.japan { border-color: #e63946; background: linear-gradient(90deg, rgba(230,57,70,0.04) 0%, transparent 100%); }
+    .section-header.korea { border-color: #457b9d; background: linear-gradient(90deg, rgba(69,123,157,0.04) 0%, transparent 100%); }
+    .section-header.india { border-color: #e07a5f; background: linear-gradient(90deg, rgba(224,122,95,0.04) 0%, transparent 100%); }
+    .section-header.competitor { border-color: #9b59b6; background: linear-gradient(90deg, rgba(155,89,182,0.04) 0%, transparent 100%); }
+    .section-header.implications { border-color: #27ae60; background: linear-gradient(90deg, rgba(39,174,96,0.04) 0%, transparent 100%); }
+    .section-header.sources { border-color: #6c757d; background: linear-gradient(90deg, rgba(108,117,125,0.04) 0%, transparent 100%); }
+    
+    /* ─────────────────────────────────────────────
+       MARKET SUMMARY: Highlight cards
+       ───────────────────────────────────────────── */
     .market-summary {
-      font-size: 15px;
-      font-weight: 600;
-      padding: 12px;
-      margin-bottom: 12px;
-      background: #f0f4f8;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 16px;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      border-radius: 8px;
       border-left: 4px solid;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.03);
     }
     .market-summary p {
-      margin: 4px 0;
+      margin: 6px 0;
+      line-height: 1.6;
     }
-    .market-summary.china { border-color: #e74c3c; }
-    .market-summary.japan { border-color: #e74c3c; }
-    .market-summary.korea { border-color: #3498db; }
-    .market-summary.india { border-color: #e67e22; }
+    .market-summary strong {
+      color: #1a1a2e;
+    }
+    .market-summary.china { border-color: #dc3545; }
+    .market-summary.japan { border-color: #e63946; }
+    .market-summary.korea { border-color: #457b9d; }
+    .market-summary.india { border-color: #e07a5f; }
+    
+    /* ─────────────────────────────────────────────
+       NEWS ITEMS: Clean, readable, with subtle links
+       ───────────────────────────────────────────── */
     .news-item {
-      padding: 6px 0;
-      border-bottom: 1px solid #eee;
+      padding: 8px 0;
+      border-bottom: 1px solid #f1f3f5;
       font-size: 14px;
+      color: #2d3436;
     }
     .news-item:last-child { border-bottom: none; }
-    .news-item strong { font-weight: 600; }
-    .news-item a {
-      color: #3498db;
-      text-decoration: none;
+    .news-item strong {
+      font-weight: 600;
+      color: #1a1a2e;
     }
-    .news-item a:hover { text-decoration: underline; }
-    .key-signals .news-item { padding: 4px 0; }
+    .news-item a {
+      color: #6c757d;
+      text-decoration: none;
+      font-size: 12px;
+      margin-left: 4px;
+      transition: color 0.2s;
+    }
+    .news-item a:hover {
+      color: #1a1a2e;
+      text-decoration: underline;
+    }
+    .key-signals .news-item {
+      padding: 10px 0;
+    }
+    
+    /* ─────────────────────────────────────────────
+       TABLES: Refined, minimal
+       ───────────────────────────────────────────── */
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 12px;
+      font-size: 13px;
+      margin-top: 8px;
     }
     th, td {
-      padding: 6px 8px;
+      padding: 10px 12px;
       text-align: left;
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid #f1f3f5;
     }
-    th { background: #f8f9fa; font-weight: 600; }
-    footer {
-      margin-top: 24px;
-      padding-top: 16px;
-      border-top: 1px solid #eee;
+    th {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      font-weight: 600;
+      color: #495057;
       font-size: 12px;
-      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    td { color: #2d3436; }
+    tr:last-child td { border-bottom: none; }
+    
+    /* ─────────────────────────────────────────────
+       FOOTER: Subtle, professional
+       ───────────────────────────────────────────── */
+    footer {
+      margin-top: 32px;
+      padding-top: 20px;
+      border-top: 1px solid #e9ecef;
+      font-size: 12px;
+      color: #adb5bd;
       text-align: center;
     }
+    
     ul { list-style: none; }
     li { margin-bottom: 0; }
+    
+    /* ─────────────────────────────────────────────
+       MOBILE OPTIMIZATION
+       ───────────────────────────────────────────── */
+    @media (max-width: 480px) {
+      .container { padding: 0 16px 16px 16px; }
+      header { padding: 24px 16px; margin: -0 -16px 20px -16px; }
+      header h1 { font-size: 22px; }
+      .section { padding: 16px; }
+      .section-header { font-size: 16px; }
+      .page-nav a { padding: 5px 12px; font-size: 12px; }
+    }
   </style>
 </head>
 <body>
