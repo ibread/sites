@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌏 Asia Travel Weekly</title>
+  <style>
+    /* ============================================
+       PREMIUM NEWSLETTER DESIGN SYSTEM
+       Inspired by: Morning Brew × The Information × Apple Newsroom
+       ============================================ */
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 52px;
+    }
+    
+    body {
+      font-family: -apple-system, "SF Pro Text", "Noto Sans SC", sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      background: linear-gradient(180deg, #fafbfc 0%, #ffffff 100%);
+      color: #1a1a2e;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 20px 20px 20px;
+    }
+    
+    /* ─────────────────────────────────────────────
+       HEADER: Premium gradient with depth
+       ───────────────────────────────────────────── */
+    header {
+      background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%);
+      color: #fff;
+      padding: 28px 20px;
+      margin: -0 -20px 24px -20px;
+      box-shadow: 0 4px 12px rgba(26, 26, 46, 0.15);
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    header h1 {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      margin-bottom: 6px;
+    }
+    header .dates {
+      font-size: 14px;
+      opacity: 0.85;
+      font-weight: 400;
+    }
+    
+    /* ─────────────────────────────────────────────
+       STICKY NAV: Pill-shaped with smooth transitions
+       ───────────────────────────────────────────── */
+    .page-nav {
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 12px 0;
+      margin-bottom: 24px;
+      border-bottom: 1px solid #e9ecef;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+      z-index: 100;
+    }
+    .page-nav a {
+      display: inline-block;
+      padding: 6px 14px;
+      margin: 0 3px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #6c757d;
+      text-decoration: none;
+      border-radius: 20px;
+      transition: all 0.2s ease;
+      background: transparent;
+    }
+    .page-nav a:hover {
+      background: #f1f3f5;
+      color: #1a1a2e;
+    }
+    .page-nav a.active {
+      background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(26, 26, 46, 0.2);
+    }
+    
+    /* ─────────────────────────────────────────────
+       SECTIONS: Card-based with subtle shadows
+       ───────────────────────────────────────────── */
+    .section {
+      margin-bottom: 28px;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+    
+    .section-header {
+      font-size: 17px;
+      font-weight: 700;
+      padding: 10px 0 10px 14px;
+      margin-bottom: 16px;
+      border-left: 4px solid;
+      letter-spacing: -0.2px;
+    }
+    
+    /* Country-specific accent colors (refined palette) */
+    .section-header.china { border-color: #dc3545; background: linear-gradient(90deg, rgba(220,53,69,0.04) 0%, transparent 100%); }
+    .section-header.japan { border-color: #e63946; background: linear-gradient(90deg, rgba(230,57,70,0.04) 0%, transparent 100%); }
+    .section-header.korea { border-color: #457b9d; background: linear-gradient(90deg, rgba(69,123,157,0.04) 0%, transparent 100%); }
+    .section-header.india { border-color: #e07a5f; background: linear-gradient(90deg, rgba(224,122,95,0.04) 0%, transparent 100%); }
+    .section-header.competitor { border-color: #9b59b6; background: linear-gradient(90deg, rgba(155,89,182,0.04) 0%, transparent 100%); }
+    .section-header.implications { border-color: #27ae60; background: linear-gradient(90deg, rgba(39,174,96,0.04) 0%, transparent 100%); }
+    .section-header.sources { border-color: #6c757d; background: linear-gradient(90deg, rgba(108,117,125,0.04) 0%, transparent 100%); }
+    
+    /* ─────────────────────────────────────────────
+       MARKET SUMMARY: Highlight cards
+       ───────────────────────────────────────────── */
+    .market-summary {
+      font-size: 14px;
+      font-weight: 500;
+      padding: 16px;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      border-radius: 8px;
+      border-left: 4px solid;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.03);
+    }
+    .market-summary p {
+      margin: 6px 0;
+      line-height: 1.6;
+    }
+    .market-summary strong {
+      color: #1a1a2e;
+    }
+    .market-summary.china { border-color: #dc3545; }
+    .market-summary.japan { border-color: #e63946; }
+    .market-summary.korea { border-color: #457b9d; }
+    .market-summary.india { border-color: #e07a5f; }
+    
+    /* ─────────────────────────────────────────────
+       NEWS ITEMS: Clean, readable, with subtle links
+       ───────────────────────────────────────────── */
+    .news-item {
+      padding: 8px 0;
+      border-bottom: 1px solid #f1f3f5;
+      font-size: 14px;
+      color: #2d3436;
+    }
+    .news-item:last-child { border-bottom: none; }
+    .news-item strong {
+      font-weight: 600;
+      color: #1a1a2e;
+    }
+    .news-item a {
+      color: #6c757d;
+      text-decoration: none;
+      font-size: 12px;
+      margin-left: 4px;
+      transition: color 0.2s;
+    }
+    .news-item a:hover {
+      color: #1a1a2e;
+      text-decoration: underline;
+    }
+    .key-signals .news-item {
+      padding: 10px 0;
+    }
+    
+    /* ─────────────────────────────────────────────
+       TABLES: Refined, minimal
+       ───────────────────────────────────────────── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-top: 8px;
+    }
+    th, td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid #f1f3f5;
+    }
+    th {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      font-weight: 600;
+      color: #495057;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    td { color: #2d3436; }
+    tr:last-child td { border-bottom: none; }
+    
+    /* ─────────────────────────────────────────────
+       FOOTER: Subtle, professional
+       ───────────────────────────────────────────── */
+    footer {
+      margin-top: 32px;
+      padding-top: 20px;
+      border-top: 1px solid #e9ecef;
+      font-size: 12px;
+      color: #adb5bd;
+      text-align: center;
+    }
+    
+    ul { list-style: none; }
+    li { margin-bottom: 0; }
+    
+    /* ─────────────────────────────────────────────
+       MOBILE OPTIMIZATION
+       ───────────────────────────────────────────── */
+    @media (max-width: 480px) {
+      .container { padding: 0 16px 16px 16px; }
+      header { padding: 24px 16px; margin: -0 -16px 20px -16px; }
+      header h1 { font-size: 22px; }
+      .section { padding: 16px; }
+      .section-header { font-size: 16px; }
+      .page-nav a { padding: 5px 12px; font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🌏 Asia Travel Weekly</h1>
+      <div class="dates">Mar 31 – Apr 7, 2026</div>
+    </header>
+
+    <nav class="page-nav">
+      <a href="#signals">Key Signals</a>
+      <a href="#implications">Airbnb</a>
+      <a href="#competitors">Competitors</a>
+      <a href="#india">India</a>
+      <a href="#korea">Korea</a>
+      <a href="#japan">Japan</a>
+      <a href="#china">China</a>
+      <a href="#sources">Sources</a>
+    </nav>
+
+    <div class="section key-signals" id="signals">
+      <div class="section-header" style="border-color: #e74c3c;">🔥 KEY SIGNALS THIS WEEK</div>
+      <div class="news-item">1. <strong>Platform antitrust wave</strong> — Trip.com's AI pricing tool triggers $8B market cap loss + class action; MakeMyTrip faces CCI probe. Meanwhile Fliggy partners 80+ brands on AI. <a href="https://www.prnewswire.com/news-releases/tripcom-tcom-sued-after-ai-pricing-controversy-and-anti-monopoly-probe-sends-shares-tumbling----hagens-berman-302731905.html" target="_blank">PR Newswire</a> | <a href="https://skift.com/2026/03/31/makemytrip-shorteseller-anti-competition-claims/" target="_blank">Skift</a></div>
+      <div class="news-item">2. <strong>K-content tourism: +600% booking spikes</strong> — BTS/NCT Dream concerts drive accommodation surges; Korea opens 10-year visas for 14 Chinese cities; Feb inbound +25.7% to 1.43M. <a href="https://news.airbnb.com/groupie-getaways-fuel-concert-tourism-this-summer/" target="_blank">Airbnb Newsroom</a> | <a href="https://www.visahq.com/news/2026-04-07/cn/south-korea-offers-10-year-multiple-entry-visas-to-residents-of-14-mainland-chinese-cities/" target="_blank">VisaHQ</a></div>
+      <div class="news-item">3. <strong>Japan overtourism crackdown</strong> — Fuji festival cancelled; 50+ local governments adding lodging taxes; minpaku enforcement tightened Apr 1. GW spend per-capita down 2.1% (first ever decline). <a href="https://www.alojapan.com/1471787/mount-fuji-cherry-blossom-festival-cancelled-due-to-overtourism-crisis-2/" target="_blank">Alo Japan</a> | <a href="https://english.kyodonews.net/articles/-/73360" target="_blank">Kyodo News</a></div>
+      <div class="news-item">4. <strong>India: $45B experiential travel boom</strong> — 93% of youth self-plan trips; 19% plan spiritual travel (Asia #1); solo women travel surges in Himalayas. <a href="https://travel.economictimes.indiatimes.com/news/research-and-statistics/research/experiential-travel-in-india-set-to-dominate-tourism-by-2030/130082553" target="_blank">ET TravelWorld</a> | <a href="https://www.tribuneindia.com/news/business/why-solo-women-travel-is-on-the-rise-safe-himalayan-destinations-to-explore/" target="_blank">Tribune</a></div>
+    </div>
+
+    <div class="section" id="implications">
+      <div class="section-header implications">💡 AIRBNB APAC IMPLICATIONS</div>
+      <div class="news-item">1. <strong>Korea opportunity</strong> — 10-year visa + K-content demand (+600% booking spikes) = prime market for Host acquisition. Focus on Seoul concert-adjacent neighborhoods and Jeju (Incheon direct flights resuming May).</div>
+      <div class="news-item">2. <strong>Japan regulatory headwinds</strong> — Minpaku enforcement + accommodation taxes in 50+ locales require compliance audit. Kyoto considering further restrictions. Per-capita spend declining — consider value-tier listing optimization.</div>
+      <div class="news-item">3. <strong>China family travel wave</strong> — 37% family booking share during Qingming; Fliggy hotel bookings +40%. Spring break extension creates 6-day holidays — multi-room and kid-friendly listing optimization opportunity.</div>
+    </div>
+
+    <div class="section" id="competitors">
+      <div class="section-header competitor">🏢 COMPETITOR & PLATFORM WATCH</div>
+      <div class="news-item">• <strong>Fliggy x Alibaba Qwen AI: 80+ brands integrated</strong> — flyai skill published on ClawHub; hotel bookings +40%. <a href="https://36kr.com/p/3737995187503360" target="_blank">36Kr</a> | <a href="https://news.qq.com/rain/a/20260403A05GRR00" target="_blank">QQ News</a></div>
+      <div class="news-item">• <strong>Trip.com AI pricing tool triggers antitrust crisis</strong> — Class action lawsuit filed; regulatory investigation ongoing. <a href="https://www.prnewswire.com/news-releases/tripcom-tcom-sued-after-ai-pricing-controversy-and-anti-monopoly-probe-sends-shares-tumbling----hagens-berman-302731905.html" target="_blank">PR Newswire</a></div>
+      <div class="news-item">• <strong>MakeMyTrip under CCI scrutiny</strong> — India's Competition Commission investigates anti-competitive behavior. <a href="https://skift.com/2026/03/31/makemytrip-shorteseller-anti-competition-claims/" target="_blank">Skift</a></div>
+    </div>
+
+    <div class="section" id="india">
+      <div class="section-header india">🇮🇳 INDIA</div>
+      <div class="market-summary india">
+        <p><strong>1)</strong> Experiential travel market projected at <strong>$45B by 2027</strong> (+14% CAGR); 93% of youth prefer self-planning over packages.</p>
+        <p><strong>2)</strong> Spiritual travel leads Asia: 19% of Indian travelers plan faith-based trips.</p>
+        <p><strong>3)</strong> Solo women travel surging in Himalayan destinations (Spiti, Kashmir, Sikkim).</p>
+        <p><strong>4)</strong> Weak rupee pushes outbound budgets to ₹3-5 lakh (+67%) but demand holds; UAE/Thailand/Singapore remain top picks.</p>
+      </div>
+      <div class="news-item">• <strong>Viral moment: US influencer's 24-hour Taj Mahal trip</strong> — @kevindroniak flew 15h from NYC for a single-day visit, going viral across NDTV, Livemint, News18. India's 'bucket list' appeal growing on Western social media. <a href="https://www.ndtv.com/travel/us-influencers-24-hour-trip-to-india-just-to-see-taj-mahal-stuns-the-internet-11305604" target="_blank">NDTV</a></div>
+      <div class="news-item">• 🐦 <strong>Thailand-India tourism surge</strong> — Thailand preparing for further surge in Indian tourists as PMs meet. India now one of Thailand's fastest-growing source markets. <a href="https://x.com/ThaiEnquirer/status/2041458002423931388" target="_blank">X/Twitter</a></div>
+      <div class="news-item">• <strong>91% prefer nature-based travel, 87% seek mental reset</strong> — Wellness and outdoors dominate preferences. <a href="https://curlytales.com/india/trending/travel-trends-travellers-prefer-nature-trips-while-seek-trips-to-mentally-unwind/" target="_blank">Curly Tales</a></div>
+      <div class="news-item">• <strong>Experiential travel market to hit $45B by 2027</strong> — 93% of youth prefer self-planned itineraries. <a href="https://travel.economictimes.indiatimes.com/news/research-and-statistics/research/experiential-travel-in-india-set-to-dominate-tourism-by-2030/130082553" target="_blank">ET Travel World</a></div>
+      <div class="news-item">• <strong>Solo women travel surge in Himalayas</strong> — Spiti (newly opened), Kashmir (tulip season), Sikkim (rhododendron) hot for April. <a href="https://www.tribuneindia.com/news/business/why-solo-women-travel-is-on-the-rise-safe-himalayan-destinations-to-explore/" target="_blank">The Tribune</a></div>
+      <div class="news-item">• <strong>India leads Asia in spiritual travel</strong> — 19% of tourists plan faith-based trips; Incredible India pivots to domestic market. <a href="https://www.nomadlawyer.org/india-tourism-incredible-domestic-pivot-2026" target="_blank">Nomad Lawyer</a></div>
+    </div>
+
+    <div class="section" id="korea">
+      <div class="section-header korea">🇰🇷 SOUTH KOREA</div>
+      <div class="market-summary korea">
+        <p><strong>1)</strong> Korea aggressively courts China: 10-year multi-entry visas for 14 cities; Chinese search volume <strong>3x YoY</strong> on Airbnb.</p>
+        <p><strong>2)</strong> K-content is the #1 demand driver — BTS concerts trigger <strong>+600%</strong> accommodation spikes; NCT Dream drives <strong>3x</strong> search during shows.</p>
+        <p><strong>3)</strong> Feb inbound: <strong>1.43M visitors (+25.7% YoY)</strong>. Infrastructure push: Jeju-Incheon direct flights resume May (first in 10 years).</p>
+      </div>
+      <div class="news-item">• <strong>'Feels like home' positioning resonates</strong> — Korean destinations are increasingly marketed as culturally familiar to Asian travelers. Busan and Jeju positioned as 'laid-back alternatives' to Seoul, tapping into the comfort-seeking travel trend. <a href="https://www.timesnownews.com/travel/planning-your-next-getaway-these-5-countries-should-be-on-your-radar-in-2026-article-153997047" target="_blank">Times Now</a></div>
+      <div class="news-item">• <strong>10-year multiple visa for 14 Chinese cities</strong> — Aggressive push to capture Chinese outbound recovery. <a href="https://www.visahq.com/news/2026-04-07/cn/south-korea-offers-10-year-multiple-entry-visas-to-residents-of-14-mainland-chinese-cities/" target="_blank">VisaHQ</a></div>
+      <div class="news-item">• <strong>February foreign visitors 1.43M, +25.7% YoY</strong> — Strong momentum continues into spring. <a href="https://www.traveldaily.co.kr/news/articleView.html?idxno=70485" target="_blank">Travel Daily Korea</a></div>
+      <div class="news-item">• <strong>BTS concerts drive +600% accommodation searches</strong> — K-pop pilgrimages dominate demand spikes. <a href="https://news.airbnb.com/groupie-getaways-fuel-concert-tourism-this-summer/" target="_blank">Airbnb Newsroom</a></div>
+      <div class="news-item">• 🐦 <strong>Visa data confirms: foreign tourists +25% during BTS Comeback Concert week</strong> — Real-time transaction data validates K-content as the #1 inbound driver. <a href="https://x.com/shadow_twts/status/2041020193519083633" target="_blank">X/Twitter</a></div>
+      <div class="news-item">• <strong>Jeju Island restores Incheon direct flights</strong> — First time in 10 years; May 2026 launch. <a href="https://www.straitstimes.com/asia/east-asia/from-luggage-friendly-buses-to-airport-links-south-korea-smooths-travel-beyond-seoul" target="_blank">Straits Times</a></div>
+    </div>
+
+    <div class="section" id="japan">
+      <div class="section-header japan">🇯🇵 JAPAN</div>
+      <div class="market-summary japan">
+        <p><strong>1)</strong> Record inbound: <strong>42.7M in 2025</strong>; Feb 2026 hit <strong>3.46M</strong> monthly record. Government targets 60M by 2030.</p>
+        <p><strong>2)</strong> But overtourism backlash accelerates: Fuji festival cancelled, <strong>50+</strong> local governments adding lodging taxes, minpaku enforcement tightened.</p>
+        <p><strong>3)</strong> GW 2026: <strong>24.47M trips (+1.9%)</strong> but per-capita spend <strong>¥46K (-2.1%)</strong> — first decline on record. Generational split: 60+ prefer history/nature; under-29 seek self-restoration, fan pilgrimages (聖地巡礼), and sleep tourism.</p>
+      </div>
+      <div class="news-item">• <strong>Mount Fuji Cherry Blossom Festival cancelled</strong> — Overtourism concerns force local government to scrap event. <a href="https://www.alojapan.com/1471787/mount-fuji-cherry-blossom-festival-cancelled-due-to-overtourism-crisis-2/" target="_blank">Alo Japan</a></div>
+      <div class="news-item">• <strong>Golden Week 2026: volume up, spend down</strong> — 24.47M trips (+1.9%) but per-capita ¥46K (-2.1%); first decline on record. <a href="https://mainichi.jp/english/articles/20260403/p2g/00m/0na/010000c" target="_blank">The Mainichi</a></div>
+      <div class="news-item">• <strong>Minpaku enforcement tightens April 1</strong> — Unlicensed listings face removal; Kyoto considers further restrictions. <a href="https://yukihomes.substack.com/p/april-1st-the-end-of-the-airbnb-free" target="_blank">YukiHomes</a></div>
+      <div class="news-item">• <strong>Accommodation taxes spread</strong> — 20 local governments implemented in FY2026; 50+ expected by year-end. <a href="https://english.kyodonews.net/articles/-/73360" target="_blank">Kyodo News</a></div>
+      <div class="news-item">• <strong>Hidden gem spotlight: Suwa onsen town (諏訪温泉)</strong> emerges as the anti-overtourism answer in Nagano Prefecture, as travelers seek alternatives to crowded Hakone and Kusatsu. <a href="https://unseen-japan.com/suwa-onsen-town-nagano-prefecture/" target="_blank">Unseen Japan</a></div>
+      <div class="news-item">• 🐦 <strong>Viral tweet: "Japan's $9B cherry blossom economy runs on a 7-day window"</strong> — @aakashgupta's thread (5.4K likes, 907K views) highlights that 2026 bloom arrived 6-9 days early, and the economic window is getting shorter every year. ¥1.39T hanami impact in 2025, 25%+ of viewers were international tourists. <a href="https://x.com/aakashgupta/status/2040444542118445518" target="_blank">X/Twitter</a></div>
+    </div>
+
+    <div class="section" id="china">
+      <div class="section-header china">🇨🇳 CHINA</div>
+      <div class="market-summary china">
+        <p><strong>1)</strong> Qingming: <strong>135M trips (+6.8%)</strong>, <strong>¥61.4B spend</strong>. Spring break extension creates 6-day holidays; family travel = <strong>37%</strong> of bookings.</p>
+        <p><strong>2)</strong> Platform wars: Fliggy AI push (80+ brands, flyai launch, hotel bookings +40%) vs Trip.com antitrust crisis ($8B market cap loss).</p>
+        <p><strong>3)</strong> Inbound doubles on visa-free expansion; free-visa country bookings grow <strong>3x faster</strong> than overall.</p>
+        <p><strong>4)</strong> Color Walk (色彩漫步) viral on Xiaohongshu with 27K+ notes — post-City Walk evolution.</p>
+      </div>
+      <div class="news-item">• <strong>Xiaohongshu becomes tourism marketing battleground</strong> — Hyatt launched a 'Explore Cambodia with Hyatt' campaign directly on Xiaohongshu, signaling that luxury hotel brands now treat the platform as a primary travel marketing channel, not just user-generated content. <a href="https://www.uscardforum.com/t/topic/496173" target="_blank">US Card Forum</a></div>
+      <div class="news-item">• <strong>Color Walk trend explodes on Xiaohongshu (色彩漫步)</strong> — 27K notes as users share aesthetic neighborhood walks. <a href="https://www.chinanews.com.cn/cj/2026/04-04/10598718.shtml" target="_blank">中国新闻网</a></div>
+      <div class="news-item">• <strong>Qingming holiday: 135M trips, +6.8% YoY</strong> — Total spend ¥61.4B; rural tourism leads with Jiaxing village attractions +24.8%. <a href="https://www.chinanews.com.cn/gn/2026/04-07/10599898.shtml" target="_blank">中国新闻网</a></div>
+      <div class="news-item">• <strong>Spring break + Qingmin = 6-day holiday</strong> — Family travel accounts for 37% of bookings; Fliggy hotel reservations +40%, 88VIP room nights +80%. <a href="https://www.pai.com.cn/p/01knkfzfc05keb3cy5y4efd7ga" target="_blank">飞猪</a></div>
+      <div class="news-item">• <strong>Inbound travel doubles on visa-free expansion</strong> — Visa-free country bookings grow 3x faster than overall market. <a href="https://finance.sina.cn/2026-04-07/detail-inhtqxft7629536.d.html" target="_blank">新浪财经</a></div>
+    </div>
+
+    <div class="section" id="sources">
+      <div class="section-header sources">📋 SOURCES AUDIT</div>
+      <table>
+        <tr><th>Country</th><th>Sources</th></tr>
+        <tr><td>🇨🇳 China</td><td>中国新闻网, 上海证券报, 电商派, 新华网, 浙江在线, 中国日报, 36 氪，PR Newswire, 腾讯新闻，China Trading Desk, US Card Forum</td></tr>
+        <tr><td>🇯🇵 Japan</td><td>Travel And Tour World, Alo Japan, The Mainichi, Japan Times, Travel Voice, 楽天，Kyodo News, Asahi Shimbun, YukiHomes, Unseen Japan</td></tr>
+        <tr><td>🇰🇷 Korea</td><td>Travel Daily Korea, 新浪财经，Curly Tales, Straits Times, VisaHQ, CHOSUNBIZ, Seoul Metro Gov, Hyatt Newsroom, Airbnb Newsroom, Tune Travels, Times Now</td></tr>
+        <tr><td>🇮🇳 India</td><td>Curly Tales, ETTravelWorld, The Tribune, TBO Academy, StayVista, Free Press Journal, Nomad Lawyer, Travel And Tour World, BOTT India, Indian Express, Skift, NDTV</td></tr>
+      </table>
+    </div>
+
+    <footer>
+      Powered by 🦞 Max (小可) | Sources as of Apr 8, 2026 | Includes Twitter/X data
+    </footer>
+  </div>
+  <script>
+    // Highlight active nav link on scroll
+    const sections = document.querySelectorAll('.section[id]');
+    const navLinks = document.querySelectorAll('.page-nav a');
+    function updateNav() {
+      let current = '';
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 60) current = s.id;
+      });
+      navLinks.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+      });
+    }
+    window.addEventListener('scroll', updateNav, { passive: true });
+    updateNav();
+  </script>
+</body>
+</html>
