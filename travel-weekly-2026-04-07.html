@@ -46,10 +46,11 @@
       color: #495057;
       text-decoration: none;
       border-radius: 4px;
+      transition: background 0.2s;
     }
-    .page-nav a:hover {
-      background: #e9ecef;
-      color: #1a1a2e;
+    .page-nav a:hover, .page-nav a.active {
+      background: #1a1a2e;
+      color: #fff;
     }
     .section { margin-bottom: 20px; }
     .section-header {
@@ -73,6 +74,9 @@
       margin-bottom: 12px;
       background: #f0f4f8;
       border-left: 4px solid;
+    }
+    .market-summary p {
+      margin: 4px 0;
     }
     .market-summary.china { border-color: #e74c3c; }
     .market-summary.japan { border-color: #e74c3c; }
@@ -156,7 +160,12 @@
 
     <div class="section" id="india">
       <div class="section-header india">🇮🇳 INDIA</div>
-      <div class="market-summary india"><strong>1)</strong> Experiential travel market projected at <strong>$45B by 2027</strong> (+14% CAGR); 93% of youth prefer self-planning over packages. <strong>2)</strong> Spiritual travel leads Asia: 19% of Indian travelers plan faith-based trips. <strong>3)</strong> Solo women travel surging in Himalayan destinations (Spiti, Kashmir, Sikkim). <strong>4)</strong> Weak rupee pushes outbound budgets to ₹3-5 lakh (+67%) but demand holds; UAE/Thailand/Singapore remain top picks.</div>
+      <div class="market-summary india">
+        <p><strong>1)</strong> Experiential travel market projected at <strong>$45B by 2027</strong> (+14% CAGR); 93% of youth prefer self-planning over packages.</p>
+        <p><strong>2)</strong> Spiritual travel leads Asia: 19% of Indian travelers plan faith-based trips.</p>
+        <p><strong>3)</strong> Solo women travel surging in Himalayan destinations (Spiti, Kashmir, Sikkim).</p>
+        <p><strong>4)</strong> Weak rupee pushes outbound budgets to ₹3-5 lakh (+67%) but demand holds; UAE/Thailand/Singapore remain top picks.</p>
+      </div>
       <div class="news-item">• <strong>Viral moment: US influencer's 24-hour Taj Mahal trip</strong> — Instagram creator @kevindroniak flew 15 hours from NYC for a single-day Taj Mahal visit, going viral across NDTV, Livemint, and News18. The stunt highlights India's growing 'bucket list' appeal on Western social media. <a href="https://www.ndtv.com/travel/us-influencers-24-hour-trip-to-india-just-to-see-taj-mahal-stuns-the-internet-11305604" target="_blank">NDTV</a></div>
       <div class="news-item">• <strong>91% prefer nature-based travel, 87% seek mental reset</strong> — Wellness and outdoors dominate preferences. <a href="https://curlytales.com/india/trending/travel-trends-travellers-prefer-nature-trips-while-seek-trips-to-mentally-unwind/" target="_blank">Curly Tales</a></div>
       <div class="news-item">• <strong>Experiential travel market to hit $45B by 2027</strong> — 93% of youth prefer self-planned itineraries. <a href="https://travel.economictimes.indiatimes.com/news/research-and-statistics/research/experiential-travel-in-india-set-to-dominate-tourism-by-2030/130082553" target="_blank">ET Travel World</a></div>
@@ -166,7 +175,11 @@
 
     <div class="section" id="korea">
       <div class="section-header korea">🇰🇷 SOUTH KOREA</div>
-      <div class="market-summary korea"><strong>1)</strong> Korea aggressively courts China: 10-year multi-entry visas for 14 cities; Chinese search volume <strong>3x YoY</strong> on Airbnb. <strong>2)</strong> K-content is the #1 demand driver — BTS concerts trigger <strong>+600%</strong> accommodation spikes; NCT Dream drives <strong>3x</strong> search during shows. <strong>3)</strong> Feb inbound: <strong>1.43M visitors (+25.7% YoY)</strong>. Infrastructure push: Jeju-Incheon direct flights resume May (first in 10 years).</div>
+      <div class="market-summary korea">
+        <p><strong>1)</strong> Korea aggressively courts China: 10-year multi-entry visas for 14 cities; Chinese search volume <strong>3x YoY</strong> on Airbnb.</p>
+        <p><strong>2)</strong> K-content is the #1 demand driver — BTS concerts trigger <strong>+600%</strong> accommodation spikes; NCT Dream drives <strong>3x</strong> search during shows.</p>
+        <p><strong>3)</strong> Feb inbound: <strong>1.43M visitors (+25.7% YoY)</strong>. Infrastructure push: Jeju-Incheon direct flights resume May (first in 10 years).</p>
+      </div>
       <div class="news-item">• <strong>'Feels like home' positioning resonates</strong> — Korean destinations are increasingly marketed as culturally familiar to Asian travelers. Busan and Jeju positioned as 'laid-back alternatives' to Seoul, tapping into the comfort-seeking travel trend. <a href="https://www.timesnownews.com/travel/planning-your-next-getaway-these-5-countries-should-be-on-your-radar-in-2026-article-153997047" target="_blank">Times Now</a></div>
       <div class="news-item">• <strong>10-year multiple visa for 14 Chinese cities</strong> — Aggressive push to capture Chinese outbound recovery. <a href="https://www.visahq.com/news/2026-04-07/cn/south-korea-offers-10-year-multiple-entry-visas-to-residents-of-14-mainland-chinese-cities/" target="_blank">VisaHQ</a></div>
       <div class="news-item">• <strong>February foreign visitors 1.43M, +25.7% YoY</strong> — Strong momentum continues into spring. <a href="https://www.traveldaily.co.kr/news/articleView.html?idxno=70485" target="_blank">Travel Daily Korea</a></div>
@@ -176,7 +189,11 @@
 
     <div class="section" id="japan">
       <div class="section-header japan">🇯🇵 JAPAN</div>
-      <div class="market-summary japan"><strong>1)</strong> Record inbound: <strong>42.7M in 2025</strong>; Feb 2026 hit <strong>3.46M</strong> monthly record. Government targets 60M by 2030. <strong>2)</strong> But overtourism backlash accelerates: Fuji festival cancelled, <strong>50+</strong> local governments adding lodging taxes, minpaku enforcement tightened. <strong>3)</strong> GW 2026: <strong>24.47M trips (+1.9%)</strong> but per-capita spend <strong>¥46K (-2.1%)</strong> — first decline on record. Generational split: 60+ prefer history/nature; under-29 seek self-restoration, fan pilgrimages (聖地巡礼), and sleep tourism.</div>
+      <div class="market-summary japan">
+        <p><strong>1)</strong> Record inbound: <strong>42.7M in 2025</strong>; Feb 2026 hit <strong>3.46M</strong> monthly record. Government targets 60M by 2030.</p>
+        <p><strong>2)</strong> But overtourism backlash accelerates: Fuji festival cancelled, <strong>50+</strong> local governments adding lodging taxes, minpaku enforcement tightened.</p>
+        <p><strong>3)</strong> GW 2026: <strong>24.47M trips (+1.9%)</strong> but per-capita spend <strong>¥46K (-2.1%)</strong> — first decline on record. Generational split: 60+ prefer history/nature; under-29 seek self-restoration, fan pilgrimages (聖地巡礼), and sleep tourism.</p>
+      </div>
       <div class="news-item">• <strong>Mount Fuji Cherry Blossom Festival cancelled</strong> — Overtourism concerns force local government to scrap event. <a href="https://www.alojapan.com/1471787/mount-fuji-cherry-blossom-festival-cancelled-due-to-overtourism-crisis-2/" target="_blank">Alo Japan</a></div>
       <div class="news-item">• <strong>Golden Week 2026: volume up, spend down</strong> — 24.47M trips (+1.9%) but per-capita ¥46K (-2.1%); first decline on record. <a href="https://mainichi.jp/english/articles/20260403/p2g/00m/0na/010000c" target="_blank">The Mainichi</a></div>
       <div class="news-item">• <strong>Minpaku enforcement tightens April 1</strong> — Unlicensed listings face removal; Kyoto considers further restrictions. <a href="https://yukihomes.substack.com/p/april-1st-the-end-of-the-airbnb-free" target="_blank">YukiHomes</a></div>
@@ -186,7 +203,12 @@
 
     <div class="section" id="china">
       <div class="section-header china">🇨🇳 CHINA</div>
-      <div class="market-summary china"><strong>1)</strong> Qingming: <strong>135M trips (+6.8%)</strong>, <strong>¥61.4B spend</strong>. Spring break extension creates 6-day holidays; family travel = <strong>37%</strong> of bookings. <strong>2)</strong> Platform wars: Fliggy AI push (80+ brands, flyai launch, hotel bookings +40%) vs Trip.com antitrust crisis ($8B market cap loss). <strong>3)</strong> Inbound doubles on visa-free expansion; free-visa country bookings grow <strong>3x faster</strong> than overall. <strong>4)</strong> Color Walk (色彩漫步) viral on Xiaohongshu with 27K+ notes — post-City Walk evolution.</div>
+      <div class="market-summary china">
+        <p><strong>1)</strong> Qingming: <strong>135M trips (+6.8%)</strong>, <strong>¥61.4B spend</strong>. Spring break extension creates 6-day holidays; family travel = <strong>37%</strong> of bookings.</p>
+        <p><strong>2)</strong> Platform wars: Fliggy AI push (80+ brands, flyai launch, hotel bookings +40%) vs Trip.com antitrust crisis ($8B market cap loss).</p>
+        <p><strong>3)</strong> Inbound doubles on visa-free expansion; free-visa country bookings grow <strong>3x faster</strong> than overall.</p>
+        <p><strong>4)</strong> Color Walk (色彩漫步) viral on Xiaohongshu with 27K+ notes — post-City Walk evolution.</p>
+      </div>
       <div class="news-item">• <strong>Xiaohongshu becomes tourism marketing battleground</strong> — Hyatt launched a 'Explore Cambodia with Hyatt' campaign directly on Xiaohongshu, signaling that luxury hotel brands now treat the platform as a primary travel marketing channel, not just user-generated content. <a href="https://www.uscardforum.com/t/topic/496173" target="_blank">US Card Forum</a></div>
       <div class="news-item">• <strong>Color Walk trend explodes on Xiaohongshu (色彩漫步)</strong> — 27K notes as users share aesthetic neighborhood walks. <a href="https://www.chinanews.com.cn/cj/2026/04-04/10598718.shtml" target="_blank">中国新闻网</a></div>
       <div class="news-item">• <strong>Qingming holiday: 135M trips, +6.8% YoY</strong> — Total spend ¥61.4B; rural tourism leads with Jiaxing village attractions +24.8%. <a href="https://www.chinanews.com.cn/gn/2026/04-07/10599898.shtml" target="_blank">中国新闻网</a></div>
@@ -209,5 +231,21 @@
       Powered by 🦞 Max (小可) | Sources as of Apr 7, 2026
     </footer>
   </div>
+  <script>
+    // Highlight active nav link on scroll
+    const sections = document.querySelectorAll('.section[id]');
+    const navLinks = document.querySelectorAll('.page-nav a');
+    function updateNav() {
+      let current = '';
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 60) current = s.id;
+      });
+      navLinks.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+      });
+    }
+    window.addEventListener('scroll', updateNav, { passive: true });
+    updateNav();
+  </script>
 </body>
 </html>
