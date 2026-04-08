@@ -20,7 +20,7 @@
     body {
       font-family: -apple-system, "SF Pro Text", "Noto Sans SC", sans-serif;
       font-size: 15px;
-      line-height: 1.7;
+      line-height: 1.4;
       background: #fafbfc;
       color: #1a1a2e;
       -webkit-font-smoothing: antialiased;
@@ -76,8 +76,8 @@
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      padding: 12px 0;
-      margin-bottom: 24px;
+      padding: 8px 0;
+      margin-bottom: 14px;
       border-bottom: 1px solid #e9ecef;
       box-shadow: 0 2px 8px rgba(0,0,0,0.04);
       overflow-x: auto;
@@ -111,10 +111,10 @@
        SECTIONS: Card-based with subtle shadows
        ───────────────────────────────────────────── */
     .section {
-      margin-bottom: 28px;
+      margin-bottom: 16px;
       background: #ffffff;
       border-radius: 12px;
-      padding: 20px;
+      padding: 14px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.04);
       border: 1px solid rgba(0,0,0,0.04);
     }
@@ -122,8 +122,8 @@
     .section-header {
       font-size: 20px;
       font-weight: 700;
-      padding: 10px 0 10px 14px;
-      margin-bottom: 16px;
+      padding: 6px 0 6px 14px;
+      margin-bottom: 10px;
       border-left: 4px solid;
       letter-spacing: -0.2px;
     }
@@ -181,22 +181,21 @@
        MARKET SUMMARY: Dark insight cards
        ───────────────────────────────────────────── */
     .market-summary {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 500;
-      padding: 20px;
-      margin-bottom: 20px;
-      background: #1a1a2e;
-      color: #ffffff;
+      padding: 14px;
+      margin-bottom: 12px;
+      background: #f0f2f5;
+      color: #1a1a2e;
       border-radius: 10px;
       border-left: 4px solid;
-      box-shadow: 0 4px 12px rgba(26, 26, 46, 0.2);
     }
     .market-summary p {
-      margin: 8px 0;
-      line-height: 1.6;
+      margin: 4px 0;
+      line-height: 1.5;
     }
     .market-summary strong {
-      color: #ffffff;
+      color: #1a1a2e;
       font-weight: 600;
     }
     .market-summary .stat {
@@ -211,11 +210,11 @@
        NEWS ITEMS: Clean, readable, with subtle links
        ───────────────────────────────────────────── */
     .news-item {
-      padding: 10px 0;
+      padding: 6px 0;
       border-bottom: 1px solid #f1f3f5;
-      font-size: 15px;
+      font-size: 14px;
       color: #2d3436;
-      line-height: 1.6;
+      line-height: 1.5;
     }
     .news-item:last-child { border-bottom: none; }
     .news-item strong {
@@ -224,10 +223,17 @@
       font-size: 15px;
     }
     .news-item .stat {
-      color: #e07a5f;
       font-weight: 600;
-      font-size: 15px;
+      font-size: 14px;
     }
+    /* Growth: green spectrum */
+    .stat.up { color: #2d936c; }
+    .stat.up-strong { color: #1a7a52; }
+    /* Decline: red spectrum */
+    .stat.down { color: #dc3545; }
+    .stat.down-mild { color: #e8606d; }
+    /* Neutral/uncertain: orange */
+    .stat.neutral { color: #e07a5f; }
     .news-item .stat.cool { color: #457b9d; }
     .news-item .stat.red { color: #e63946; }
     .news-item .stat.green { color: #2d936c; }
@@ -330,15 +336,15 @@
           <div class="label">China Qingming trips<br><span class="stat green">+6.8%</span></div>
         </div>
         <div class="kpi-tile">
-          <div class="big-number cool">1.43M</div>
+          <div class="big-number" style="color:#2d936c">1.43M</div>
           <div class="label">Korea inbound (Feb)<br><span class="stat cool">+25.7%</span></div>
         </div>
         <div class="kpi-tile">
-          <div class="big-number red">¥46K</div>
+          <div class="big-number" style="color:#dc3545">¥46K</div>
           <div class="label">Japan GW spend<br><span class="stat red">-2.1%</span></div>
         </div>
         <div class="kpi-tile">
-          <div class="big-number warm">$45B</div>
+          <div class="big-number" style="color:#e07a5f">$45B</div>
           <div class="label">India experiential<br>by 2027</div>
         </div>
       </div>
