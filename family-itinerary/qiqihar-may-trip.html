@@ -41,7 +41,7 @@ header .sub{font-size:12px;opacity:0.85;margin-top:3px}
   .sidebar{order:2;width:360px;max-height:calc(100vh - 120px)}
 }
 @media(max-width:679px){
-  .sidebar{max-height:52vh;order:1}
+  .sidebar{max-height:40vh;order:1}
   #map{order:2}
 }
 </style>
@@ -184,10 +184,27 @@ function renderMarkers(day){
   
   const filtered=day==='all'?spots:spots.filter(s=>s.day===day);
   
+  // On mobile, limit permanent popups to 3 per day (priority: hotel>attraction>kids>food>transport>shopping)
+  const isMobile=window.innerWidth<680;
+  const typePriority={hotel:0,attraction:1,kids:2,food:3,transport:4,shopping:5};
+  let popupSpots=filtered;
+  if(isMobile){
+    const days=[...new Set(filtered.map(s=>s.day))];
+    const popupSet=new Set();
+    days.forEach(d=>{
+      const daySpots=filtered.filter(s=>s.day===d)
+        .slice().sort((a,b)=>(typePriority[a.type]||9)-(typePriority[b.type]||9));
+      daySpots.slice(0,3).forEach(s=>popupSet.add(s.id));
+    });
+    popupSpots=filtered.filter(s=>popupSet.has(s.id));
+  }
+  
   filtered.forEach(spot=>{
     L.marker([spot.lat,spot.lng],{icon:createIcon(spot.type)}).addTo(currentLayerGroup);
-    L.popup({autoClose:false,closeOnClick:false,closeButton:false,className:'permanent-popup',offset:[0,-6]})
-      .setLatLng([spot.lat,spot.lng]).setContent(spot.name).addTo(currentLayerGroup);
+    if(!isMobile||popupSpots.includes(spot)){
+      L.popup({autoClose:false,closeOnClick:false,closeButton:false,className:'permanent-popup',offset:[0,-6]})
+        .setLatLng([spot.lat,spot.lng]).setContent(spot.name).addTo(currentLayerGroup);
+    }
   });
   
   if(day!=='all'){
