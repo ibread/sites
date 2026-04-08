@@ -32,6 +32,7 @@ header p{font-size:11px;opacity:.85;margin-top:2px}
 .fb[data-t="all"].active{background:#2c3e50}
 .fb[data-t="attraction"].active{background:#e74c3c}
 .fb[data-t="food"].active{background:#e67e22}
+.fb[data-t="hotel"].active{background:#2980b9}
 .fb[data-t="transport"].active{background:#7f8c8d}
 
 .layout{display:flex;flex-direction:column;height:calc(100vh - 105px);min-height:400px}
@@ -49,6 +50,7 @@ header p{font-size:11px;opacity:.85;margin-top:2px}
 .sec h3.h-att{background:linear-gradient(135deg,#e74c3c,#c0392b)}
 .sec h3.h-food{background:linear-gradient(135deg,#e67e22,#d35400)}
 .sec h3.h-trans{background:linear-gradient(135deg,#7f8c8d,#566573)}
+.sec h3.h-hotel{background:linear-gradient(135deg,#2980b9,#1a6ea0)}
 
 .sp{display:flex;align-items:flex-start;padding:7px 11px;border-bottom:1px solid #f0ede8;cursor:pointer;transition:background .15s}
 .sp:last-child{border-bottom:none}
@@ -78,7 +80,7 @@ header p{font-size:11px;opacity:.85;margin-top:2px}
 
 <header>
   <h1>🦩 齐齐哈尔 CityWalk 地图</h1>
-  <p>景点 · 美食 · 交通 一览</p>
+  <p>景点 · 美食 · 酒店 · 交通 一览</p>
   <div class="source">参考：小红书 @林小本「齐齐哈尔两天一晚」</div>
 </header>
 
@@ -86,6 +88,7 @@ header p{font-size:11px;opacity:.85;margin-top:2px}
   <button class="fb active" data-t="all" onclick="ft('all')">🗺️ 全部</button>
   <button class="fb" data-t="attraction" onclick="ft('attraction')">🏞️ 景点</button>
   <button class="fb" data-t="food" onclick="ft('food')">🍖 美食</button>
+  <button class="fb" data-t="hotel" onclick="ft('hotel')">🏨 酒店</button>
   <button class="fb" data-t="transport" onclick="ft('transport')">🚉 交通</button>
 </div>
 
@@ -95,9 +98,9 @@ header p{font-size:11px;opacity:.85;margin-top:2px}
 </div>
 
 <script>
-const C={attraction:'#e74c3c',food:'#e67e22',transport:'#7f8c8d'};
-const hdr={attraction:'h-att',food:'h-food',transport:'h-trans'};
-const secTitle={attraction:'🏞️ 景点',food:'🍖 美食',transport:'🚉 交通'};
+const C={attraction:'#e74c3c',food:'#e67e22',transport:'#7f8c8d',hotel:'#2980b9'};
+const hdr={attraction:'h-att',food:'h-food',transport:'h-trans',hotel:'h-hotel'};
+const secTitle={attraction:'🏞️ 景点',food:'🍖 美食',transport:'🚉 交通',hotel:'🏨 推荐酒店'};
 
 const P=[
   // 景点
@@ -121,7 +124,12 @@ const P=[
   {n:'北极冷饮厅',d:'本地老字号冰淇淋',lat:47.3440,lng:123.9530,t:'food',e:'🍦'},
 
   // 交通
-  {n:'齐齐哈尔站',d:'火车站，交通枢纽',lat:47.3280,lng:123.9650,t:'transport',e:'🚉'}
+  {n:'齐齐哈尔站',d:'火车站，交通枢纽',lat:47.3280,lng:123.9650,t:'transport',e:'🚉'},
+
+  // 推荐酒店
+  {n:'❶ 富力万达嘉华酒店 ⭐⭐⭐⭐⭐',d:'豪华型 · 建华区新江路1号 · 近万达广场 · ¥1050/晚',lat:47.3630,lng:123.9590,t:'hotel',e:'🏨'},
+  {n:'❷ 希尔顿欢朋酒店 ⭐⭐⭐⭐',d:'高档型 · 建华区锦湖金色世家 · 近万达 · ¥976/晚',lat:47.3610,lng:123.9550,t:'hotel',e:'🏨'},
+  {n:'❸ 如家商旅·中环广场店 ⭐⭐⭐',d:'舒适型 · 龙沙区永安大街114号 · 中环核心地段 · 步行可达龙沙公园/夜市',lat:47.3400,lng:123.9550,t:'hotel',e:'🏨'}
 ];
 
 let cf='all';
@@ -136,7 +144,7 @@ ml.addTo(map);
 const lg=L.control({position:'bottomleft'});
 lg.onAdd=function(){
   const d=L.DomUtil.create('div','legend');
-  d.innerHTML='<i style="background:#e74c3c"></i>景点<br><i style="background:#e67e22"></i>美食<br><i style="background:#7f8c8d"></i>交通';
+  d.innerHTML='<i style="background:#e74c3c"></i>景点<br><i style="background:#e67e22"></i>美食<br><i style="background:#2980b9"></i>酒店<br><i style="background:#7f8c8d"></i>交通';
   return d;
 };
 lg.addTo(map);
@@ -151,7 +159,7 @@ function render(){
   const groups={};
   fp.forEach(p=>{if(!groups[p.t])groups[p.t]=[];groups[p.t].push(p)});
   let h='';
-  for(const t of ['attraction','food','transport']){
+  for(const t of ['attraction','food','hotel','transport']){
     if(!groups[t])continue;
     h+=`<div class="sec"><h3 class="${hdr[t]}">${secTitle[t]}</h3>`;
     groups[t].forEach(p=>{
