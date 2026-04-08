@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>齐齐哈尔五一行程地图</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--warm-bg:#f5f7fa;--card-bg:#fff;--text:#333;--sub:#666}
+body{font-family:-apple-system,'PingFang SC',BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--warm-bg);color:var(--text)}
+
+header{
+  background:linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.55)),
+    url('https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b?w=800&q=80') center 40%/cover;
+  padding:16px 14px 12px;color:#fff;text-align:center;position:relative
+}
+header h1{font-size:17px;font-weight:700;text-shadow:0 1px 4px rgba(0,0,0,.5)}
+header p{font-size:11px;opacity:.85;margin-top:2px}
+
+.filter-bar{
+  background:#fff;padding:6px 10px;display:flex;gap:6px;flex-wrap:wrap;
+  border-bottom:1px solid #e8e8e8;justify-content:center
+}
+.fb{
+  padding:3px 10px;border-radius:12px;font-size:11px;border:1px solid #ddd;
+  background:#fff;cursor:pointer;transition:all .15s;font-weight:500
+}
+.fb.active{color:#fff;border-color:transparent}
+.fb[data-t="all"].active{background:#2c3e50}
+.fb[data-t="d2"].active{background:#e74c3c}
+.fb[data-t="d3"].active{background:#27ae60}
+.fb[data-t="d4"].active{background:#2980b9}
+
+.layout{display:flex;flex-direction:column;height:calc(100vh - 105px);min-height:400px}
+#map{flex:1;min-height:200px;z-index:1}
+.sidebar{order:1;max-height:48vh;overflow-y:auto;padding:8px}
+
+@media(min-width:680px){
+  .layout{flex-direction:row}
+  #map{order:1;flex:1}
+  .sidebar{order:2;width:340px;max-height:none}
+}
+
+.sec{background:var(--card-bg);border-radius:10px;box-shadow:0 1px 5px rgba(0,0,0,.07);margin-bottom:8px;overflow:hidden}
+.sec h3{color:#fff;padding:8px 12px;font-size:12px;font-weight:600}
+.sec h3.h-d2{background:linear-gradient(135deg,#e74c3c,#c0392b)}
+.sec h3.h-d3{background:linear-gradient(135deg,#27ae60,#1e8449)}
+.sec h3.h-d4{background:linear-gradient(135deg,#2980b9,#1a6ea0)}
+.sec h3.h-hotel{background:linear-gradient(135deg,#8e44ad,#6c3483)}
+
+.sp{display:flex;align-items:flex-start;padding:7px 11px;border-bottom:1px solid #f0ede8;cursor:pointer;transition:background .15s}
+.sp:last-child{border-bottom:none}
+.sp:hover{background:#faf5ee}
+.sp-dot{
+  width:22px;height:22px;border-radius:50%;color:#fff;font-size:12px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-right:8px;margin-top:1px
+}
+.sp-info{flex:1}
+.sp-name{font-size:12px;font-weight:600}
+.sp-desc{font-size:10.5px;color:var(--sub);margin-top:1px;line-height:1.4}
+.sp-time{font-size:10px;color:#999;margin-top:2px}
+
+.marker{
+  width:26px;height:26px;border-radius:50%;color:#fff;font-size:12px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 6px rgba(0,0,0,.3);border:2px solid #fff
+}
+
+.legend{
+  background:rgba(255,255,255,.92);border-radius:8px;padding:7px 9px;
+  font-size:10px;line-height:1.7;box-shadow:0 1px 4px rgba(0,0,0,.15)
+}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:3px;vertical-align:middle}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🦩 齐齐哈尔五一行程地图</h1>
+  <p>5/2–5/4 行程路线</p>
+</header>
+
+<div class="filter-bar">
+  <button class="fb active" data-t="all" onclick="ft('all')">🗺️ 全部</button>
+  <button class="fb" data-t="d2" onclick="ft('d2')">5/2 考级+扎龙</button>
+  <button class="fb" data-t="d3" onclick="ft('d3')">5/3 动物园</button>
+  <button class="fb" data-t="d4" onclick="ft('d4')">5/4 牧场</button>
+</div>
+
+<div class="layout">
+  <div class="sidebar" id="sb"></div>
+  <div id="map"></div>
+</div>
+
+<script>
+const C={d2:'#e74c3c',d3:'#27ae60',d4:'#2980b9',hotel:'#8e44ad'};
+const hdr={d2:'h-d2',d3:'h-d3',d4:'h-d4',hotel:'h-hotel'};
+const dayTitle={d2:'📅 5/2 考级+扎龙',d3:'📅 5/3 动物园+市区',d4:'📅 5/4 牧场+返程',hotel:'🏨 住宿'};
+
+const P=[
+  {n:'全季酒店（金融街店）',d:'建华区·嘉禾国际小区29号楼',lat:47.3580,lng:123.9600,t:'hotel',e:'🏨'},
+
+  // Day 2 - 5/2
+  {n:'十二忠手拉面',d:'牛骨浓汤手拉面，考级庆祝',lat:47.3560,lng:123.9520,t:'d2',e:'🍜',time:'12:00'},
+  {n:'扎龙自然保护区',d:'丹顶鹤放飞 14:00/15:30',lat:47.2124,lng:124.2510,t:'d2',e:'🦩',time:'13:30–16:30'},
+  {n:'龙沙夜市',d:'烧烤小吃夜市',lat:47.3400,lng:123.9500,t:'d2',e:'🌙',time:'17:30 晚餐'},
+
+  // Day 3 - 5/3
+  {n:'龙沙早市',d:'本地早餐集市',lat:47.3430,lng:123.9510,t:'d3',e:'🌅',time:'7:30–8:30'},
+  {n:'龙沙动植物园',d:'东北最大，花车巡游+泡泡派对',lat:47.3900,lng:123.9350,t:'d3',e:'🦁',time:'9:00–12:00'},
+  {n:'米家烤肉（总店）',d:'齐齐哈尔烤肉代表，清真',lat:47.3580,lng:123.9480,t:'d3',e:'🥩',time:'12:30 午餐'},
+  {n:'北极冷饮厅',d:'老字号冰淇淋',lat:47.3440,lng:123.9530,t:'d3',e:'🍦',time:'14:00'},
+  {n:'圣弥勒尔天主教堂',d:'齐齐哈尔最大天主教堂',lat:47.3410,lng:123.9580,t:'d3',e:'⛪',time:'14:30'},
+  {n:'中环广场',d:'核心商圈步行街',lat:47.3390,lng:123.9560,t:'d3',e:'🏬',time:'15:00–16:30'},
+  {n:'顺玉大片肉（劳动桥店）',d:'朝鲜族烤肉+冷面',lat:47.3400,lng:123.9490,t:'d3',e:'🥘',time:'18:00 晚餐'},
+
+  // Day 4 - 5/4
+  {n:'飞鹤牧场（观光）',d:'齐扎公路 12 公里，DIY 奶制品',lat:47.2800,lng:124.1000,t:'d4',e:'🥛',time:'8:30–11:00'},
+  {n:'付胖子鸡骨架大串',d:'必点宫后夹肉',lat:47.3450,lng:123.9560,t:'d4',e:'🍗',time:'11:30 午餐'},
+  {n:'齐齐哈尔站',d:'火车站，16:00 前',lat:47.3280,lng:123.9650,t:'d4',e:'🚉',time:'15:30 出发'}
+];
+
+let cf='all';
+const ml=L.layerGroup();
+const map=L.map('map',{zoomControl:false}).setView([47.34,123.96],12);
+L.control.zoom({position:'topright'}).addTo(map);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{
+  attribution:'© OpenStreetMap © CARTO',maxZoom:18
+}).addTo(map);
+ml.addTo(map);
+
+const lg=L.control({position:'bottomleft'});
+lg.onAdd=function(){
+  const d=L.DomUtil.create('div','legend');
+  d.innerHTML='<i style="background:#e74c3c"></i>5/2<br><i style="background:#27ae60"></i>5/3<br><i style="background:#2980b9"></i>5/4<br><i style="background:#8e44ad"></i>酒店';
+  return d;
+};
+lg.addTo(map);
+
+let mks=[];
+
+function render(){
+  ml.clearLayers(); mks=[];
+  const fp=cf==='all'?P:P.filter(p=>p.t===cf);
+
+  const sb=document.getElementById('sb');
+  const groups={};
+  fp.forEach(p=>{if(!groups[p.t])groups[p.t]=[];groups[p.t].push(p)});
+  let h='';
+  for(const t of ['hotel','d2','d3','d4']){
+    if(!groups[t])continue;
+    h+=`<div class="sec"><h3 class="${hdr[t]}">${dayTitle[t]}</h3>`;
+    groups[t].forEach(p=>{
+      const gi=P.indexOf(p);
+      h+=`<div class="sp" onclick="fly(${gi})">
+        <div class="sp-dot" style="background:${C[p.t]}">${p.e}</div>
+        <div class="sp-info"><div class="sp-name">${p.n}</div><div class="sp-desc">${p.d}</div>${p.time?`<div class="sp-time">🕐 ${p.time}</div>`:''}</div>
+      </div>`;
+    });
+    h+='</div>';
+  }
+  sb.innerHTML=h;
+
+  fp.forEach(p=>{
+    const ic=L.divIcon({className:'',html:`<div class="marker" style="background:${C[p.t]}">${p.e}</div>`,iconSize:[26,26],iconAnchor:[13,13]});
+    const m=L.marker([p.lat,p.lng],{icon:ic}).addTo(ml);
+    m.bindPopup(`<b>${p.e} ${p.n}</b><br><small>${p.d}</small>${p.time?`<br>🕐 ${p.time}`:''}`);
+    mks.push({m,gi:P.indexOf(p)});
+  });
+
+  if(cf!=='all'){
+    const dayPts=fp.filter(p=>p.t===cf).map(p=>[p.lat,p.lng]);
+    if(dayPts.length) map.fitBounds(dayPts,{padding:[40,40]});
+  }else{
+    map.fitBounds(fp.map(p=>[p.lat,p.lng]),{padding:[40,40]});
+  }
+}
+
+function fly(gi){
+  const p=P[gi];
+  map.flyTo([p.lat,p.lng],15,{duration:.8});
+  const f=mks.find(x=>x.gi===gi);
+  if(f)f.m.openPopup();
+}
+
+function ft(t){
+  cf=t;
+  document.querySelectorAll('.fb').forEach(b=>b.classList.toggle('active',b.dataset.t===t));
+  render();
+}
+
+render();
+</script>
+</body>
+</html>
