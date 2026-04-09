@@ -21,12 +21,9 @@ header {
   padding: 16px 20px 14px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
   flex-shrink: 0;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
   position: relative;
 }
-.header-text { position: relative; z-index: 1; flex: 1; padding-left: 70px; padding-right: 50px; text-align: center; }
+.header-text { position: relative; z-index: 1; width: 100%; text-align: center; }
 header h1 { font-size: 18px; font-weight: 800; letter-spacing: 0.3px; text-shadow: 0 1px 4px rgba(0,0,0,0.4); }
 header p  { font-size: 12px; opacity: 0.85; margin-top: 3px; }
 
@@ -44,8 +41,9 @@ header p  { font-size: 12px; opacity: 0.85; margin-top: 3px; }
   letter-spacing: 0.5px;
   transition: background 0.2s;
   flex-shrink: 0;
-  margin-left: 10px;
-  margin-top: 2px;
+  position: absolute;
+  top: 12px;
+  right: 14px;
 }
 .lang-btn:hover { background: rgba(255,255,255,0.3); }
 
