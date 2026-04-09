@@ -3,36 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🦩 齐齐哈尔五一行程地图</title>
+<title>齐齐哈尔五一行程 🦩 孔雀&玥玥</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
-/* ── Base ── */
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, 'PingFang SC', sans-serif; background: #f5f7fa; color: #333; height: 100dvh; display: flex; flex-direction: column; overflow: hidden; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f5f0e8; }
 
-/* ── Banner with Unsplash background ── */
+/* ── Banner ── */
 header {
   background:
     linear-gradient(rgba(13,27,62,0.65), rgba(13,27,62,0.8)),
-    url('https://images.unsplash.com/photo-1547970819-dc7d08a7a35f?w=800&q=80');
+    url('https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b?w=800&q=80');
   background-size: cover;
-  background-position: center 30%;
+  background-position: center 40%;
   color: white;
   padding: 16px 20px 14px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
   flex-shrink: 0;
-  position: relative;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
 }
 .header-text { position: relative; z-index: 1; flex: 1; }
 header h1 { font-size: 18px; font-weight: 800; letter-spacing: 0.3px; text-shadow: 0 1px 4px rgba(0,0,0,0.4); }
-header p { font-size: 12px; opacity: 0.85; margin-top: 3px; }
+header p  { font-size: 12px; opacity: 0.85; margin-top: 3px; }
 
-/* ── Home button ── */
-.home-btn {
+/* ── Lang toggle button ── */
+.lang-btn {
   background: rgba(255,255,255,0.18);
   border: 1px solid rgba(255,255,255,0.45);
   color: white;
@@ -47,291 +45,419 @@ header p { font-size: 12px; opacity: 0.85; margin-top: 3px; }
   flex-shrink: 0;
   margin-left: 10px;
   margin-top: 2px;
-  text-decoration: none;
-  display: inline-block;
 }
-.home-btn:hover { background: rgba(255,255,255,0.3); }
+.lang-btn:hover { background: rgba(255,255,255,0.3); }
 
-/* ── Container ── */
-.container { display: flex; flex: 1; overflow: hidden; }
-#map { flex: 1; z-index: 1; }
-.sidebar { width: 360px; overflow-y: auto; background: white; box-shadow: -2px 0 12px rgba(0,0,0,0.08); z-index: 2; display: flex; flex-direction: column; }
+/* ── Tabs ── */
+.tabs { display: flex; overflow-x: auto; background: #fff8ee; border-bottom: 2px solid #e8d8b0; padding: 0 8px; gap: 4px; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab { padding: 10px 12px; font-size: 13px; cursor: pointer; white-space: nowrap; border-bottom: 3px solid transparent; color: #7a6030; font-weight: 500; transition: all 0.2s; }
+.tab.active { color: #b5820a; border-bottom-color: #c8960c; font-weight: 700; }
 
-/* ── Mobile layout ── */
-@media (max-width: 680px) {
-  .container { flex-direction: column; }
-  .sidebar { width: 100%; flex: 0 0 auto; max-height: 52vh; overflow-y: auto; box-shadow: 0 2px 10px rgba(0,0,0,0.1); order: 1; transition: max-height 0.3s ease; }
+/* ── Allergy banner ── */
+.allergy-banner { background: #fff8e1; border-left: 4px solid #f59e0b; padding: 9px 14px; margin: 8px 10px; border-radius: 0 8px 8px 0; font-size: 12.5px; line-height: 1.6; }
+.allergy-banner strong { display: block; margin-bottom: 3px; color: #92400e; }
+
+/* ── Main layout ── */
+.layout { display: flex; flex-direction: column; height: calc(100dvh - 112px); }
+
+/* Map LEFT on desktop */
+#map { flex: 1; min-height: 200px; position: relative; }
+.sidebar { overflow-y: auto; padding: 10px; background: white; box-shadow: -2px 0 12px rgba(0,0,0,0.08); z-index: 2; display: flex; flex-direction: column; }
+
+@media (min-width: 680px) {
+  .layout { flex-direction: row; }
+  #map { order: 1; flex: 1; }
+  .sidebar { order: 2; width: 360px; flex-shrink: 0; max-height: 100%; }
+}
+
+/* Mobile: sidebar top, map bottom */
+@media (max-width: 679px) {
+  .layout { flex-direction: column; }
+  .sidebar { width: 100%; flex: 0 0 auto; max-height: 52vh; overflow-y: auto; box-shadow: 0 2px 10px rgba(0,0,0,0.1); order: 1; }
   #map { flex: 1; min-height: 0; order: 2; }
-  .day-tabs { display: flex; overflow-x: auto; gap: 6px; padding: 8px 12px; background: #f8fafc; border-bottom: 1px solid #e2e8f0; flex-shrink: 0; scrollbar-width: none; }
-  .day-tabs::-webkit-scrollbar { display: none; }
-  .day-tab { flex-shrink: 0; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; border: none; cursor: pointer; color: white; opacity: 0.6; transition: opacity 0.2s, transform 0.2s; }
-  .day-tab.active { opacity: 1; transform: scale(1.05); }
-  .day-card { display: none; margin: 10px 12px; }
-  .day-card.active { display: block; }
-  .legend { display: none; }
-  .scroll-hint { display: block; }
 }
-@media (min-width: 681px) {
-  .day-tabs { display: none; }
-  .day-card { display: block; }
-  .scroll-hint { display: none; }
-}
-
-/* ── Scroll hint ── */
-.scroll-hint { display: none; text-align: center; font-size: 11px; color: #0ea5e9; padding: 5px; background: #f0f9ff; border-bottom: 1px solid #bae6fd; }
 
 /* ── Day card ── */
-.day-card { border-left: 4px solid #ddd; margin: 12px 16px; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.08); cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; }
-.day-card:hover { transform: translateX(2px); box-shadow: 0 3px 10px rgba(0,0,0,0.12); }
-.day-header { padding: 10px 14px; color: white; display: flex; align-items: center; gap: 10px; }
-.day-header .day-label { font-size: 13px; font-weight: 700; }
-.day-header .day-title { font-size: 14px; font-weight: 600; flex: 1; }
-.day-header .day-date { font-size: 11px; opacity: 0.85; }
-.day-body { padding: 10px 14px 12px; background: white; }
-.segment { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #f0f0f0; align-items: flex-start; }
-.segment:last-child { border-bottom: none; }
-.seg-time { font-size: 11px; color: #888; min-width: 44px; padding-top: 2px; }
-.seg-content { flex: 1; }
-.seg-place { font-size: 13px; font-weight: 600; color: #1e293b; }
-.seg-detail { font-size: 12px; color: #64748b; margin-top: 2px; line-height: 1.5; }
+.day-card { background: white; border-radius: 10px; margin-bottom: 8px; overflow: hidden; box-shadow: 0 1px 6px rgba(100,70,0,0.10); }
+.day-card h3 { background: linear-gradient(90deg,#1a2f5e,#2a4a8e); color: white; padding: 8px 12px; font-size: 14px; }
+.spot { display: flex; align-items: flex-start; padding: 8px 12px; border-bottom: 1px solid #f0e8d0; gap: 8px; cursor: pointer; transition: background 0.15s; }
+.spot:hover { background: #fff8e8; }
+.spot:last-child { border-bottom: none; }
+.dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+.spot-info { flex: 1; }
+.spot-name { font-size: 14px; font-weight: 600; color: #1a1a2e; }
+.spot-desc { font-size: 12px; color: #777; margin-top: 2px; line-height: 1.4; }
+.spot-time { font-size: 11px; color: #999; margin-top: 2px; }
+.allergy-tag { display: inline-block; background: #fff3cd; color: #856404; font-size: 10px; padding: 1px 5px; border-radius: 3px; margin-top: 3px; }
 
-/* ── Legend ── */
-.legend { padding: 12px 16px 6px; border-bottom: 1px solid #f0f0f0; }
-.legend-title { font-size: 12px; color: #888; margin-bottom: 8px; font-weight: 600; text-transform: uppercase; }
-.legend-row { display: flex; flex-wrap: wrap; gap: 6px; }
-.legend-dot { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; color: #555; }
-.legend-dot span { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+/* ── Checklist ── */
+.checklist-wrap { padding: 10px; display: none; }
+.checklist-section { background: white; border-radius: 10px; padding: 12px 14px; margin-bottom: 10px; box-shadow: 0 1px 4px rgba(100,70,0,0.08); }
+.checklist-section h3 { font-size: 14px; color: #1a2f5e; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid #f0e0c0; }
+.check-item { display: flex; align-items: flex-start; gap: 8px; padding: 5px 0; font-size: 13px; color: #444; line-height: 1.4; }
+.check-item input[type=checkbox] { margin-top: 2px; flex-shrink: 0; accent-color: #c8960c; }
 
-/* ── Alert tip ── */
-.alert-tip { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 6px; padding: 8px 12px; margin: 10px 16px; font-size: 12px; color: #9a3412; line-height: 1.6; }
-.alert-tip strong { display: block; margin-bottom: 4px; font-size: 13px; }
+/* Legend */
+.legend { position: absolute; bottom: 20px; left: 10px; background: rgba(255,255,255,0.95); border-radius: 8px; padding: 8px 10px; font-size: 11px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index: 999; }
+.legend-item { display: flex; align-items: center; gap: 6px; margin: 3px 0; }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+/* Checklist fullscreen */
+.checklist-fullscreen .sidebar { width: 100% !important; max-height: 100dvh; flex: 1 1 auto; overflow-y: auto; }
+.checklist-fullscreen #map { display: none; }
+
+/* ── Overview tab ── */
+.overview-wrap { padding: 10px; display: none; }
+.overview-day { background: white; border-radius: 10px; padding: 12px 14px; margin-bottom: 10px; box-shadow: 0 1px 4px rgba(100,70,0,0.08); cursor: pointer; transition: background 0.15s; }
+.overview-day:hover { background: #fff8e8; }
+.overview-day h4 { font-size: 14px; color: #1a2f5e; margin-bottom: 6px; }
+.overview-day .route { font-size: 12px; color: #666; line-height: 1.6; }
 
 /* ── Route polyline label ── */
 .route-label { background: transparent !important; border: none !important; box-shadow: none !important; padding: 0 !important; }
 .route-label::before { display: none !important; }
-
-/* ── Permanent popup style ── */
-.permanent-popup {
-  background: rgba(255,255,255,0.95) !important;
-  border-radius: 6px !important;
-  padding: 4px 8px !important;
-  font-size: 11px !important;
-  font-weight: 600 !important;
-  color: #1a1a2e !important;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2) !important;
-  border: 1px solid rgba(0,0,0,0.1) !important;
-}
-.permanent-popup .leaflet-popup-tip {
-  background: rgba(255,255,255,0.95) !important;
-}
 </style>
 </head>
 <body>
+
 <header>
   <div class="header-text">
-    <h1>🦩 齐齐哈尔五一行程地图</h1>
-    <p>ZQ + Amy + 孔雀 + 玥玥 · 5月1日–4日 · 全季酒店（金融街店）</p>
+    <h1 id="hdr-title">🦩 齐齐哈尔五一游 · 孔雀 &amp; 玥玥</h1>
+    <p id="hdr-sub">5/2–5/4 · 丹顶鹤放飞 · 动物园 · 牧场</p>
   </div>
-  <a href="index.html" class="home-btn">🏠 首页</a>
+  <button class="lang-btn" onclick="toggleLang()" id="lang-btn">EN</button>
 </header>
-<div class="container">
+
+<div class="tabs" id="tabs"></div>
+
+<div class="allergy-banner" id="allergy-banner"></div>
+
+<div class="layout" id="layout">
   <div id="map"></div>
-  <div class="sidebar">
-    <div class="scroll-hint">👆 上滑查看行程</div>
-    <div class="day-tabs">
-      <button class="day-tab active" style="background:#e74c3c" onclick="selectDay(0)">D2 考级</button>
-      <button class="day-tab" style="background:#27ae60" onclick="selectDay(1)">D3 动物园</button>
-      <button class="day-tab" style="background:#2980b9" onclick="selectDay(2)">D4 牧场</button>
-    </div>
-    <div class="legend">
-      <div class="legend-title">图例</div>
-      <div class="legend-row">
-        <span class="legend-dot"><span style="background:#e74c3c"></span>5/2</span>
-        <span class="legend-dot"><span style="background:#27ae60"></span>5/3</span>
-        <span class="legend-dot"><span style="background:#2980b9"></span>5/4</span>
-        <span class="legend-dot"><span style="background:#8e44ad"></span>酒店</span>
-      </div>
-    </div>
-    <div class="day-card active" data-day="0" style="border-color:#e74c3c" onclick="flyToDay(0)">
-      <div class="day-header" style="background:#e74c3c"><span class="day-label">DAY 2</span><span class="day-title">考级 + 扎龙</span><span class="day-date">5/2 周六</span></div>
-      <div class="day-body">
-        <div class="segment"><span class="seg-time">12:00</span><div class="seg-content"><div class="seg-place">🍜 十二忠手拉面</div><div class="seg-detail">牛骨浓汤手拉面，考级庆祝</div></div></div>
-        <div class="segment"><span class="seg-time">13:30</span><div class="seg-content"><div class="seg-place">🦩 扎龙自然保护区</div><div class="seg-detail">丹顶鹤放飞 14:00/15:30，门票 65 元</div></div></div>
-        <div class="segment"><span class="seg-time">17:30</span><div class="seg-content"><div class="seg-place">🌙 龙沙夜市</div><div class="seg-detail">烧烤小吃夜市</div></div></div>
-      </div>
-    </div>
-    <div class="day-card" data-day="1" style="border-color:#27ae60" onclick="flyToDay(1)">
-      <div class="day-header" style="background:#27ae60"><span class="day-label">DAY 3</span><span class="day-title">动物园 + 市区</span><span class="day-date">5/3 周日</span></div>
-      <div class="day-body">
-        <div class="segment"><span class="seg-time">7:30</span><div class="seg-content"><div class="seg-place">🌅 龙沙早市</div><div class="seg-detail">本地早餐集市</div></div></div>
-        <div class="segment"><span class="seg-time">9:00</span><div class="seg-content"><div class="seg-place">🦁 龙沙动植物园</div><div class="seg-detail">东北最大，花车巡游 + 泡泡派对，门票 98 元</div></div></div>
-        <div class="segment"><span class="seg-time">12:30</span><div class="seg-content"><div class="seg-place">🥩 米家烤肉（总店）</div><div class="seg-detail">齐齐哈尔烤肉代表，清真</div></div></div>
-        <div class="segment"><span class="seg-time">14:00</span><div class="seg-content"><div class="seg-place">🍦 北极冷饮厅</div><div class="seg-detail">老字号冰淇淋</div></div></div>
-        <div class="segment"><span class="seg-time">14:30</span><div class="seg-content"><div class="seg-place">⛪ 圣弥勒尔天主教堂</div><div class="seg-detail">齐齐哈尔最大天主教堂</div></div></div>
-        <div class="segment"><span class="seg-time">15:00</span><div class="seg-content"><div class="seg-place">🏬 中环广场</div><div class="seg-detail">核心商圈步行街</div></div></div>
-        <div class="segment"><span class="seg-time">18:00</span><div class="seg-content"><div class="seg-place">🥘 顺玉大片肉（劳动桥店）</div><div class="seg-detail">朝鲜族烤肉 + 冷面</div></div></div>
-      </div>
-    </div>
-    <div class="day-card" data-day="2" style="border-color:#2980b9" onclick="flyToDay(2)">
-      <div class="day-header" style="background:#2980b9"><span class="day-label">DAY 4</span><span class="day-title">牧场 + 返程</span><span class="day-date">5/4 周一</span></div>
-      <div class="day-body">
-        <div class="segment"><span class="seg-time">8:30</span><div class="seg-content"><div class="seg-place">🥛 飞鹤牧场（观光）</div><div class="seg-detail">DIY 奶制品，齐扎公路 12 公里</div></div></div>
-        <div class="segment"><span class="seg-time">11:30</span><div class="seg-content"><div class="seg-place">🍗 付胖子鸡骨架大串</div><div class="seg-detail">必点宫后夹肉</div></div></div>
-        <div class="segment"><span class="seg-time">15:30</span><div class="seg-content"><div class="seg-place">🚉 齐齐哈尔站</div><div class="seg-detail">火车站返程</div></div></div>
-      </div>
-    </div>
-    <div class="alert-tip" data-day="3" style="display:none">
-      <strong>⚠️ 过敏提醒（每次点餐必查）</strong>
-      孔雀：核桃过敏<br>玥玥：开心果 / 腰果 / 山药过敏<br>Amy：过敏性鼻炎（随身带药）
-    </div>
+  <div class="sidebar" id="sidebar">
+    <div id="day-content"></div>
+    <div class="overview-wrap" id="overview-wrap"></div>
+    <div class="checklist-wrap" id="checklist-wrap"></div>
   </div>
 </div>
+
 <script>
-const hotel = { lat: 47.3580, lng: 123.9600, name: '全季酒店（金融街店）' };
+// ── Language ──
+let lang = 'zh';
+
+const i18n = {
+  zh: {
+    title: '🦩 齐齐哈尔五一游 · 孔雀 &amp; 玥玥',
+    sub: '5/2–5/4 · 丹顶鹤放飞 · 动物园 · 牧场',
+    langBtn: 'EN',
+    allergy: '<strong>⚠️ 过敏提醒（每次点餐必确认）</strong>孔雀：核桃｜玥玥：开心果、腰果、山药',
+    allergyTag: '⚠️ 查过敏原',
+    tabs: ['D1 抵达','D2 考级·扎龙','D3 动物园','D4 牧场·返程','📋 总览','✅ 清单'],
+    legend: ['景点','美食','亲子','酒店/交通'],
+    checklist: {
+      pre: '✈️ 出发前必做',
+      preItems: [
+        '预订机票（北京⇋齐齐哈尔，提前2-4周）',
+        '预订酒店（建华区，近扎龙公路）',
+        '扎龙自然保护区门票（可现场购）',
+        '龙沙动植物园门票（提前网购优惠）',
+        '飞鹤牧场预约（电话确认开放时间）',
+        '准备舒适运动鞋（户外步行多）',
+        '查看天气预报（5月初齐齐哈尔较凉）',
+      ],
+      allergy: '⚠️ 过敏必备',
+      allergyItems: [
+        '准备过敏药（孔雀/玥玥）',
+        '餐厅点餐时主动告知过敏原',
+        '避免含坚果的甜点和小吃',
+      ],
+      luggage: '🎒 行李清单',
+      luggageItems: [
+        '身份证（全家，孩子带户口本）',
+        '儿童舒适运动鞋（户外活动多）',
+        '外套（5月初早晚温差大）',
+        '雨具（春季多风）',
+        '孩子零食（路途备用）',
+        '相机/充电宝（丹顶鹤放飞值得拍）',
+      ],
+      tips: '🗺️ 实用提示',
+      tipsItems: [
+        '扎龙丹顶鹤放飞时间：14:00/15:30（提前到场）',
+        '齐齐哈尔烤肉是特色，必尝！',
+        '市区打车方便，起步价低',
+        '飞鹤牧场在齐扎公路旁，自驾/打车前往',
+      ],
+    },
+  },
+  en: {
+    title: '🦩 Qiqihar May Trip · KongQue &amp; YueYue',
+    sub: 'May 2–4 · Red-crowned Crane Show · Zoo · Dairy Farm',
+    langBtn: '中',
+    allergy: '<strong>⚠️ Allergy Alert (check every meal)</strong>KongQue: Walnuts ｜ YueYue: Pistachios, Cashews, Yam',
+    allergyTag: '⚠️ Check allergens',
+    tabs: ['D1 Arrive','D2 Test·Crane','D3 Zoo','D4 Farm·Return','📋 Overview','✅ Checklist'],
+    legend: ['Attraction','Food','Kids','Hotel/Transit'],
+    checklist: {
+      pre: '✈️ Before You Go',
+      preItems: [
+        'Book flights (Beijing ⇋ Qiqihar, 2-4 weeks ahead)',
+        'Book hotel (Jianhua District, near Zhalong Road)',
+        'Zhalong Nature Reserve tickets (available on-site)',
+        'Longsha Zoo tickets (buy online for discount)',
+        'Feihe Dairy Farm reservation (call to confirm hours)',
+        'Pack comfortable walking shoes (lots of outdoor walking)',
+        'Check weather forecast (early May is cool in Qiqihar)',
+      ],
+      allergy: '⚠️ Allergy Essentials',
+      allergyItems: [
+        'Pack allergy medication (KongQue / YueYue)',
+        'Inform restaurants of allergens when ordering',
+        'Avoid nut-based desserts and snacks',
+      ],
+      luggage: '🎒 Packing List',
+      luggageItems: [
+        'ID cards (all, children bring household register)',
+        'Comfortable walking shoes for kids (outdoor activities)',
+        'Jackets (large temperature difference in early May)',
+        'Rain gear (spring is windy)',
+        'Snacks for kids (for travel)',
+        'Camera / power bank (crane show is worth photographing)',
+      ],
+      tips: '🗺️ Practical Tips',
+      tipsItems: [
+        'Zhalong crane show times: 14:00 / 15:30 (arrive early)',
+        'Qiqihar BBQ is a local specialty, must try!',
+        'City taxis are convenient and affordable',
+        'Feihe Farm is on Qizha Highway, drive or taxi',
+      ],
+    },
+  }
+};
 
 const days = [
-  // Day 2 (index 0) - 5/2 考级 + 扎龙
-  [
-    { lat: 47.3560, lng: 123.9520, name: '🍜 十二忠手拉面', time: '12:00', transport: '🚗 ~5 分钟' },
-    { lat: 47.2124, lng: 124.2510, name: '🦩 扎龙自然保护区', time: '13:30', transport: '🚗 ~30 分钟' },
-    { lat: 47.3400, lng: 123.9500, name: '🌙 龙沙夜市', time: '17:30', transport: '🚗 ~30 分钟' }
-  ],
-  // Day 3 (index 1) - 5/3 动物园 + 市区
-  [
-    { lat: 47.3430, lng: 123.9510, name: '🌅 龙沙早市', time: '7:30', transport: '🚗 ~5 分钟' },
-    { lat: 47.3900, lng: 123.9350, name: '🦁 龙沙动植物园', time: '9:00', transport: '🚗 ~15 分钟' },
-    { lat: 47.3580, lng: 123.9480, name: '🥩 米家烤肉（总店）', time: '12:30', transport: '🚗 ~10 分钟' },
-    { lat: 47.3440, lng: 123.9530, name: '🍦 北极冷饮厅', time: '14:00', transport: '🚗 ~5 分钟' },
-    { lat: 47.3410, lng: 123.9580, name: '⛪ 圣弥勒尔天主教堂', time: '14:30', transport: '🚶 ~5 分钟' },
-    { lat: 47.3390, lng: 123.9560, name: '🏬 中环广场', time: '15:00', transport: '🚶 ~5 分钟' },
-    { lat: 47.3400, lng: 123.9490, name: '🥘 顺玉大片肉（劳动桥店）', time: '18:00', transport: '🚗 ~5 分钟' }
-  ],
-  // Day 4 (index 2) - 5/4 牧场 + 返程
-  [
-    { lat: 47.2800, lng: 124.1000, name: '🥛 飞鹤牧场（观光）', time: '8:30', transport: '🚗 ~20 分钟' },
-    { lat: 47.3450, lng: 123.9560, name: '🍗 付胖子鸡骨架大串', time: '11:30', transport: '🚗 ~20 分钟' },
-    { lat: 47.3280, lng: 123.9650, name: '🚉 齐齐哈尔站', time: '15:30', transport: '🚗 ~5 分钟' }
-  ]
+  {
+    title: { zh: 'D1 · 抵达齐齐哈尔', en: 'D1 · Arrive in Qiqihar' },
+    spots: [
+      { name: { zh: '抵达齐齐哈尔', en: 'Arrive in Qiqihar' }, desc: { zh: '航班/火车抵达，前往酒店', en: 'Flight/train arrival, transfer to hotel' }, time: { zh: '下午', en: 'Afternoon' }, lat: 47.3280, lng: 123.9650, type: 'hotel', emoji: '✈️', travelNext: { zh: '🚕 打车 ~15分钟', en: '🚕 Taxi ~15min' } },
+      { name: { zh: '全季酒店（金融街店）', en: 'Ji Hotel (Financial Street)' }, desc: { zh: '建华区·嘉禾国际小区，办理入住', en: 'Jianhua District, check-in' }, time: { zh: '下午', en: 'Afternoon' }, lat: 47.3580, lng: 123.9600, type: 'hotel', emoji: '🏨', travelNext: { zh: '🚶 步行 ~10分钟', en: '🚶 Walk ~10min' } },
+      { name: { zh: '附近晚餐', en: 'Nearby Dinner' }, desc: { zh: '⚠️ 点餐前确认过敏原', en: '⚠️ Confirm allergens before ordering' }, time: { zh: '晚餐', en: 'Dinner' }, lat: 47.3560, lng: 123.9520, type: 'food', emoji: '🍽️', allergy: true },
+    ]
+  },
+  {
+    title: { zh: 'D2 · 考级+扎龙丹顶鹤', en: 'D2 · Test + Zhalong Red-crowned Cranes' },
+    spots: [
+      { name: { zh: '十二忠手拉面', en: 'Shi Er Zhong Hand-pulled Noodles' }, desc: { zh: '牛骨浓汤手拉面，考级庆祝！', en: 'Beef bone broth noodles, test celebration!' }, time: { zh: '12:00 午餐', en: '12:00 Lunch' }, lat: 47.3560, lng: 123.9520, type: 'food', emoji: '🍜', travelNext: { zh: '🚕 打车 ~30分钟', en: '🚕 Taxi ~30min' } },
+      { name: { zh: '扎龙自然保护区', en: 'Zhalong Nature Reserve' }, desc: { zh: '丹顶鹤放飞 14:00/15:30，世界最大芦苇湿地！🦩', en: 'Crane show 14:00/15:30, world\'s largest reed wetland! 🦩' }, time: { zh: '13:30–16:30', en: '13:30–16:30' }, lat: 47.2124, lng: 124.2510, type: 'attraction', emoji: '🦩', travelNext: { zh: '🚕 打车 ~40分钟', en: '🚕 Taxi ~40min' } },
+      { name: { zh: '龙沙夜市', en: 'Longsha Night Market' }, desc: { zh: '烧烤小吃夜市，体验本地夜生活', en: 'BBQ and snacks night market, local nightlife' }, time: { zh: '17:30 晚餐', en: '17:30 Dinner' }, lat: 47.3400, lng: 123.9500, type: 'food', emoji: '🌙', allergy: true },
+    ]
+  },
+  {
+    title: { zh: 'D3 · 动物园+市区', en: 'D3 · Zoo + City Tour' },
+    spots: [
+      { name: { zh: '龙沙早市', en: 'Longsha Morning Market' }, desc: { zh: '本地早餐集市，体验东北烟火气', en: 'Local breakfast market, authentic Northeast vibe' }, time: { zh: '7:30–8:30', en: '7:30–8:30' }, lat: 47.3430, lng: 123.9510, type: 'food', emoji: '🌅', travelNext: { zh: '🚕 打车 ~15分钟', en: '🚕 Taxi ~15min' } },
+      { name: { zh: '龙沙动植物园', en: 'Longsha Zoo & Botanical Garden' }, desc: { zh: '东北最大，花车巡游+泡泡派对，孩子最爱！', en: 'Northeast\'s largest, parade + bubble party, kids love it!' }, time: { zh: '9:00–12:00', en: '9:00–12:00' }, lat: 47.3900, lng: 123.9350, type: 'kids', emoji: '🦁', travelNext: { zh: '🚕 打车 ~15分钟', en: '🚕 Taxi ~15min' } },
+      { name: { zh: '米家烤肉（总店）', en: 'Mijia BBQ (Flagship)' }, desc: { zh: '齐齐哈尔烤肉代表，清真 ⚠️ 注意坚果', en: 'Qiqihar BBQ representative, Halal ⚠️ Watch for nuts' }, time: { zh: '12:30 午餐', en: '12:30 Lunch' }, lat: 47.3580, lng: 123.9480, type: 'food', emoji: '🥩', allergy: true, travelNext: { zh: '🚕 打车 ~10分钟', en: '🚕 Taxi ~10min' } },
+      { name: { zh: '北极冷饮厅', en: 'Beiji Ice Cream Hall' }, desc: { zh: '老字号冰淇淋，孩子喜欢', en: 'Old-brand ice cream, kids favorite' }, time: { zh: '14:00', en: '14:00' }, lat: 47.3440, lng: 123.9530, type: 'food', emoji: '🍦', travelNext: { zh: '🚶 步行 ~5分钟', en: '🚶 Walk ~5min' } },
+      { name: { zh: '圣弥勒尔天主教堂', en: 'Saint Michel Catholic Church' }, desc: { zh: '齐齐哈尔最大天主教堂，建筑很美', en: 'Largest Catholic church in Qiqihar, beautiful architecture' }, time: { zh: '14:30', en: '14:30' }, lat: 47.3410, lng: 123.9580, type: 'attraction', emoji: '⛪', travelNext: { zh: '🚶 步行 ~5分钟', en: '🚶 Walk ~5min' } },
+      { name: { zh: '中环广场', en: 'Central Plaza' }, desc: { zh: '核心商圈步行街，购物休闲', en: 'Core business district, shopping and leisure' }, time: { zh: '15:00–16:30', en: '15:00–16:30' }, lat: 47.3390, lng: 123.9560, type: 'attraction', emoji: '🏬', travelNext: { zh: '🚕 打车 ~10分钟', en: '🚕 Taxi ~10min' } },
+      { name: { zh: '顺玉大片肉（劳动桥店）', en: 'Shunyu Big Slice Meat (Laodong Bridge)' }, desc: { zh: '朝鲜族烤肉+冷面 ⚠️ 告知过敏原', en: 'Korean BBQ + cold noodles ⚠️ Inform of allergens' }, time: { zh: '18:00 晚餐', en: '18:00 Dinner' }, lat: 47.3400, lng: 123.9490, type: 'food', emoji: '🥘', allergy: true },
+    ]
+  },
+  {
+    title: { zh: 'D4 · 牧场+返程', en: 'D4 · Dairy Farm + Departure' },
+    spots: [
+      { name: { zh: '飞鹤牧场（观光）', en: 'Feihe Dairy Farm (Tour)' }, desc: { zh: '齐扎公路 12 公里，DIY 奶制品，孩子体验挤奶！🥛', en: '12km on Qizha Highway, DIY dairy products, kids can try milking! 🥛' }, time: { zh: '8:30–11:00', en: '8:30–11:00' }, lat: 47.2800, lng: 124.1000, type: 'kids', emoji: '🥛', travelNext: { zh: '🚕 打车 ~20分钟', en: '🚕 Taxi ~20min' } },
+      { name: { zh: '付胖子鸡骨架大串', en: 'Fupanzi Chicken Skeleton Skewers' }, desc: { zh: '必点宫后夹肉，本地特色', en: 'Must-order gonghoujia meat, local specialty' }, time: { zh: '11:30 午餐', en: '11:30 Lunch' }, lat: 47.3450, lng: 123.9560, type: 'food', emoji: '🍗', travelNext: { zh: '🚕 打车 ~15分钟', en: '🚕 Taxi ~15min' } },
+      { name: { zh: '齐齐哈尔站', en: 'Qiqihar Railway Station' }, desc: { zh: '火车站，16:00 前出发返程', en: 'Railway station, depart before 16:00' }, time: { zh: '15:30 出发', en: '15:30 Departure' }, lat: 47.3280, lng: 123.9650, type: 'hotel', emoji: '🚉' },
+    ]
+  }
 ];
 
-const COLORS = ['#e74c3c', '#27ae60', '#2980b9'];
-let map, markers = [], polylines = [], routeLabels = [], currentDay = 0;
+const typeColor = { attraction: '#e74c3c', food: '#e67e22', kids: '#27ae60', hotel: '#2980b9' };
+let map, markers = [], polylines = [], routeLabels = [], currentDay = 2;
+
+function toggleLang() {
+  lang = lang === 'zh' ? 'en' : 'zh';
+  document.getElementById('lang-btn').textContent = i18n[lang].langBtn;
+  document.getElementById('hdr-title').innerHTML = i18n[lang].title;
+  document.getElementById('hdr-sub').textContent = i18n[lang].sub;
+  document.getElementById('allergy-banner').innerHTML = i18n[lang].allergy;
+  renderTabs();
+  selectDay(currentDay);
+}
+
+function renderTabs() {
+  const labels = i18n[lang].tabs;
+  document.getElementById('tabs').innerHTML = [
+    `<div class="tab ${currentDay===1?'active':''}" onclick="selectDay(1)">${labels[0]}</div>`,
+    `<div class="tab ${currentDay===2?'active':''}" onclick="selectDay(2)">${labels[1]}</div>`,
+    `<div class="tab ${currentDay===3?'active':''}" onclick="selectDay(3)">${labels[2]}</div>`,
+    `<div class="tab ${currentDay===4?'active':''}" onclick="selectDay(4)">${labels[3]}</div>`,
+    `<div class="tab ${currentDay===0?'active':''}" onclick="selectDay(0)">${labels[4]}</div>`,
+    `<div class="tab ${currentDay===5?'active':''}" onclick="selectDay(5)">${labels[5]}</div>`,
+  ].join('');
+}
 
 function initMap() {
-  map = L.map('map', { zoomControl: false });
-  L.control.zoom({ position: 'bottomright' }).addTo(map);
+  map = L.map('map').setView([47.34, 123.96], 12);
   L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
     attribution: '© OpenStreetMap © CARTO',
     maxZoom: 18
   }).addTo(map);
 
-  // Add hotel marker
-  const hotelMarker = L.marker([hotel.lat, hotel.lng]).addTo(map);
-  hotelMarker.bindPopup('<b>🏨 ' + hotel.name + '</b>');
-  hotelMarker.openPopup();
-
-  selectDay(0);
+  const legend = document.createElement('div');
+  legend.className = 'legend';
+  legend.id = 'legend';
+  document.getElementById('map').appendChild(legend);
 }
 
-function clearDayLayers() {
+function updateLegend() {
+  const labels = i18n[lang].legend;
+  const colors = ['#e74c3c','#e67e22','#27ae60','#2980b9'];
+  document.getElementById('legend').innerHTML = labels.map((l,i) =>
+    `<div class="legend-item"><div class="legend-dot" style="background:${colors[i]}"></div> ${l}</div>`
+  ).join('');
+}
+
+function clearMarkers() {
   markers.forEach(m => map.removeLayer(m));
   polylines.forEach(p => map.removeLayer(p));
   routeLabels.forEach(l => map.removeLayer(l));
-  markers = [];
-  polylines = [];
-  routeLabels = [];
+  markers = []; polylines = []; routeLabels = [];
 }
 
-function selectDay(dayIndex) {
-  currentDay = dayIndex;
+function selectDay(n) {
+  currentDay = n;
+  renderTabs();
 
-  // Update tabs
-  document.querySelectorAll('.day-tab').forEach((t, i) => {
-    t.classList.toggle('active', i === dayIndex);
-  });
+  const layout = document.getElementById('layout');
+  const dayContent = document.getElementById('day-content');
+  const checklistWrap = document.getElementById('checklist-wrap');
+  const overviewWrap = document.getElementById('overview-wrap');
+  const allergyBanner = document.getElementById('allergy-banner');
 
-  // Update cards
-  document.querySelectorAll('.day-card').forEach((c, i) => {
-    c.classList.toggle('active', i === dayIndex);
-  });
+  layout.classList.remove('checklist-fullscreen');
+  document.getElementById('map').style.display = '';
+  allergyBanner.style.display = '';
+  dayContent.style.display = 'none';
+  checklistWrap.style.display = 'none';
+  overviewWrap.style.display = 'none';
 
-  // Hide alert tip
-  document.querySelectorAll('.alert-tip').forEach(a => a.style.display = 'none');
-  if (dayIndex === 3) {
-    document.querySelector('.alert-tip').style.display = 'block';
+  if (n === 0) {
+    layout.classList.add('checklist-fullscreen');
+    document.getElementById('map').style.display = 'none';
+    overviewWrap.style.display = 'block';
+    renderOverview();
+    return;
+  }
+  if (n === 5) {
+    layout.classList.add('checklist-fullscreen');
+    document.getElementById('map').style.display = 'none';
+    allergyBanner.style.display = 'none';
+    checklistWrap.style.display = 'block';
+    renderChecklist();
     return;
   }
 
-  // Clear previous layers
-  clearDayLayers();
+  dayContent.style.display = '';
+  clearMarkers();
+  const day = days[n - 1];
+  dayContent.innerHTML = `
+    <div class="day-card">
+      <h3>${day.title[lang]}</h3>
+      ${day.spots.map((s, i) => `
+        <div class="spot" onclick="focusSpot(${i}, ${n})">
+          <div class="dot" style="background:${typeColor[s.type]}"></div>
+          <div class="spot-info">
+            <div class="spot-name">${s.emoji} ${s.name[lang]}</div>
+            <div class="spot-desc">${s.desc[lang]}</div>
+            ${s.time ? `<div class="spot-time">🕐 ${s.time[lang]}</div>` : ''}
+            ${s.travelNext ? `<div class="spot-time" style="color:#2980b9">→ ${s.travelNext[lang]}</div>` : ''}
+            ${s.allergy ? `<span class="allergy-tag">${i18n[lang].allergyTag}</span>` : ''}
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
 
-  const daySpots = days[dayIndex];
+  updateLegend();
   const bounds = [];
-
-  // Add markers with permanent popups
-  daySpots.forEach((s, i) => {
-    const marker = L.marker([s.lat, s.lng]).addTo(map);
-
-    // Permanent popup showing location name
-    const popupContent = '<span style="font-weight:600;color:#1a1a2e">' + s.name + '</span>';
-    marker.bindPopup(popupContent, {
-      autoClose: false,
-      closeOnClick: false,
-      className: 'permanent-popup'
+  day.spots.forEach((s, i) => {
+    const icon = L.divIcon({
+      html: `<div style="background:${typeColor[s.type]};color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;box-shadow:0 2px 6px rgba(0,0,0,0.3)">${i+1}</div>`,
+      iconSize: [28,28], iconAnchor: [14,14], className: ''
     });
-    marker.openPopup();
-
-    // Click to fly to
-    marker.on('click', () => {
-      map.flyTo([s.lat, s.lng], 14, { duration: 0.6 });
-    });
-
-    markers.push(marker);
+    const m = L.marker([s.lat, s.lng], { icon })
+      .addTo(map)
+      .bindPopup(`<b>${s.emoji} ${s.name[lang]}</b><br><small>${s.desc[lang]}</small>`);
+    markers.push(m);
     bounds.push([s.lat, s.lng]);
 
-    // Add polyline to next spot
-    if (i < daySpots.length - 1) {
-      const next = daySpots[i + 1];
-      const polyline = L.polyline([[s.lat, s.lng], [next.lat, next.lng]], {
-        color: COLORS[dayIndex],
-        weight: 3,
-        opacity: 0.7,
-        dashArray: '6, 8'
+    if (i < day.spots.length - 1) {
+      const next = day.spots[i + 1];
+      const line = L.polyline([[s.lat, s.lng],[next.lat, next.lng]], {
+        color: typeColor[s.type], weight: 4, opacity: 0.7, dashArray: '6,8'
       }).addTo(map);
-      polylines.push(polyline);
+      polylines.push(line);
 
-      // Add route label at midpoint
-      const midLat = (s.lat + next.lat) / 2;
-      const midLng = (s.lng + next.lng) / 2;
-      const label = L.tooltip({
-        permanent: true,
-        direction: 'right',
-        className: 'route-label',
-        offset: [10, -5]
-      })
-      .setLatLng([midLat, midLng])
-      .setContent('<span style="background:' + COLORS[dayIndex] + ';padding:2px 6px;border-radius:4px;color:#fff;white-space:nowrap;font-size:10px;font-weight:600;box-shadow:0 1px 4px rgba(0,0,0,0.3)">' + s.transport + '</span>')
-      .addTo(map);
-      routeLabels.push(label);
+      if (s.travelNext) {
+        const midLat = (s.lat + next.lat) / 2;
+        const midLng = (s.lng + next.lng) / 2;
+        const labelColor = typeColor[s.type] || 'rgba(26,47,94,0.85)';
+        const label = L.tooltip({ permanent: true, direction: 'right', className: 'route-label', offset: [12, 0] })
+          .setLatLng([midLat, midLng])
+          .setContent(`<span style="background:${labelColor};padding:3px 8px;border-radius:6px;color:#fff;white-space:nowrap;font-size:11px;font-weight:500;box-shadow:0 2px 6px rgba(0,0,0,0.25)">${s.travelNext[lang]}</span>`)
+          .addTo(map);
+        routeLabels.push(label);
+      }
     }
   });
 
-  // Fit bounds with padding
   if (bounds.length > 0) {
-    map.fitBounds(bounds, { padding: [40, 40] });
+    for (let i = 0; i < day.spots.length - 1; i++) {
+      const s = day.spots[i], nx = day.spots[i+1];
+      bounds.push([(s.lat+nx.lat)/2, (s.lng+nx.lng)/2]);
+    }
+    map.fitBounds(bounds, { padding: [60,60] });
   }
 }
 
-function flyToDay(dayIndex) {
-  const daySpots = days[dayIndex];
-  if (daySpots && daySpots.length > 0) {
-    const firstSpot = daySpots[0];
-    map.flyTo([firstSpot.lat, firstSpot.lng], 12, { duration: 0.8 });
-  }
+function focusSpot(idx, dayN) {
+  const s = days[dayN - 1].spots[idx];
+  map.setView([s.lat, s.lng], 15);
+  markers[idx].openPopup();
 }
 
-// Initialize
-initMap();
+function renderOverview() {
+  document.getElementById('overview-wrap').innerHTML = days.map((day, i) => `
+    <div class="overview-day" onclick="selectDay(${i+1})">
+      <h4>${day.title[lang]}</h4>
+      <div class="route">${day.spots.map(s => s.emoji + ' ' + s.name[lang].split(' ')[0]).join(' → ')}</div>
+    </div>
+  `).join('');
+}
+
+function renderChecklist() {
+  const c = i18n[lang].checklist;
+  const section = (title, items) => `
+    <div class="checklist-section">
+      <h3>${title}</h3>
+      ${items.map(t => `<div class="check-item"><input type="checkbox"> ${t}</div>`).join('')}
+    </div>`;
+  document.getElementById('checklist-wrap').innerHTML =
+    section(c.pre, c.preItems) +
+    section(c.allergy, c.allergyItems) +
+    section(c.luggage, c.luggageItems) +
+    section(c.tips, c.tipsItems);
+}
+
+window.onload = () => {
+  initMap();
+  renderTabs();
+  document.getElementById('allergy-banner').innerHTML = i18n[lang].allergy;
+  selectDay(2);
+};
 </script>
 </body>
 </html>
