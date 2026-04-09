@@ -23,7 +23,7 @@ header {
   flex-shrink: 0;
   position: relative;
 }
-.header-text { position: relative; z-index: 1; width: 100%; text-align: center; }
+.header-text { position: relative; z-index: 0; width: 100%; text-align: center; }
 header h1 { font-size: 18px; font-weight: 800; letter-spacing: 0.3px; text-shadow: 0 1px 4px rgba(0,0,0,0.4); }
 header p  { font-size: 12px; opacity: 0.85; margin-top: 3px; }
 
@@ -44,6 +44,7 @@ header p  { font-size: 12px; opacity: 0.85; margin-top: 3px; }
   position: absolute;
   top: 12px;
   right: 14px;
+  z-index: 10;
 }
 .lang-btn:hover { background: rgba(255,255,255,0.3); }
 
@@ -127,7 +128,7 @@ header p  { font-size: 12px; opacity: 0.85; margin-top: 3px; }
     <h1 id="hdr-title">🦩 齐齐哈尔五一游 · 孔雀 &amp; 玥玥</h1>
     <p id="hdr-sub">5/2–5/4 · 丹顶鹤放飞 · 动物园 · 牧场</p>
   </div>
-  <a href="index.html" style="position:absolute;top:12px;left:14px;background:rgba(255,255,255,0.2);color:white;padding:4px 10px;border-radius:14px;font-size:11px;text-decoration:none;font-weight:600;border:1px solid rgba(255,255,255,0.4);">🗺️ 行程</a>
+  <a href="index.html" style="position:absolute;top:12px;left:14px;z-index:10;background:rgba(255,255,255,0.2);color:white;padding:4px 10px;border-radius:14px;font-size:11px;text-decoration:none;font-weight:600;border:1px solid rgba(255,255,255,0.4);">🗺️ 行程</a>
   <button class="lang-btn" onclick="toggleLang()" id="lang-btn">EN</button>
 </header>
 
