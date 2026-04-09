@@ -278,7 +278,8 @@ const days = [
   }
 ];
 
-const typeColor = { attraction: '#e74c3c', food: '#e67e22', kids: '#27ae60', hotel: '#2980b9' };
+const typeColor = { attraction: '#dbeafe', food: '#fef3c7', kids: '#fef9c3', hotel: '#e0e7ff', transport: '#e5e7eb' };
+const typeStroke = { attraction: '#3b82f6', food: '#f59e0b', kids: '#84cc16', hotel: '#6366f1', transport: '#9ca3af' };
 let map, markers = [], polylines = [], routeLabels = [], currentDay = 2;
 
 function toggleLang() {
@@ -385,7 +386,7 @@ function selectDay(n) {
   const bounds = [];
   day.spots.forEach((s, i) => {
     const icon = L.divIcon({
-      html: `<div style="background:${typeColor[s.type]};color:white;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 2px 6px rgba(0,0,0,0.3)">${s.emoji}</div>`,
+      html: `<div style="background:${typeColor[s.type]};color:#333;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 2px 6px rgba(0,0,0,0.2);border:2px solid #fff">${s.emoji}</div>`,
       iconSize: [32,32], iconAnchor: [16,16], className: ''
     });
     const m = L.marker([s.lat, s.lng], { icon })
@@ -406,14 +407,14 @@ function selectDay(n) {
     if (i < day.spots.length - 1) {
       const next = day.spots[i + 1];
       const line = L.polyline([[s.lat, s.lng],[next.lat, next.lng]], {
-        color: typeColor[s.type], weight: 4, opacity: 0.7, dashArray: '6,8'
+        color: typeStroke[s.type] || '#6b7280', weight: 4, opacity: 0.7, dashArray: '6,8'
       }).addTo(map);
       polylines.push(line);
 
       if (s.travelNext) {
         const midLat = (s.lat + next.lat) / 2;
         const midLng = (s.lng + next.lng) / 2;
-        const labelColor = typeColor[s.type] || 'rgba(26,47,94,0.85)';
+        const labelColor = typeStroke[s.type] || 'rgba(26,47,94,0.85)';
         // Extract time from travelNext (e.g., "🚕 打车 ~10 分钟" → "10 分钟")
         const timeMatch = s.travelNext[lang].match(/(\d+\s*分钟|\d+\s*min)/);
         const time = timeMatch ? timeMatch[1] : s.travelNext[lang];
