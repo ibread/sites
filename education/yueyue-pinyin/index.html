@@ -49,8 +49,8 @@
     .tab-btn {
       background: none;
       border: none;
-      font-size: 24px;
-      padding: 8px 12px;
+      font-size: 22px;
+      padding: 6px 8px;
       border-radius: 12px;
       cursor: pointer;
       transition: all 0.3s;
@@ -63,7 +63,7 @@
 
     .tab-btn .label {
       display: block;
-      font-size: 12px;
+      font-size: 11px;
       color: #666;
       margin-top: 4px;
     }
@@ -722,6 +722,41 @@
       </div>
     </div>
 
+    <!-- 形状配对 -->
+    <div id="page-match" class="page">
+      <div class="listen-container">
+        <div class="filter-bar" id="match-filter"></div>
+        <div style="text-align:center; margin-bottom:20px;">
+          <div style="font-size:100px;" id="match-emoji"></div>
+          <div style="font-size:24px; color:#666; margin-top:10px;" id="match-word"></div>
+        </div>
+        <div style="color:#666; text-align:center; margin-bottom:15px;">这是哪个拼音？</div>
+        <div class="options-grid" id="match-options"></div>
+        <div style="text-align:center; margin-top:15px; color:#999;">
+          进度：<span id="match-count">0/20</span> | 正确：<span id="match-correct">0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 拼音拼读 -->
+    <div id="page-spell" class="page">
+      <div class="listen-container">
+        <div class="filter-bar" id="spell-filter"></div>
+        <div style="text-align:center; margin:20px 0;">
+          <div style="font-size:36px; color:#999;" id="spell-prompt"></div>
+          <div style="font-size:72px; color:#ff6b6b; font-weight:bold; margin:20px 0;" id="spell-formula"></div>
+          <div style="font-size:48px; display:none; margin:10px 0;" id="spell-answer-display"></div>
+        </div>
+        <div style="text-align:center; margin-bottom:20px;">
+          <button class="modal-btn" id="spell-action-btn" onclick="spellReveal()">🔊 听答案</button>
+        </div>
+        <div class="options-grid" id="spell-options" style="display:none;"></div>
+        <div style="text-align:center; margin-top:15px; color:#999;">
+          进度：<span id="spell-count">0/20</span> | 正确：<span id="spell-correct">0</span>
+        </div>
+      </div>
+    </div>
+
     <!-- 易混淆专项 -->
     <div id="page-confuse" class="page">
       <div class="confuse-selector" id="confuse-groups">
@@ -789,6 +824,12 @@
     </button>
     <button class="tab-btn" onclick="switchPage('listen')">
       🔊<span class="label">听音</span>
+    </button>
+    <button class="tab-btn" onclick="switchPage('match')">
+      🧩<span class="label">配对</span>
+    </button>
+    <button class="tab-btn" onclick="switchPage('spell')">
+      🔗<span class="label">拼读</span>
     </button>
     <button class="tab-btn" onclick="switchPage('confuse')">
       ⚠️<span class="label">易混</span>
@@ -1061,6 +1102,8 @@
       if (pageName === 'home') renderHomeGrid('all');
       if (pageName === 'flashcard') startFlashcardRound();
       if (pageName === 'listen') startListenRound();
+      if (pageName === 'match') startMatchRound();
+      if (pageName === 'spell') startSpellRound();
       if (pageName === 'confuse') loadConfuseGroup('bdpq');
       if (pageName === 'progress') updateProgressPage();
     }
@@ -1283,7 +1326,193 @@
       }
     }
 
-    // ==================== 易混淆专项 ====================
+    // ==================== 形状配对（看emoji选拼音）====================
+    let matchFilters = new Set(['all']);
+    let matchCount = 0;
+    let matchCorrect = 0;
+    let currentMatchItem = null;
+
+    function startMatchRound() {
+      matchCount = 0;
+      matchCorrect = 0;
+      document.getElementById('match-count').textContent = '0/' + ROUND_LIMIT;
+      document.getElementById('match-correct').textContent = 0;
+      renderFilterBar('match-filter', matchFilters, startMatchRound);
+      newMatchQuestion();
+    }
+
+    function newMatchQuestion() {
+      if (matchCount >= ROUND_LIMIT) {
+        showSummary(matchCorrect, ROUND_LIMIT, 'match', startMatchRound);
+        return;
+      }
+      const pool = getFilteredPinyin(matchFilters);
+      const correct = pool[Math.floor(Math.random() * pool.length)];
+      currentMatchItem = correct;
+
+      document.getElementById('match-emoji').textContent = correct.emoji;
+      document.getElementById('match-word').textContent = correct.word;
+
+      // 3个错误选项
+      const wrong = pool.filter(i => i.letter !== correct.letter);
+      const options = [correct];
+      while (options.length < 4 && wrong.length > 0) {
+        const idx = Math.floor(Math.random() * wrong.length);
+        const pick = wrong.splice(idx, 1)[0];
+        if (!options.find(o => o.letter === pick.letter)) options.push(pick);
+      }
+      options.sort(() => Math.random() - 0.5);
+
+      const container = document.getElementById('match-options');
+      container.innerHTML = '';
+      options.forEach(opt => {
+        const card = document.createElement('div');
+        card.className = 'option-card';
+        card.innerHTML = '<div class="option-letter">' + opt.letter + '</div>';
+        card.onclick = () => {
+          const cards = document.querySelectorAll('#match-options .option-card');
+          cards.forEach(c => c.style.pointerEvents = 'none');
+          matchCount++;
+          if (opt.letter === correct.letter) {
+            card.classList.add('correct');
+            matchCorrect++;
+            showCelebration('🎉');
+            speak('太棒了');
+            updateProgress(correct.letter, true);
+          } else {
+            card.classList.add('wrong');
+            cards.forEach(c => {
+              if (c.querySelector('.option-letter').textContent === correct.letter) c.classList.add('correct');
+            });
+            speak('再试试');
+          }
+          document.getElementById('match-count').textContent = matchCount + '/' + ROUND_LIMIT;
+          document.getElementById('match-correct').textContent = matchCorrect;
+          setTimeout(() => newMatchQuestion(), 1200);
+        };
+        container.appendChild(card);
+      });
+    }
+
+    // ==================== 拼音拼读（声母+韵母=音节）====================
+    let spellFilters = new Set(['all']);
+    let spellCount = 0;
+    let spellCorrect = 0;
+    let currentSpell = null;
+
+    // 常见拼读组合
+    const spellCombos = [
+      {sm:'b',ym:'a',result:'ba',word:'八',emoji:'8️⃣'},
+      {sm:'b',ym:'o',result:'bo',word:'波',emoji:'🌊'},
+      {sm:'b',ym:'i',result:'bi',word:'笔',emoji:'🖊️'},
+      {sm:'b',ym:'u',result:'bu',word:'布',emoji:'🧶'},
+      {sm:'m',ym:'a',result:'ma',word:'妈',emoji:'👩'},
+      {sm:'m',ym:'i',result:'mi',word:'米',emoji:'🍚'},
+      {sm:'m',ym:'u',result:'mu',word:'木',emoji:'🪵'},
+      {sm:'d',ym:'a',result:'da',word:'大',emoji:'👐'},
+      {sm:'d',ym:'e',result:'de',word:'的',emoji:'📝'},
+      {sm:'d',ym:'i',result:'di',word:'地',emoji:'🌍'},
+      {sm:'d',ym:'u',result:'du',word:'读',emoji:'📖'},
+      {sm:'t',ym:'a',result:'ta',word:'他',emoji:'👤'},
+      {sm:'t',ym:'u',result:'tu',word:'兔',emoji:'🐰'},
+      {sm:'n',ym:'a',result:'na',word:'拿',emoji:'🤲'},
+      {sm:'n',ym:'i',result:'ni',word:'你',emoji:'👉'},
+      {sm:'n',ym:'u',result:'nu',word:'女',emoji:'👧'},
+      {sm:'l',ym:'a',result:'la',word:'拉',emoji:'🎻'},
+      {sm:'l',ym:'i',result:'li',word:'梨',emoji:'🍐'},
+      {sm:'l',ym:'u',result:'lu',word:'路',emoji:'🛤️'},
+      {sm:'g',ym:'a',result:'ga',word:'嘎',emoji:'🦆'},
+      {sm:'g',ym:'e',result:'ge',word:'哥',emoji:'👦'},
+      {sm:'g',ym:'u',result:'gu',word:'鼓',emoji:'🥁'},
+      {sm:'k',ym:'a',result:'ka',word:'卡',emoji:'💳'},
+      {sm:'k',ym:'e',result:'ke',word:'课',emoji:'📚'},
+      {sm:'k',ym:'u',result:'ku',word:'哭',emoji:'😢'},
+      {sm:'h',ym:'a',result:'ha',word:'哈',emoji:'😄'},
+      {sm:'h',ym:'e',result:'he',word:'河',emoji:'🏞️'},
+      {sm:'h',ym:'u',result:'hu',word:'虎',emoji:'🐯'},
+      {sm:'j',ym:'i',result:'ji',word:'鸡',emoji:'🐔'},
+      {sm:'j',ym:'u',result:'ju',word:'菊',emoji:'🌼'},
+      {sm:'q',ym:'i',result:'qi',word:'七',emoji:'7️⃣'},
+      {sm:'q',ym:'u',result:'qu',word:'去',emoji:'🚶'},
+      {sm:'x',ym:'i',result:'xi',word:'西',emoji:'🌅'},
+      {sm:'x',ym:'u',result:'xu',word:'虚',emoji:'💨'},
+      {sm:'zh',ym:'a',result:'zha',word:'扎',emoji:'📌'},
+      {sm:'zh',ym:'u',result:'zhu',word:'猪',emoji:'🐷'},
+      {sm:'ch',ym:'a',result:'cha',word:'茶',emoji:'🍵'},
+      {sm:'ch',ym:'u',result:'chu',word:'出',emoji:'🚪'},
+      {sm:'sh',ym:'a',result:'sha',word:'沙',emoji:'🏖️'},
+      {sm:'sh',ym:'u',result:'shu',word:'书',emoji:'📖'},
+      {sm:'r',ym:'u',result:'ru',word:'入',emoji:'🚪'},
+      {sm:'z',ym:'a',result:'za',word:'杂',emoji:'📦'},
+      {sm:'z',ym:'u',result:'zu',word:'足',emoji:'⚽'},
+      {sm:'c',ym:'a',result:'ca',word:'擦',emoji:'🧹'},
+      {sm:'s',ym:'a',result:'sa',word:'撒',emoji:'🌱'},
+      {sm:'s',ym:'u',result:'su',word:'速',emoji:'⚡'},
+      {sm:'f',ym:'a',result:'fa',word:'发',emoji:'💇'},
+      {sm:'f',ym:'u',result:'fu',word:'福',emoji:'🧧'},
+      {sm:'p',ym:'a',result:'pa',word:'怕',emoji:'😨'},
+      {sm:'p',ym:'i',result:'pi',word:'皮',emoji:'🏀'},
+      {sm:'p',ym:'u',result:'pu',word:'扑',emoji:'🦋'},
+      {sm:'w',ym:'a',result:'wa',word:'娃',emoji:'👶'},
+      {sm:'w',ym:'o',result:'wo',word:'我',emoji:'🙋'},
+      {sm:'y',ym:'a',result:'ya',word:'鸭',emoji:'🦆'},
+    ];
+
+    function startSpellRound() {
+      spellCount = 0;
+      spellCorrect = 0;
+      document.getElementById('spell-count').textContent = '0/' + ROUND_LIMIT;
+      document.getElementById('spell-correct').textContent = 0;
+      newSpellQuestion();
+    }
+
+    function newSpellQuestion() {
+      if (spellCount >= ROUND_LIMIT) {
+        showSummary(spellCorrect, ROUND_LIMIT, 'spell', startSpellRound);
+        return;
+      }
+      const combo = spellCombos[Math.floor(Math.random() * spellCombos.length)];
+      currentSpell = combo;
+
+      document.getElementById('spell-prompt').textContent = '把它们拼起来：';
+      document.getElementById('spell-formula').textContent = combo.sm + ' + ' + combo.ym + ' = ?';
+      document.getElementById('spell-answer-display').style.display = 'none';
+      document.getElementById('spell-action-btn').textContent = '🔊 听答案';
+      document.getElementById('spell-action-btn').onclick = spellReveal;
+      document.getElementById('spell-action-btn').style.display = '';
+      document.getElementById('spell-options').style.display = 'none';
+    }
+
+    function spellReveal() {
+      const combo = currentSpell;
+      document.getElementById('spell-formula').textContent = combo.sm + ' + ' + combo.ym + ' = ' + combo.result;
+      document.getElementById('spell-answer-display').textContent = combo.emoji + ' ' + combo.word;
+      document.getElementById('spell-answer-display').style.display = '';
+      speak(combo.word);
+
+      // 显示对错按钮
+      document.getElementById('spell-action-btn').style.display = 'none';
+      const optDiv = document.getElementById('spell-options');
+      optDiv.style.display = 'grid';
+      optDiv.innerHTML = '<div class="option-card correct" style="cursor:pointer;text-align:center;padding:20px;" onclick="spellAnswer(true)"><div style="font-size:36px;">✅</div><div style="font-size:18px;margin-top:8px;">我读对了</div></div>' +
+        '<div class="option-card wrong" style="cursor:pointer;text-align:center;padding:20px;border-color:#ff4d4f;" onclick="spellAnswer(false)"><div style="font-size:36px;">❌</div><div style="font-size:18px;margin-top:8px;">我读错了</div></div>';
+    }
+
+    function spellAnswer(correct) {
+      spellCount++;
+      if (correct) {
+        spellCorrect++;
+        showCelebration('🎉');
+        speak('你真棒');
+      } else {
+        speak('再试试');
+      }
+      document.getElementById('spell-count').textContent = spellCount + '/' + ROUND_LIMIT;
+      document.getElementById('spell-correct').textContent = spellCorrect;
+      setTimeout(() => newSpellQuestion(), 800);
+    }
+
+        // ==================== 易混淆专项 ====================
     const confuseGroups = {
       bdpq: [
         { letter: 'b', emoji: '🎒', word: '包' },
