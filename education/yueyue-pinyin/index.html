@@ -1063,7 +1063,7 @@
       if (selected.letter === correct.letter) {
         card.classList.add('correct');
         showCelebration('🎉');
-        // 视觉反馈即可
+        speak("真棒");
         updateProgress(correct.letter, true);
         setTimeout(() => newListenQuestion(), 1500);
       } else {
@@ -1073,7 +1073,7 @@
             c.classList.add('correct');
           }
         });
-        // 视觉反馈即可
+        speak("真棒");
         setTimeout(() => newListenQuestion(), 2000);
       }
     }
@@ -1170,7 +1170,7 @@
       if (selected === correct) {
         card.classList.add('correct');
         showCelebration('🎉');
-        // 视觉反馈即可
+        speak("真棒");
         updateProgress(correct, true);
         setTimeout(() => startConfuseQuiz(group), 1500);
       } else {
@@ -1180,7 +1180,7 @@
             c.classList.add('correct');
           }
         });
-        // 视觉反馈即可
+        speak("真棒");
         setTimeout(() => startConfuseQuiz(group), 2000);
       }
     }
