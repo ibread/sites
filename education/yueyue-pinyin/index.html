@@ -727,89 +727,89 @@
   <script>
     // ==================== 拼音数据 ====================
     const pinyinData = {
-      // 声母 (23 个)
+      // 声母 (23 个) - pronunciation 是拼音教学读法
       shengmu: [
-        { letter: 'b', emoji: '🎒', word: '包', zhuyin: 'bāo' },
-        { letter: 'p', emoji: '🍎', word: '苹果', zhuyin: 'píngguǒ' },
-        { letter: 'm', emoji: '🐱', word: '猫', zhuyin: 'māo' },
-        { letter: 'f', emoji: '🌬️', word: '风', zhuyin: 'fēng' },
-        { letter: 'd', emoji: '🏮', word: '灯', zhuyin: 'dēng' },
-        { letter: 't', emoji: '☀️', word: '太阳', zhuyin: 'tàiyáng' },
-        { letter: 'n', emoji: '🐦', word: '鸟', zhuyin: 'niǎo' },
-        { letter: 'l', emoji: '🐉', word: '龙', zhuyin: 'lóng' },
-        { letter: 'g', emoji: '🐕', word: '狗', zhuyin: 'gǒu' },
-        { letter: 'k', emoji: '👄', word: '口', zhuyin: 'kǒu' },
-        { letter: 'h', emoji: '🦊', word: '狐狸', zhuyin: 'húli' },
-        { letter: 'j', emoji: '🐔', word: '鸡', zhuyin: 'jī' },
-        { letter: 'q', emoji: '🎈', word: '气球', zhuyin: 'qìqiú' },
-        { letter: 'x', emoji: '⭐', word: '星星', zhuyin: 'xīngxīng' },
-        { letter: 'zh', emoji: '🎋', word: '竹子', zhuyin: 'zhúzi' },
-        { letter: 'ch', emoji: '🚗', word: '车', zhuyin: 'chē' },
-        { letter: 'sh', emoji: '📖', word: '书', zhuyin: 'shū' },
-        { letter: 'r', emoji: '🔥', word: '热', zhuyin: 'rè' },
-        { letter: 'z', emoji: '✏️', word: '字', zhuyin: 'zì' },
-        { letter: 'c', emoji: '🌿', word: '草', zhuyin: 'cǎo' },
-        { letter: 's', emoji: '🌲', word: '松树', zhuyin: 'sōngshù' },
-        { letter: 'y', emoji: '🌙', word: '月', zhuyin: 'yuè' },
-        { letter: 'w', emoji: '🐢', word: '乌龟', zhuyin: 'wūguī' }
+        { letter: 'b', emoji: '🎒', word: '包', zhuyin: 'bāo', pronunciation: '波' },
+        { letter: 'p', emoji: '🍎', word: '苹果', zhuyin: 'píngguǒ', pronunciation: '坡' },
+        { letter: 'm', emoji: '🐱', word: '猫', zhuyin: 'māo', pronunciation: '摸' },
+        { letter: 'f', emoji: '🌬️', word: '风', zhuyin: 'fēng', pronunciation: '佛' },
+        { letter: 'd', emoji: '🏮', word: '灯', zhuyin: 'dēng', pronunciation: '得' },
+        { letter: 't', emoji: '☀️', word: '太阳', zhuyin: 'tàiyáng', pronunciation: '特' },
+        { letter: 'n', emoji: '🐦', word: '鸟', zhuyin: 'niǎo', pronunciation: '讷' },
+        { letter: 'l', emoji: '🐉', word: '龙', zhuyin: 'lóng', pronunciation: '勒' },
+        { letter: 'g', emoji: '🐕', word: '狗', zhuyin: 'gǒu', pronunciation: '哥' },
+        { letter: 'k', emoji: '👄', word: '口', zhuyin: 'kǒu', pronunciation: '科' },
+        { letter: 'h', emoji: '🦊', word: '狐狸', zhuyin: 'húli', pronunciation: '喝' },
+        { letter: 'j', emoji: '🐔', word: '鸡', zhuyin: 'jī', pronunciation: '基' },
+        { letter: 'q', emoji: '🎈', word: '气球', zhuyin: 'qìqiú', pronunciation: '七' },
+        { letter: 'x', emoji: '⭐', word: '星星', zhuyin: 'xīngxīng', pronunciation: '西' },
+        { letter: 'zh', emoji: '🎋', word: '竹子', zhuyin: 'zhúzi', pronunciation: '知' },
+        { letter: 'ch', emoji: '🚗', word: '车', zhuyin: 'chē', pronunciation: '吃' },
+        { letter: 'sh', emoji: '📖', word: '书', zhuyin: 'shū', pronunciation: '诗' },
+        { letter: 'r', emoji: '🔥', word: '热', zhuyin: 'rè', pronunciation: '日' },
+        { letter: 'z', emoji: '✏️', word: '字', zhuyin: 'zì', pronunciation: '资' },
+        { letter: 'c', emoji: '🌿', word: '草', zhuyin: 'cǎo', pronunciation: '刺' },
+        { letter: 's', emoji: '🌲', word: '松树', zhuyin: 'sōngshù', pronunciation: '丝' },
+        { letter: 'y', emoji: '🌙', word: '月', zhuyin: 'yuè', pronunciation: '衣' },
+        { letter: 'w', emoji: '🐢', word: '乌龟', zhuyin: 'wūguī', pronunciation: '乌' }
       ],
       // 单韵母 (6 个)
       danyunmu: [
-        { letter: 'a', emoji: '🦆', word: '鸭', zhuyin: 'yā' },
-        { letter: 'o', emoji: '🐤', word: '小鸡喔喔喔', zhuyin: 'wō' },
-        { letter: 'e', emoji: '🦢', word: '鹅', zhuyin: 'é' },
-        { letter: 'i', emoji: '👗', word: '衣服', zhuyin: 'yī' },
-        { letter: 'u', emoji: '🐦', word: '乌鸦', zhuyin: 'wū' },
-        { letter: 'ü', emoji: '🐟', word: '鱼', zhuyin: 'yú' }
+        { letter: 'a', emoji: '🦆', word: '鸭', zhuyin: 'yā', pronunciation: '啊' },
+        { letter: 'o', emoji: '🐤', word: '小鸡喔喔喔', zhuyin: 'wō', pronunciation: '喔' },
+        { letter: 'e', emoji: '🦢', word: '鹅', zhuyin: 'é', pronunciation: '鹅' },
+        { letter: 'i', emoji: '👗', word: '衣服', zhuyin: 'yī', pronunciation: '衣' },
+        { letter: 'u', emoji: '🐦', word: '乌鸦', zhuyin: 'wū', pronunciation: '乌' },
+        { letter: 'ü', emoji: '🐟', word: '鱼', zhuyin: 'yú', pronunciation: '迂' }
       ],
       // 复韵母 (8 个)
       fuyunmu: [
-        { letter: 'ai', emoji: '❤️', word: '爱', zhuyin: 'ài' },
-        { letter: 'ei', emoji: '🌸', word: '美', zhuyin: 'měi' },
-        { letter: 'ui', emoji: '💧', word: '水', zhuyin: 'shuǐ' },
-        { letter: 'ao', emoji: '🐱', word: '猫', zhuyin: 'māo' },
-        { letter: 'ou', emoji: '🐒', word: '猴', zhuyin: 'hóu' },
-        { letter: 'iu', emoji: '🐂', word: '牛', zhuyin: 'niú' },
-        { letter: 'ie', emoji: '🦋', word: '蝴蝶', zhuyin: 'húdié' },
-        { letter: 'üe', emoji: '🌙', word: '月', zhuyin: 'yuè' }
+        { letter: 'ai', emoji: '❤️', word: '爱', zhuyin: 'ài', pronunciation: '哀' },
+        { letter: 'ei', emoji: '🌸', word: '美', zhuyin: 'měi', pronunciation: '诶' },
+        { letter: 'ui', emoji: '💧', word: '水', zhuyin: 'shuǐ', pronunciation: '威' },
+        { letter: 'ao', emoji: '🐱', word: '猫', zhuyin: 'māo', pronunciation: '凹' },
+        { letter: 'ou', emoji: '🐒', word: '猴', zhuyin: 'hóu', pronunciation: '欧' },
+        { letter: 'iu', emoji: '🐂', word: '牛', zhuyin: 'niú', pronunciation: '优' },
+        { letter: 'ie', emoji: '🦋', word: '蝴蝶', zhuyin: 'húdié', pronunciation: '耶' },
+        { letter: 'üe', emoji: '🌙', word: '月', zhuyin: 'yuè', pronunciation: '约' }
       ],
       // 特殊韵母 (1 个)
       teyunmu: [
-        { letter: 'er', emoji: '👂', word: '耳朵', zhuyin: 'ěrduo' }
+        { letter: 'er', emoji: '👂', word: '耳朵', zhuyin: 'ěrduo', pronunciation: '儿' }
       ],
       // 前鼻韵母 (5 个)
       qianbiyunmu: [
-        { letter: 'an', emoji: '⛰️', word: '山', zhuyin: 'shān' },
-        { letter: 'en', emoji: '🚪', word: '门', zhuyin: 'mén' },
-        { letter: 'in', emoji: '🎵', word: '音乐', zhuyin: 'yīnyuè' },
-        { letter: 'un', emoji: '☁️', word: '云', zhuyin: 'yún' },
-        { letter: 'ün', emoji: '👗', word: '裙子', zhuyin: 'qún' }
+        { letter: 'an', emoji: '⛰️', word: '山', zhuyin: 'shān', pronunciation: '安' },
+        { letter: 'en', emoji: '🚪', word: '门', zhuyin: 'mén', pronunciation: '恩' },
+        { letter: 'in', emoji: '🎵', word: '音乐', zhuyin: 'yīnyuè', pronunciation: '因' },
+        { letter: 'un', emoji: '☁️', word: '云', zhuyin: 'yún', pronunciation: '温' },
+        { letter: 'ün', emoji: '👗', word: '裙子', zhuyin: 'qún', pronunciation: '晕' }
       ],
       // 后鼻韵母 (4 个)
       houbiyunmu: [
-        { letter: 'ang', emoji: '🐑', word: '羊', zhuyin: 'yáng' },
-        { letter: 'eng', emoji: '🐝', word: '蜂', zhuyin: 'fēng' },
-        { letter: 'ing', emoji: '🦅', word: '鹰', zhuyin: 'yīng' },
-        { letter: 'ong', emoji: '🐛', word: '虫', zhuyin: 'chóng' }
+        { letter: 'ang', emoji: '🐑', word: '羊', zhuyin: 'yáng', pronunciation: '昂' },
+        { letter: 'eng', emoji: '🐝', word: '蜂', zhuyin: 'fēng', pronunciation: '鞥' },
+        { letter: 'ing', emoji: '🦅', word: '鹰', zhuyin: 'yīng', pronunciation: '英' },
+        { letter: 'ong', emoji: '🐛', word: '虫', zhuyin: 'chóng', pronunciation: '翁' }
       ],
       // 整体认读音节 (16 个)
       zhengti: [
-        { letter: 'zhi', emoji: '🧻', word: '纸', zhuyin: 'zhǐ' },
-        { letter: 'chi', emoji: '🍚', word: '吃', zhuyin: 'chī' },
-        { letter: 'shi', emoji: '🦁', word: '狮子', zhuyin: 'shīzi' },
-        { letter: 'ri', emoji: '📅', word: '日', zhuyin: 'rì' },
-        { letter: 'zi', emoji: '✏️', word: '字', zhuyin: 'zì' },
-        { letter: 'ci', emoji: '🦔', word: '刺猬', zhuyin: 'cìwei' },
-        { letter: 'si', emoji: '🧵', word: '丝', zhuyin: 'sī' },
-        { letter: 'yi', emoji: '👗', word: '衣', zhuyin: 'yī' },
-        { letter: 'wu', emoji: '🏠', word: '屋', zhuyin: 'wū' },
-        { letter: 'yu', emoji: '🐟', word: '鱼', zhuyin: 'yú' },
-        { letter: 'ye', emoji: '🍂', word: '叶', zhuyin: 'yè' },
-        { letter: 'yue', emoji: '🌙', word: '月', zhuyin: 'yuè' },
-        { letter: 'yuan', emoji: '🔵', word: '圆', zhuyin: 'yuán' },
-        { letter: 'yin', emoji: '🎵', word: '音', zhuyin: 'yīn' },
-        { letter: 'yun', emoji: '☁️', word: '云', zhuyin: 'yún' },
-        { letter: 'ying', emoji: '🦅', word: '鹰', zhuyin: 'yīng' }
+        { letter: 'zhi', emoji: '🧻', word: '纸', zhuyin: 'zhǐ', pronunciation: '纸' },
+        { letter: 'chi', emoji: '🍚', word: '吃', zhuyin: 'chī', pronunciation: '吃' },
+        { letter: 'shi', emoji: '🦁', word: '狮子', zhuyin: 'shīzi', pronunciation: '狮' },
+        { letter: 'ri', emoji: '📅', word: '日', zhuyin: 'rì', pronunciation: '日' },
+        { letter: 'zi', emoji: '✏️', word: '字', zhuyin: 'zì', pronunciation: '字' },
+        { letter: 'ci', emoji: '🦔', word: '刺猬', zhuyin: 'cìwei', pronunciation: '刺' },
+        { letter: 'si', emoji: '🧵', word: '丝', zhuyin: 'sī', pronunciation: '丝' },
+        { letter: 'yi', emoji: '👗', word: '衣', zhuyin: 'yī', pronunciation: '衣' },
+        { letter: 'wu', emoji: '🏠', word: '屋', zhuyin: 'wū', pronunciation: '屋' },
+        { letter: 'yu', emoji: '🐟', word: '鱼', zhuyin: 'yú', pronunciation: '鱼' },
+        { letter: 'ye', emoji: '🍂', word: '叶', zhuyin: 'yè', pronunciation: '叶' },
+        { letter: 'yue', emoji: '🌙', word: '月', zhuyin: 'yuè', pronunciation: '月' },
+        { letter: 'yuan', emoji: '🔵', word: '圆', zhuyin: 'yuán', pronunciation: '圆' },
+        { letter: 'yin', emoji: '🎵', word: '音', zhuyin: 'yīn', pronunciation: '音' },
+        { letter: 'yun', emoji: '☁️', word: '云', zhuyin: 'yún', pronunciation: '云' },
+        { letter: 'ying', emoji: '🦅', word: '鹰', zhuyin: 'yīng', pronunciation: '鹰' }
       ]
     };
 
@@ -932,7 +932,7 @@
       document.getElementById('modal-word').textContent = item.word;
       document.getElementById('modal-zhuyin').textContent = item.zhuyin;
       document.getElementById('pinyin-modal').classList.add('active');
-      speak(item.letter);
+      speak(item.pronunciation || item.word);
     }
 
     function closeModal(e) {
@@ -946,7 +946,11 @@
     }
 
     function playModalSound() {
-      speak(currentModalLetter);
+      const item = allPinyin.find(i => i.letter === currentModalLetter);
+      if (item) {
+        speak(item.pronunciation || item.word);
+        setTimeout(() => speak(item.word), 1000);
+      }
     }
 
     // ==================== 闪卡练习 ====================
@@ -1027,7 +1031,8 @@
     }
 
     function playListenSound() {
-      speak(currentListenLetter);
+      const item = allPinyin.find(i => i.letter === currentListenLetter);
+      if (item) speak(item.pronunciation || item.word);
     }
 
     function checkListenAnswer(selected, correct, card) {
