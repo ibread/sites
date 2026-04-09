@@ -346,6 +346,75 @@
       transform: scale(0.95);
     }
 
+
+    /* 筛选器 */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 20px;
+      padding: 10px;
+    }
+    .filter-chip {
+      background: white;
+      border: 2px solid #ddd;
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .filter-chip.active {
+      background: #ffd93d;
+      border-color: #ffc107;
+      font-weight: bold;
+    }
+    .filter-chip:active {
+      transform: scale(0.95);
+    }
+    /* 练习总结 */
+    .summary-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .summary-overlay.active { display: flex; }
+    .summary-card {
+      background: white;
+      border-radius: 30px;
+      padding: 40px;
+      text-align: center;
+      max-width: 420px;
+      width: 100%;
+      animation: popIn 0.3s ease;
+    }
+    .summary-title {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    .summary-stat {
+      font-size: 60px;
+      font-weight: bold;
+      color: #ff6b6b;
+      margin: 10px 0;
+    }
+    .summary-detail {
+      font-size: 18px;
+      color: #666;
+      margin: 15px 0;
+    }
+    .summary-stars {
+      font-size: 40px;
+      margin: 15px 0;
+    }
+
     /* 听音辨字 */
     .listen-container {
       text-align: center;
@@ -618,6 +687,7 @@
 
     <!-- 闪卡练习 -->
     <div id="page-flashcard" class="page">
+      <div class="filter-bar" id="fc-filter"></div>
       <div class="flashcard-container">
         <div class="flashcard" id="flashcard">
           <div class="flashcard-front">
@@ -635,13 +705,14 @@
         <button class="control-btn correct" onclick="flashcardAnswer(true)">✅ 认识了</button>
       </div>
       <div style="text-align: center; margin-top: 20px; color: #666;">
-        已学习：<span id="fc-count">0</span> | 认识：<span id="fc-correct">0</span>
+        进度：<span id="fc-count">0/20</span> | 认识：<span id="fc-correct">0</span>
       </div>
     </div>
 
     <!-- 听音辨字 -->
     <div id="page-listen" class="page">
       <div class="listen-container">
+        <div class="filter-bar" id="listen-filter"></div>
         <button class="listen-btn" onclick="playListenSound()">🔊</button>
         <div style="margin-bottom: 10px; color: #666;">点击喇叭听发音，然后选择正确的拼音</div>
         <div style="text-align:center; margin-bottom: 20px;">
@@ -693,6 +764,18 @@
 
         <button class="reset-btn" onclick="resetProgress()">🔄 重置进度</button>
       </div>
+    </div>
+  </div>
+
+  <!-- 练习总结弹窗 -->
+  <div class="summary-overlay" id="summary-overlay" onclick="if(event.target===this)closeSummary()">
+    <div class="summary-card">
+      <div class="summary-title" id="summary-title">🎉 练习完成！</div>
+      <div class="summary-stat" id="summary-score"></div>
+      <div class="summary-detail" id="summary-detail"></div>
+      <div class="summary-stars" id="summary-stars"></div>
+      <button class="modal-btn" id="summary-restart-btn">🔄 再来一轮</button>
+      <button class="modal-btn secondary" onclick="closeSummary()" style="margin-top:10px;">返回</button>
     </div>
   </div>
 
@@ -889,6 +972,84 @@
     let currentModalLetter = '';
     let currentListenLetter = '';
 
+
+    // ==================== 筛选器与练习限额 ====================
+    const filterCategories = {
+      all: '全部',
+      shengmu: '声母',
+      danyunmu: '单韵母',
+      fuyunmu: '复韵母',
+      qianbiyunmu: '前鼻韵母',
+      houbiyunmu: '后鼻韵母',
+      zhengti: '整体认读'
+    };
+
+    let fcFilters = new Set(['all']);
+    let listenFilters = new Set(['all']);
+    const ROUND_LIMIT = 20;
+
+    function renderFilterBar(containerId, activeSet, onChange) {
+      const bar = document.getElementById(containerId);
+      bar.innerHTML = '';
+      Object.entries(filterCategories).forEach(([key, label]) => {
+        const chip = document.createElement('span');
+        chip.className = 'filter-chip' + (activeSet.has(key) ? ' active' : '');
+        chip.textContent = label;
+        chip.onclick = () => {
+          if (key === 'all') {
+            activeSet.clear();
+            activeSet.add('all');
+          } else {
+            activeSet.delete('all');
+            if (activeSet.has(key)) {
+              activeSet.delete(key);
+              if (activeSet.size === 0) activeSet.add('all');
+            } else {
+              activeSet.add(key);
+            }
+          }
+          renderFilterBar(containerId, activeSet, onChange);
+          if (onChange) onChange();
+        };
+        bar.appendChild(chip);
+      });
+    }
+
+    function getFilteredPinyin(filterSet) {
+      if (filterSet.has('all')) return [...allPinyin];
+      let result = [];
+      filterSet.forEach(cat => {
+        if (pinyinData[cat]) {
+          result = result.concat(pinyinData[cat].map(i => ({...i, category: cat})));
+        }
+      });
+      return result.length > 0 ? result : [...allPinyin];
+    }
+
+    // 练习总结
+    function showSummary(correct, total, mode, restartFn) {
+      const pct = Math.round((correct / total) * 100);
+      let stars = '';
+      if (pct >= 90) stars = '⭐⭐⭐';
+      else if (pct >= 70) stars = '⭐⭐';
+      else if (pct >= 50) stars = '⭐';
+      else stars = '💪';
+
+      document.getElementById('summary-title').textContent = 
+        pct >= 90 ? '🎉 太棒了！' : pct >= 70 ? '👍 不错哦！' : '💪 继续加油！';
+      document.getElementById('summary-score').textContent = correct + '/' + total;
+      document.getElementById('summary-detail').textContent = '正确率 ' + pct + '%';
+      document.getElementById('summary-stars').textContent = stars;
+      
+      const btn = document.getElementById('summary-restart-btn');
+      btn.onclick = () => { closeSummary(); restartFn(); };
+      document.getElementById('summary-overlay').classList.add('active');
+    }
+
+    function closeSummary() {
+      document.getElementById('summary-overlay').classList.remove('active');
+    }
+
     // ==================== 页面切换 ====================
     function switchPage(pageName) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -898,8 +1059,8 @@
       document.querySelector(`.tab-btn[onclick="switchPage('${pageName}')"]`).classList.add('active');
 
       if (pageName === 'home') renderHomeGrid('all');
-      if (pageName === 'flashcard') newFlashcard();
-      if (pageName === 'listen') newListenQuestion();
+      if (pageName === 'flashcard') startFlashcardRound();
+      if (pageName === 'listen') startListenRound();
       if (pageName === 'confuse') loadConfuseGroup('bdpq');
       if (pageName === 'progress') updateProgressPage();
     }
@@ -979,9 +1140,21 @@
     let flashcardCount = 0;
     let flashcardCorrect = 0;
 
+    function startFlashcardRound() {
+      flashcardCount = 0;
+      flashcardCorrect = 0;
+      document.getElementById('fc-count').textContent = '0/' + ROUND_LIMIT;
+      document.getElementById('fc-correct').textContent = 0;
+      renderFilterBar('fc-filter', fcFilters, startFlashcardRound);
+      newFlashcard();
+    }
+
     function newFlashcard() {
-      const wrongOnes = allPinyin.filter(i => progress[i.letter] !== undefined && progress[i.letter] < 3);
-      const pool = wrongOnes.length > 0 ? wrongOnes : allPinyin;
+      if (flashcardCount >= ROUND_LIMIT) {
+        showSummary(flashcardCorrect, ROUND_LIMIT, 'flashcard', startFlashcardRound);
+        return;
+      }
+      const pool = getFilteredPinyin(fcFilters);
       currentFlashcard = pool[Math.floor(Math.random() * pool.length)];
       
       document.getElementById('flashcard').classList.remove('flipped');
@@ -996,7 +1169,7 @@
     document.getElementById('flashcard').addEventListener('click', function() {
       this.classList.toggle('flipped');
       if (this.classList.contains('flipped')) {
-        speak(currentFlashcard.zhuyin);
+        speak(currentFlashcard.pronunciation || currentFlashcard.word);
       }
     });
 
@@ -1005,21 +1178,28 @@
       flashcardCount++;
       if (correct) flashcardCorrect++;
       
-      document.getElementById('fc-count').textContent = flashcardCount;
+      document.getElementById('fc-count').textContent = flashcardCount + '/' + ROUND_LIMIT;
       document.getElementById('fc-correct').textContent = flashcardCorrect;
       
       if (correct) {
         showCelebration('🎉');
       }
       
-      // 先翻回正面
       document.getElementById('flashcard').classList.remove('flipped');
-      // 等翻转动画完成后再加载新卡片
       setTimeout(() => newFlashcard(), 700);
     }
 
     // ==================== 听音辨字 ====================
     let listenHideEmoji = false;
+    let listenCount = 0;
+    let listenCorrect = 0;
+
+    function startListenRound() {
+      listenCount = 0;
+      listenCorrect = 0;
+      renderFilterBar('listen-filter', listenFilters, startListenRound);
+      newListenQuestion();
+    }
 
     function toggleListenEmoji() {
       listenHideEmoji = !listenHideEmoji;
@@ -1035,7 +1215,12 @@
     }
 
     function newListenQuestion() {
-      const correct = allPinyin[Math.floor(Math.random() * allPinyin.length)];
+      if (listenCount >= ROUND_LIMIT) {
+        showSummary(listenCorrect, ROUND_LIMIT, 'listen', startListenRound);
+        return;
+      }
+      const pool = getFilteredPinyin(listenFilters);
+      const correct = pool[Math.floor(Math.random() * pool.length)];
       currentListenLetter = correct.letter;
       
       // 选 3 个错误选项
@@ -1083,6 +1268,8 @@
         showCelebration('🎉');
         speak("太棒了");
         updateProgress(correct.letter, true);
+        listenCount++;
+        listenCorrect++;
         setTimeout(() => newListenQuestion(), 1500);
       } else {
         card.classList.add('wrong');
