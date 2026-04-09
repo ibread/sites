@@ -81,7 +81,9 @@ header p  { font-size: 12px; opacity: 0.85; margin-top: 3px; }
 /* ── Day card ── */
 .day-card { background: white; border-radius: 10px; margin-bottom: 8px; overflow: hidden; box-shadow: 0 1px 6px rgba(100,70,0,0.10); }
 .day-card h3 { background: linear-gradient(90deg,#1a2f5e,#2a4a8e); color: white; padding: 8px 12px; font-size: 14px; }
-.spot { display: flex; align-items: flex-start; padding: 8px 12px; border-bottom: 1px solid #f0e8d0; gap: 8px; cursor: pointer; transition: background 0.15s; }
+.spot { display: flex; align-items: flex-start; padding: 8px 12px; border-bottom: 1px solid #f0e8d0; gap: 8px; cursor: pointer; transition: background 0.15s; position: relative; }
+.number-badge { width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, #e74c3c, #e67e22); color: white; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+.location-label { background: rgba(255,255,255,0.9); color: #1a1a2e; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; white-space: nowrap; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
 .spot:hover { background: #fff8e8; }
 .spot:last-child { border-bottom: none; }
 .dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
@@ -368,6 +370,7 @@ function selectDay(n) {
       <h3>${day.title[lang]}</h3>
       ${day.spots.map((s, i) => `
         <div class="spot" onclick="focusSpot(${i}, ${n})">
+          <div class="number-badge">${i+1}</div>
           <div class="dot" style="background:${typeColor[s.type]}"></div>
           <div class="spot-info">
             <div class="spot-name">${s.emoji} ${s.name[lang]}</div>
@@ -393,6 +396,15 @@ function selectDay(n) {
       .bindPopup(`<b>${s.emoji} ${s.name[lang]}</b><br><small>${s.desc[lang]}</small>`);
     markers.push(m);
     bounds.push([s.lat, s.lng]);
+
+    const labelIcon = L.divIcon({
+      html: `<div class="location-label">${s.emoji} ${s.name[lang]}</div>`,
+      iconSize: [120, 24],
+      iconAnchor: [60, 32],
+      className: ''
+    });
+    const label = L.marker([s.lat, s.lng], { icon: labelIcon, interactive: false }).addTo(map);
+    markers.push(label);
 
     if (i < day.spots.length - 1) {
       const next = day.spots[i + 1];
