@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>✈️ 家庭旅行计划</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+  .container { max-width: 640px; margin: 0 auto; }
+  h1 { text-align: center; font-size: 1.8rem; margin-bottom: 0.3rem; color: #2d3748; }
+  .subtitle { text-align: center; color: #718096; font-size: 0.9rem; margin-bottom: 2rem; }
+  .back { display: inline-block; margin-bottom: 1.5rem; color: #4a90d9; text-decoration: none; font-size: 0.95rem; }
+  .back:hover { text-decoration: underline; }
+  .card {
+    background: #fff; border-radius: 16px; padding: 1.2rem 1.4rem; margin-bottom: 1rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08); text-decoration: none;
+    display: flex; align-items: center; gap: 1rem;
+    transition: transform 0.15s, box-shadow 0.15s; color: inherit;
+  }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+  .card-emoji { font-size: 2.2rem; flex-shrink: 0; width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; background: #f7fafc; border-radius: 12px; }
+  .card-body { flex: 1; }
+  .card-title { font-size: 1.1rem; font-weight: 600; color: #2d3748; margin-bottom: 0.2rem; }
+  .card-desc { font-size: 0.85rem; color: #a0aec0; }
+  .card-arrow { color: #cbd5e0; font-size: 1.2rem; flex-shrink: 0; }
+  .section-label {
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em;
+    color: #a0aec0; margin: 1.5rem 0 0.5rem 0.5rem; font-weight: 600;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <a class="back" href="../index.html">← 孔家 Sites</a>
+  <h1>✈️ 家庭旅行计划</h1>
+  <p class="subtitle">Kong Family Itineraries</p>
+
+  <div class="section-label">📌 即将出发</div>
+
+  <a class="card" href="paris-itinerary.html">
+    <div class="card-emoji">🗼</div>
+    <div class="card-body">
+      <div class="card-title">巴黎亲子游</div>
+      <div class="card-desc">2026年7月 · 孔雀 & 玥玥 · Paris</div>
+    </div>
+    <div class="card-arrow">›</div>
+  </a>
+
+  <a class="card" href="sanya-itinerary.html">
+    <div class="card-emoji">🏖️</div>
+    <div class="card-body">
+      <div class="card-title">三亚亲子行程</div>
+      <div class="card-desc">2026年4月 · Amy 带娃</div>
+    </div>
+    <div class="card-arrow">›</div>
+  </a>
+
+  <div class="section-label">🗺️ 攻略 & 地图</div>
+
+  <a class="card" href="baoding-itinerary.html">
+    <div class="card-emoji">🫏</div>
+    <div class="card-body">
+      <div class="card-title">保定亲子一日游</div>
+      <div class="card-desc">Baoding Day Trip</div>
+    </div>
+    <div class="card-arrow">›</div>
+  </a>
+
+  <a class="card" href="beijing-day-trip.html">
+    <div class="card-emoji">🏯</div>
+    <div class="card-body">
+      <div class="card-title">北京周边一日游</div>
+      <div class="card-desc">Beijing Day Trip</div>
+    </div>
+    <div class="card-arrow">›</div>
+  </a>
+
+  <a class="card" href="guangzhou-food-map.html">
+    <div class="card-emoji">🍜</div>
+    <div class="card-body">
+      <div class="card-title">广州美食地图</div>
+      <div class="card-desc">For Amy</div>
+    </div>
+    <div class="card-arrow">›</div>
+  </a>
+
+  <a class="card" href="qiqihar-may-trip.html">
+    <div class="card-emoji">🦤</div>
+    <div class="card-body">
+      <div class="card-title">齐齐哈尔五月行程</div>
+      <div class="card-desc">Qiqihar May Trip</div>
+    </div>
+    <div class="card-arrow">›</div>
+  </a>
+
+  <a class="card" href="qiqihar-citywalk.html">
+    <div class="card-emoji">🚶</div>
+    <div class="card-body">
+      <div class="card-title">齐齐哈尔 City Walk</div>
+      <div class="card-desc">Qiqihar City Walk Map</div>
+    </div>
+    <div class="card-arrow">›</div>
+  </a>
+
+  <div class="section-label">📦 已完成</div>
+
+  <a class="card" href="archive.html" style="background: #f7fafc; opacity: 0.75;">
+    <div class="card-emoji" style="background: #edf2f7;">📦</div>
+    <div class="card-body">
+      <div class="card-title" style="color: #718096;">已完成行程 · Archive</div>
+      <div class="card-desc">济州岛 · 首尔 · 共 2 个</div>
+    </div>
+    <div class="card-arrow">›</div>
+  </a>
+
+</div>
+</body>
+</html>
