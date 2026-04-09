@@ -420,10 +420,12 @@ function selectDay(n) {
         const midLat = (s.lat + next.lat) / 2;
         const midLng = (s.lng + next.lng) / 2;
         const labelColor = typeColor[s.type] || 'rgba(26,47,94,0.85)';
-        const routeNum = `${i+1}→${i+2}`;
+        // Extract time from travelNext (e.g., "🚕 打车 ~10 分钟" → "10 分钟")
+        const timeMatch = s.travelNext[lang].match(/(\d+\s*分钟|\d+\s*min)/);
+        const time = timeMatch ? timeMatch[1] : s.travelNext[lang];
         const label = L.tooltip({ permanent: true, direction: 'right', className: 'route-label', offset: [12, 0] })
           .setLatLng([midLat, midLng])
-          .setContent(`<span style="background:${labelColor};padding:3px 8px;border-radius:6px;color:#fff;white-space:nowrap;font-size:11px;font-weight:500;box-shadow:0 2px 6px rgba(0,0,0,0.25)">${routeNum} ${s.travelNext[lang]}</span>`)
+          .setContent(`<span style="background:${labelColor};padding:3px 8px;border-radius:6px;color:#fff;white-space:nowrap;font-size:11px;font-weight:500;box-shadow:0 2px 6px rgba(0,0,0,0.25)">${time} → ${i+2}</span>`)
           .addTo(map);
         routeLabels.push(label);
       }
