@@ -643,7 +643,10 @@
     <div id="page-listen" class="page">
       <div class="listen-container">
         <button class="listen-btn" onclick="playListenSound()">🔊</button>
-        <div style="margin-bottom: 20px; color: #666;">点击喇叭听发音，然后选择正确的拼音</div>
+        <div style="margin-bottom: 10px; color: #666;">点击喇叭听发音，然后选择正确的拼音</div>
+        <div style="text-align:center; margin-bottom: 20px;">
+          <button id="hide-emoji-btn" onclick="toggleListenEmoji()" style="background:#ffd93d; border:2px solid #ffc107; border-radius:20px; padding:8px 20px; font-size:16px; cursor:pointer;">🙈 隐藏提示</button>
+        </div>
         <div class="options-grid" id="listen-options"></div>
       </div>
     </div>
@@ -1016,6 +1019,21 @@
     }
 
     // ==================== 听音辨字 ====================
+    let listenHideEmoji = false;
+
+    function toggleListenEmoji() {
+      listenHideEmoji = !listenHideEmoji;
+      const btn = document.getElementById('hide-emoji-btn');
+      btn.textContent = listenHideEmoji ? '🐵 显示提示' : '🙈 隐藏提示';
+      btn.style.background = listenHideEmoji ? '#ff6b6b' : '#ffd93d';
+      btn.style.color = listenHideEmoji ? 'white' : '#333';
+      btn.style.borderColor = listenHideEmoji ? '#ff4d4f' : '#ffc107';
+      // 刷新当前选项的 emoji 显示
+      document.querySelectorAll('#listen-options .option-emoji').forEach(el => {
+        el.style.visibility = listenHideEmoji ? 'hidden' : 'visible';
+      });
+    }
+
     function newListenQuestion() {
       const correct = allPinyin[Math.floor(Math.random() * allPinyin.length)];
       currentListenLetter = correct.letter;
@@ -1042,7 +1060,7 @@
         card.onclick = () => checkListenAnswer(opt, correct, card);
         card.innerHTML = `
           <div class="option-letter">${opt.letter}</div>
-          <div class="option-emoji">${opt.emoji}</div>
+          <div class="option-emoji" style="visibility:${listenHideEmoji ? 'hidden' : 'visible'}">${opt.emoji}</div>
         `;
         container.appendChild(card);
       });
