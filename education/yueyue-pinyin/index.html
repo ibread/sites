@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>玥玥拼音学习</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(135deg, #fff9e6 0%, #e6f7ff 100%);
+      min-height: 100vh;
+      padding-bottom: 80px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #ff6b6b;
+      font-size: 32px;
+      margin: 20px 0 30px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    }
+
+    /* 底部导航栏 */
+    .tab-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      padding: 8px 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .tab-btn.active {
+      background: #ffe0e0;
+      transform: scale(1.1);
+    }
+
+    .tab-btn .label {
+      display: block;
+      font-size: 12px;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    /* 页面容器 */
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    /* 分类标签 */
+    .category-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+      justify-content: center;
+    }
+
+    .category-btn {
+      background: white;
+      border: 2px solid #ffd93d;
+      border-radius: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .category-btn.active {
+      background: #ffd93d;
+      color: white;
+    }
+
+    /* 拼音卡片网格 */
+    .pinyin-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 15px;
+      padding: 10px;
+    }
+
+    .pinyin-card {
+      background: white;
+      border-radius: 20px;
+      padding: 20px 15px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border: 3px solid transparent;
+    }
+
+    .pinyin-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    }
+
+    .pinyin-card.mastered {
+      border-color: #52c41a;
+    }
+
+    .pinyin-card.learning {
+      border-color: #faad14;
+    }
+
+    .pinyin-card.new {
+      border-color: #ff4d4f;
+    }
+
+    .pinyin-letter {
+      font-size: 48px;
+      color: #ff6b6b;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .pinyin-emoji {
+      font-size: 48px;
+      margin-bottom: 8px;
+    }
+
+    .pinyin-word {
+      font-size: 20px;
+      color: #333;
+    }
+
+    .pinyin-zhuyin {
+      font-size: 14px;
+      color: #999;
+      margin-top: 4px;
+    }
+
+    /* 弹窗 */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 30px;
+      padding: 40px;
+      text-align: center;
+      max-width: 500px;
+      width: 100%;
+      animation: popIn 0.3s ease;
+    }
+
+    @keyframes popIn {
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .modal-letter {
+      font-size: 80px;
+      color: #ff6b6b;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .modal-emoji {
+      font-size: 100px;
+      margin-bottom: 20px;
+    }
+
+    .modal-word {
+      font-size: 36px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .modal-zhuyin {
+      font-size: 20px;
+      color: #999;
+      margin-bottom: 30px;
+    }
+
+    .modal-btn {
+      background: #ff6b6b;
+      color: white;
+      border: none;
+      border-radius: 15px;
+      padding: 15px 40px;
+      font-size: 22px;
+      cursor: pointer;
+      margin: 10px;
+      transition: all 0.3s;
+    }
+
+    .modal-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .modal-btn.secondary {
+      background: #ffd93d;
+      color: #333;
+    }
+
+    /* 闪卡练习 */
+    .flashcard-container {
+      perspective: 1000px;
+      width: 300px;
+      height: 400px;
+      margin: 40px auto;
+    }
+
+    .flashcard {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s;
+      cursor: pointer;
+    }
+
+    .flashcard.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .flashcard-front,
+    .flashcard-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .flashcard-front {
+      background: white;
+      border: 4px solid #ffd93d;
+    }
+
+    .flashcard-back {
+      background: linear-gradient(135deg, #fff9e6 0%, #ffe0e0 100%);
+      transform: rotateY(180deg);
+      border: 4px solid #ff6b6b;
+    }
+
+    .flashcard-letter {
+      font-size: 80px;
+      color: #ff6b6b;
+      font-weight: bold;
+    }
+
+    .flashcard-emoji {
+      font-size: 100px;
+      margin-bottom: 20px;
+    }
+
+    .flashcard-word {
+      font-size: 32px;
+      color: #333;
+    }
+
+    .flashcard-controls {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .control-btn {
+      background: white;
+      border: 3px solid;
+      border-radius: 20px;
+      padding: 15px 30px;
+      font-size: 24px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .control-btn.correct {
+      border-color: #52c41a;
+      color: #52c41a;
+    }
+
+    .control-btn.wrong {
+      border-color: #ff4d4f;
+      color: #ff4d4f;
+    }
+
+    .control-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .pinyin-card:active {
+      transform: scale(0.95);
+    }
+
+    .control-btn:active, .modal-btn:active, .option-card:active {
+      transform: scale(0.95);
+    }
+
+    /* 听音辨字 */
+    .listen-container {
+      text-align: center;
+      padding: 30px;
+    }
+
+    .listen-btn {
+      background: #ff6b6b;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 120px;
+      height: 120px;
+      font-size: 50px;
+      cursor: pointer;
+      margin-bottom: 40px;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(255,107,107,0.4);
+    }
+
+    .listen-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .listen-btn:active {
+      transform: scale(0.95);
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .option-card {
+      background: white;
+      border-radius: 20px;
+      padding: 25px;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .option-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+
+    .option-card.correct {
+      background: #d4edda;
+      border: 3px solid #52c41a;
+    }
+
+    .option-card.wrong {
+      background: #f8d7da;
+      border: 3px solid #ff4d4f;
+    }
+
+    .option-letter {
+      font-size: 48px;
+      color: #ff6b6b;
+      font-weight: bold;
+    }
+
+    .option-emoji {
+      font-size: 48px;
+      margin-top: 10px;
+    }
+
+    /* 易混淆专项 */
+    .confuse-pair {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin: 30px 0;
+    }
+
+    .confuse-card {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      min-width: 200px;
+    }
+
+    .confuse-letter {
+      font-size: 64px;
+      color: #ff6b6b;
+      font-weight: bold;
+    }
+
+    .confuse-emoji {
+      font-size: 64px;
+      margin: 10px 0;
+    }
+
+    .confuse-word {
+      font-size: 24px;
+      color: #333;
+    }
+
+    .confuse-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+
+    .confuse-select-btn {
+      background: white;
+      border: 2px solid #ffd93d;
+      border-radius: 15px;
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .confuse-select-btn.active {
+      background: #ffd93d;
+    }
+
+    /* 进度看板 */
+    .progress-container {
+      padding: 20px;
+    }
+
+    .progress-section {
+      background: white;
+      border-radius: 20px;
+      padding: 25px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .progress-title {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .progress-bar-container {
+      background: #f0f0f0;
+      border-radius: 10px;
+      height: 30px;
+      overflow: hidden;
+      margin-bottom: 15px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      border-radius: 10px;
+      transition: width 0.5s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+    }
+
+    .progress-stats {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 36px;
+      font-weight: bold;
+    }
+
+    .stat-label {
+      font-size: 16px;
+      color: #666;
+    }
+
+    .stat-mastered .stat-number { color: #52c41a; }
+    .stat-learning .stat-number { color: #faad14; }
+    .stat-new .stat-number { color: #ff4d4f; }
+
+    .reset-btn {
+      background: #ff4d4f;
+      color: white;
+      border: none;
+      border-radius: 15px;
+      padding: 15px 30px;
+      font-size: 20px;
+      cursor: pointer;
+      margin: 20px auto;
+      display: block;
+    }
+
+    /* 动画 */
+    .celebration {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 100px;
+      z-index: 3000;
+      animation: celebrate 1s ease;
+      pointer-events: none;
+    }
+
+    @keyframes celebrate {
+      0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0;
+      }
+    }
+
+    /* iPad 横屏适配 */
+    @media (orientation: landscape) and (max-height: 600px) {
+      .pinyin-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      }
+      
+      .pinyin-card {
+        padding: 15px 10px;
+      }
+      
+      .pinyin-letter {
+        font-size: 36px;
+      }
+      
+      .pinyin-emoji {
+        font-size: 36px;
+      }
+      
+      h1 {
+        font-size: 24px;
+        margin: 10px 0 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎓 玥玥拼音学习</h1>
+
+    <!-- 首页 - 拼音图鉴 -->
+    <div id="page-home" class="page active">
+      <div class="category-tabs" id="home-categories">
+        <button class="category-btn active" data-category="all">全部</button>
+        <button class="category-btn" data-category="shengmu">声母</button>
+        <button class="category-btn" data-category="yunmu">韵母</button>
+        <button class="category-btn" data-category="zhengti">整体认读</button>
+      </div>
+      <div class="pinyin-grid" id="home-grid"></div>
+    </div>
+
+    <!-- 闪卡练习 -->
+    <div id="page-flashcard" class="page">
+      <div class="flashcard-container">
+        <div class="flashcard" id="flashcard">
+          <div class="flashcard-front">
+            <div class="flashcard-letter" id="fc-letter"></div>
+            <div style="margin-top: 20px; color: #999; font-size: 18px;">点我翻面</div>
+          </div>
+          <div class="flashcard-back">
+            <div class="flashcard-emoji" id="fc-emoji"></div>
+            <div class="flashcard-word" id="fc-word"></div>
+          </div>
+        </div>
+      </div>
+      <div class="flashcard-controls">
+        <button class="control-btn wrong" onclick="flashcardAnswer(false)">❌ 还不会</button>
+        <button class="control-btn correct" onclick="flashcardAnswer(true)">✅ 认识了</button>
+      </div>
+      <div style="text-align: center; margin-top: 20px; color: #666;">
+        已学习：<span id="fc-count">0</span> | 认识：<span id="fc-correct">0</span>
+      </div>
+    </div>
+
+    <!-- 听音辨字 -->
+    <div id="page-listen" class="page">
+      <div class="listen-container">
+        <button class="listen-btn" onclick="playListenSound()">🔊</button>
+        <div style="margin-bottom: 20px; color: #666;">点击喇叭听发音，然后选择正确的拼音</div>
+        <div class="options-grid" id="listen-options"></div>
+      </div>
+    </div>
+
+    <!-- 易混淆专项 -->
+    <div id="page-confuse" class="page">
+      <div class="confuse-selector" id="confuse-groups">
+        <button class="confuse-select-btn active" data-group="bdpq">b/d p/q</button>
+        <button class="confuse-select-btn" data-group="zhchsh">z/zh c/ch s/sh</button>
+        <button class="confuse-select-btn" data-group="iuei">iu/ui ie/ei</button>
+        <button class="confuse-select-btn" data-group="nl">n/l</button>
+      </div>
+      <div id="confuse-content"></div>
+    </div>
+
+    <!-- 进度看板 -->
+    <div id="page-progress" class="page">
+      <div class="progress-container">
+        <div class="progress-section">
+          <div class="progress-title">📊 总体进度</div>
+          <div class="progress-bar-container">
+            <div class="progress-bar" id="total-progress" style="width: 0%; background: #52c41a;">0%</div>
+          </div>
+          <div class="progress-stats">
+            <div class="stat-item stat-mastered">
+              <div class="stat-number" id="stat-mastered">0</div>
+              <div class="stat-label">已掌握</div>
+            </div>
+            <div class="stat-item stat-learning">
+              <div class="stat-number" id="stat-learning">0</div>
+              <div class="stat-label">需巩固</div>
+            </div>
+            <div class="stat-item stat-new">
+              <div class="stat-number" id="stat-new">0</div>
+              <div class="stat-label">未学习</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="progress-section">
+          <div class="progress-title">📚 分类进度</div>
+          <div id="category-progress"></div>
+        </div>
+
+        <button class="reset-btn" onclick="resetProgress()">🔄 重置进度</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 底部导航 -->
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchPage('home')">
+      📖<span class="label">图鉴</span>
+    </button>
+    <button class="tab-btn" onclick="switchPage('flashcard')">
+      🃏<span class="label">闪卡</span>
+    </button>
+    <button class="tab-btn" onclick="switchPage('listen')">
+      🔊<span class="label">听音</span>
+    </button>
+    <button class="tab-btn" onclick="switchPage('confuse')">
+      ⚠️<span class="label">易混</span>
+    </button>
+    <button class="tab-btn" onclick="switchPage('progress')">
+      📊<span class="label">进度</span>
+    </button>
+  </div>
+
+  <!-- 拼音详情弹窗 -->
+  <div class="modal" id="pinyin-modal" onclick="closeModal(event)">
+    <div class="modal-content">
+      <div class="modal-letter" id="modal-letter"></div>
+      <div class="modal-emoji" id="modal-emoji"></div>
+      <div class="modal-word" id="modal-word"></div>
+      <div class="modal-zhuyin" id="modal-zhuyin"></div>
+      <button class="modal-btn" onclick="playModalSound()">🔊 播放发音</button>
+      <button class="modal-btn secondary" onclick="closeModalDirect()">关闭</button>
+    </div>
+  </div>
+
+  <script>
+    // ==================== 拼音数据 ====================
+    const pinyinData = {
+      // 声母 (23 个)
+      shengmu: [
+        { letter: 'b', emoji: '🎒', word: '包', zhuyin: 'bāo' },
+        { letter: 'p', emoji: '🍎', word: '苹果', zhuyin: 'píngguǒ' },
+        { letter: 'm', emoji: '🐱', word: '猫', zhuyin: 'māo' },
+        { letter: 'f', emoji: '🌬️', word: '风', zhuyin: 'fēng' },
+        { letter: 'd', emoji: '🏮', word: '灯', zhuyin: 'dēng' },
+        { letter: 't', emoji: '☀️', word: '太阳', zhuyin: 'tàiyáng' },
+        { letter: 'n', emoji: '🐦', word: '鸟', zhuyin: 'niǎo' },
+        { letter: 'l', emoji: '🐉', word: '龙', zhuyin: 'lóng' },
+        { letter: 'g', emoji: '🐕', word: '狗', zhuyin: 'gǒu' },
+        { letter: 'k', emoji: '👄', word: '口', zhuyin: 'kǒu' },
+        { letter: 'h', emoji: '🦊', word: '狐狸', zhuyin: 'húli' },
+        { letter: 'j', emoji: '🐔', word: '鸡', zhuyin: 'jī' },
+        { letter: 'q', emoji: '🎈', word: '气球', zhuyin: 'qìqiú' },
+        { letter: 'x', emoji: '⭐', word: '星星', zhuyin: 'xīngxīng' },
+        { letter: 'zh', emoji: '🎋', word: '竹子', zhuyin: 'zhúzi' },
+        { letter: 'ch', emoji: '🚗', word: '车', zhuyin: 'chē' },
+        { letter: 'sh', emoji: '📖', word: '书', zhuyin: 'shū' },
+        { letter: 'r', emoji: '🔥', word: '热', zhuyin: 'rè' },
+        { letter: 'z', emoji: '✏️', word: '字', zhuyin: 'zì' },
+        { letter: 'c', emoji: '🌿', word: '草', zhuyin: 'cǎo' },
+        { letter: 's', emoji: '🌲', word: '松树', zhuyin: 'sōngshù' },
+        { letter: 'y', emoji: '🌙', word: '月', zhuyin: 'yuè' },
+        { letter: 'w', emoji: '🐢', word: '乌龟', zhuyin: 'wūguī' }
+      ],
+      // 单韵母 (6 个)
+      danyunmu: [
+        { letter: 'a', emoji: '🦆', word: '鸭', zhuyin: 'yā' },
+        { letter: 'o', emoji: '🐤', word: '小鸡喔喔喔', zhuyin: 'wō' },
+        { letter: 'e', emoji: '🦢', word: '鹅', zhuyin: 'é' },
+        { letter: 'i', emoji: '👗', word: '衣服', zhuyin: 'yī' },
+        { letter: 'u', emoji: '🐦', word: '乌鸦', zhuyin: 'wū' },
+        { letter: 'ü', emoji: '🐟', word: '鱼', zhuyin: 'yú' }
+      ],
+      // 复韵母 (8 个)
+      fuyunmu: [
+        { letter: 'ai', emoji: '❤️', word: '爱', zhuyin: 'ài' },
+        { letter: 'ei', emoji: '🌸', word: '美', zhuyin: 'měi' },
+        { letter: 'ui', emoji: '💧', word: '水', zhuyin: 'shuǐ' },
+        { letter: 'ao', emoji: '🐱', word: '猫', zhuyin: 'māo' },
+        { letter: 'ou', emoji: '🐒', word: '猴', zhuyin: 'hóu' },
+        { letter: 'iu', emoji: '🐂', word: '牛', zhuyin: 'niú' },
+        { letter: 'ie', emoji: '🦋', word: '蝴蝶', zhuyin: 'húdié' },
+        { letter: 'üe', emoji: '🌙', word: '月', zhuyin: 'yuè' }
+      ],
+      // 特殊韵母 (1 个)
+      teyunmu: [
+        { letter: 'er', emoji: '👂', word: '耳朵', zhuyin: 'ěrduo' }
+      ],
+      // 前鼻韵母 (5 个)
+      qianbiyunmu: [
+        { letter: 'an', emoji: '⛰️', word: '山', zhuyin: 'shān' },
+        { letter: 'en', emoji: '🚪', word: '门', zhuyin: 'mén' },
+        { letter: 'in', emoji: '🎵', word: '音乐', zhuyin: 'yīnyuè' },
+        { letter: 'un', emoji: '☁️', word: '云', zhuyin: 'yún' },
+        { letter: 'ün', emoji: '👗', word: '裙子', zhuyin: 'qún' }
+      ],
+      // 后鼻韵母 (4 个)
+      houbiyunmu: [
+        { letter: 'ang', emoji: '🐑', word: '羊', zhuyin: 'yáng' },
+        { letter: 'eng', emoji: '🐝', word: '蜂', zhuyin: 'fēng' },
+        { letter: 'ing', emoji: '🦅', word: '鹰', zhuyin: 'yīng' },
+        { letter: 'ong', emoji: '🐛', word: '虫', zhuyin: 'chóng' }
+      ],
+      // 整体认读音节 (16 个)
+      zhengti: [
+        { letter: 'zhi', emoji: '🧻', word: '纸', zhuyin: 'zhǐ' },
+        { letter: 'chi', emoji: '🍚', word: '吃', zhuyin: 'chī' },
+        { letter: 'shi', emoji: '🦁', word: '狮子', zhuyin: 'shīzi' },
+        { letter: 'ri', emoji: '📅', word: '日', zhuyin: 'rì' },
+        { letter: 'zi', emoji: '✏️', word: '字', zhuyin: 'zì' },
+        { letter: 'ci', emoji: '🦔', word: '刺猬', zhuyin: 'cìwei' },
+        { letter: 'si', emoji: '🧵', word: '丝', zhuyin: 'sī' },
+        { letter: 'yi', emoji: '👗', word: '衣', zhuyin: 'yī' },
+        { letter: 'wu', emoji: '🏠', word: '屋', zhuyin: 'wū' },
+        { letter: 'yu', emoji: '🐟', word: '鱼', zhuyin: 'yú' },
+        { letter: 'ye', emoji: '🍂', word: '叶', zhuyin: 'yè' },
+        { letter: 'yue', emoji: '🌙', word: '月', zhuyin: 'yuè' },
+        { letter: 'yuan', emoji: '🔵', word: '圆', zhuyin: 'yuán' },
+        { letter: 'yin', emoji: '🎵', word: '音', zhuyin: 'yīn' },
+        { letter: 'yun', emoji: '☁️', word: '云', zhuyin: 'yún' },
+        { letter: 'ying', emoji: '🦅', word: '鹰', zhuyin: 'yīng' }
+      ]
+    };
+
+    // 扁平化所有拼音数据
+    const allPinyin = [];
+    Object.keys(pinyinData).forEach(cat => {
+      pinyinData[cat].forEach(item => {
+        allPinyin.push({ ...item, category: cat });
+      });
+    });
+
+    // ==================== 进度管理 ====================
+    let progress = JSON.parse(localStorage.getItem('yueyuePinyinProgress')) || {};
+
+    function saveProgress() {
+      localStorage.setItem('yueyuePinyinProgress', JSON.stringify(progress));
+    }
+
+    function getProgressStatus(letter) {
+      if (!progress[letter]) return 'new';
+      if (progress[letter] >= 3) return 'mastered';
+      if (progress[letter] > 0) return 'learning';
+      return 'new';
+    }
+
+    function updateProgress(letter, correct) {
+      if (!progress[letter]) progress[letter] = 0;
+      progress[letter] += correct ? 1 : -1;
+      if (progress[letter] < 0) progress[letter] = 0;
+      saveProgress();
+    }
+
+    function resetProgress() {
+      if (confirm('确定要重置所有进度吗？')) {
+        progress = {};
+        saveProgress();
+        renderHomeGrid('all');
+        updateProgressPage();
+      }
+    }
+
+    // ==================== 发音功能 ====================
+    function speak(text) {
+      try {
+        speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'zh-CN';
+        utterance.rate = 0.8;
+        utterance.pitch = 1.1;
+        speechSynthesis.speak(utterance);
+      } catch (e) {
+        console.log('语音播放失败:', e);
+      }
+    }
+
+    let currentModalLetter = '';
+    let currentListenLetter = '';
+
+    // ==================== 页面切换 ====================
+    function switchPage(pageName) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      
+      document.getElementById('page-' + pageName).classList.add('active');
+      document.querySelector(`.tab-btn[onclick="switchPage('${pageName}')"]`).classList.add('active');
+
+      if (pageName === 'home') renderHomeGrid('all');
+      if (pageName === 'flashcard') newFlashcard();
+      if (pageName === 'listen') newListenQuestion();
+      if (pageName === 'confuse') loadConfuseGroup('bdpq');
+      if (pageName === 'progress') updateProgressPage();
+    }
+
+    // ==================== 首页 - 拼音图鉴 ====================
+    function renderHomeGrid(category) {
+      const grid = document.getElementById('home-grid');
+      grid.innerHTML = '';
+
+      let items = [];
+      if (category === 'all') {
+        items = allPinyin;
+      } else if (category === 'shengmu') {
+        items = pinyinData.shengmu.map(i => ({ ...i, category: 'shengmu' }));
+      } else if (category === 'yunmu') {
+        ['danyunmu', 'fuyunmu', 'teyunmu', 'qianbiyunmu', 'houbiyunmu'].forEach(cat => {
+          items = items.concat(pinyinData[cat].map(i => ({ ...i, category: cat })));
+        });
+      } else if (category === 'zhengti') {
+        items = pinyinData.zhengti.map(i => ({ ...i, category: 'zhengti' }));
+      }
+
+      items.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'pinyin-card ' + getProgressStatus(item.letter);
+        card.onclick = () => openModal(item);
+        card.innerHTML = `
+          <div class="pinyin-letter">${item.letter}</div>
+          <div class="pinyin-emoji">${item.emoji}</div>
+          <div class="pinyin-word">${item.word}</div>
+          <div class="pinyin-zhuyin">${item.zhuyin}</div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // 分类切换
+    document.getElementById('home-categories').addEventListener('click', (e) => {
+      if (e.target.classList.contains('category-btn')) {
+        document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        renderHomeGrid(e.target.dataset.category);
+      }
+    });
+
+    // ==================== 弹窗 ====================
+    function openModal(item) {
+      currentModalLetter = item.letter;
+      document.getElementById('modal-letter').textContent = item.letter;
+      document.getElementById('modal-emoji').textContent = item.emoji;
+      document.getElementById('modal-word').textContent = item.word;
+      document.getElementById('modal-zhuyin').textContent = item.zhuyin;
+      document.getElementById('pinyin-modal').classList.add('active');
+      speak(item.letter);
+    }
+
+    function closeModal(e) {
+      if (e.target.id === 'pinyin-modal') {
+        document.getElementById('pinyin-modal').classList.remove('active');
+      }
+    }
+
+    function closeModalDirect() {
+      document.getElementById('pinyin-modal').classList.remove('active');
+    }
+
+    function playModalSound() {
+      speak(currentModalLetter);
+    }
+
+    // ==================== 闪卡练习 ====================
+    let currentFlashcard = null;
+    let flashcardCount = 0;
+    let flashcardCorrect = 0;
+
+    function newFlashcard() {
+      const wrongOnes = allPinyin.filter(i => progress[i.letter] !== undefined && progress[i.letter] < 3);
+      const pool = wrongOnes.length > 0 ? wrongOnes : allPinyin;
+      currentFlashcard = pool[Math.floor(Math.random() * pool.length)];
+      
+      document.getElementById('flashcard').classList.remove('flipped');
+      document.getElementById('fc-letter').textContent = currentFlashcard.letter;
+      
+      setTimeout(() => {
+        document.getElementById('fc-emoji').textContent = currentFlashcard.emoji;
+        document.getElementById('fc-word').textContent = currentFlashcard.word;
+      }, 300);
+    }
+
+    document.getElementById('flashcard').addEventListener('click', function() {
+      this.classList.toggle('flipped');
+      if (this.classList.contains('flipped')) {
+        speak(currentFlashcard.zhuyin);
+      }
+    });
+
+    function flashcardAnswer(correct) {
+      updateProgress(currentFlashcard.letter, correct);
+      flashcardCount++;
+      if (correct) flashcardCorrect++;
+      
+      document.getElementById('fc-count').textContent = flashcardCount;
+      document.getElementById('fc-correct').textContent = flashcardCorrect;
+      
+      if (correct) {
+        showCelebration('🎉');
+      }
+      
+      setTimeout(() => newFlashcard(), 500);
+    }
+
+    // ==================== 听音辨字 ====================
+    function newListenQuestion() {
+      const correct = allPinyin[Math.floor(Math.random() * allPinyin.length)];
+      currentListenLetter = correct.letter;
+      
+      // 选 3 个错误选项
+      const wrong = allPinyin.filter(i => i.letter !== correct.letter);
+      const options = [correct];
+      while (options.length < 4) {
+        const random = wrong[Math.floor(Math.random() * wrong.length)];
+        if (!options.find(o => o.letter === random.letter)) {
+          options.push(random);
+        }
+      }
+      
+      // 打乱顺序
+      options.sort(() => Math.random() - 0.5);
+      
+      const container = document.getElementById('listen-options');
+      container.innerHTML = '';
+      
+      options.forEach(opt => {
+        const card = document.createElement('div');
+        card.className = 'option-card';
+        card.onclick = () => checkListenAnswer(opt, correct, card);
+        card.innerHTML = `
+          <div class="option-letter">${opt.letter}</div>
+          <div class="option-emoji">${opt.emoji}</div>
+        `;
+        container.appendChild(card);
+      });
+      
+      // 自动播放一次
+      setTimeout(() => playListenSound(), 500);
+    }
+
+    function playListenSound() {
+      speak(currentListenLetter);
+    }
+
+    function checkListenAnswer(selected, correct, card) {
+      const cards = document.querySelectorAll('.option-card');
+      cards.forEach(c => c.style.pointerEvents = 'none');
+      
+      if (selected.letter === correct.letter) {
+        card.classList.add('correct');
+        showCelebration('🎉');
+        speak('真棒！');
+        updateProgress(correct.letter, true);
+        setTimeout(() => newListenQuestion(), 1500);
+      } else {
+        card.classList.add('wrong');
+        cards.forEach(c => {
+          if (c.querySelector('.option-letter').textContent === correct.letter) {
+            c.classList.add('correct');
+          }
+        });
+        speak('再试试');
+        setTimeout(() => newListenQuestion(), 2000);
+      }
+    }
+
+    // ==================== 易混淆专项 ====================
+    const confuseGroups = {
+      bdpq: [
+        { letter: 'b', emoji: '🎒', word: '包' },
+        { letter: 'd', emoji: '🏮', word: '灯' },
+        { letter: 'p', emoji: '🍎', word: '苹果' },
+        { letter: 'q', emoji: '🎈', word: '气球' }
+      ],
+      zhchsh: [
+        { letter: 'z', emoji: '✏️', word: '字' },
+        { letter: 'zh', emoji: '🎋', word: '竹子' },
+        { letter: 'c', emoji: '🌿', word: '草' },
+        { letter: 'ch', emoji: '🚗', word: '车' },
+        { letter: 's', emoji: '🌲', word: '松树' },
+        { letter: 'sh', emoji: '📖', word: '书' }
+      ],
+      iuei: [
+        { letter: 'iu', emoji: '🐂', word: '牛' },
+        { letter: 'ui', emoji: '💧', word: '水' },
+        { letter: 'ie', emoji: '🦋', word: '蝴蝶' },
+        { letter: 'ei', emoji: '🌸', word: '美' }
+      ],
+      nl: [
+        { letter: 'n', emoji: '🐦', word: '鸟' },
+        { letter: 'l', emoji: '🐉', word: '龙' }
+      ]
+    };
+
+    document.getElementById('confuse-groups').addEventListener('click', (e) => {
+      if (e.target.classList.contains('confuse-select-btn')) {
+        document.querySelectorAll('.confuse-select-btn').forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        loadConfuseGroup(e.target.dataset.group);
+      }
+    });
+
+    function loadConfuseGroup(group) {
+      const items = confuseGroups[group];
+      const content = document.getElementById('confuse-content');
+      
+      // 展示对比卡片
+      let html = '<div class="confuse-pair">';
+      items.forEach(item => {
+        html += `
+          <div class="confuse-card">
+            <div class="confuse-letter">${item.letter}</div>
+            <div class="confuse-emoji">${item.emoji}</div>
+            <div class="confuse-word">${item.word}</div>
+          </div>
+        `;
+      });
+      html += '</div>';
+      
+      // 出题按钮
+      html += '<div style="text-align:center;margin:30px 0;">';
+      html += '<button class="modal-btn" onclick="startConfuseQuiz(\'' + group + '\')">开始练习</button>';
+      html += '</div>';
+      
+      content.innerHTML = html;
+    }
+
+    function startConfuseQuiz(group) {
+      const items = confuseGroups[group];
+      const correct = items[Math.floor(Math.random() * items.length)];
+      
+      const content = document.getElementById('confuse-content');
+      let html = '<div style="text-align:center;margin:20px 0;color:#666;font-size:22px;">点击正确的拼音：<strong style="font-size:28px;color:#ff6b6b;">' + correct.word + ' ' + correct.emoji + '</strong></div>';
+      html += '<div class="options-grid">';
+      
+      const options = [...items].sort(() => Math.random() - 0.5);
+      options.forEach(opt => {
+        html += `
+          <div class="option-card" onclick="checkConfuseAnswer('${opt.letter}', '${correct.letter}', '${group}', this)">
+            <div class="option-letter">${opt.letter}</div>
+            <div class="option-emoji">${opt.emoji}</div>
+          </div>
+        `;
+      });
+      html += '</div>';
+      html += '<div style="text-align:center;margin-top:20px;"><button class="modal-btn secondary" onclick="loadConfuseGroup(\'' + group + '\')">返回对比</button></div>';
+      
+      content.innerHTML = html;
+      speak(correct.word);
+    }
+
+    function checkConfuseAnswer(selected, correct, group, card) {
+      const cards = document.querySelectorAll('.option-card');
+      cards.forEach(c => c.style.pointerEvents = 'none');
+      
+      if (selected === correct) {
+        card.classList.add('correct');
+        showCelebration('🎉');
+        speak('太棒了！');
+        updateProgress(correct, true);
+        setTimeout(() => startConfuseQuiz(group), 1500);
+      } else {
+        card.classList.add('wrong');
+        cards.forEach(c => {
+          if (c.querySelector('.option-letter').textContent === correct) {
+            c.classList.add('correct');
+          }
+        });
+        speak('再想想');
+        setTimeout(() => startConfuseQuiz(group), 2000);
+      }
+    }
+
+    // ==================== 进度看板 ====================
+    function updateProgressPage() {
+      const stats = { mastered: 0, learning: 0, new: 0 };
+      const categoryStats = {};
+      
+      allPinyin.forEach(item => {
+        const status = getProgressStatus(item.letter);
+        stats[status]++;
+        
+        if (!categoryStats[item.category]) {
+          categoryStats[item.category] = { mastered: 0, learning: 0, new: 0 };
+        }
+        categoryStats[item.category][status]++;
+      });
+      
+      // 总体进度
+      const total = allPinyin.length;
+      const percent = Math.round((stats.mastered / total) * 100);
+      document.getElementById('total-progress').style.width = percent + '%';
+      document.getElementById('total-progress').textContent = percent + '%';
+      
+      document.getElementById('stat-mastered').textContent = stats.mastered;
+      document.getElementById('stat-learning').textContent = stats.learning;
+      document.getElementById('stat-new').textContent = stats.new;
+      
+      // 分类进度
+      const categoryNames = {
+        shengmu: '声母',
+        danyunmu: '单韵母',
+        fuyunmu: '复韵母',
+        teyunmu: '特殊韵母',
+        qianbiyunmu: '前鼻韵母',
+        houbiyunmu: '后鼻韵母',
+        zhengti: '整体认读'
+      };
+      
+      let html = '';
+      Object.keys(categoryStats).forEach(cat => {
+        const s = categoryStats[cat];
+        const catTotal = s.mastered + s.learning + s.new;
+        const catPercent = Math.round((s.mastered / catTotal) * 100);
+        html += `
+          <div style="margin-bottom:15px;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+              <span>${categoryNames[cat] || cat}</span>
+              <span>${s.mastered}/${catTotal}</span>
+            </div>
+            <div class="progress-bar-container">
+              <div class="progress-bar" style="width:${catPercent}%;background:#52c41a;">${catPercent}%</div>
+            </div>
+          </div>
+        `;
+      });
+      
+      document.getElementById('category-progress').innerHTML = html;
+    }
+
+    // ==================== 动画效果 ====================
+    function showCelebration(emoji) {
+      const el = document.createElement('div');
+      el.className = 'celebration';
+      el.textContent = emoji;
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 1000);
+    }
+
+    // ==================== 初始化 ====================
+    // 初始化首页
+    renderHomeGrid('all');
+  </script>
+</body>
+</html>
