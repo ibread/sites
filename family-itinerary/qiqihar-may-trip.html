@@ -68,13 +68,13 @@ header p  { font-size: 12px; opacity: 0.85; margin-top: 3px; }
 @media (min-width: 680px) {
   .layout { flex-direction: row; }
   #map { order: 1; flex: 1; }
-  .sidebar { order: 2; width: 360px; flex-shrink: 0; max-height: 100%; }
+  .sidebar { order: 2; width: 320px; flex-shrink: 0; max-height: 100%; }
 }
 
 /* Mobile: sidebar top, map bottom */
 @media (max-width: 679px) {
   .layout { flex-direction: column; }
-  .sidebar { width: 100%; flex: 0 0 auto; max-height: 52vh; overflow-y: auto; box-shadow: 0 2px 10px rgba(0,0,0,0.1); order: 1; }
+  .sidebar { width: 100%; flex: 0 0 auto; max-height: 50vh; overflow-y: auto; box-shadow: 0 2px 10px rgba(0,0,0,0.1); order: 1; }
   #map { flex: 1; min-height: 0; order: 2; }
 }
 
@@ -133,7 +133,6 @@ header p  { font-size: 12px; opacity: 0.85; margin-top: 3px; }
 
 <div class="tabs" id="tabs"></div>
 
-<div class="allergy-banner" id="allergy-banner"></div>
 
 <div class="layout" id="layout">
   <div id="map"></div>
@@ -287,7 +286,6 @@ function toggleLang() {
   document.getElementById('lang-btn').textContent = i18n[lang].langBtn;
   document.getElementById('hdr-title').innerHTML = i18n[lang].title;
   document.getElementById('hdr-sub').textContent = i18n[lang].sub;
-  document.getElementById('allergy-banner').innerHTML = i18n[lang].allergy;
   renderTabs();
   selectDay(currentDay);
 }
@@ -340,11 +338,9 @@ function selectDay(n) {
   const dayContent = document.getElementById('day-content');
   const checklistWrap = document.getElementById('checklist-wrap');
   const overviewWrap = document.getElementById('overview-wrap');
-  const allergyBanner = document.getElementById('allergy-banner');
 
   layout.classList.remove('checklist-fullscreen');
   document.getElementById('map').style.display = '';
-  allergyBanner.style.display = '';
   dayContent.style.display = 'none';
   checklistWrap.style.display = 'none';
   overviewWrap.style.display = 'none';
@@ -359,7 +355,6 @@ function selectDay(n) {
   if (n === 5) {
     layout.classList.add('checklist-fullscreen');
     document.getElementById('map').style.display = 'none';
-    allergyBanner.style.display = 'none';
     checklistWrap.style.display = 'block';
     renderChecklist();
     return;
@@ -379,7 +374,6 @@ function selectDay(n) {
             <div class="spot-name">${s.emoji} ${s.name[lang]}</div>
             <div class="spot-desc">${s.desc[lang]}</div>
             ${s.time ? `<div class="spot-time">🕐 ${s.time[lang]}</div>` : ''}
-            ${s.travelNext ? `<div class="spot-time" style="color:#2980b9">→ ${s.travelNext[lang]}</div>` : ''}
             ${s.allergy ? `<span class="allergy-tag">${i18n[lang].allergyTag}</span>` : ''}
           </div>
         </div>
@@ -401,9 +395,9 @@ function selectDay(n) {
     bounds.push([s.lat, s.lng]);
 
     const labelIcon = L.divIcon({
-      html: `<div class="location-label">${s.emoji} ${s.name[lang]}</div>`,
-      iconSize: [120, 24],
-      iconAnchor: [60, 32],
+      html: `<div class="location-label">${i+1} ${s.emoji} ${s.name[lang]}</div>`,
+      iconSize: [140, 24],
+      iconAnchor: [70, 32],
       className: ''
     });
     const label = L.marker([s.lat, s.lng], { icon: labelIcon, interactive: false }).addTo(map);
@@ -473,7 +467,6 @@ function renderChecklist() {
 window.onload = () => {
   initMap();
   renderTabs();
-  document.getElementById('allergy-banner').innerHTML = i18n[lang].allergy;
   selectDay(2);
 };
 </script>
