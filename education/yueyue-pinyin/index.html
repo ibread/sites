@@ -957,7 +957,7 @@
 
     function getProgressStatus(letter) {
       if (!progress[letter]) return 'new';
-      if (progress[letter] >= 3) return 'mastered';
+      if (progress[letter] >= 5) return 'mastered';
       if (progress[letter] > 0) return 'learning';
       return 'new';
     }
@@ -1310,7 +1310,7 @@
         card.classList.add('correct');
         showCelebration('🎉');
         speak("太棒了");
-        updateProgress(correct.letter, true);
+        if (listenHideEmoji) updateProgress(correct.letter, true);
         listenCount++;
         listenCorrect++;
         setTimeout(() => newListenQuestion(), 1500);
