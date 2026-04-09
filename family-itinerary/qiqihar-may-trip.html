@@ -4,25 +4,60 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🦩 齐齐哈尔五一行程地图</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
-/* required styles - Leaflet */
-.leaflet-pane,.leaflet-tile,.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-tile-container,.leaflet-pane>svg,.leaflet-pane>canvas,.leaflet-zoom-box,.leaflet-image-layer,.leaflet-layer{position:absolute;left:0;top:0}.leaflet-container{overflow:hidden}.leaflet-tile,.leaflet-marker-icon,.leaflet-marker-shadow{-webkit-user-select:none;-moz-user-select:none;user-select:none;-webkit-user-drag:none}.leaflet-tile::selection{background:transparent}.leaflet-safari .leaflet-tile{image-rendering:-webkit-optimize-contrast}.leaflet-safari .leaflet-tile-container{width:1600px;height:1600px;-webkit-transform-origin:0 0}.leaflet-marker-icon,.leaflet-marker-shadow{display:block}.leaflet-container .leaflet-overlay-pane svg{max-width:none!important;max-height:none!important}.leaflet-container .leaflet-marker-pane img,.leaflet-container .leaflet-shadow-pane img,.leaflet-container .leaflet-tile-pane img,.leaflet-container img.leaflet-image-layer,.leaflet-container .leaflet-tile{max-width:none!important;max-height:none!important;width:auto;padding:0}.leaflet-container img.leaflet-tile{mix-blend-mode:plus-lighter}.leaflet-container.leaflet-touch-zoom{-ms-touch-action:pan-x pan-y;touch-action:pan-x pan-y}.leaflet-container.leaflet-touch-drag{-ms-touch-action:pinch-zoom;touch-action:none;touch-action:pinch-zoom}.leaflet-container.leaflet-touch-drag.leaflet-touch-zoom{-ms-touch-action:none;touch-action:none}.leaflet-container{-webkit-tap-highlight-color:transparent}.leaflet-container a{-webkit-tap-highlight-color:rgba(51,181,229,0.4)}.leaflet-tile{filter:inherit;visibility:hidden}.leaflet-tile-loaded{visibility:inherit}.leaflet-zoom-box{width:0;height:0;-moz-box-sizing:border-box;box-sizing:border-box;z-index:800}.leaflet-overlay-pane svg{-moz-user-select:none}.leaflet-pane{z-index:400}.leaflet-tile-pane{z-index:200}.leaflet-overlay-pane{z-index:400}.leaflet-shadow-pane{z-index:500}.leaflet-marker-pane{z-index:600}.leaflet-tooltip-pane{z-index:650}.leaflet-popup-pane{z-index:700}.leaflet-map-pane canvas{z-index:100}.leaflet-map-pane svg{z-index:200}.leaflet-vml-shape{width:1px;height:1px}.lvml{behavior:url(#default#VML);display:inline-block;position:absolute}.leaflet-control{position:relative;z-index:800;pointer-events:visiblePainted;pointer-events:auto}.leaflet-top,.leaflet-bottom{position:absolute;z-index:1000;pointer-events:none}.leaflet-top{top:0}.leaflet-right{right:0}.leaflet-bottom{bottom:0}.leaflet-left{left:0}.leaflet-control{float:left;clear:both}.leaflet-right .leaflet-control{float:right}.leaflet-top .leaflet-control{margin-top:10px}.leaflet-bottom .leaflet-control{margin-bottom:10px}.leaflet-left .leaflet-control{margin-left:10px}.leaflet-right .leaflet-control{margin-right:10px}.leaflet-fade-anim .leaflet-popup{opacity:0;-webkit-transition:opacity 0.2s linear;-moz-transition:opacity 0.2s linear;transition:opacity 0.2s linear}.leaflet-fade-anim .leaflet-map-pane .leaflet-popup{opacity:1}.leaflet-zoom-animated{-webkit-transform-origin:0 0;-ms-transform-origin:0 0;transform-origin:0 0}svg.leaflet-zoom-animated{will-change:transform}.leaflet-interactive{cursor:pointer}.leaflet-grab{cursor:-webkit-grab;cursor:-moz-grab;cursor:grab}.leaflet-crosshair,.leaflet-crosshair .leaflet-pane{cursor:crosshair}.leaflet-popup-pane,.leaflet-control{cursor:auto}.leaflet-dragging .leaflet-grab,.leaflet-dragging .leaflet-grab .leaflet-interactive,.leaflet-dragging .leaflet-marker-draggable{cursor:move;cursor:-webkit-grabbing;cursor:-moz-grabbing;cursor:grabbing}.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-image-layer,.leaflet-pane>svg path,.leaflet-tile-container{pointer-events:none}.leaflet-marker-icon.leaflet-interactive,.leaflet-image-layer.leaflet-interactive,.leaflet-pane>svg path.leaflet-interactive,svg.leaflet-image-layer.leaflet-interactive path{pointer-events:auto}.leaflet-container{background:#aed1ea url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22100%25%22%20height%3D%22100%25%22%3E%3Cdefs%3E%3Cpattern%20id%3D%22smallGrid%22%20width%3D%2210%22%20height%3D%2210%22%20patternUnits%3D%22userSpaceOnUse%22%3E%3Cpath%20d%3D%22M%2010%200%20L%200%200%200%2010%22%20fill%3D%22none%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%220.5%22%2F%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22url%28%23smallGrid%29%22%2F%3E%3C%2Fsvg%3E')}
-
-/* Base styles */
+/* ── Base ── */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: -apple-system, 'PingFang SC', sans-serif; background: #f5f7fa; color: #333; height: 100dvh; display: flex; flex-direction: column; overflow: hidden; }
-header { background: linear-gradient(135deg, #1a365d 0%, #2d5a87 100%); color: white; padding: 12px 16px 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); flex-shrink: 0; position: relative; }
-header h1 { font-size: 17px; font-weight: 700; }
-header p { font-size: 12px; opacity: 0.85; margin-top: 2px; }
-.home-btn { position: absolute; top: 10px; right: 12px; background: rgba(255,255,255,0.2); color: white; padding: 4px 10px; border-radius: 14px; font-size: 11px; text-decoration: none; font-weight: 600; }
-.home-btn:hover { background: rgba(255,255,255,0.35); }
 
-/* Container */
+/* ── Banner with Unsplash background ── */
+header {
+  background:
+    linear-gradient(rgba(13,27,62,0.65), rgba(13,27,62,0.8)),
+    url('https://images.unsplash.com/photo-1547970819-dc7d08a7a35f?w=800&q=80');
+  background-size: cover;
+  background-position: center 30%;
+  color: white;
+  padding: 16px 20px 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  flex-shrink: 0;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.header-text { position: relative; z-index: 1; flex: 1; }
+header h1 { font-size: 18px; font-weight: 800; letter-spacing: 0.3px; text-shadow: 0 1px 4px rgba(0,0,0,0.4); }
+header p { font-size: 12px; opacity: 0.85; margin-top: 3px; }
+
+/* ── Home button ── */
+.home-btn {
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.45);
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  white-space: nowrap;
+  letter-spacing: 0.5px;
+  transition: background 0.2s;
+  flex-shrink: 0;
+  margin-left: 10px;
+  margin-top: 2px;
+  text-decoration: none;
+  display: inline-block;
+}
+.home-btn:hover { background: rgba(255,255,255,0.3); }
+
+/* ── Container ── */
 .container { display: flex; flex: 1; overflow: hidden; }
 #map { flex: 1; z-index: 1; }
 .sidebar { width: 360px; overflow-y: auto; background: white; box-shadow: -2px 0 12px rgba(0,0,0,0.08); z-index: 2; display: flex; flex-direction: column; }
 
-/* Mobile layout */
+/* ── Mobile layout ── */
 @media (max-width: 680px) {
   .container { flex-direction: column; }
   .sidebar { width: 100%; flex: 0 0 auto; max-height: 52vh; overflow-y: auto; box-shadow: 0 2px 10px rgba(0,0,0,0.1); order: 1; transition: max-height 0.3s ease; }
@@ -42,10 +77,10 @@ header p { font-size: 12px; opacity: 0.85; margin-top: 2px; }
   .scroll-hint { display: none; }
 }
 
-/* Scroll hint */
+/* ── Scroll hint ── */
 .scroll-hint { display: none; text-align: center; font-size: 11px; color: #0ea5e9; padding: 5px; background: #f0f9ff; border-bottom: 1px solid #bae6fd; }
 
-/* Day card */
+/* ── Day card ── */
 .day-card { border-left: 4px solid #ddd; margin: 12px 16px; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.08); cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; }
 .day-card:hover { transform: translateX(2px); box-shadow: 0 3px 10px rgba(0,0,0,0.12); }
 .day-header { padding: 10px 14px; color: white; display: flex; align-items: center; gap: 10px; }
@@ -59,30 +94,45 @@ header p { font-size: 12px; opacity: 0.85; margin-top: 2px; }
 .seg-content { flex: 1; }
 .seg-place { font-size: 13px; font-weight: 600; color: #1e293b; }
 .seg-detail { font-size: 12px; color: #64748b; margin-top: 2px; line-height: 1.5; }
-.transport-tag { display: inline-flex; align-items: center; gap: 3px; font-size: 11px; padding: 1px 7px; border-radius: 10px; margin-top: 3px; font-weight: 500; }
-.transport-tag.car { background: #fef9c3; color: #854d0e; }
-.transport-tag.walk { background: #dcfce7; color: #166534; }
-.transport-tag.bus { background: #dbeafe; color: #1e40af; }
 
-/* Legend */
+/* ── Legend ── */
 .legend { padding: 12px 16px 6px; border-bottom: 1px solid #f0f0f0; }
 .legend-title { font-size: 12px; color: #888; margin-bottom: 8px; font-weight: 600; text-transform: uppercase; }
 .legend-row { display: flex; flex-wrap: wrap; gap: 6px; }
 .legend-dot { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; color: #555; }
 .legend-dot span { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
 
-/* Alert tip */
+/* ── Alert tip ── */
 .alert-tip { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 6px; padding: 8px 12px; margin: 10px 16px; font-size: 12px; color: #9a3412; line-height: 1.6; }
 .alert-tip strong { display: block; margin-bottom: 4px; font-size: 13px; }
+
+/* ── Route polyline label ── */
+.route-label { background: transparent !important; border: none !important; box-shadow: none !important; padding: 0 !important; }
+.route-label::before { display: none !important; }
+
+/* ── Permanent popup style ── */
+.permanent-popup {
+  background: rgba(255,255,255,0.95) !important;
+  border-radius: 6px !important;
+  padding: 4px 8px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  color: #1a1a2e !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2) !important;
+  border: 1px solid rgba(0,0,0,0.1) !important;
+}
+.permanent-popup .leaflet-popup-tip {
+  background: rgba(255,255,255,0.95) !important;
+}
 </style>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
 <header>
+  <div class="header-text">
+    <h1>🦩 齐齐哈尔五一行程地图</h1>
+    <p>ZQ + Amy + 孔雀 + 玥玥 · 5月1日–4日 · 全季酒店（金融街店）</p>
+  </div>
   <a href="index.html" class="home-btn">🏠 首页</a>
-  <h1>🦩 齐齐哈尔五一行程地图</h1>
-  <p>ZQ + Amy + 孔雀 + 玥玥 · 5月1日–4日 · 全季酒店（金融街店）</p>
 </header>
 <div class="container">
   <div id="map"></div>
@@ -102,32 +152,32 @@ header p { font-size: 12px; opacity: 0.85; margin-top: 2px; }
         <span class="legend-dot"><span style="background:#8e44ad"></span>酒店</span>
       </div>
     </div>
-    <div class="day-card active" data-day="0" style="border-color:#e74c3c" onclick="flyTo(47.2124,124.2510,11)">
+    <div class="day-card active" data-day="0" style="border-color:#e74c3c" onclick="flyToDay(0)">
       <div class="day-header" style="background:#e74c3c"><span class="day-label">DAY 2</span><span class="day-title">考级 + 扎龙</span><span class="day-date">5/2 周六</span></div>
       <div class="day-body">
-        <div class="segment"><span class="seg-time">12:00</span><div class="seg-content"><div class="seg-place">🍜 十二忠手拉面</div><div class="seg-detail">牛骨浓汤手拉面，考级庆祝</div><span class="transport-tag car">🚗 从酒店 ~5 分钟</span></div></div>
-        <div class="segment"><span class="seg-time">13:30</span><div class="seg-content"><div class="seg-place">🦩 扎龙自然保护区</div><div class="seg-detail">丹顶鹤放飞 14:00/15:30，门票 65 元</div><span class="transport-tag car">🚗 ~30 分钟</span></div></div>
-        <div class="segment"><span class="seg-time">17:30</span><div class="seg-content"><div class="seg-place">🌙 龙沙夜市</div><div class="seg-detail">烧烤小吃夜市</div><span class="transport-tag car">🚗 ~30 分钟</span></div></div>
+        <div class="segment"><span class="seg-time">12:00</span><div class="seg-content"><div class="seg-place">🍜 十二忠手拉面</div><div class="seg-detail">牛骨浓汤手拉面，考级庆祝</div></div></div>
+        <div class="segment"><span class="seg-time">13:30</span><div class="seg-content"><div class="seg-place">🦩 扎龙自然保护区</div><div class="seg-detail">丹顶鹤放飞 14:00/15:30，门票 65 元</div></div></div>
+        <div class="segment"><span class="seg-time">17:30</span><div class="seg-content"><div class="seg-place">🌙 龙沙夜市</div><div class="seg-detail">烧烤小吃夜市</div></div></div>
       </div>
     </div>
-    <div class="day-card" data-day="1" style="border-color:#27ae60" onclick="flyTo(47.3900,123.9350,12)">
+    <div class="day-card" data-day="1" style="border-color:#27ae60" onclick="flyToDay(1)">
       <div class="day-header" style="background:#27ae60"><span class="day-label">DAY 3</span><span class="day-title">动物园 + 市区</span><span class="day-date">5/3 周日</span></div>
       <div class="day-body">
-        <div class="segment"><span class="seg-time">7:30</span><div class="seg-content"><div class="seg-place">🌅 龙沙早市</div><div class="seg-detail">本地早餐集市</div><span class="transport-tag car">🚗 ~5 分钟</span></div></div>
-        <div class="segment"><span class="seg-time">9:00</span><div class="seg-content"><div class="seg-place">🦁 龙沙动植物园</div><div class="seg-detail">东北最大，花车巡游 + 泡泡派对，门票 98 元</div><span class="transport-tag car">🚗 ~15 分钟</span></div></div>
-        <div class="segment"><span class="seg-time">12:30</span><div class="seg-content"><div class="seg-place">🥩 米家烤肉（总店）</div><div class="seg-detail">齐齐哈尔烤肉代表，清真</div><span class="transport-tag car">🚗 ~10 分钟</span></div></div>
-        <div class="segment"><span class="seg-time">14:00</span><div class="seg-content"><div class="seg-place">🍦 北极冷饮厅</div><div class="seg-detail">老字号冰淇淋</div><span class="transport-tag car">🚗 ~5 分钟</span></div></div>
-        <div class="segment"><span class="seg-time">14:30</span><div class="seg-content"><div class="seg-place">⛪ 圣弥勒尔天主教堂</div><div class="seg-detail">齐齐哈尔最大天主教堂</div><span class="transport-tag walk">🚶 ~5 分钟</span></div></div>
-        <div class="segment"><span class="seg-time">15:00</span><div class="seg-content"><div class="seg-place">🏬 中环广场</div><div class="seg-detail">核心商圈步行街</div><span class="transport-tag walk">🚶 ~5 分钟</span></div></div>
-        <div class="segment"><span class="seg-time">18:00</span><div class="seg-content"><div class="seg-place">🥘 顺玉大片肉（劳动桥店）</div><div class="seg-detail">朝鲜族烤肉 + 冷面</div><span class="transport-tag car">🚗 ~5 分钟</span></div></div>
+        <div class="segment"><span class="seg-time">7:30</span><div class="seg-content"><div class="seg-place">🌅 龙沙早市</div><div class="seg-detail">本地早餐集市</div></div></div>
+        <div class="segment"><span class="seg-time">9:00</span><div class="seg-content"><div class="seg-place">🦁 龙沙动植物园</div><div class="seg-detail">东北最大，花车巡游 + 泡泡派对，门票 98 元</div></div></div>
+        <div class="segment"><span class="seg-time">12:30</span><div class="seg-content"><div class="seg-place">🥩 米家烤肉（总店）</div><div class="seg-detail">齐齐哈尔烤肉代表，清真</div></div></div>
+        <div class="segment"><span class="seg-time">14:00</span><div class="seg-content"><div class="seg-place">🍦 北极冷饮厅</div><div class="seg-detail">老字号冰淇淋</div></div></div>
+        <div class="segment"><span class="seg-time">14:30</span><div class="seg-content"><div class="seg-place">⛪ 圣弥勒尔天主教堂</div><div class="seg-detail">齐齐哈尔最大天主教堂</div></div></div>
+        <div class="segment"><span class="seg-time">15:00</span><div class="seg-content"><div class="seg-place">🏬 中环广场</div><div class="seg-detail">核心商圈步行街</div></div></div>
+        <div class="segment"><span class="seg-time">18:00</span><div class="seg-content"><div class="seg-place">🥘 顺玉大片肉（劳动桥店）</div><div class="seg-detail">朝鲜族烤肉 + 冷面</div></div></div>
       </div>
     </div>
-    <div class="day-card" data-day="2" style="border-color:#2980b9" onclick="flyTo(47.2800,124.1000,10)">
+    <div class="day-card" data-day="2" style="border-color:#2980b9" onclick="flyToDay(2)">
       <div class="day-header" style="background:#2980b9"><span class="day-label">DAY 4</span><span class="day-title">牧场 + 返程</span><span class="day-date">5/4 周一</span></div>
       <div class="day-body">
-        <div class="segment"><span class="seg-time">8:30</span><div class="seg-content"><div class="seg-place">🥛 飞鹤牧场（观光）</div><div class="seg-detail">DIY 奶制品，齐扎公路 12 公里</div><span class="transport-tag car">🚗 ~20 分钟</span></div></div>
-        <div class="segment"><span class="seg-time">11:30</span><div class="seg-content"><div class="seg-place">🍗 付胖子鸡骨架大串</div><div class="seg-detail">必点宫后夹肉</div><span class="transport-tag car">🚗 ~20 分钟</span></div></div>
-        <div class="segment"><span class="seg-time">15:30</span><div class="seg-content"><div class="seg-place">🚉 齐齐哈尔站</div><div class="seg-detail">火车站返程</div><span class="transport-tag car">🚗 ~5 分钟</span></div></div>
+        <div class="segment"><span class="seg-time">8:30</span><div class="seg-content"><div class="seg-place">🥛 飞鹤牧场（观光）</div><div class="seg-detail">DIY 奶制品，齐扎公路 12 公里</div></div></div>
+        <div class="segment"><span class="seg-time">11:30</span><div class="seg-content"><div class="seg-place">🍗 付胖子鸡骨架大串</div><div class="seg-detail">必点宫后夹肉</div></div></div>
+        <div class="segment"><span class="seg-time">15:30</span><div class="seg-content"><div class="seg-place">🚉 齐齐哈尔站</div><div class="seg-detail">火车站返程</div></div></div>
       </div>
     </div>
     <div class="alert-tip" data-day="3" style="display:none">
@@ -137,53 +187,150 @@ header p { font-size: 12px; opacity: 0.85; margin-top: 2px; }
   </div>
 </div>
 <script>
-const hotel={lat:47.3580,lng:123.9600,name:'全季酒店（金融街店）'};
-const spots=[
-  {lat:47.3560,lng:123.9520,name:'🍜 十二忠手拉面',day:0,time:'12:00'},
-  {lat:47.2124,lng:124.2510,name:'🦩 扎龙自然保护区',day:0,time:'13:30'},
-  {lat:47.3400,lng:123.9500,name:'🌙 龙沙夜市',day:0,time:'17:30'},
-  {lat:47.3430,lng:123.9510,name:'🌅 龙沙早市',day:1,time:'7:30'},
-  {lat:47.3900,lng:123.9350,name:'🦁 龙沙动植物园',day:1,time:'9:00'},
-  {lat:47.3580,lng:123.9480,name:'🥩 米家烤肉（总店）',day:1,time:'12:30'},
-  {lat:47.3440,lng:123.9530,name:'🍦 北极冷饮厅',day:1,time:'14:00'},
-  {lat:47.3410,lng:123.9580,name:'⛪ 圣弥勒尔天主教堂',day:1,time:'14:30'},
-  {lat:47.3390,lng:123.9560,name:'🏬 中环广场',day:1,time:'15:00'},
-  {lat:47.3400,lng:123.9490,name:'🥘 顺玉大片肉（劳动桥店）',day:1,time:'18:00'},
-  {lat:47.2800,lng:124.1000,name:'🥛 飞鹤牧场（观光）',day:2,time:'8:30'},
-  {lat:47.3450,lng:123.9560,name:'🍗 付胖子鸡骨架大串',day:2,time:'11:30'},
-  {lat:47.3280,lng:123.9650,name:'🚉 齐齐哈尔站',day:2,time:'15:30'}
+const hotel = { lat: 47.3580, lng: 123.9600, name: '全季酒店（金融街店）' };
+
+const days = [
+  // Day 2 (index 0) - 5/2 考级 + 扎龙
+  [
+    { lat: 47.3560, lng: 123.9520, name: '🍜 十二忠手拉面', time: '12:00', transport: '🚗 ~5 分钟' },
+    { lat: 47.2124, lng: 124.2510, name: '🦩 扎龙自然保护区', time: '13:30', transport: '🚗 ~30 分钟' },
+    { lat: 47.3400, lng: 123.9500, name: '🌙 龙沙夜市', time: '17:30', transport: '🚗 ~30 分钟' }
+  ],
+  // Day 3 (index 1) - 5/3 动物园 + 市区
+  [
+    { lat: 47.3430, lng: 123.9510, name: '🌅 龙沙早市', time: '7:30', transport: '🚗 ~5 分钟' },
+    { lat: 47.3900, lng: 123.9350, name: '🦁 龙沙动植物园', time: '9:00', transport: '🚗 ~15 分钟' },
+    { lat: 47.3580, lng: 123.9480, name: '🥩 米家烤肉（总店）', time: '12:30', transport: '🚗 ~10 分钟' },
+    { lat: 47.3440, lng: 123.9530, name: '🍦 北极冷饮厅', time: '14:00', transport: '🚗 ~5 分钟' },
+    { lat: 47.3410, lng: 123.9580, name: '⛪ 圣弥勒尔天主教堂', time: '14:30', transport: '🚶 ~5 分钟' },
+    { lat: 47.3390, lng: 123.9560, name: '🏬 中环广场', time: '15:00', transport: '🚶 ~5 分钟' },
+    { lat: 47.3400, lng: 123.9490, name: '🥘 顺玉大片肉（劳动桥店）', time: '18:00', transport: '🚗 ~5 分钟' }
+  ],
+  // Day 4 (index 2) - 5/4 牧场 + 返程
+  [
+    { lat: 47.2800, lng: 124.1000, name: '🥛 飞鹤牧场（观光）', time: '8:30', transport: '🚗 ~20 分钟' },
+    { lat: 47.3450, lng: 123.9560, name: '🍗 付胖子鸡骨架大串', time: '11:30', transport: '🚗 ~20 分钟' },
+    { lat: 47.3280, lng: 123.9650, name: '🚉 齐齐哈尔站', time: '15:30', transport: '🚗 ~5 分钟' }
+  ]
 ];
-const COLORS=['#e74c3c','#27ae60','#2980b9'];
-let map,markers=[];
-function initMap(){
-  map=L.map('map',{zoomControl:false});
-  L.control.zoom({position:'bottomright'}).addTo(map);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{attribution:'© OpenStreetMap © CARTO',maxZoom:18}).addTo(map);
-  const allPoints=[[hotel.lat,hotel.lng]].concat(spots.map(s=>[s.lat,s.lng]));
-  map.fitBounds(allPoints,{padding:[50,50]});
-  L.marker([hotel.lat,hotel.lng]).addTo(map).bindPopup('<b>🏨 全季酒店（金融街店）</b>');
-  spots.forEach((s,i)=>{
-    const m=L.marker([s.lat,s.lng]).addTo(map);
-    m.bindPopup(`<b>${s.name}</b><br>${s.time}`);
-    markers.push(m);
-  });
+
+const COLORS = ['#e74c3c', '#27ae60', '#2980b9'];
+let map, markers = [], polylines = [], routeLabels = [], currentDay = 0;
+
+function initMap() {
+  map = L.map('map', { zoomControl: false });
+  L.control.zoom({ position: 'bottomright' }).addTo(map);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+    attribution: '© OpenStreetMap © CARTO',
+    maxZoom: 18
+  }).addTo(map);
+
+  // Add hotel marker
+  const hotelMarker = L.marker([hotel.lat, hotel.lng]).addTo(map);
+  hotelMarker.bindPopup('<b>🏨 ' + hotel.name + '</b>');
+  hotelMarker.openPopup();
+
   selectDay(0);
 }
-function selectDay(day){
-  document.querySelectorAll('.day-tab').forEach((t,i)=>t.classList.toggle('active',i===day));
-  document.querySelectorAll('.day-card').forEach((c,i)=>c.classList.toggle('active',i===day));
-  document.querySelectorAll('.alert-tip').forEach(a=>a.style.display='none');
-  if(day===3){document.querySelector('.alert-tip').style.display='block';return;}
-  const daySpots=spots.filter(s=>s.day===day);
-  markers.forEach(m=>map.removeLayer(m));
-  daySpots.forEach(s=>{
-    const m=L.marker([s.lat,s.lng]).addTo(map);
-    m.bindPopup(`<b>${s.name}</b><br>${s.time}`);
-    m.on('click',()=>flyTo(s.lat,s.lng));
-  });
-  map.fitBounds(daySpots.map(s=>[s.lat,s.lng]).concat([[hotel.lat,hotel.lng]]),{padding:[40,40]});
+
+function clearDayLayers() {
+  markers.forEach(m => map.removeLayer(m));
+  polylines.forEach(p => map.removeLayer(p));
+  routeLabels.forEach(l => map.removeLayer(l));
+  markers = [];
+  polylines = [];
+  routeLabels = [];
 }
-function flyTo(lat,lng,z){map.flyTo([lat,lng],z||13,{duration:0.8});}
+
+function selectDay(dayIndex) {
+  currentDay = dayIndex;
+
+  // Update tabs
+  document.querySelectorAll('.day-tab').forEach((t, i) => {
+    t.classList.toggle('active', i === dayIndex);
+  });
+
+  // Update cards
+  document.querySelectorAll('.day-card').forEach((c, i) => {
+    c.classList.toggle('active', i === dayIndex);
+  });
+
+  // Hide alert tip
+  document.querySelectorAll('.alert-tip').forEach(a => a.style.display = 'none');
+  if (dayIndex === 3) {
+    document.querySelector('.alert-tip').style.display = 'block';
+    return;
+  }
+
+  // Clear previous layers
+  clearDayLayers();
+
+  const daySpots = days[dayIndex];
+  const bounds = [];
+
+  // Add markers with permanent popups
+  daySpots.forEach((s, i) => {
+    const marker = L.marker([s.lat, s.lng]).addTo(map);
+
+    // Permanent popup showing location name
+    const popupContent = '<span style="font-weight:600;color:#1a1a2e">' + s.name + '</span>';
+    marker.bindPopup(popupContent, {
+      autoClose: false,
+      closeOnClick: false,
+      className: 'permanent-popup'
+    });
+    marker.openPopup();
+
+    // Click to fly to
+    marker.on('click', () => {
+      map.flyTo([s.lat, s.lng], 14, { duration: 0.6 });
+    });
+
+    markers.push(marker);
+    bounds.push([s.lat, s.lng]);
+
+    // Add polyline to next spot
+    if (i < daySpots.length - 1) {
+      const next = daySpots[i + 1];
+      const polyline = L.polyline([[s.lat, s.lng], [next.lat, next.lng]], {
+        color: COLORS[dayIndex],
+        weight: 3,
+        opacity: 0.7,
+        dashArray: '6, 8'
+      }).addTo(map);
+      polylines.push(polyline);
+
+      // Add route label at midpoint
+      const midLat = (s.lat + next.lat) / 2;
+      const midLng = (s.lng + next.lng) / 2;
+      const label = L.tooltip({
+        permanent: true,
+        direction: 'right',
+        className: 'route-label',
+        offset: [10, -5]
+      })
+      .setLatLng([midLat, midLng])
+      .setContent('<span style="background:' + COLORS[dayIndex] + ';padding:2px 6px;border-radius:4px;color:#fff;white-space:nowrap;font-size:10px;font-weight:600;box-shadow:0 1px 4px rgba(0,0,0,0.3)">' + s.transport + '</span>')
+      .addTo(map);
+      routeLabels.push(label);
+    }
+  });
+
+  // Fit bounds with padding
+  if (bounds.length > 0) {
+    map.fitBounds(bounds, { padding: [40, 40] });
+  }
+}
+
+function flyToDay(dayIndex) {
+  const daySpots = days[dayIndex];
+  if (daySpots && daySpots.length > 0) {
+    const firstSpot = daySpots[0];
+    map.flyTo([firstSpot.lat, firstSpot.lng], 12, { duration: 0.8 });
+  }
+}
+
+// Initialize
 initMap();
 </script>
 </body>
