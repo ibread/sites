@@ -852,13 +852,31 @@
     }
 
     // ==================== 发音功能 ====================
+    // 获取最佳中文语音
+    let bestChineseVoice = null;
+    function findBestChineseVoice() {
+      const voices = speechSynthesis.getVoices();
+      // 优先级：Tingting > Siri中文 > 任何zh-CN
+      const preferred = ['Tingting', 'Siri', 'Lili', 'Meijia'];
+      for (const name of preferred) {
+        const v = voices.find(v => v.name.includes(name) && v.lang.includes('zh'));
+        if (v) { bestChineseVoice = v; return; }
+      }
+      // 兜底：任何中文语音
+      bestChineseVoice = voices.find(v => v.lang.includes('zh-CN')) || 
+                         voices.find(v => v.lang.includes('zh')) || null;
+    }
+    speechSynthesis.onvoiceschanged = findBestChineseVoice;
+    findBestChineseVoice();
+
     function speak(text) {
       try {
         speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'zh-CN';
-        utterance.rate = 0.8;
-        utterance.pitch = 1.1;
+        utterance.rate = 0.85;
+        utterance.pitch = 1.0;
+        if (bestChineseVoice) utterance.voice = bestChineseVoice;
         speechSynthesis.speak(utterance);
       } catch (e) {
         console.log('语音播放失败:', e);
@@ -991,7 +1009,10 @@
         showCelebration('🎉');
       }
       
-      setTimeout(() => newFlashcard(), 500);
+      // 先翻回正面
+      document.getElementById('flashcard').classList.remove('flipped');
+      // 等翻转动画完成后再加载新卡片
+      setTimeout(() => newFlashcard(), 700);
     }
 
     // ==================== 听音辨字 ====================
@@ -1042,7 +1063,7 @@
       if (selected.letter === correct.letter) {
         card.classList.add('correct');
         showCelebration('🎉');
-        speak('真棒！');
+        // 视觉反馈即可
         updateProgress(correct.letter, true);
         setTimeout(() => newListenQuestion(), 1500);
       } else {
@@ -1052,7 +1073,7 @@
             c.classList.add('correct');
           }
         });
-        speak('再试试');
+        // 视觉反馈即可
         setTimeout(() => newListenQuestion(), 2000);
       }
     }
@@ -1149,7 +1170,7 @@
       if (selected === correct) {
         card.classList.add('correct');
         showCelebration('🎉');
-        speak('太棒了！');
+        // 视觉反馈即可
         updateProgress(correct, true);
         setTimeout(() => startConfuseQuiz(group), 1500);
       } else {
@@ -1159,7 +1180,7 @@
             c.classList.add('correct');
           }
         });
-        speak('再想想');
+        // 视觉反馈即可
         setTimeout(() => startConfuseQuiz(group), 2000);
       }
     }
