@@ -13,6 +13,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Helvetica Neue'
 header{background:linear-gradient(135deg,#d35400,#e67e22);color:#fff;padding:14px 16px;text-align:center;flex-shrink:0}
 header h1{font-size:20px;font-weight:700}
 header p{font-size:12px;opacity:.85;margin-top:2px}
+.home-btn{position:absolute;top:12px;right:14px;background:rgba(255,255,255,.25);color:#fff;padding:4px 10px;border-radius:14px;font-size:11px;text-decoration:none;font-weight:600}
+.home-btn:hover{background:rgba(255,255,255,.4)}
 .tabs{display:flex;gap:0;overflow-x:auto;flex-shrink:0;background:#fff;border-bottom:1px solid #eee;-webkit-overflow-scrolling:touch}
 .tabs button{flex-shrink:0;padding:10px 14px;border:none;background:none;font-size:13px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap}
 .tabs button.active{color:var(--primary);border-bottom-color:var(--primary);font-weight:600}
@@ -44,7 +46,8 @@ header p{font-size:12px;opacity:.85;margin-top:2px}
 </style>
 </head>
 <body>
-<header>
+<header style="position:relative">
+  <a href="https://ibread.github.io/sites/index.html" class="home-btn" style="position:absolute;top:12px;right:14px;background:rgba(255,255,255,.25);color:#fff;padding:4px 10px;border-radius:14px;font-size:11px;text-decoration:none;font-weight:600">🏠 首页</a>
   <h1>🫏 保定亲子一日游</h1>
   <p>清明 4/4-6 · 高铁41分钟 · 约¥1200/4人</p>
 </header>

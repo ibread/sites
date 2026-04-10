@@ -29,6 +29,27 @@ header {
 header h1 { font-size: 18px; font-weight: 800; letter-spacing: 0.3px; text-shadow: 0 1px 4px rgba(0,0,0,0.4); }
 header p  { font-size: 12px; opacity: 0.85; margin-top: 3px; }
 
+/* ── Home button ── */
+.home-btn {
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.45);
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  white-space: nowrap;
+  letter-spacing: 0.5px;
+  transition: background 0.2s;
+  flex-shrink: 0;
+  margin-left: 10px;
+  margin-top: 2px;
+  text-decoration: none;
+  display: inline-block;
+}
+.home-btn:hover { background: rgba(255,255,255,0.3); }
+
 /* ── Lang toggle button ── */
 .lang-btn {
   background: rgba(255,255,255,0.18);
@@ -152,7 +173,10 @@ header p  { font-size: 12px; opacity: 0.85; margin-top: 3px; }
     <h1 id="hdr-title">🗼 巴黎亲子游 · 孔雀 &amp; 玥玥</h1>
     <p id="hdr-sub">全家4口 · 5-6天 · 铁塔点灯心愿 ✨</p>
   </div>
-  <button class="lang-btn" onclick="toggleLang()" id="lang-btn">EN</button>
+  <div style="display:flex;gap:8px;align-items:center;">
+    <a href="https://ibread.github.io/sites/index.html" class="home-btn">🏠 首页</a>
+    <button class="lang-btn" onclick="toggleLang()" id="lang-btn">EN</button>
+  </div>
 </header>
 
 <div class="tabs" id="tabs"></div>
