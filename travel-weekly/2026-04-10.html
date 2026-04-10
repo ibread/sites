@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌏 Asia Travel Weekly</title>
+  <style>
+    /* ============================================
+       PREMIUM NEWSLETTER DESIGN SYSTEM
+       Inspired by: Thrillophilia × Morning Brew × Apple Newsroom
+       ============================================ */
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 52px;
+    }
+    
+    body {
+      font-family: -apple-system, "SF Pro Text", "Noto Sans SC", sans-serif;
+      font-size: 15px;
+      line-height: 1.4;
+      background: #fafbfc;
+      color: #1a1a2e;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 20px 20px 20px;
+    }
+    
+    /* ─────────────────────────────────────────────
+       HEADER: Premium gradient with depth
+       ───────────────────────────────────────────── */
+    header {
+      background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%);
+      color: #fff;
+      padding: 28px 20px;
+      margin: -0 -20px 24px -20px;
+      box-shadow: 0 4px 12px rgba(26, 26, 46, 0.15);
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    header h1 {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      margin-bottom: 6px;
+    }
+    header .dates {
+      font-size: 14px;
+      opacity: 0.85;
+      font-weight: 400;
+    }
+    
+    /* ─────────────────────────────────────────────
+       STICKY NAV: Pill-shaped with smooth transitions
+       ───────────────────────────────────────────── */
+    .page-nav {
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 8px 0;
+      margin-bottom: 14px;
+      border-bottom: 1px solid #e9ecef;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+      z-index: 100;
+    }
+    .page-nav a {
+      display: inline-block;
+      padding: 6px 14px;
+      margin: 0 3px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #6c757d;
+      text-decoration: none;
+      border-radius: 20px;
+      transition: all 0.2s ease;
+      background: transparent;
+    }
+    .page-nav a:hover {
+      background: #f1f3f5;
+      color: #1a1a2e;
+    }
+    .page-nav a.active {
+      background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(26, 26, 46, 0.2);
+    }
+    
+    /* ─────────────────────────────────────────────
+       SECTIONS: Card-based with subtle shadows
+       ───────────────────────────────────────────── */
+    .section {
+      margin-bottom: 16px;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+    
+    .section-header {
+      font-size: 20px;
+      font-weight: 700;
+      padding: 6px 0 6px 14px;
+      margin-bottom: 10px;
+      border-left: 4px solid;
+      letter-spacing: -0.2px;
+    }
+    
+    /* Country-specific accent colors (refined palette) */
+    .section-header.china { border-color: #dc3545; background: linear-gradient(90deg, rgba(220,53,69,0.04) 0%, transparent 100%); }
+    .section-header.japan { border-color: #e63946; background: linear-gradient(90deg, rgba(230,57,70,0.04) 0%, transparent 100%); }
+    .section-header.korea { border-color: #457b9d; background: linear-gradient(90deg, rgba(69,123,157,0.04) 0%, transparent 100%); }
+    .section-header.india { border-color: #e07a5f; background: linear-gradient(90deg, rgba(224,122,95,0.04) 0%, transparent 100%); }
+    .section-header.competitor { border-color: #9b59b6; background: linear-gradient(90deg, rgba(155,89,182,0.04) 0%, transparent 100%); }
+    .section-header.implications { border-color: #27ae60; background: linear-gradient(90deg, rgba(39,174,96,0.04) 0%, transparent 100%); }
+    .section-header.sources { border-color: #6c757d; background: linear-gradient(90deg, rgba(108,117,125,0.04) 0%, transparent 100%); }
+    .section-header.holidays { border-color: #f39c12; background: linear-gradient(90deg, rgba(243,156,18,0.04) 0%, transparent 100%); }
+    
+    /* ─────────────────────────────────────────────
+       KEY NUMBERS DASHBOARD: KPI tiles
+       ───────────────────────────────────────────── */
+    .key-numbers {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .kpi-tile {
+      background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+      border-radius: 10px;
+      padding: 16px 12px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      border: 1px solid rgba(0,0,0,0.04);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .kpi-tile:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .kpi-tile .big-number {
+      font-size: 36px;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 4px;
+      letter-spacing: -0.5px;
+    }
+    .kpi-tile .big-number.warm { color: #e07a5f; }
+    .kpi-tile .big-number.cool { color: #457b9d; }
+    .kpi-tile .big-number.red { color: #e63946; }
+    .kpi-tile .big-number.green { color: #2d936c; }
+    .kpi-tile .label {
+      font-size: 12px;
+      color: #6c757d;
+      font-weight: 500;
+      line-height: 1.3;
+    }
+    
+    /* ─────────────────────────────────────────────
+       MARKET SUMMARY: Dark insight cards
+       ───────────────────────────────────────────── */
+    .market-summary {
+      font-size: 15px;
+      font-weight: 500;
+      padding: 14px;
+      margin-bottom: 12px;
+      background: #f0f2f5;
+      color: #1a1a2e;
+      border-radius: 10px;
+      border-left: 4px solid;
+    }
+    .market-summary p {
+      margin: 4px 0;
+      line-height: 1.5;
+    }
+    .market-summary strong {
+      color: #1a1a2e;
+      font-weight: 600;
+    }
+    .market-summary .stat {
+      font-weight: 700;
+    }
+    .market-summary.china { border-color: #dc3545; }
+    .market-summary.japan { border-color: #e63946; }
+    .market-summary.korea { border-color: #457b9d; }
+    .market-summary.india { border-color: #e07a5f; }
+    .market-summary a {
+      color: #adb5bd;
+      font-size: 12px;
+    }
+    .market-summary a:hover {
+      color: #6c757d;
+      text-decoration: underline;
+    }
+    
+    /* ─────────────────────────────────────────────
+       NEWS ITEMS: Clean, readable, with subtle links
+       ───────────────────────────────────────────── */
+    .news-item {
+      padding: 6px 0;
+      border-bottom: 1px solid #f1f3f5;
+      font-size: 14px;
+      color: #2d3436;
+      line-height: 1.5;
+    }
+    .news-item:last-child { border-bottom: none; }
+    .news-item strong {
+      font-weight: 600;
+      color: #1a1a2e;
+      font-size: 15px;
+    }
+    .news-item .stat {
+      font-weight: 600;
+      font-size: 14px;
+    }
+    /* Growth: green spectrum */
+    .stat.up { color: #2d936c; }
+    .stat.up-strong { color: #1a7a52; }
+    /* Decline: red spectrum */
+    .stat.down { color: #dc3545; }
+    .stat.down-mild { color: #e8606d; }
+    /* Neutral/uncertain: orange */
+    .stat.neutral { color: #e07a5f; }
+    .news-item .stat.cool { color: #457b9d; }
+    .news-item .stat.red { color: #e63946; }
+    .news-item .stat.green { color: #2d936c; }
+    .news-item a {
+      color: #6c757d;
+      text-decoration: none;
+      font-size: 12px;
+      margin-left: 4px;
+      transition: color 0.2s;
+    }
+    .news-item a:hover {
+      color: #1a1a2e;
+      text-decoration: underline;
+    }
+    .key-signals .news-item {
+      padding: 12px 0;
+    }
+    
+    /* ─────────────────────────────────────────────
+       TABLES: Refined, minimal
+       ───────────────────────────────────────────── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-top: 8px;
+    }
+    th, td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid #f1f3f5;
+    }
+    th {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      font-weight: 600;
+      color: #495057;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    td { color: #2d3436; }
+    tr:last-child td { border-bottom: none; }
+    
+    /* ─────────────────────────────────────────────
+       FOOTER: Subtle, professional
+       ───────────────────────────────────────────── */
+    footer {
+      margin-top: 32px;
+      padding-top: 20px;
+      border-top: 1px solid #e9ecef;
+      font-size: 12px;
+      color: #adb5bd;
+      text-align: center;
+    }
+    
+    ul { list-style: none; }
+    li { margin-bottom: 0; }
+
+    /* ─────────────────────────────────────────────
+       VISUAL CALENDAR
+       ───────────────────────────────────────────── */
+    .cal-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 8px;
+    }
+    .cal-month-title {
+      font-weight: 700;
+      font-size: 14px;
+      color: #1a1a2e;
+      margin-bottom: 6px;
+      text-align: center;
+    }
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+      font-size: 12px;
+      text-align: center;
+    }
+    .cal-header { font-weight: 600; color: #6c757d; padding: 4px; }
+    .cal-day {
+      padding: 6px 2px;
+      border-radius: 4px;
+      min-height: 32px;
+      position: relative;
+    }
+    .cal-day.empty { background: transparent; }
+    .cal-day.holiday-india { background: #fff3e0; }
+    .cal-day.holiday-japan { background: #fce4ec; }
+    .cal-day.holiday-korea { background: #e3f2fd; }
+    .cal-day.holiday-china { background: #ffebee; }
+    .cal-day.holiday-multi { background: linear-gradient(135deg, #fce4ec 50%, #e3f2fd 50%); }
+    .cal-day.holiday-cn-jp { background: linear-gradient(135deg, #ffebee 50%, #fce4ec 50%); }
+    .cal-day.today { border: 2px solid #1a1a2e; font-weight: 700; }
+    .cal-day .flag { font-size: 9px; display: block; line-height: 1.1; }
+    .cal-legend {
+      margin-top: 12px;
+      font-size: 12px;
+      line-height: 1.9;
+      color: #495057;
+      background: #f8f9fa;
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+    .cal-legend p { margin: 0; }
+    @media (max-width: 480px) {
+      .cal-wrapper { grid-template-columns: 1fr; }
+    }
+    
+    /* ─────────────────────────────────────────────
+       MOBILE OPTIMIZATION
+       ───────────────────────────────────────────── */
+    @media (max-width: 480px) {
+      .container { padding: 0 16px 16px 16px; }
+      header { padding: 24px 16px; margin: -0 -16px 20px -16px; }
+      header h1 { font-size: 22px; }
+      .section { padding: 16px; }
+      .section-header { font-size: 18px; }
+      .page-nav a { padding: 5px 12px; font-size: 12px; }
+      .key-numbers { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .kpi-tile .big-number { font-size: 28px; }
+      .kpi-tile { padding: 14px 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🌏 Asia Travel Weekly</h1>
+      <div class="dates">Apr 3 – Apr 10, 2026</div>
+    </header>
+
+    <nav class="page-nav">
+      <a href="#signals">Key Signals</a>
+      <a href="#implications">Airbnb</a>
+      <a href="#competitors">Competitors</a>
+      <a href="#india">India भारत</a>
+      <a href="#korea">Korea 대한민국</a>
+      <a href="#japan">Japan 日本</a>
+      <a href="#china">China 中国</a>
+      <a href="#holidays">Holidays</a>
+      <a href="#sources">Sources</a>
+    </nav>
+
+    <div class="section key-signals" id="signals">
+      <div class="section-header" style="border-color: #e74c3c;">🔥 KEY SIGNALS THIS WEEK</div>
+      
+      <!-- KEY NUMBERS DASHBOARD -->
+      <div class="key-numbers">
+        <div class="kpi-tile">
+          <div class="big-number green">135M</div>
+          <div class="label">China Qingming trips<br><span class="stat up">+6.8%</span></div>
+        </div>
+        <div class="kpi-tile">
+          <div class="big-number green">8x</div>
+          <div class="label">Korea Goyang searches<br><span class="stat up-strong">BTS effect</span></div>
+        </div>
+        <div class="kpi-tile">
+          <div class="big-number red">¥46K</div>
+          <div class="label">Japan GW spend<br><span class="stat down">-2.1% (first decline)</span></div>
+        </div>
+        <div class="kpi-tile">
+          <div class="big-number warm">$45B</div>
+          <div class="label">India experiential<br>by 2027</div>
+        </div>
+      </div>
+      
+      <div class="news-item">1. <strong>Platform antitrust wave intensifies</strong> — Trip.com's AI pricing tool triggers <span class="stat down">$8B</span> market cap loss + class action lawsuit; MakeMyTrip faces CCI probe in India. Meanwhile Fliggy partners <span class="stat neutral">80+</span> brands on AI integration. <a href="https://www.prnewswire.com/news-releases/tripcom-tcom-sued-after-ai-pricing-controversy-and-anti-monopoly-probe-sends-shares-tumbling----hagens-berman-302731905.html" target="_blank">PR Newswire</a> | <a href="https://news.qq.com/rain/a/20260403A05GRR00" target="_blank">QQ News</a></div>
+      <div class="news-item">2. <strong>K-content tourism explosion</strong> — BTS Arirang World Tour kicks off Apr 9 (Goyang <span class="stat up-strong">8x</span>, Busan <span class="stat up">47%</span>); Korea opens 10-year visas for <span class="stat neutral">14</span> Chinese cities; Japanese GW travelers pick Korea as #1 destination at <span class="stat neutral">25%</span>. <a href="https://www.prnewswire.com/apac/news-releases/agoda-confirms-bts-effecttravel-demand-centers-on-concert-destinations-302732299.html" target="_blank">PR Newswire</a> | <a href="https://www.japantimes.co.jp/news/2026/04/03/japan/golden-week-travel-abroad-increase/" target="_blank">Japan Times</a></div>
+      <div class="news-item">3. <strong>Japan overtourism crackdown accelerates</strong> — Fuji cherry blossom festival cancelled; <span class="stat neutral">20</span> local governments implement accommodation taxes Apr 1; departure tax tripling to <span class="stat neutral">¥3,000</span> from July; Kyoto premium rooms surge <span class="stat up-strong">900%</span>. <a href="https://apnews.com/article/japan-mount-fuji-cherry-blossom-overtourism-215524ca75a3a0a43c7a4e08b53d4bbd" target="_blank">AP News</a> | <a href="https://www.asahi.com/ajw/articles/16393828" target="_blank">Asahi Shimbun</a></div>
+      <div class="news-item">4. <strong>India: First state-level solo women travel policy</strong> — Himachal launches "She Travel Policy 2026" with certified accommodations and female staff; IPL drives Dharamshala hotel bookings <span class="stat up-strong">6x</span>; tier 2/3 lodging units to reach <span class="stat neutral">3.1M</span> by 2029. <a href="https://news.explurger.com/himachal-she-travel-policy-2026-solo-women-travellers/" target="_blank">Explurger News</a> | <a href="https://www.fortuneindia.com/business-news/as-ipl-2026-kicks-off-domestic-tourism-hits-the-road-and-skies/132062" target="_blank">Fortune India</a></div>
+    </div>
+
+    <div class="section" id="implications">
+      <div class="section-header implications">💡 AIRBNB APAC IMPLICATIONS</div>
+      <div class="news-item">1. <strong>Korea multi-channel breakthrough</strong> — Airbnb-Samsung Galaxy Quick Access integration (covered by 20+ Korean outlets) + KakaoTalk AI booking + BTS concert demand (<span class="stat up-strong">120K fans</span> in Goyang) = unprecedented visibility. Japanese GW travelers choosing Korea at <span class="stat neutral">25%</span> — highest among all destinations.</div>
+      <div class="news-item">2. <strong>Japan compliance audit required</strong> — <span class="stat neutral">20</span> local governments now have accommodation taxes; Kyoto requires managers within 10-minute access; Osaka reviewing <span class="stat neutral">2,817</span> minpaku facilities. Per-capita spend declining (<span class="stat down">-2.1%</span>) — consider value-tier listing optimization and compliance verification.</div>
+      <div class="news-item">3. <strong>China family travel opportunity</strong> — Qingming family travel at <span class="stat neutral">37%</span> of bookings; spring break extension creates 6-day holidays; Fliggy hotel bookings <span class="stat up">+40%</span>. Rural tourism surges <span class="stat up">+28.6%</span> — tier 2/3 city listing expansion and kid-friendly amenity optimization.</div>
+    </div>
+
+    <div class="section" id="competitors">
+      <div class="section-header competitor">🏢 COMPETITOR & PLATFORM WATCH</div>
+      <div class="news-item">• <strong>Fliggy x Alibaba Qwen AI: <span class="stat neutral">80+</span> brands integrated</strong> — flyai skill published on ClawHub; hotel bookings <span class="stat up">+40%</span> during Qingming. <a href="https://news.qq.com/rain/a/20260403A05GRR00" target="_blank">QQ News</a></div>
+      <div class="news-item">• <strong>Trip.com AI pricing crisis deepens</strong> — Class action lawsuit filed Apr 4; regulatory investigation ongoing; AI tool shut down Mar 10. <a href="https://www.prnewswire.com/news-releases/tripcom-tcom-sued-after-ai-pricing-controversy-and-anti-monopoly-probe-sends-shares-tumbling----hagens-berman-302731905.html" target="_blank">PR Newswire</a></div>
+      <div class="news-item">• <strong>Yanolja returns e-finance license</strong> — Korea's largest OTA pivots away from financial services, focusing on core travel tech. <a href="https://biz.sbs.co.kr/article_hub/20000303287" target="_blank">SBS Biz</a></div>
+      <div class="news-item">• <strong>Agoda x Busan partnership</strong> — 15% discount campaign for Busan accommodations, targeting international visitors. <a href="https://sports.khan.co.kr/article/202604072352003/" target="_blank">Sports Kyunghyang</a></div>
+    </div>
+
+    <div class="section" id="india">
+      <div class="section-header india">🇮🇳 INDIA भारत</div>
+      <div class="market-summary india">
+        <p>• Experiential travel market targets <strong>$45B by 2027</strong> (+14% CAGR), driven by 18-35 age group (65-70% of bookings).</p>
+        <p>• <strong>93%</strong> of young travelers prefer independent planning over packaged tours.</p>
+        <p>• <strong>Himachal "She Travel Policy 2026"</strong> — First state-level policy for solo women travelers with certified accommodations and female staff.</p>
+        <p>• IPL 2026 drives domestic surge: Dharamshala hotel bookings <strong>6x</strong>, Hyderabad flights <strong>+37%</strong>, Jaipur buses <strong>+83%</strong>.</p>
+        <p>• Tier 2/3 lodging units: <strong>2.48M → 3.1M by 2029</strong>; off-season travel climbing to 63% from 53%.</p>
+        <p>• <strong>91%</strong> prefer nature-based travel, <strong>87%</strong> seek mental wellness trips.</p>
+      </div>
+      <div class="news-item">• <strong>Experiential travel market to hit <span class="stat neutral">$45B by 2027</span></strong> — Growing at <span class="stat up">+14% CAGR</span> with <span class="stat up">93%</span> of youth preferring self-planned itineraries. <a href="https://travel.economictimes.indiatimes.com/amp/news/research-and-statistics/research/experiential-travel-in-india-set-to-dominate-tourism-by-2030/130082553" target="_blank">ET Travel World</a></div>
+      <div class="news-item">• <strong>Himachal launches "She Travel Policy 2026"</strong> — First state-level policy dedicated to solo women travelers: certified women-friendly accommodations, trained female staff, improved lighting, quick-response mechanisms. <a href="https://news.explurger.com/himachal-she-travel-policy-2026-solo-women-travellers/" target="_blank">Explurger News</a></div>
+      <div class="news-item">• <strong>IPL 2026 drives domestic tourism surge</strong> — Dharamshala hotel bookings surge <span class="stat up-strong">6x</span>; Hyderabad flight bookings <span class="stat up">+37%</span> week-on-week; Guwahati <span class="stat up">+27%</span>; Jaipur bus bookings <span class="stat up">+83%</span>. <a href="https://www.fortuneindia.com/business-news/as-ipl-2026-kicks-off-domestic-tourism-hits-the-road-and-skies/132062" target="_blank">Fortune India</a></div>
+      <div class="news-item">• <strong>Tier 2/3 cities emerge as growth engines</strong> — Lodging units: <span class="stat neutral">2.48M</span> → <span class="stat neutral">3.1M by 2029</span>; domestic travel searches rose from <span class="stat neutral">103M/month</span> (2022) to <span class="stat neutral">141M</span> (2024). <a href="https://www.travelandleisureasia.com/in/destinations/india/beyond-the-guidebook-india-uncharted/" target="_blank">Travel + Leisure Asia</a></div>
+      <div class="news-item">• <strong>Nature and wellness dominate preferences</strong> — <span class="stat up">91%</span> prefer nature destinations; <span class="stat up">87%</span> seek mental reset trips; Himachal Pradesh recognized as most welcoming region in Booking.com Traveller Review Awards 2026. <a href="https://curlytales.com/india/trending/travel-trends-travellers-prefer-nature-trips-while-seek-trips-to-mentally-unwind/" target="_blank">Curly Tales</a></div>
+      <div class="news-item">• <strong>Outbound budgets rise amid weak rupee</strong> — Average international trip budget increased from ₹2-3 lakh to <span class="stat neutral">₹3-5 lakh</span> for long-haul; booking window extends to 6-10 weeks in advance. <a href="https://bottindia.com/weak-rupee-higher-budgets-how-indian-travel-spending-is-shifting-in-2026/" target="_blank">BOTT</a></div>
+      <div class="news-item">• 🐦 <strong>Thailand-India tourism surge</strong> — Thailand welcomed <span class="stat neutral">2.48M</span> Indian visitors in 2025; with 500+ weekly flights, arrivals expected to rise further as PMs meet. <a href="https://x.com/ThaiEnquirer/status/2041458002423931388" target="_blank">X/Twitter</a></div>
+    </div>
+
+    <div class="section" id="korea">
+      <div class="section-header korea">🇰🇷 KOREA 대한민국</div>
+      <div class="market-summary korea">
+        <p>• <strong>BTS Arirang World Tour kicks off Apr 9</strong> — 34 cities through 2027; Goyang accommodation searches <strong>8x</strong>, Busan <strong>47%</strong>; 120K fans expected in Goyang, 45K in Busan.</p>
+        <p>• <strong>Airbnb × Samsung Galaxy Quick Access</strong> — Airbnb added to Samsung Internet's default browser menu across 49 countries; covered by 20+ Korean outlets.</p>
+        <p>• <strong>Aviation fuel crisis</strong> — Domestic fuel surcharges quadruple: <strong>7,700 → 34,100 won</strong> one-way for May; Korean Air in emergency mode.</p>
+        <p>• <strong>10-year visa for 14 Chinese cities</strong> — Aggressive capture of outbound recovery; digital arrival cards mandatory from Apr 1.</p>
+        <p>• <strong>Japanese Golden Week: Korea #1 destination</strong> — 570K Japanese traveling abroad; <strong>25%</strong> choose South Korea.</p>
+        <p>• <strong>Illegal STR crackdown intensifies</strong> — Registration requires floor area under 230㎡; operating without accommodation business report is illegal.</p>
+      </div>
+      <div class="news-item">• <strong>BTS Arirang World Tour drives accommodation boom</strong> — Tour kicks off Apr 9 in Goyang (3 nights); Goyang searches <span class="stat up-strong">8x</span>, Busan <span class="stat up">47%</span>; 120,000 ARMY expected in Goyang, 45,000 in Busan. Cities implement price controls and discount events. <a href="https://www.prnewswire.com/apac/news-releases/agoda-confirms-bts-effecttravel-demand-centers-on-concert-destinations-302732299.html" target="_blank">PR Newswire</a> | <a href="https://en.sedaily.com/society/2026/04/07/120000-army-coming-goyang-busan-brace-for-bts-concert-boom" target="_blank">Seoul Economic Daily</a></div>
+      <div class="news-item">• <strong>Airbnb × Samsung Galaxy partnership</strong> — Airbnb integrated into Samsung Internet's "Quick Access" (빠른 실행) menu on Galaxy devices across 49 countries. Covered by 전자신문, 뉴시스, 매일경제, and 20+ outlets. <a href="https://www.southkoreannetwork.com/2026/04/airbnb-partners-with-samsung-to.html" target="_blank">South Korean Network</a> | <a href="https://www.insight.co.kr/news/549498" target="_blank">Insight</a></div>
+      <div class="news-item">• <strong>Aviation fuel surcharges quadruple</strong> — Domestic fuel surcharge set at <span class="stat neutral">34,100 won</span> per one-way for May — more than 4x April level of <span class="stat neutral">7,700 won</span>. Jet fuel up 50%+ since late February; Korean Air in emergency management mode. <a href="https://en.sedaily.com/finance/2026/04/07/fuel-surcharges-vary-wildly-across-airlines" target="_blank">Seoul Economic Daily</a></div>
+      <div class="news-item">• <strong>10-year multiple visa for 14 Chinese cities</strong> — South Korea widens tourism door to Chinese travelers; digital arrival cards mandatory from Apr 1, 2026. <a href="https://www.travelweekly-asia.com/Travel-News/Government/South-Korea-widens-tourism-door-to-Chinese-travellers" target="_blank">Travel Weekly Asia</a> | <a href="https://www.visahq.com/news/2026-04-07/cn/south-korea-offers-10-year-multiple-entry-visas-to-residents-of-14-mainland-chinese-cities/" target="_blank">VisaHQ</a></div>
+      <div class="news-item">• <strong>Japan Golden Week: Korea tops destination list</strong> — 570,000 Japanese plan overseas travel during Golden Week; South Korea is #1 at <span class="stat neutral">25.0%</span>, followed by Taiwan 16.3%. <a href="https://www.japantimes.co.jp/news/2026/04/03/japan/golden-week-travel-abroad-increase/" target="_blank">Japan Times</a></div>
+      <div class="news-item">• <strong>STR registration enforcement tightens</strong> — From 2026, registration requires floor area under 230㎡; permit info submission mandatory; operating without accommodation business report is illegal. <a href="https://www.m-i.kr/news/articleView.html?idxno=1361568" target="_blank">매일일보</a></div>
+      <div class="news-item">• <strong>Inbound tourism momentum continues</strong> — February foreign visitors <span class="stat up">1.43M (+25.7% YoY)</span>; Busan Q1 2026 transaction value <span class="stat up-strong">+530%</span> YoY; repeat visitors widening itineraries to provinces. <a href="https://www.traveldaily.co.kr/news/articleView.html?idxno=70485" target="_blank">Travel Daily Korea</a> | <a href="https://biz.chosun.com/en/en-retail/2026/04/06/S27RTQMQSVEYNIYVEY2ZHEXL6Q/" target="_blank">CHOSUNBIZ</a></div>
+      <div class="news-item">• 🐦 <strong>Spring cherry blossoms in full bloom</strong> — VisitKorea highlights Yeouido Hangang Park as perfect cherry blossom picnic spot; late March to mid-April peak season across the country. <a href="https://twitter.com/KoreanTravel/status/2041788140369981813" target="_blank">X/Twitter</a></div>
+    </div>
+
+    <div class="section" id="japan">
+      <div class="section-header japan">🇯🇵 JAPAN 日本</div>
+      <div class="market-summary japan">
+        <p>• Record <strong>42.7M inbound in 2025</strong>; Feb 2026 hit <strong>3.46M</strong> monthly — government targets 60M by 2030.</p>
+        <p>• <strong>Golden Week 2026: 24.47M trips (+1.9%)</strong> but per-capita spend falls to <strong>¥46K (-2.1%)</strong> — first decline on record.</p>
+        <p>• <strong>Departure tax tripling to ¥3,000</strong> from July 2026 as part of overtourism management.</p>
+        <p>• <strong>20 local governments</strong> implement accommodation taxes as of Apr 1; Kyoto premium rooms jump <strong>900%</strong>.</p>
+        <p>• <strong>Minpaku enforcement tightens</strong> — Osaka reviewing 2,817 facilities; Kyoto requires managers within 10-minute access.</p>
+        <p>• <strong>Gaming tourism emerges</strong> — Nintendo Switch releases driving fan pilgrimages across Japan and Asia.</p>
+      </div>
+      <div class="news-item">• <strong>Golden Week 2026: Volume up, spend down</strong> — <span class="stat up">24.47M trips (+1.9%)</span> but per-capita spend <span class="stat down">¥46K (-2.1%)</span>; first decline since 2020 pandemic. One-night, two-day trips most popular. <a href="https://mainichi.jp/english/articles/20260403/p2g/00m/0na/010000c" target="_blank">The Mainichi</a> | <a href="https://www.jtbcorp.jp/jp/newsroom/2026/04/02_jtb_2026gw-travel-trend-outlook.html" target="_blank">JTB</a></div>
+      <div class="news-item">• <strong>International departure tax triples</strong> — From <span class="stat neutral">¥1,000</span> to <span class="stat neutral">¥3,000</span> per traveler from July 2026; part of broader tourism policy evolution to manage visitor growth. <a href="https://www.travelandtourworld.com/news/article/japans-tourism-tax-hike-reshapes-travel-departure-fees-visitor-costs-and-effects-on-tourism-growth-all-you-need-to-know/" target="_blank">Travel And Tour World</a></div>
+      <div class="news-item">• <strong>Accommodation tax spreads nationwide</strong> — <span class="stat neutral">20</span> local governments implemented as of Apr 1, 2026; <span class="stat neutral">35</span> more planned within fiscal 2026. Kyoto tourism tax revenue projected to double to <span class="stat neutral">13.2B yen</span>. <a href="https://www.asahi.com/ajw/articles/16393828" target="_blank">Asahi Shimbun</a> | <a href="https://livejapan.com/en/in-hokkaido/in-pref-hokkaido/in-sapporo_chitose/article-a0005864/" target="_blank">LIVE JAPAN</a></div>
+      <div class="news-item">• <strong>Kyoto premium room rates surge 900%</strong> — March 2026 sees dramatic price increases for premium accommodations amid overtourism pressures. <a href="https://www.travelandtourworld.com/news/article/japan-hikes-tourist-costs-as-it-adds-new-tax-to-stay-in-the-country-amid-overtourism-surge/" target="_blank">Travel And Tour World</a></div>
+      <div class="news-item">• <strong>Minpaku enforcement intensifies</strong> — Osaka examining <span class="stat neutral">2,817</span> facilities in fiscal 2026; Kyoto maintains Japan's strictest rules (managers within 10-minute access). <a href="https://www.asahi.com/ajw/articles/16462987" target="_blank">Asahi Shimbun</a> | <a href="https://www.asahi.com/ajw/articles/16443430" target="_blank">Asahi Shimbun</a></div>
+      <div class="news-item">• <strong>Mount Fuji cherry blossom festival cancelled</strong> — Fujiyoshida scraps annual event due to overtourism; locals call it "tourism pollution." Overtourism also affecting Kyoto and Kamakura. <a href="https://apnews.com/article/japan-mount-fuji-cherry-blossom-overtourism-215524ca75a3a0a43c7a4e08b53d4bbd" target="_blank">AP News</a></div>
+      <div class="news-item">• <strong>Gaming tourism emerges as new trend</strong> — Nintendo Switch physical releases (Pilo and the Holobook, Apr 16) spark Asia-Japan fan journeys; gaming culture driving travel interest. <a href="https://www.travelandtourworld.com/news/article/travel-meets-gaming-tourism-boom-as-pilo-and-the-holobook-nintendo-switch-release-sparks-asia-japan-fan-journeys-ahead-of-april-launch/" target="_blank">Travel And Tour World</a></div>
+      <div class="news-item">• 🐦 <strong>Viral: "Japan's $9B cherry blossom economy runs on a 7-day window"</strong> — @aakashgupta's thread (5.4K likes, 907K views) highlights 2026 bloom arrived 6-9 days early; <span class="stat neutral">¥1.39T</span> hanami impact in 2025, <span class="stat up">25%+</span> international tourists. <a href="https://x.com/aakashgupta/status/2040444542118445518" target="_blank">X/Twitter</a></div>
+    </div>
+
+    <div class="section" id="china">
+      <div class="section-header china">🇨🇳 CHINA 中国</div>
+      <div class="market-summary china">
+        <p>• <strong>Qingming holiday: 135M trips (+6.8%)</strong>, ¥61.4B spend; rural tourism leads with <strong>2.59M visitors (+28.6%)</strong>.</p>
+        <p>• <strong>Spring break + Qingming = 6-day holiday</strong> — Family travel accounts for <strong>37%</strong> of bookings; Fliggy hotel reservations <strong>+40%</strong>, 88VIP rooms <strong>+80%</strong>.</p>
+        <p>• <strong>Color Walk trend explodes</strong> — <strong>27K Xiaohongshu notes</strong> as users share aesthetic neighborhood walks; post-City Walk evolution.</p>
+        <p>• <strong>Platform wars</strong> — Fliggy's AI push (80+ brands) vs. Trip.com's antitrust crisis (<strong>$8B market cap loss</strong>).</p>
+        <p>• <strong>Inbound doubles on visa-free expansion</strong> — Visa-free country bookings grow 3x faster than overall market.</p>
+      </div>
+      <div class="news-item">• <strong>Qingming holiday: <span class="stat up">135M trips, +6.8% YoY</span></strong> — Total spend <span class="stat neutral">¥61.4B</span>; rural tourism leads with <span class="stat neutral">2.59M visitors (+28.6%)</span>. Cross-regional movements reach <span class="stat neutral">845M</span>. <a href="https://www.chinanews.com.cn/gn/2026/04-07/10599898.shtml" target="_blank">中国新闻网</a> | <a href="https://china.chinadaily.com.cn/a/202604/08/WS69d65480a310942cc49a6da0.html" target="_blank">China Daily</a></div>
+      <div class="news-item">• <strong>Spring break extension drives family travel</strong> — Family travel accounts for <span class="stat neutral">37%</span> of bookings (up 20 percentage points YoY); Fliggy hotel reservations <span class="stat up">+40%</span>, 88VIP room nights <span class="stat up-strong">+80%</span>; under-18 air passengers <span class="stat up">+47%</span>. <a href="https://www.pai.com.cn/p/01kngdwrmn000jsfdgkmc0shn0" target="_blank">飞猪</a> | <a href="https://finance.sina.cn/2026-04-08/detail-inhtuyvs2609132.d.html" target="_blank">Sina Finance</a></div>
+      <div class="news-item">• <strong>Color Walk trend explodes on Xiaohongshu</strong> — <span class="stat neutral">27K notes</span> as users share aesthetic neighborhood walks by color theme; emerges as low-cost emotional healing trend post-City Walk. <a href="https://www.chinanews.com.cn/cj/2026/04-04/10598718.shtml" target="_blank">中国新闻网</a> | <a href="https://english.news.cn/20260408/b3b755ed84d440adbe2cae530579318f/c.html" target="_blank">Xinhua</a></div>
+      <div class="news-item">• <strong>Fliggy AI push: <span class="stat neutral">80+</span> brands integrated</strong> — Partnership with Alibaba Qwen; flyai skill published on ClawHub; hotel bookings <span class="stat up">+40%</span> during Qingming. <a href="https://news.qq.com/rain/a/20260403A05GRR00" target="_blank">QQ News</a></div>
+      <div class="news-item">• <strong>Trip.com antitrust crisis deepens</strong> — AI pricing tool triggers <span class="stat down">$8B</span> market cap loss; class action lawsuit filed Apr 4; tool shut down Mar 10. <a href="https://www.prnewswire.com/news-releases/tripcom-tcom-sued-after-ai-pricing-controversy-and-anti-monopoly-probe-sends-shares-tumbling----hagens-berman-302731905.html" target="_blank">PR Newswire</a></div>
+      <div class="news-item">• <strong>Inbound travel doubles on visa-free expansion</strong> — Visa-free country bookings grow <span class="stat up">3x faster</span> than overall market; Korea, Thailand, Malaysia top outbound picks. <a href="https://finance.sina.cn/2026-04-07/detail-inhtqxft7629536.d.html" target="_blank">Sina Finance</a></div>
+      <div class="news-item">• <strong>Theme parks, museums, zoos surge</strong> — Bookings up <span class="stat up-strong">+120%</span> week-over-week during spring break/Qingming period; experiential consumption becomes mainstream. <a href="https://finance.sina.cn/2026-04-08/detail-inhtuyvs2609132.d.html" target="_blank">Sina Finance</a></div>
+    </div>
+
+    <div class="section" id="holidays">
+      <div class="section-header holidays">📅 UPCOMING HOLIDAYS & TRAVEL PEAKS (Apr 10 – May 10)</div>
+      <!-- Visual Calendar: April + May 2026 -->
+      <div class="cal-wrapper">
+        <!-- APRIL 2026 (Apr 1 = Wednesday) -->
+        <div class="cal-month">
+          <div class="cal-month-title">April 2026</div>
+          <div class="cal-grid">
+            <div class="cal-header">Mon</div><div class="cal-header">Tue</div><div class="cal-header">Wed</div><div class="cal-header">Thu</div><div class="cal-header">Fri</div><div class="cal-header">Sat</div><div class="cal-header">Sun</div>
+            <!-- Week 1: Apr 1 = Wed -->
+            <div class="cal-day empty"></div>
+            <div class="cal-day empty"></div>
+            <div class="cal-day">1</div>
+            <div class="cal-day">2</div>
+            <div class="cal-day">3</div>
+            <div class="cal-day">4</div>
+            <div class="cal-day">5</div>
+            <!-- Week 2 -->
+            <div class="cal-day">6</div>
+            <div class="cal-day">7</div>
+            <div class="cal-day">8</div>
+            <div class="cal-day">9</div>
+            <div class="cal-day today" title="Today">10</div>
+            <div class="cal-day">11</div>
+            <div class="cal-day">12</div>
+            <!-- Week 3 -->
+            <div class="cal-day holiday-india" title="🇮🇳 Baisakhi / Tamil New Year / Vishu">13<span class="flag">🇮🇳</span></div>
+            <div class="cal-day holiday-india" title="🇮🇳 Ambedkar Jayanti">14<span class="flag">🇮🇳</span></div>
+            <div class="cal-day">15</div>
+            <div class="cal-day">16</div>
+            <div class="cal-day">17</div>
+            <div class="cal-day">18</div>
+            <div class="cal-day">19</div>
+            <!-- Week 4 -->
+            <div class="cal-day">20</div>
+            <div class="cal-day">21</div>
+            <div class="cal-day">22</div>
+            <div class="cal-day">23</div>
+            <div class="cal-day">24</div>
+            <div class="cal-day holiday-japan" title="🇯🇵 Golden Week begins">25<span class="flag">🇯🇵</span></div>
+            <div class="cal-day holiday-japan" title="🇯🇵 Golden Week">26<span class="flag">🇯🇵</span></div>
+            <!-- Week 5 -->
+            <div class="cal-day holiday-japan" title="🇯🇵 Golden Week">27<span class="flag">🇯🇵</span></div>
+            <div class="cal-day holiday-japan" title="🇯🇵 Golden Week">28<span class="flag">🇯🇵</span></div>
+            <div class="cal-day holiday-japan" title="🇯🇵 Showa Day (Golden Week)">29<span class="flag">🇯🇵</span></div>
+            <div class="cal-day holiday-japan" title="🇯🇵 Golden Week">30<span class="flag">🇯🇵</span></div>
+            <div class="cal-day empty"></div>
+          </div>
+        </div>
+
+        <!-- MAY 2026 (May 1 = Friday) -->
+        <div class="cal-month">
+          <div class="cal-month-title">May 2026</div>
+          <div class="cal-grid">
+            <div class="cal-header">Mon</div><div class="cal-header">Tue</div><div class="cal-header">Wed</div><div class="cal-header">Thu</div><div class="cal-header">Fri</div><div class="cal-header">Sat</div><div class="cal-header">Sun</div>
+            <!-- Week 1: May 1 = Fri -->
+            <div class="cal-day empty"></div>
+            <div class="cal-day empty"></div>
+            <div class="cal-day empty"></div>
+            <div class="cal-day empty"></div>
+            <div class="cal-day holiday-cn-jp" title="🇨🇳 China Labor Day | 🇯🇵 Golden Week | 🇰🇷 Korea Labor Day | 🇮🇳 Maharashtra Day">1<span class="flag">🇨🇳🇯🇵</span></div>
+            <div class="cal-day holiday-cn-jp" title="🇨🇳 China Labor Day | 🇯🇵 Golden Week">2<span class="flag">🇨🇳🇯🇵</span></div>
+            <div class="cal-day holiday-cn-jp" title="🇯🇵 Constitution Day (Golden Week) | 🇨🇳 China Labor Day">3<span class="flag">🇯🇵🇨🇳</span></div>
+            <!-- Week 2 -->
+            <div class="cal-day holiday-cn-jp" title="🇯🇵 Golden Week | 🇨🇳 China Labor Day">4<span class="flag">🇯🇵🇨🇳</span></div>
+            <div class="cal-day holiday-multi" title="🇯🇵 Children's Day (Golden Week) | 🇰🇷 Children's Day | 🇨🇳 China Labor Day ends">5<span class="flag">🇯🇵🇰🇷</span></div>
+            <div class="cal-day holiday-multi" title="🇯🇵 Golden Week ends | 🇰🇷 Buddha's Birthday">6<span class="flag">🇯🇵🇰🇷</span></div>
+            <div class="cal-day">7</div>
+            <div class="cal-day">8</div>
+            <div class="cal-day">9</div>
+            <div class="cal-day">10</div>
+            <!-- Week 3 -->
+            <div class="cal-day holiday-india" title="🇮🇳 Buddha Purnima">11<span class="flag">🇮🇳</span></div>
+            <div class="cal-day">12</div>
+            <div class="cal-day">13</div>
+            <div class="cal-day">14</div>
+            <div class="cal-day">15</div>
+            <div class="cal-day">16</div>
+            <div class="cal-day">17</div>
+            <!-- Week 4 -->
+            <div class="cal-day">18</div>
+            <div class="cal-day">19</div>
+            <div class="cal-day">20</div>
+            <div class="cal-day">21</div>
+            <div class="cal-day">22</div>
+            <div class="cal-day">23</div>
+            <div class="cal-day">24</div>
+            <!-- Week 5 -->
+            <div class="cal-day">25</div>
+            <div class="cal-day">26</div>
+            <div class="cal-day">27</div>
+            <div class="cal-day">28</div>
+            <div class="cal-day">29</div>
+            <div class="cal-day">30</div>
+            <div class="cal-day">31</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Legend -->
+      <div class="cal-legend">
+        <p><strong>Legend:</strong></p>
+        <p>🇮🇳 <strong>Apr 13 (Mon)</strong> Baisakhi / Tamil New Year / Vishu — Major domestic spike in Punjab, Tamil Nadu, Kerala</p>
+        <p>🇮🇳 <strong>Apr 14 (Tue)</strong> Ambedkar Jayanti — Government holiday</p>
+        <p>🇯🇵 <strong>Apr 25 (Sat) – May 6 (Tue)</strong> Golden Week — 24.47M trips expected; per-capita ¥46K (-2.1%, first-ever decline)</p>
+        <p>🇯🇵 <strong>Apr 29 (Wed)</strong> Showa Day (昭和の日) — Within Golden Week</p>
+        <p>🇨🇳🇯🇵🇰🇷 <strong>May 1 (Fri) – May 5 (Tue)</strong> China Labor Day overlap with Golden Week + Korea Labor Day — Massive domestic + outbound surge</p>
+        <p>🇯🇵🇰🇷 <strong>May 5 (Tue)</strong> Children's Day (こどもの日 / 어린이날) — Peak family travel; theme parks packed</p>
+        <p>🇰🇷 <strong>May 6 (Wed)</strong> Buddha's Birthday (석가탄신일) — Public holiday, temple tourism surge</p>
+        <p>🇮🇳 <strong>May 11 (Mon)</strong> Buddha Purnima — Spiritual tourism</p>
+      </div>
+    </div>
+
+    <div class="section" id="sources">
+      <div class="section-header sources">📋 SOURCES AUDIT</div>
+      <table>
+        <tr><th>Country</th><th>Sources</th></tr>
+        <tr><td>🇮🇳 India</td><td>ET Travel World, Explurger News, Fortune India, Travel + Leisure Asia, Curly Tales, BOTT, The Tribune, Times of India, Stayvista, Sarkari Tel, News18, Travel And Tour World</td></tr>
+        <tr><td>🇰🇷 Korea</td><td>PR Newswire, Seoul Economic Daily, South Korean Network, Insight, Travel Weekly Asia, VisaHQ, Japan Times, 매일일보, Travel Daily Korea, CHOSUNBIZ, SBS Biz, Sports Kyunghyang</td></tr>
+        <tr><td>🇯🇵 Japan</td><td>The Mainichi, JTB, Travel And Tour World, Asahi Shimbun, LIVE JAPAN, AP News, Japan Forward, Travel Voice, Kyodo News</td></tr>
+        <tr><td>🇨🇳 China</td><td>中国新闻网，China Daily, 飞猪，Sina Finance, Xinhua, QQ News, PR Newswire, CGTN</td></tr>
+        <tr><td>🐦 Twitter/X</td><td>@ThaiEnquirer, @KoreanTravel (VisitKorea), @aakashgupta</td></tr>
+      </table>
+    </div>
+
+    <footer>
+      Powered by 🦞 Max (小可) | Sources as of Apr 10, 2026
+    </footer>
+  </div>
+
+  <script>
+    // Active nav highlight on scroll
+    const sections = document.querySelectorAll('.section');
+    const navLinks = document.querySelectorAll('.page-nav a');
+    
+    window.addEventListener('scroll', () => {
+      const scrollPos = window.scrollY + 100;
+      
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        const sectionId = section.getAttribute('id');
+        
+        if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+          navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + sectionId) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
