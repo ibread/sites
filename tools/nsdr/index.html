@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🧘 NSDR Practice</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { 
+    font-family: -apple-system, system-ui, sans-serif;
+    background: #0a0a0a; color: #e0e0e0;
+    display: flex; flex-direction: column; align-items: center;
+    min-height: 100vh; padding: 20px;
+  }
+  h1 { font-size: 1.6rem; margin: 24px 0 8px; }
+  .subtitle { color: #888; font-size: 0.9rem; margin-bottom: 24px; }
+  .player-card {
+    width: 100%; max-width: 480px;
+    background: #1a1a2e; border-radius: 20px;
+    padding: 32px 24px; text-align: center;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  }
+  .player-icon { font-size: 4rem; margin-bottom: 16px; }
+  .player-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 4px; }
+  .player-author { color: #888; font-size: 0.85rem; margin-bottom: 20px; }
+  audio { width: 100%; margin: 16px 0; border-radius: 8px; }
+  .timer { font-size: 2.5rem; font-weight: 300; color: #4CAF50; margin: 16px 0 8px; font-variant-numeric: tabular-nums; }
+  .timer-label { color: #666; font-size: 0.8rem; margin-bottom: 20px; }
+  .checkin-btn {
+    margin-top: 24px; padding: 16px 48px;
+    font-size: 1.1rem; font-weight: 600;
+    background: linear-gradient(135deg, #4CAF50, #2E7D32);
+    color: white; border: none; border-radius: 50px;
+    cursor: pointer; transition: all 0.3s;
+    text-decoration: none; display: inline-block;
+    opacity: 0.4; pointer-events: none;
+  }
+  .checkin-btn.active { opacity: 1; pointer-events: auto; }
+  .checkin-btn:hover { transform: scale(1.05); box-shadow: 0 4px 20px rgba(76,175,80,0.4); }
+  .checkin-btn:active { transform: scale(0.98); }
+  .checkin-btn.done { background: linear-gradient(135deg, #666, #444); pointer-events: none; opacity: 1; }
+  .tip { margin-top: 12px; color: #555; font-size: 0.75rem; }
+</style>
+</head>
+<body>
+  <h1>🧘 NSDR Practice</h1>
+  <p class="subtitle">Non-Sleep Deep Rest · 10 min</p>
+  <div class="player-card">
+    <div class="player-icon">🌊</div>
+    <div class="player-title">NSDR Protocol</div>
+    <div class="player-author">Andrew Huberman</div>
+    <audio id="audio" preload="auto" controls>
+      <source src="nsdr.mp3" type="audio/mpeg">
+    </audio>
+    <div class="timer" id="timer">10:49</div>
+    <div class="timer-label">remaining</div>
+  </div>
+  <a id="checkinBtn" class="checkin-btn" href="tg://resolve?domain=dkongclaw_bot&text=NSDR%20done" onclick="markDone()">
+    ✅ 打卡完成
+  </a>
+  <p class="tip" id="tip">完成练习后打卡按钮将亮起</p>
+  <script>
+    const audio = document.getElementById('audio');
+    const timer = document.getElementById('timer');
+    const btn = document.getElementById('checkinBtn');
+    const tip = document.getElementById('tip');
+    function fmt(s) {
+      const m = Math.floor(s / 60);
+      const sec = Math.floor(s % 60);
+      return m + ':' + String(sec).padStart(2, '0');
+    }
+    audio.addEventListener('timeupdate', () => {
+      const rem = Math.max(0, audio.duration - audio.currentTime);
+      timer.textContent = fmt(rem);
+      if (audio.currentTime / audio.duration > 0.8) {
+        btn.classList.add('active');
+        tip.textContent = '练习完成！点击打卡 →';
+      }
+    });
+    audio.addEventListener('ended', () => {
+      btn.classList.add('active');
+      tip.textContent = '🎉 练习完成！点击打卡';
+    });
+    function markDone() {
+      setTimeout(() => {
+        btn.textContent = '🎉 已打卡';
+        btn.classList.add('done');
+        tip.textContent = '记录已发送到 Telegram';
+      }, 300);
+    }
+  </script>
+</body>
+</html>
