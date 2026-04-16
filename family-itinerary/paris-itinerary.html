@@ -427,7 +427,7 @@ function selectDay(n) {
 
   layout.classList.remove('checklist-fullscreen');
   document.getElementById('map').style.display = '';
-  allergyBanner.style.display = '';
+  allergyBanner.style.display = 'none';
   dayContent.style.display = 'none';
   checklistWrap.style.display = 'none';
   overviewWrap.style.display = 'none';
@@ -435,6 +435,7 @@ function selectDay(n) {
   if (n === 0) {
     layout.classList.add('checklist-fullscreen');
     document.getElementById('map').style.display = 'none';
+    allergyBanner.style.display = '';
     overviewWrap.style.display = 'block';
     renderOverview();
     return;
