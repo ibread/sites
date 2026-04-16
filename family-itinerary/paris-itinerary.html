@@ -441,7 +441,7 @@ function selectDay(n) {
     // fit map to all spots
     const allBounds = [];
     days.forEach(d => d.spots.forEach(s => allBounds.push([s.lat, s.lng])));
-    if (allBounds.length) map.fitBounds(allBounds, { padding: [60,60] });
+    if (allBounds.length) map.fitBounds(allBounds, { padding: [30,30], paddingTopLeft: [30,80], paddingBottomRight: [30,30] });
     return;
   }
   if (n === 7) {
@@ -512,7 +512,7 @@ function selectDay(n) {
       const s = day.spots[i], nx = day.spots[i+1];
       bounds.push([(s.lat+nx.lat)/2, (s.lng+nx.lng)/2]);
     }
-    map.fitBounds(bounds, { padding: [60,60] });
+    map.fitBounds(bounds, { padding: [30,30], paddingTopLeft: [30,80], paddingBottomRight: [30,30] });
   }
 }
 
@@ -553,6 +553,7 @@ window.onload = () => {
   document.getElementById('allergy-banner').innerHTML = i18n[lang].allergy;
   renderTabs();
   selectDay(1);
+  setTimeout(() => { map.invalidateSize(); selectDay(currentDay); }, 200);
 };
 </script>
 </body>
