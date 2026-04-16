@@ -221,7 +221,7 @@ async function sha256(str) {
 })();
 
 // ── Language ──
-let lang = 'zh';
+let lang = new URLSearchParams(window.location.search).get('lang') === 'en' ? 'en' : 'zh';
 
 const i18n = {
   zh: {
@@ -542,8 +542,11 @@ function renderChecklist() {
 
 window.onload = () => {
   initMap();
-  renderTabs();
+  document.getElementById('lang-btn').textContent = i18n[lang].langBtn;
+  document.getElementById('hdr-title').innerHTML = i18n[lang].title;
+  document.getElementById('hdr-sub').textContent = i18n[lang].sub;
   document.getElementById('allergy-banner').innerHTML = i18n[lang].allergy;
+  renderTabs();
   selectDay(1);
 };
 </script>
