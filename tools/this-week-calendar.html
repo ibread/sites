@@ -1,316 +1,96 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>家庭日程表 4月6日 - 4月12日</title>
-    <style>
-        body {
-            font-family: -apple-system, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
-            margin: 20px;
-            background: #f5f5f5;
-        }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px 8px;
-            text-align: left;
-        }
-        th {
-            background: #4a90d9;
-            color: white;
-            font-weight: bold;
-            text-align: center;
-        }
-        tr:nth-child(even) {
-            background: #f9f9f9;
-        }
-        tr:hover {
-            background: #f0f7ff;
-        }
-        .time {
-            text-align: center;
-            font-family: monospace;
-            font-size: 14px;
-        }
-        .weekday {
-            text-align: center;
-            font-weight: bold;
-        }
-        .item {
-            text-align: left;
-        }
-        .caregiver {
-            text-align: center;
-            font-size: 18px;
-            white-space: nowrap;
-        }
-        @media print {
-            body {
-                background: white;
-                margin: 0;
-            }
-            .container {
-                box-shadow: none;
-                padding: 10px;
-            }
-            @page {
-                size: A4;
-                margin: 1cm;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>孔雀 & 玥玥 下周日程 (4/20-4/26)</title>
+<style>
+  @media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "PingFang SC", sans-serif; padding: 20px; background: #fff; color: #333; }
+  h1 { text-align: center; font-size: 24px; margin-bottom: 5px; }
+  .subtitle { text-align: center; color: #999; font-size: 14px; margin-bottom: 20px; }
+  .day-section { margin-bottom: 20px; break-inside: avoid; }
+  .day-header { background: #ff6b6b; color: white; padding: 8px 16px; border-radius: 8px 8px 0 0; font-size: 18px; font-weight: bold; }
+  .day-header .date { font-weight: normal; font-size: 14px; margin-left: 10px; }
+  .events-table { width: 100%; border-collapse: collapse; }
+  .events-table td { padding: 8px 12px; border: 1px solid #eee; vertical-align: top; font-size: 15px; }
+  .events-table tr:nth-child(even) { background: #fafafa; }
+  .time-col { width: 110px; color: #666; white-space: nowrap; }
+  .who-col { width: 60px; text-align: center; }
+  .who-kongque { background: #fff0f0; color: #ff6b6b; font-weight: bold; border-radius: 4px; padding: 2px 6px; }
+  .who-yueyue { background: #f0f0ff; color: #6b6bff; font-weight: bold; border-radius: 4px; padding: 2px 6px; }
+  .escort { color: #999; font-size: 13px; }
+  .allday { background: #fff9e6; font-style: italic; }
+  .legend { text-align: center; margin-top: 15px; font-size: 13px; color: #999; }
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>📅 家庭日程表（4月6日 - 4月12日）</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th style="width: 80px;">星期</th>
-                    <th style="width: 120px;">时间</th>
-                    <th>事项</th>
-                    <th style="width: 70px;">焦姐</th>
-                    <th style="width: 70px;">马姐</th>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="weekday" rowspan="3">周一</td>
-                    <td class="time">16:00-16:10</td>
-                    <td class="item">🦚 接孔雀 棕榈泉</td>
-                    <td class="caregiver"></td>
-                    <td class="caregiver">🦚</td>
-                </tr>
-                <tr>
-                    <td class="time">16:30-17:00</td>
-                    <td class="item">🦚 孔雀英文阅读 bug Club iPad</td>
-                    <td class="caregiver"></td>
-                    <td class="caregiver">🦚</td>
-                </tr>
-                <tr>
-                    <td class="time">17:30-19:00</td>
-                    <td class="item">🦚 孔雀舞蹈课</td>
-                    <td class="caregiver">🦚接</td>
-                    <td class="caregiver">🦚送</td>
-                </tr>
-                <tr>
-                    <td class="weekday" rowspan="4">周二</td>
-                    <td class="time">16:00-17:00</td>
-                    <td class="item">🦚 孔雀声乐课</td>
-                    <td class="caregiver">🦚</td>
-                    <td class="caregiver"></td>
-                </tr>
-                <tr>
-                    <td class="time">16:00-16:10</td>
-                    <td class="item">🦚 接孔雀 小区</td>
-                    <td class="caregiver"></td>
-                    <td class="caregiver">🦚</td>
-                </tr>
-                <tr>
-                    <td class="time">18:00-19:00</td>
-                    <td class="item">🦚 孔雀数学 TTRS 和复习默写5个汉字</td>
-                    <td class="caregiver"></td>
-                    <td class="caregiver">🦚</td>
-                </tr>
-                <tr>
-                    <td class="time">18:00-18:10</td>
-                    <td class="item">🐎 接玥玥</td>
-                    <td class="caregiver">🐎</td>
-                    <td class="caregiver"></td>
-                </tr>
-                <tr>
-                    <td class="weekday" rowspan="6">周三</td>
-                    <td class="time">00:00-23:59</td>
-                    <td class="item">🐎 给玥玥取护照</td>
-                    <td class="caregiver"></td>
-                    <td class="caregiver"></td>
-                </tr>
-                <tr>
-                    <td class="time">15:30-15:40</td>
-                    <td class="item">🦚 接孔雀 学校</td>
-                    <td class="caregiver">🦚</td>
-                    <td class="caregiver"></td>
-                </tr>
-                <tr>
-                    <td class="time">16:30-16:40</td>
-                    <td class="item">🐎 接玥玥</td>
-                    <td class="caregiver"></td>
-                    <td class="caregiver">🐎</td>
-                </tr>
-                <tr>
-                    <td class="time">17:00-19:20</td>
-                    <td class="item">🦚 孔雀滑冰课</td>
-                    <td class="caregiver">🦚</td>
-                    <td class="caregiver"></td>
-                </tr>
-                <tr>
-                    <td class="time">17:00-18:00</td>
-                    <td class="item">🐎 玥玥骑马</td>
-                    <td class="caregiver"></td>
-                    <td class="caregiver">🐎</td>
-                </tr>
-                <tr>
-                    <td class="time">18:00-18:20</td>
-                    <td class="item">🦚 孔雀英文阅读 bug Club iPad 清冰</td>
-                    <td class="caregiver">🦚</td>
-                    <td class="caregiver"></td>
-                </tr>
-                <tr>
-                    <td class="weekday" rowspan="6">周四</td>
-                    <td class="time">15:30-15:40</td>
-                    <td class="item">🦚 接孔雀 学校</td>
-                    <td class="caregiver">🦚</td>
-                    <td class="caregiver"></td>
-                </tr>
-                <tr>
-                    <td class="time">16:30-18:00</td>
-                    <td class="item">🦚 孔雀滑冰</td>
-                    <td class="caregiver">🦚</td>
-                    <td class="caregiver"></td>
-                </tr>
-                <tr>
-                    <td class="time">16:50-17:00</td>
-                    <td class="item">🐎 接玥玥</td>
-                    <td class="caregiver"></td>
-                    <td class="caregiver">🐎</td>
-                </tr>
-                <tr>
-                    <td class="time">17:00-18:00</td>
-                    <td class="item">🦚 孔雀游泳</td>
-                    <td class="caregiver"></td>
-                    <td class="caregiver">🦚</td>
-                </tr>
-                <tr>
-                    <td class="time">17:30-18:30</td>
-                    <td class="item">🐎 玥玥游泳</td>
-                    <td class="caregiver">🐎</td>
-                    <td class="caregiver"></td>
-                </tr>
-                <tr>
-                    <td class="time">19:20-19:30</td>
-                    <td class="item">🦚 孔雀 数学TTRS+中文分级阅读一本（爸妈）</td>
-                    <td class="caregiver"></td>
-                    <td class="caregiver"></td>
-                </tr>
-                <tr>
-                    <td class="weekday" rowspan="7">周五</td>
-                    <td class="time">15:30-15:40</td>
-                    <td class="item">🦚 接孔雀 学校</td>
-                    <td class="caregiver">🦚</td>
-                    <td class="caregiver"></td>
-                </tr>
-                <tr>
-                    <td class="time">16:30-17:00</td>
-                    <td class="item">🦚 孔雀中文课</td>
-                    <td class="caregiver">🦚</td>
-                    <td class="caregiver"></td>
-                </tr>
-                <tr>
-                    <td class="time">16:30-16:40</td>
-                    <td class="item">🐎 接玥玥</td>
-                    <td class="caregiver"></td>
-                    <td class="caregiver">🐎</td>
-                </tr>
-                <tr>
-                    <td class="time">17:00-19:20</td>
-                    <td class="item">🦚 孔雀滑冰课</td>
-                    <td class="caregiver">🦚</td>
-                    <td class="caregiver"></td>
-                </tr>
-                <tr>
-                    <td class="time">17:00-18:00</td>
-                    <td class="item">🐎 玥玥骑马</td>
-                    <td class="caregiver"></td>
-                    <td class="caregiver">🐎</td>
-                </tr>
-                <tr>
-                    <td class="time">18:00-18:20</td>
-                    <td class="item">🦚 孔雀英文阅读 bug Club iPad 清冰</td>
-                    <td class="caregiver">🦚</td>
-                    <td class="caregiver"></td>
-                </tr>
-                <tr>
-                    <td class="time">18:30-18:55</td>
-                    <td class="item">🐎 玥玥钢琴课iPad</td>
-                    <td class="caregiver"></td>
-                    <td class="caregiver">🐎</td>
-                </tr>
-                <tr>
-                    <td class="weekday" rowspan="7">周六</td>
-                    <td class="time">00:00-23:59</td>
-                    <td class="item">🦚 Q 学校 孔雀放假（春假）</td>
-                    <td class="caregiver"></td>
-                    <td class="caregiver"></td>
-                </tr>
-                <tr>
-                    <td class="time">09:00-10:00</td>
-                    <td class="item">🐎 Amy 训练运动</td>
-                    <td class="caregiver"></td>
-                    <td class="caregiver"></td>
-                </tr>
-                <tr>
-                    <td class="time">09:00-10:30</td>
-                    <td class="item">🦚 孔雀画画课（爸爸送）</td>
-                    <td class="caregiver">🦚接</td>
-                    <td class="caregiver"></td>
-                </tr>
-                <tr>
-                    <td class="time">09:00-11:00</td>
-                    <td class="item">🐎 玥玥骑马</td>
-                    <td class="caregiver"></td>
-                    <td class="caregiver"></td>
-                </tr>
-                <tr>
-                    <td class="time">11:00-12:00</td>
-                    <td class="item">🦚 孔雀玥玥涂氟 瑞尔齿科</td>
-                    <td class="caregiver"></td>
-                    <td class="caregiver"></td>
-                </tr>
-                <tr>
-                    <td class="time">18:00-19:00</td>
-                    <td class="item">🐎 玥玥滑冰课（爸妈）</td>
-                    <td class="caregiver"></td>
-                    <td class="caregiver"></td>
-                </tr>
-                <tr>
-                    <td class="time">18:15-19:15</td>
-                    <td class="item">🦚 孔雀法语课iPad</td>
-                    <td class="caregiver">🦚</td>
-                    <td class="caregiver"></td>
-                </tr>
-                <tr>
-                    <td class="weekday" rowspan="2">周日</td>
-                    <td class="time">09:00-09:30</td>
-                    <td class="item">🦚 孔雀声乐课</td>
-                    <td class="caregiver"></td>
-                    <td class="caregiver"></td>
-                </tr>
-                <tr>
-                    <td class="time">10:30-12:00</td>
-                    <td class="item">🦚 孔雀玥玥体操课</td>
-                    <td class="caregiver">🦚</td>
-                    <td class="caregiver"></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</body>
-</html>
+<h1>🐦 孔雀 & 🌙 玥玥 下周日程</h1>
+<p class="subtitle">2026年4月20日（周一）— 4月26日（周日）</p>
+<div class="day-section">
+<div class="day-header">周一<span class="date">2026-04-20</span></div>
+<table class="events-table">
+<tr><td class="time-col">15:30-15:40</td><td class="who-col"><span class="who-kongque">孔雀</span></td><td>接孔雀 学校（焦姐）</td></tr>
+<tr><td class="time-col">16:45-16:50</td><td class="who-col"><span class="who-yueyue">玥玥</span></td><td>接玥玥（马姐）</td></tr>
+<tr><td class="time-col">17:00-18:30</td><td class="who-col"><span class="who-kongque">孔雀</span></td><td>孔雀滑冰动力（焦姐）</td></tr>
+<tr><td class="time-col">17:10-17:55</td><td class="who-col"><span class="who-yueyue">玥玥</span></td><td>玥玥钢琴课（马姐陪同）</td></tr>
+</table>
+</div>
+<div class="day-section">
+<div class="day-header">周二<span class="date">2026-04-21</span></div>
+<table class="events-table">
+<tr><td class="time-col">16:05-16:15</td><td class="who-col"><span class="who-kongque">孔雀</span></td><td>接孔雀 小区（焦姐）</td></tr>
+<tr><td class="time-col">16:30-17:00</td><td class="who-col"><span class="who-kongque">孔雀</span></td><td>孔雀瑞尔拔牙（焦姐）</td></tr>
+<tr><td class="time-col">18:00-19:00</td><td class="who-col"><span class="who-kongque">孔雀</span></td><td>孔雀学习（汉字+写英文日记+数学daily ten</td></tr>
+<tr><td class="time-col">18:00-18:10</td><td class="who-col"><span class="who-yueyue">玥玥</span></td><td>接玥玥（马姐）</td></tr>
+</table>
+</div>
+<div class="day-section">
+<div class="day-header">周三<span class="date">2026-04-22</span></div>
+<table class="events-table">
+<tr><td class="time-col">15:30-15:40</td><td class="who-col"><span class="who-kongque">孔雀</span></td><td>接孔雀 学校（焦姐）</td></tr>
+<tr><td class="time-col">16:30-16:40</td><td class="who-col"><span class="who-yueyue">玥玥</span></td><td>接玥玥（马姐）</td></tr>
+<tr><td class="time-col">17:00-19:20</td><td class="who-col"><span class="who-kongque">孔雀</span></td><td>孔雀滑冰课动力 （焦姐）</td></tr>
+<tr><td class="time-col">17:00-18:00</td><td class="who-col"><span class="who-yueyue">玥玥</span></td><td>玥玥骑马（马姐）</td></tr>
+</table>
+</div>
+<div class="day-section">
+<div class="day-header">周四<span class="date">2026-04-23</span></div>
+<table class="events-table">
+<tr class="allday"><td class="time-col">全天</td><td class="who-col"><span class="who-kongque">孔雀</span></td><td>Q 学校 KS1 运动会</td></tr>
+<tr><td class="time-col">15:30-15:40</td><td class="who-col"><span class="who-kongque">孔雀</span></td><td>接孔雀 学校（焦姐）</td></tr>
+<tr><td class="time-col">16:30-18:00</td><td class="who-col"><span class="who-kongque">孔雀</span></td><td>孔雀滑冰 国贸（焦姐）</td></tr>
+<tr><td class="time-col">16:50-17:00</td><td class="who-col"><span class="who-yueyue">玥玥</span></td><td>接玥玥（马姐）</td></tr>
+<tr><td class="time-col">17:00-18:00</td><td class="who-col"><span class="who-yueyue">玥玥</span></td><td>玥玥跳舞（马姐）</td></tr>
+<tr><td class="time-col">19:20-19:30</td><td class="who-col"><span class="who-kongque">孔雀</span></td><td>孔雀 数学TTRS+中文分级阅读一本（爸妈）</td></tr>
+</table>
+</div>
+<div class="day-section">
+<div class="day-header">周五<span class="date">2026-04-24</span></div>
+<table class="events-table">
+<tr class="allday"><td class="time-col">全天</td><td class="who-col"><span class="who-kongque">孔雀</span></td><td>孔雀成都熊猫营（焦姐）</td></tr>
+<tr><td class="time-col">16:30-16:40</td><td class="who-col"><span class="who-yueyue">玥玥</span></td><td>接玥玥（马姐）</td></tr>
+<tr><td class="time-col">17:00-18:00</td><td class="who-col"><span class="who-yueyue">玥玥</span></td><td>玥玥骑马（马姐）</td></tr>
+<tr><td class="time-col">18:30-18:55</td><td class="who-col"><span class="who-yueyue">玥玥</span></td><td>玥玥钢琴课iPad （马姐)</td></tr>
+</table>
+</div>
+<div class="day-section">
+<div class="day-header">周六<span class="date">2026-04-25</span></div>
+<table class="events-table">
+<tr><td class="time-col">09:00-10:00</td><td class="who-col"><span class="who-yueyue">玥玥</span></td><td>玥玥 骑马</td></tr>
+<tr><td class="time-col">18:00-19:00</td><td class="who-col"><span class="who-yueyue">玥玥</span></td><td>玥玥滑冰课（爸妈）</td></tr>
+</table>
+</div>
+<div class="day-section">
+<div class="day-header">周日<span class="date">2026-04-26</span></div>
+<table class="events-table">
+<tr><td class="time-col">10:30-12:00</td><td class="who-col"><span class="who-yueyue">玥玥</span></td><td>玥玥体操课</td></tr>
+</table>
+</div>
+
+<div class="legend">
+  <span class="who-kongque">孔雀</span> = 姐姐 &nbsp;&nbsp;
+  <span class="who-yueyue">玥玥</span> = 妹妹
+</div>
+</body></html>
