@@ -12,24 +12,14 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; scroll-padding-top: 52px; }
     /* ── Nav: hamburger on mobile ── */
-    .page-nav { position: sticky; top: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: 8px 16px; margin-bottom: 14px; border-bottom: 1px solid #e9ecef; box-shadow: 0 2px 8px rgba(0,0,0,0.04); z-index: 100; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 4px; }
-    .nav-links { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
-    .nav-hamburger { display: none; background: none; border: 1px solid #dee2e6; border-radius: 8px; padding: 6px 10px; cursor: pointer; font-size: 18px; line-height: 1; color: #495057; }
-    .nav-dropdown { display: none; position: absolute; top: 100%; left: 0; right: 0; background: #fff; border-bottom: 1px solid #e9ecef; box-shadow: 0 4px 12px rgba(0,0,0,0.08); padding: 8px 12px; flex-direction: column; gap: 2px; z-index: 99; }
-    .nav-dropdown a { display: block; padding: 10px 12px; font-size: 14px; font-weight: 500; color: #495057; text-decoration: none; border-radius: 8px; }
-    .nav-dropdown a:hover, .nav-dropdown a.active { background: #f1f3f5; color: #1a1a2e; }
-    .nav-dropdown.open { display: flex; }
-    @media (max-width: 600px) {
-      .nav-links { display: none; }
-      .nav-hamburger { display: block; }
-      .page-nav { position: sticky; flex-wrap: nowrap; }
-    }
+    .page-nav { position: sticky; top: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: 8px 16px; margin-bottom: 14px; border-bottom: 1px solid #e9ecef; box-shadow: 0 2px 8px rgba(0,0,0,0.04); z-index: 100; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 3px; }
+
     body { font-family: 'Source Serif 4', Georgia, serif; font-size: 15px; line-height: 1.5; background: #fafbfc; color: #1a1a2e; -webkit-font-smoothing: antialiased; }
     .container { max-width: 720px; margin: 0 auto; padding: 0 20px 20px 20px; }
     header { background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%); color: #fff; padding: 28px 20px; margin: -0 -20px 24px -20px; box-shadow: 0 4px 12px rgba(26, 26, 46, 0.15); position: relative; overflow: hidden; }
     header h1 { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
     header .dates { font-size: 14px; opacity: 0.85; }
-    .page-nav a { display: inline-block; padding: 6px 14px; margin: 0 2px; font-size: 13px; font-weight: 500; color: #6c757d; text-decoration: none; border-radius: 20px; transition: all 0.2s ease; white-space: nowrap; }
+    .page-nav a { display: inline-block; padding: 4px 8px; margin: 0 1px; font-size: 11px; font-weight: 500; color: #6c757d; text-decoration: none; border-radius: 20px; transition: all 0.2s ease; white-space: nowrap; }
     .page-nav a:hover { background: #f1f3f5; color: #1a1a2e; }
     .page-nav a.active { background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%); color: #fff; }
     .section { margin-bottom: 16px; background: #ffffff; border-radius: 12px; padding: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.04); }
@@ -110,29 +100,15 @@
     </header>
 
     <nav class="page-nav">
-      <div class="nav-links">
-        <a href="#signals">Key Signals</a>
-        <a href="#implications">Airbnb</a>
-        <a href="#competitors">Competitors</a>
-        <a href="#india">India</a>
-        <a href="#korea">Korea</a>
-        <a href="#japan">Japan</a>
-        <a href="#china">China</a>
-        <a href="#holidays">Holidays</a>
-        <a href="#sources">Sources</a>
-      </div>
-      <button class="nav-hamburger" id="navToggle" aria-label="Navigation menu">☰</button>
-      <div class="nav-dropdown" id="navDropdown">
-        <a href="#signals">🔥 Key Signals</a>
-        <a href="#implications">💡 Airbnb Implications</a>
-        <a href="#competitors">🏢 Competitors</a>
-        <a href="#india">🇮🇳 India</a>
-        <a href="#korea">🇰🇷 Korea</a>
-        <a href="#japan">🇯🇵 Japan</a>
-        <a href="#china">🇨🇳 China</a>
-        <a href="#holidays">📅 Holidays</a>
-        <a href="#sources">📋 Sources</a>
-      </div>
+        <a href="#signals">🔥Signals</a>
+        <a href="#implications">💡Airbnb</a>
+        <a href="#competitors">🏢Comp</a>
+        <a href="#india">🇮🇳IN</a>
+        <a href="#korea">🇰🇷KR</a>
+        <a href="#japan">🇯🇵JP</a>
+        <a href="#china">🇨🇳CN</a>
+        <a href="#holidays">📅Cal</a>
+        <a href="#sources">📋Src</a>
     </nav>
 
     <div class="section key-signals" id="signals">
@@ -318,11 +294,7 @@
   </div>
 
   <script>
-    // Hamburger toggle
-    const navToggle = document.getElementById('navToggle');
-    const navDropdown = document.getElementById('navDropdown');
-    navToggle.addEventListener('click', () => navDropdown.classList.toggle('open'));
-    navDropdown.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navDropdown.classList.remove('open')));
+
 
     // Active nav highlight
     const sections = document.querySelectorAll('.section');
