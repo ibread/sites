@@ -11,13 +11,25 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; scroll-padding-top: 52px; }
+    /* ── Nav: hamburger on mobile ── */
+    .page-nav { position: sticky; top: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: 8px 16px; margin-bottom: 14px; border-bottom: 1px solid #e9ecef; box-shadow: 0 2px 8px rgba(0,0,0,0.04); z-index: 100; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 4px; }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+    .nav-hamburger { display: none; background: none; border: 1px solid #dee2e6; border-radius: 8px; padding: 6px 10px; cursor: pointer; font-size: 18px; line-height: 1; color: #495057; }
+    .nav-dropdown { display: none; position: absolute; top: 100%; left: 0; right: 0; background: #fff; border-bottom: 1px solid #e9ecef; box-shadow: 0 4px 12px rgba(0,0,0,0.08); padding: 8px 12px; flex-direction: column; gap: 2px; z-index: 99; }
+    .nav-dropdown a { display: block; padding: 10px 12px; font-size: 14px; font-weight: 500; color: #495057; text-decoration: none; border-radius: 8px; }
+    .nav-dropdown a:hover, .nav-dropdown a.active { background: #f1f3f5; color: #1a1a2e; }
+    .nav-dropdown.open { display: flex; }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: block; }
+      .page-nav { position: sticky; flex-wrap: nowrap; }
+    }
     body { font-family: 'Source Serif 4', Georgia, serif; font-size: 15px; line-height: 1.5; background: #fafbfc; color: #1a1a2e; -webkit-font-smoothing: antialiased; }
     .container { max-width: 720px; margin: 0 auto; padding: 0 20px 20px 20px; }
     header { background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%); color: #fff; padding: 28px 20px; margin: -0 -20px 24px -20px; box-shadow: 0 4px 12px rgba(26, 26, 46, 0.15); position: relative; overflow: hidden; }
     header h1 { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
     header .dates { font-size: 14px; opacity: 0.85; }
-    .page-nav { position: sticky; top: 0; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 8px 0; margin-bottom: 14px; border-bottom: 1px solid #e9ecef; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow-x: auto; white-space: nowrap; z-index: 100; }
-    .page-nav a { display: inline-block; padding: 6px 14px; margin: 0 3px; font-size: 13px; font-weight: 500; color: #6c757d; text-decoration: none; border-radius: 20px; transition: all 0.2s ease; }
+    .page-nav a { display: inline-block; padding: 6px 14px; margin: 0 2px; font-size: 13px; font-weight: 500; color: #6c757d; text-decoration: none; border-radius: 20px; transition: all 0.2s ease; white-space: nowrap; }
     .page-nav a:hover { background: #f1f3f5; color: #1a1a2e; }
     .page-nav a.active { background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%); color: #fff; }
     .section { margin-bottom: 16px; background: #ffffff; border-radius: 12px; padding: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.04); }
@@ -98,15 +110,29 @@
     </header>
 
     <nav class="page-nav">
-      <a href="#signals">Key Signals</a>
-      <a href="#implications">Airbnb</a>
-      <a href="#competitors">Competitors</a>
-      <a href="#india">India भारत</a>
-      <a href="#korea">Korea 대한민국</a>
-      <a href="#japan">Japan 日本</a>
-      <a href="#china">China 中国</a>
-      <a href="#holidays">Holidays</a>
-      <a href="#sources">Sources</a>
+      <div class="nav-links">
+        <a href="#signals">Key Signals</a>
+        <a href="#implications">Airbnb</a>
+        <a href="#competitors">Competitors</a>
+        <a href="#india">India</a>
+        <a href="#korea">Korea</a>
+        <a href="#japan">Japan</a>
+        <a href="#china">China</a>
+        <a href="#holidays">Holidays</a>
+        <a href="#sources">Sources</a>
+      </div>
+      <button class="nav-hamburger" id="navToggle" aria-label="Navigation menu">☰</button>
+      <div class="nav-dropdown" id="navDropdown">
+        <a href="#signals">🔥 Key Signals</a>
+        <a href="#implications">💡 Airbnb Implications</a>
+        <a href="#competitors">🏢 Competitors</a>
+        <a href="#india">🇮🇳 India</a>
+        <a href="#korea">🇰🇷 Korea</a>
+        <a href="#japan">🇯🇵 Japan</a>
+        <a href="#china">🇨🇳 China</a>
+        <a href="#holidays">📅 Holidays</a>
+        <a href="#sources">📋 Sources</a>
+      </div>
     </nav>
 
     <div class="section key-signals" id="signals">
@@ -124,9 +150,9 @@
           <div class="label">Japan visitor spend YoY</div>
         </div>
         <div class="kpi-tile">
-          <div class="big-number green">+103%</div>
-          <div class="kpi-sub">$280B outbound 2026</div>
-          <div class="label">China May Day hotels YoY</div>
+          <div class="big-number green">135M</div>
+          <div class="kpi-sub">+6.8% YoY spend</div>
+          <div class="label">China Qingming domestic trips</div>
         </div>
         <div class="kpi-tile">
           <div class="big-number warm">−20%</div>
@@ -140,14 +166,14 @@
       <div class="news-item">3. <strong>Japan hits record arrivals despite China collapse</strong> — Q1 2026 foreign visitor spending reached <span class="stat up">2.3 trillion yen ($15B), +2.5% YoY</span>, the third-highest quarterly total on record. Taiwan (+22.5%) and South Korea (+138% bookings) drove growth as Chinese visitors fell ~60%. <a href="https://english.kyodonews.net/articles/-/74241" target="_blank">Kyodo News</a> | <a href="https://dlr.skift.com/2026/04/16/japan-posts-record-arrivals-as-china-traffic-falls/" target="_blank">Skift</a></div>
       <div class="news-item">4. <strong>West Asia conflict costs India ₹18,000 crore</strong> — India's tourism sector recorded <span class="stat down">15-20% inbound decline</span> and ₹18,000 crore loss due to geopolitical disruption. This reverses momentum from January's e-Tourist Visa expansion to 221 countries. <a href="https://hospitalitycareerprofile.com/west-asia-conflict-india-tourism-20-percent-drop-18000-crore-loss" target="_blank">Hospitality Career Profile</a></div>
       <div class="news-item">5. <strong>Japan overtourism taxes accelerate</strong> — Departure fee triples to <span class="stat neutral">¥3,000 from July 2026</span>; Kyoto accommodation tax effective April 1; visa fees increasing 5x to ¥15,000-30,000. Revenue funds crowd management and rural promotion. <a href="https://www.euronews.com/travel/2026/04/15/travelling-to-japan-in-2026-here-are-the-new-taxes-and-price-hikes-you-need-to-know-about" target="_blank">Euronews</a> | <a href="https://www.forbes.com/sites/rebeccahughes/2026/02/14/traveling-to-japan-will-cost-more-in-2026-what-you-need-to-know/" target="_blank">Forbes</a></div>
-      <div class="news-item">6. <strong>China Qingming domestic surge: 135M trips</strong> — April 4-6 holiday generated <span class="stat up">135M domestic trips, 61B+ yuan spending (+6.6%)</span>. Full-year 2026 outbound forecast: 165-175M trips, $280B spend. May Day international hotel bookings up 103% YoY. <a href="https://www.thetraveler.org/china-tourism-sets-new-2026-benchmarks-as-travel-roars-back/" target="_blank">The Traveler</a> | <a href="https://www.travelmole.com/news/dida-may-day-holiday-surge-in-china-outbound-travel/" target="_blank">TravelMole</a></div>
+      <div class="news-item">6. <strong>China Qingming domestic surge: 135M trips</strong> — April 4-6 holiday generated <span class="stat up">135M domestic trips, 61B+ yuan spending (+6.8% YoY)</span>. Full-year 2026 outbound forecast: 165-175M trips, $280B spend. <a href="https://www.thetraveler.org/china-tourism-sets-new-2026-benchmarks-as-travel-roars-back/" target="_blank">The Traveler</a> | <a href="https://english.news.cn/20260408/83051d04ba0d47949fae1679bca7814a/c.html" target="_blank">Xinhua</a></div>
     </div>
 
     <div class="section" id="implications">
       <div class="section-header implications">💡 AIRBNB APAC IMPLICATIONS</div>
       <div class="news-item">1. <strong>Korea: Unprecedented growth window</strong> — BTS-driven inbound surge (2.06M in March, +23%) combined with China's destination shift creates massive opportunity. ~100K short-term rental listings (Seoul 33K, Jeju 19.4K, Gangwon 16K). Prioritize K-content proximity listings and Chinese-language amenities for spillover demand.</div>
       <div class="news-item">2. <strong>Japan: Compliance urgency intensifies</strong> — April 1 Kyoto accommodation tax, July departure fee 3x, visa fees 5x increase signal regulatory tightening. 2026 national data-matching system targeting "ghost operators." Minpaku occupancy at 17% vs hotels 59-60%. Full compliance verification critical before peak season.</div>
-      <div class="news-item">3. <strong>China: May Day preparation essential</strong> — International hotel bookings +103% YoY for May 1-5; 175M outbound trips forecast for 2026 ($280B spend). Family travel dominates (37% of bookings). Partner with Korea/Thailand/Singapore hosts for Chinese guest readiness; optimize tier 2/3 domestic listings.</div>
+      <div class="news-item">3. <strong>China: May Day preparation essential</strong> — Qingming holiday (Apr 4-6) showed 135M domestic trips (+6.8%); 175M outbound trips forecast for 2026 ($280B spend). Family travel dominates (37% of bookings). Partner with Korea/Thailand/Singapore hosts for Chinese guest readiness; optimize tier 2/3 domestic listings.</div>
       <div class="news-item">4. <strong>India: West Asia conflict headwind</strong> — ₹18,000 crore loss and 15-20% inbound decline require damage mitigation. However, domestic pivot continues (35% prioritizing domestic over international, up from 25%). Spiti Valley searches +340%; luxury domestic segment growing 3× faster than standard.</div>
       <div class="news-item">5. <strong>Regional redistribution opportunity</strong> — China's 165-175M outbound trips redirecting from Japan (-50%) to Korea, Vietnam, Thailand. Safety, visa ease, and direct flights now top decision factors. Airbnb should rebalance listing partnerships toward these beneficiary markets.</div>
     </div>
@@ -177,7 +203,7 @@
       <div class="news-item">• <strong>Spiti Valley emerges as breakout destination</strong> — Thrillophilia March 2026 report: searches <span class="stat up-strong">up 340%</span>, positioned as Iceland/Scotland alternative. Luxury domestic segment (₹1.5-3 lakh/couple) growing 3× rate of standard bookings. Heritage/boutique properties absorbing outbound luxury spend. <a href="https://news.thrillophilia.com/india-domestic-travel-surge-report-march-2026/" target="_blank">Thrillophilia</a></div>
       <div class="news-item">• <strong>India leads Asia in spiritual travel</strong> — Agoda: <span class="stat up">19% of Indian travelers</span> plan faith-motivated trips in 2026, highest in Asia. Spiritual tourism significant segment driven by cultural/religious motivations. <a href="https://travel.economictimes.indiatimes.com/news/research-and-statistics/research/india-tops-asias-spiritual-travel-demand-for-2026-reveals-agoda-report/129816837" target="_blank">ETTravelWorld</a></div>
       <div class="news-item">• <strong>Experiential travel to dominate by 2030</strong> — Segment expected <span class="stat up">14% CAGR</span> through 2030. Government's 'Swadesh Darshan 2.0' developing Buddhist, Tribal, Coastal circuits. Travelers seeking authentic, immersive experiences over sightseeing. <a href="https://travel.economictimes.indiatimes.com/amp/news/research-and-statistics/research/experiential-travel-in-india-set-to-dominate-tourism-by-2030/130082553" target="_blank">ETTravelWorld</a></div>
-      <div class="news-item">• <strong>Outbound to hit 29M trips by 2025</strong> — Expedia: 13.9M leisure departures, 19.4M Indian arrivals abroad. Tier II/III cities driving growth. Outbound tourism expected to generate <span class="stat up">$62B revenue by 2026</span>. <a href="https://tourismbreakingnews.com/indias-outbound-tourism-to-hit-29-million-trips-by-2025-generate-us62-billion-in-revenue-by-2026-expedia-report/" target="_blank">Tourism Breaking News</a></div>
+
       <div class="news-item">• 🐦 <strong>Ladakh tourism revival commitment</strong> — Stakeholders committed to rebuilding confidence after recent challenges. Targeted promotions, policy reforms, improved coordination planned for resilient 2026 recovery. <a href="https://travelbizmonitor.com/top-stories/ladakh-tourism-eyes-strong-revival-in-2026/" target="_blank">TravelBiz Monitor</a></div>
     </div>
 
@@ -224,7 +250,7 @@
       <div class="market-summary china">
         <p>• <strong>2026 outbound forecast: 175M trips, $280B spend</strong> — Surpassing pre-pandemic levels with stronger growth.</p>
         <p>• <strong>Qingming 2026: 135M domestic trips</strong> — April 4-6 holiday; 61B+ yuan spending (+6.6%).</p>
-        <p>• <strong>May Day surge: International hotels +103% YoY</strong> — Flight bookings +20%, some routes +50% fare increases.</p>
+        <p>• <strong>Qingming surge: 135M domestic trips, 61B+ yuan (+6.8% YoY)</strong> — Strong signal ahead of May Day Golden Week.</p>
         <p>• <strong>South Korea #1 destination</strong> — Dethroned Japan; 1,012 flights vs Japan at 66% of 2019 levels.</p>
         <p>• <strong>Japan travel down ~50%</strong> — Diplomatic tensions driving shift away from traditional shopping destinations.</p>
         <p>• <strong>Visa-free extended to 50 countries</strong> — 30-day stays through December 2026; UK and Canada added.</p>
@@ -232,7 +258,7 @@
       <div class="news-item">• <strong>$280B outbound comeback</strong> — China Trading Desk: <span class="stat up">175M outbound trips</span> and $280B overseas spend forecast for 2026. Accommodation $85B (largest category), F&B $52B. Younger, wealthier travelers rely on social media for destination discovery. <a href="https://skift.com/2026/02/24/the-280-billion-chinese-outbound-comeback-that-destinations-cant-ignore/" target="_blank">Skift</a></div>
       <div class="news-item">• <strong>China shifts from Japan to Korea</strong> — Travel from China to Japan will drop <span class="stat down">~50%</span> compared to previous peaks. South Korea became #1 for Chinese New Year 2026 with 1,012 flights. Safety, visa ease, direct flights top factors. <a href="https://www.travelandtourworld.com/news/article/chinas-2026-travel-boom-ten-million-outbound-trips-and-the-great-shift-away-from-japan/" target="_blank">Travel And Tour World</a> | <a href="https://www.caixinglobal.com/2026-01-07/south-korea-tops-chinas-outbound-travel-list-dethroning-japan-102400881.html" target="_blank">Caixin Global</a></div>
       <div class="news-item">• <strong>Qingming 2026: 135M trips, 61B yuan</strong> — April 4-6 domestic tourism demonstrated resilience with <span class="stat up">6.6% spending increase</span>. 845.38M passenger trips across national network (+6% YoY). <a href="https://www.thetraveler.org/china-tourism-sets-new-2026-benchmarks-as-travel-roars-back/" target="_blank">The Traveler</a></div>
-      <div class="news-item">• <strong>May Day international hotels +103%</strong> — Dida reported international hotel bookings by Chinese travelers more than doubled for May 1-5. Average daily rate +5%; average stay ~2 days (short-haul preference). Top 10: Japan, Korea, Malaysia, Thailand, HK, Singapore, Italy, Indonesia, Vietnam, UAE. <a href="https://www.travelmole.com/news/dida-may-day-holiday-surge-in-china-outbound-travel/" target="_blank">TravelMole</a></div>
+
       <div class="news-item">• <strong>Visa-free policy extended</strong> — 30-day unilateral visa-free entry until Dec 31, 2026, now includes UK and Canada. 48-50 countries eligible total. Also expanded 240-hour visa-free transit program. <a href="https://thedragontrip.com/chinas-visa-free-travel-policy-extended-to-december-2026/" target="_blank">The Dragon Trip</a> | <a href="https://www.visaverge.com/news/3008-million-foreigners-enter-as-china-expands-visa-free-and-240-hour-visa-rules/" target="_blank">VisaVerge</a></div>
       <div class="news-item">• <strong>Consumer trend: Experience over goods</strong> — Chinese consumers prioritizing memories, social connection, "quiet vitality" experiences over high-ticket goods. Affluent travelers: 7.53% plan 80%+ spending increases. Trip length 4-7 days and 8-12 days dominant; 20% spend 20,000+ RMB. <a href="https://hubofchina.com/chinas-2026-holiday-spending-trends/" target="_blank">Hub of China</a> | <a href="https://ttgchina.com/2026/01/29/%E4%BB%8E%E9%87%8F%E5%88%B0%E8%B4%A8%E8%B7%83%E8%BF%81-%E4%B8%AD%E5%9B%BD%E5%87%BA%E5%A2%83%E6%B8%B8%E6%AD%A5%E5%85%A5%E5%93%81%E8%B4%A8%E9%A9%B1%E5%8A%A8%E6%96%B0/" target="_blank">TTG China</a></div>
       <div class="news-item">• <strong>OTA landscape: Ctrip dominates</strong> — Ctrip holds ~36.3% market share (~50% with Qunar combined); 69M+ MAU. Responded to price wars with $500M low-price promotion campaign. Fliggy (Alibaba) second tier at 9.6M MAU. <a href="https://mize.tech/blog/all-about-the-5-top-travel-agencies-i-china/" target="_blank">Mize</a> | <a href="https://pandayoo.com/post/ctrip-chinas-travel-titan-rides-the-post-pandemic-wave-to-unprecedented-heights/" target="_blank">PandaYoo</a></div>
@@ -292,6 +318,13 @@
   </div>
 
   <script>
+    // Hamburger toggle
+    const navToggle = document.getElementById('navToggle');
+    const navDropdown = document.getElementById('navDropdown');
+    navToggle.addEventListener('click', () => navDropdown.classList.toggle('open'));
+    navDropdown.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navDropdown.classList.remove('open')));
+
+    // Active nav highlight
     const sections = document.querySelectorAll('.section');
     const navLinks = document.querySelectorAll('.page-nav a');
     window.addEventListener('scroll', () => {
