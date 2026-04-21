@@ -20,8 +20,6 @@ h1{font-size:1.2em;margin-bottom:4px}
 .btn{display:block;text-align:center;color:#fff;padding:14px;border-radius:12px;text-decoration:none;font-weight:600;font-size:1em;margin-top:12px}
 .btn-mailto{background:#2563eb}
 .btn-mailto:active{background:#1d4ed8}
-.btn-gmail{background:#ea4335}
-.btn-gmail:active{background:#c5221f}
 .note{text-align:center;color:#aaa;font-size:.75em;margin-top:12px}
 </style>
 </head>
@@ -31,9 +29,8 @@ h1{font-size:1.2em;margin-bottom:4px}
 <div class="week" id="week-range"></div>
 <div id="schedule"></div>
 </div>
-<a class="btn btn-mailto" id="mailto-btn" href="#">📨 Send via Mail App</a>
-<a class="btn btn-gmail" id="gmail-btn" href="#">📨 Send via Gmail</a>
-<p class="note">Choose your preferred email app</p>
+<a class="btn btn-mailto" id="mailto-btn" href="#">📨 Send Email to Teachers</a>
+<p class="note">Opens your default email app with everything pre-filled</p>
 
 <script>
 // This file is auto-generated. Update via generate_pickup_page.py
@@ -51,7 +48,6 @@ data.days.forEach(d => {
 });
 
 document.getElementById('mailto-btn').href = data.mailto;
-document.getElementById('gmail-btn').href = data.gmail;
 </script>
 </body>
 </html>
