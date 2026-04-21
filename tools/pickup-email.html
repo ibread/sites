@@ -17,8 +17,11 @@ h1{font-size:1.2em;margin-bottom:4px}
 .day-action.school{color:#2563eb}
 .day-action.bus{color:#16a34a}
 .day-action.absent{color:#dc2626}
-.btn{display:block;text-align:center;background:#2563eb;color:#fff;padding:14px;border-radius:12px;text-decoration:none;font-weight:600;font-size:1em;margin-top:20px}
-.btn:active{background:#1d4ed8}
+.btn{display:block;text-align:center;color:#fff;padding:14px;border-radius:12px;text-decoration:none;font-weight:600;font-size:1em;margin-top:12px}
+.btn-mailto{background:#2563eb}
+.btn-mailto:active{background:#1d4ed8}
+.btn-gmail{background:#ea4335}
+.btn-gmail:active{background:#c5221f}
 .note{text-align:center;color:#aaa;font-size:.75em;margin-top:12px}
 </style>
 </head>
@@ -28,12 +31,13 @@ h1{font-size:1.2em;margin-bottom:4px}
 <div class="week" id="week-range"></div>
 <div id="schedule"></div>
 </div>
-<a class="btn" id="mailto-btn" href="#">📨 Send Email to Teachers</a>
-<p class="note">Opens your email app with everything pre-filled</p>
+<a class="btn btn-mailto" id="mailto-btn" href="#">📨 Send via Mail App</a>
+<a class="btn btn-gmail" id="gmail-btn" href="#">📨 Send via Gmail</a>
+<p class="note">Choose your preferred email app</p>
 
 <script>
 // This file is auto-generated. Update via generate_pickup_page.py
-const data = {"weekRange": "Week of 4/20 - 4/24", "days": [{"label": "Mon (4/20)", "action": "Pick up from school", "type": "school"}, {"label": "Tue (4/21)", "action": "School bus, Park Avenue", "type": "bus"}, {"label": "Wed (4/22)", "action": "Pick up from school", "type": "school"}, {"label": "Thu (4/23)", "action": "Pick up from school", "type": "school"}, {"label": "Fri (4/24)", "action": "Absent (a panda camp)", "type": "absent"}], "mailto": "mailto:annelize.engelbrecht@bsbsanlitun.com,sltbus@bsbsanlitun.com?subject=Que%27s%20schedule%20for%20the%20upcoming%20week%20%284/20%20-%204/24%29&body=Dear%20Miss%20E%20and%20Emma%2C%0D%0A%0D%0AI%20hope%20you%20had%20a%20great%20weekend.%0D%0A%0D%0AI%20want%20to%20update%20you%20of%20the%20schedule%20arrangements%20for%20Que%20for%20next%20week%3A%0D%0A%0D%0A%E2%80%A2%20Mon%20%284/20%29%3A%20Pick%20up%20from%20school%0D%0A%E2%80%A2%20Tue%20%284/21%29%3A%20School%20bus%2C%20Park%20Avenue%20stop%0D%0A%E2%80%A2%20Wed%20%284/22%29%3A%20Pick%20up%20from%20school%0D%0A%E2%80%A2%20Thu%20%284/23%29%3A%20Pick%20up%20from%20school%0D%0A%E2%80%A2%20Fri%20%284/24%29%3A%20Absent%20%28a%20panda%20camp%29%0D%0A%0D%0AThank%20you%20for%20your%20assistance.%0D%0A%0D%0ABest%20regards%2C%0D%0A%0D%0AAmy"};
+const data = {"weekRange": "Week of 4/20 - 4/24", "days": [{"label": "Mon (4/20)", "action": "Pick up from school", "type": "school"}, {"label": "Tue (4/21)", "action": "School bus, Park Avenue", "type": "bus"}, {"label": "Wed (4/22)", "action": "Pick up from school", "type": "school"}, {"label": "Thu (4/23)", "action": "Pick up from school", "type": "school"}, {"label": "Fri (4/24)", "action": "Absent (a panda camp)", "type": "absent"}], "mailto": "mailto:annelize.engelbrecht@bsbsanlitun.com,sltbus@bsbsanlitun.com?subject=Que%27s%20schedule%20for%20the%20upcoming%20week%20%284/20%20-%204/24%29&body=Dear%20Miss%20E%20and%20Emma%2C%0D%0A%0D%0AI%20hope%20you%20had%20a%20great%20weekend.%0D%0A%0D%0AI%20want%20to%20update%20you%20of%20the%20schedule%20arrangements%20for%20Que%20for%20next%20week%3A%0D%0A%0D%0A%E2%80%A2%20Mon%20%284/20%29%3A%20Pick%20up%20from%20school%0D%0A%E2%80%A2%20Tue%20%284/21%29%3A%20School%20bus%2C%20Park%20Avenue%20stop%0D%0A%E2%80%A2%20Wed%20%284/22%29%3A%20Pick%20up%20from%20school%0D%0A%E2%80%A2%20Thu%20%284/23%29%3A%20Pick%20up%20from%20school%0D%0A%E2%80%A2%20Fri%20%284/24%29%3A%20Absent%20%28a%20panda%20camp%29%0D%0A%0D%0AThank%20you%20for%20your%20assistance.%0D%0A%0D%0ABest%20regards%2C%0D%0A%0D%0AAmy", "gmail": "https://mail.google.com/mail/?view=cm&to=annelize.engelbrecht%40bsbsanlitun.com%2Csltbus%40bsbsanlitun.com&su=Que%27s%20schedule%20for%20the%20upcoming%20week%20%284/20%20-%204/24%29&body=Dear%20Miss%20E%20and%20Emma%2C%0A%0AI%20hope%20you%20had%20a%20great%20weekend.%0A%0AI%20want%20to%20update%20you%20of%20the%20schedule%20arrangements%20for%20Que%20for%20next%20week%3A%0A%0A%E2%80%A2%20Mon%20%284/20%29%3A%20Pick%20up%20from%20school%0A%E2%80%A2%20Tue%20%284/21%29%3A%20School%20bus%2C%20Park%20Avenue%20stop%0A%E2%80%A2%20Wed%20%284/22%29%3A%20Pick%20up%20from%20school%0A%E2%80%A2%20Thu%20%284/23%29%3A%20Pick%20up%20from%20school%0A%E2%80%A2%20Fri%20%284/24%29%3A%20Absent%20%28a%20panda%20camp%29%0A%0AThank%20you%20for%20your%20assistance.%0A%0ABest%20regards%2C%0A%0AAmy"};
 
 document.getElementById('week-range').textContent = data.weekRange;
 
@@ -47,6 +51,7 @@ data.days.forEach(d => {
 });
 
 document.getElementById('mailto-btn').href = data.mailto;
+document.getElementById('gmail-btn').href = data.gmail;
 </script>
 </body>
 </html>
