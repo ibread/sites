@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moutai - China's National Spirit | A Guide for International Friends</title>
+  <meta name="description" content="Discover Moutai (茅台), China's most prestigious baijiu. Learn about its 12987 production process, 1915 Panama gold medal, 53% ABV sauce-aroma spirit, and cultural significance.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,500&family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --crimson: #8B0000;
+      --crimson-light: #A52A2A;
+      --gold: #D4A017;
+      --gold-light: #E8C547;
+      --cream: #FDF8F3;
+      --ink: #2C1810;
+      --muted: #8A7A70;
+      --card-bg: #ffffff;
+      --border: #E8D8C8;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--ink);
+      background: var(--cream);
+      min-height: 100vh;
+    }
+
+    .container { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+
+    /* Navigation */
+    nav {
+      background: linear-gradient(135deg, var(--crimson) 0%, #5C0000 100%);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(139,0,0,0.3);
+    }
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+    }
+    nav .logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: var(--gold);
+      font-weight: 600;
+      font-size: 1.3em;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    nav ul { display: flex; list-style: none; gap: 16px; flex-wrap: wrap; }
+    nav a {
+      color: #F5E6D3;
+      text-decoration: none;
+      font-size: 0.85em;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--gold); }
+    nav a:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+    @media (max-width: 600px) {
+      nav ul { gap: 10px; }
+      nav a { font-size: 0.75em; }
+      nav .logo { font-size: 1.1em; }
+    }
+
+    /* Hero */
+    header {
+      text-align: center;
+      padding: 50px 0 30px;
+      background: linear-gradient(180deg, rgba(139,0,0,0.05) 0%, transparent 100%);
+    }
+    .hero-emoji { font-size: 4em; margin-bottom: 16px; }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3em;
+      color: var(--crimson);
+      margin-bottom: 8px;
+      font-weight: 600;
+      text-wrap: balance;
+    }
+    .subtitle-zh {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.5em;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .subtitle-en {
+      color: var(--muted);
+      font-size: 1em;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* Sections */
+    section { padding: 30px 0; }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8em;
+      color: var(--crimson);
+      margin: 0 0 20px;
+      padding-bottom: 12px;
+      border-bottom: 3px solid var(--gold);
+      scroll-margin-top: 70px;
+      text-wrap: balance;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    h2 .emoji { font-size: 0.9em; }
+    p { margin: 14px 0; color: var(--ink); }
+    strong { font-weight: 700; }
+    em { font-style: italic; }
+    ul, ol { margin: 14px 0 14px 24px; }
+    li { margin: 8px 0; }
+
+    /* Highlight box */
+    .highlight {
+      background: linear-gradient(135deg, #FFF8F0 0%, #FDF5EB 100%);
+      padding: 24px;
+      border-radius: 12px;
+      margin: 24px 0;
+      border-left: 5px solid var(--crimson);
+      box-shadow: 0 4px 16px rgba(139,0,0,0.08);
+    }
+    .highlight h3 {
+      font-family: 'Playfair Display', serif;
+      color: var(--crimson);
+      margin-bottom: 14px;
+      font-size: 1.2em;
+    }
+
+    /* Quote */
+    .quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.25em;
+      color: var(--ink);
+      padding: 20px 24px;
+      background: transparent;
+      border-left: 4px solid var(--gold);
+      margin: 24px 0;
+    }
+
+    /* Key Facts Card */
+    .facts-card {
+      background: linear-gradient(135deg, var(--crimson) 0%, #5C0000 100%);
+      border-radius: 16px;
+      padding: 28px;
+      margin: 28px 0;
+      color: #fff;
+      box-shadow: 0 8px 32px rgba(139,0,0,0.25);
+    }
+    .facts-card h3 {
+      font-family: 'Playfair Display', serif;
+      color: var(--gold);
+      margin-bottom: 20px;
+      font-size: 1.4em;
+      text-align: center;
+    }
+    .facts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 16px;
+    }
+    .fact-item {
+      text-align: center;
+      padding: 16px 12px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+      border: 1px solid rgba(212,160,23,0.3);
+    }
+    .fact-item .value {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6em;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .fact-item .label {
+      font-size: 0.85em;
+      color: #F5E6D3;
+      line-height: 1.4;
+    }
+
+    /* Process Steps */
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 12px;
+      margin: 24px 0;
+    }
+    .process-step {
+      background: var(--card-bg);
+      padding: 18px 12px;
+      border-radius: 12px;
+      text-align: center;
+      border: 2px solid var(--border);
+      transition: all 0.2s;
+    }
+    .process-step:hover {
+      border-color: var(--gold);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(212,160,23,0.15);
+    }
+    .process-step .number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2em;
+      color: var(--crimson);
+      font-weight: 600;
+    }
+    .process-step .label {
+      font-size: 0.85em;
+      color: var(--muted);
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 30px;
+      margin: 24px 0;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 8px;
+      bottom: 8px;
+      width: 3px;
+      background: linear-gradient(180deg, var(--crimson) 0%, var(--gold) 100%);
+      border-radius: 2px;
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 20px;
+      padding-left: 20px;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -26px;
+      top: 6px;
+      width: 12px;
+      height: 12px;
+      background: var(--gold);
+      border-radius: 50%;
+      border: 3px solid var(--cream);
+      box-shadow: 0 0 0 2px var(--crimson);
+    }
+    .timeline-item .year {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      color: var(--crimson);
+      font-size: 1.1em;
+    }
+    .timeline-item .event {
+      color: var(--ink);
+      margin-top: 4px;
+    }
+
+    /* Tasting Cards */
+    .tasting-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin: 24px 0;
+    }
+    .tasting-card {
+      background: var(--card-bg);
+      padding: 24px 20px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .tasting-card:hover {
+      border-color: var(--gold);
+      box-shadow: 0 6px 20px rgba(139,0,0,0.1);
+    }
+    .tasting-card .icon {
+      font-size: 2.5em;
+      margin-bottom: 12px;
+    }
+    .tasting-card h4 {
+      font-family: 'Playfair Display', serif;
+      color: var(--crimson);
+      margin-bottom: 10px;
+      font-size: 1.15em;
+    }
+    .tasting-card p {
+      font-size: 0.9em;
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Cultural Section */
+    .cultural-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin: 24px 0;
+    }
+    .cultural-card {
+      background: linear-gradient(135deg, #FFF8F0 0%, #FDF5EB 100%);
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .cultural-card .emoji {
+      font-size: 2em;
+      margin-bottom: 12px;
+    }
+    .cultural-card h4 {
+      font-family: 'Playfair Display', serif;
+      color: var(--crimson);
+      margin-bottom: 10px;
+    }
+    .cultural-card p {
+      font-size: 0.9em;
+      margin: 0;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 0;
+      color: var(--muted);
+      font-size: 0.9em;
+      border-top: 2px solid var(--border);
+      margin-top: 30px;
+    }
+    footer .tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.2em;
+      color: var(--crimson);
+      margin-bottom: 8px;
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .section-content {
+      animation: fadeUp 0.6s ease-out forwards;
+      opacity: 0;
+    }
+    #what .section-content { animation-delay: 0.1s; }
+    #history .section-content { animation-delay: 0.15s; }
+    #process .section-content { animation-delay: 0.2s; }
+    #tasting .section-content { animation-delay: 0.25s; }
+    #facts .section-content { animation-delay: 0.3s; }
+    #culture .section-content { animation-delay: 0.35s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .section-content { animation: none !important; opacity: 1; }
+      .process-step, .tasting-card, .cultural-card { transition: none; }
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2.2em; }
+      h2 { font-size: 1.5em; }
+      .hero-emoji { font-size: 3em; }
+      .facts-grid { grid-template-columns: repeat(2, 1fr); }
+      .process-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <a href="#" class="logo">🍶 Moutai</a>
+      <ul>
+        <li><a href="#what">What</a></li>
+        <li><a href="#history">History</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#tasting">Tasting</a></li>
+        <li><a href="#culture">Culture</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <header>
+      <div class="hero-emoji">🍶</div>
+      <h1>Moutai</h1>
+      <p class="subtitle-zh">茅台 · 国酒</p>
+      <p class="subtitle-en">China's Most Prestigious Spirit — A Guide for International Friends</p>
+    </header>
+
+    <section id="what">
+      <div class="section-content">
+        <h2><span class="emoji">🏺</span> What is Moutai?</h2>
+
+        <p><strong>Moutai (茅台, Máotái)</strong> is China's most famous and prestigious liquor — a <strong>baijiu</strong> (白酒, literally "white spirit") that has been produced for over 800 years in a small town called <em>Maotai</em> in Guizhou Province, southwestern China.</p>
+
+        <div class="highlight">
+          <h3>🌟 Why is Moutai Special?</h3>
+          <ul>
+            <li><strong>Sauce-Aroma (酱香型):</strong> Moutai belongs to the "sauce-aroma" category of baijiu — known for its complex, layered fragrance reminiscent of soy sauce, fermented beans, and umami richness</li>
+            <li><strong>National Spirit:</strong> Often called "China's National Liquor" (国酒), served at state banquets and diplomatic events</li>
+            <li><strong>Geographic Protection:</strong> True Moutai can only be produced in Maotai Town, where the unique climate, water from the Chishui River, and local microorganisms create irreplaceable conditions</li>
+            <li><strong>Luxury Status:</strong> One of the world's most valuable spirit brands, often compared to fine Cognac or aged Scotch</li>
+          </ul>
+        </div>
+
+        <p class="quote">"If there is no Moutai, it is not a state banquet." — Popular Chinese saying</p>
+      </div>
+    </section>
+
+    <section id="history">
+      <div class="section-content">
+        <h2><span class="emoji">📜</span> A Storied History</h2>
+
+        <p>Moutai's history stretches back centuries, intertwined with Chinese culture, diplomacy, and national pride.</p>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="year">135 BC</div>
+            <div class="event">Historical records mention "Goujiang wine" from the Maotai region, suggesting a 2,000+ year winemaking tradition</div>
+          </div>
+          <div class="timeline-item">
+            <div class="year">1704</div>
+            <div class="event">The first documented Moutai distillery established during the Qing Dynasty</div>
+          </div>
+          <div class="timeline-item">
+            <div class="year">1915 🏆</div>
+            <div class="event"><strong>Panama-Pacific International Exposition</strong> — Moutai wins a gold medal, gaining its first international recognition</div>
+          </div>
+          <div class="timeline-item">
+            <div class="year">1949</div>
+            <div class="event">Moutai served at the founding banquet of the People's Republic of China, cementing its status as "National Liquor"</div>
+          </div>
+          <div class="timeline-item">
+            <div class="year">1972</div>
+            <div class="event">Premier Zhou Enlai serves Moutai to President Nixon during his historic visit — "Moutai Diplomacy" becomes legendary</div>
+          </div>
+          <div class="timeline-item">
+            <div class="year">Today</div>
+            <div class="event">Kweichow Moutai is one of the world's most valuable companies, with bottles of vintage Moutai fetching thousands of dollars at auction</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="process">
+      <div class="section-content">
+        <h2><span class="emoji">⚗️</span> How is Moutai Made?</h2>
+
+        <p>Moutai follows an ancient, strictly regulated process known as the <strong>"12987" method</strong> — a production cycle spanning an entire year that creates its distinctive complex flavor.</p>
+
+        <div class="highlight">
+          <h3>🔢 The "12987" Process Explained</h3>
+          <p>This famous formula represents the core of Moutai's traditional craftsmanship:</p>
+        </div>
+
+        <div class="process-grid">
+          <div class="process-step">
+            <div class="number">1</div>
+            <div class="label">Year<br>Production Cycle</div>
+          </div>
+          <div class="process-step">
+            <div class="number">2</div>
+            <div class="label">Times<br>Grain Added</div>
+          </div>
+          <div class="process-step">
+            <div class="number">9</div>
+            <div class="label">Times<br>Steamed</div>
+          </div>
+          <div class="process-step">
+            <div class="number">8</div>
+            <div class="label">Times<br>Fermented</div>
+          </div>
+          <div class="process-step">
+            <div class="number">7</div>
+            <div class="label">Times<br>Distilled</div>
+          </div>
+        </div>
+
+        <p><strong>Key ingredients:</strong> Local red sorghum (高粱) and wheat (小麦), plus the mineral-rich water from the Chishui River.</p>
+
+        <p><strong>Aging:</strong> After distillation, Moutai is aged for at least <strong>3 years</strong> in clay jars before blending. Premium bottles may contain base spirits aged 15, 30, or even 50 years.</p>
+
+        <p><strong>No additives:</strong> Unlike many spirits, Moutai contains no artificial flavors, colors, or added alcohol — just grain, water, and time.</p>
+      </div>
+    </section>
+
+    <section id="tasting">
+      <div class="section-content">
+        <h2><span class="emoji">👃</span> Tasting Guide</h2>
+
+        <p>Appreciating Moutai is an art. Here's how to experience it like a connoisseur:</p>
+
+        <div class="tasting-grid">
+          <div class="tasting-card">
+            <div class="icon">👁️</div>
+            <h4>Observe</h4>
+            <p>Hold the glass to light. Quality Moutai has a clear, slightly yellowish tint with "legs" (tears) that run slowly down the glass, indicating its viscosity and alcohol content.</p>
+          </div>
+          <div class="tasting-card">
+            <div class="icon">👃</div>
+            <h4>Smell</h4>
+            <p>Swirl gently and inhale. Notice layers of aroma: toasted grain, dried fruit, caramel, soy sauce, and a subtle floral note. The "sauce-aroma" should be rich but elegant.</p>
+          </div>
+          <div class="tasting-card">
+            <div class="icon">👅</div>
+            <h4>Taste</h4>
+            <p>Take a small sip and let it coat your mouth. Feel the warmth spread. The flavor is complex — sweet, savory, and slightly spicy with a long, lingering finish (回甘, huígān).</p>
+          </div>
+          <div class="tasting-card">
+            <div class="icon">🍽️</div>
+            <h4>Pair</h4>
+            <p>Moutai pairs excellently with rich Chinese dishes: Peking duck, braised pork belly (红烧肉), Sichuan cuisine, aged cheeses, or dark chocolate.</p>
+          </div>
+        </div>
+
+        <div class="highlight">
+          <h3>💡 Drinking Tips</h3>
+          <ul>
+            <li><strong>Temperature:</strong> Serve at room temperature (18-22°C / 64-72°F) to release the full aroma</li>
+            <li><strong>Glassware:</strong> Use a small tulip-shaped glass or traditional Chinese liquor cup (白酒杯)</li>
+            <li><strong>Portion:</strong> Sip slowly in small amounts — this is a spirit to savor, not shoot</li>
+            <li><strong>Toast:</strong> In Chinese culture, clinking glasses and saying "干杯" (gānbēi, "dry cup") is customary, but taking just a sip is acceptable for newcomers</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="facts">
+      <div class="section-content">
+        <h2><span class="emoji">📊</span> Key Facts</h2>
+
+        <div class="facts-card">
+          <h3>🍶 Moutai at a Glance</h3>
+          <div class="facts-grid">
+            <div class="fact-item">
+              <div class="value">53%</div>
+              <div class="label">ABV<br>(Alcohol by Volume)</div>
+            </div>
+            <div class="fact-item">
+              <div class="value">酱香型</div>
+              <div class="label">Sauce-Aroma<br>Baijiu Style</div>
+            </div>
+            <div class="fact-item">
+              <div class="value">贵州</div>
+              <div class="label">Guizhou Province<br>Origin</div>
+            </div>
+            <div class="fact-item">
+              <div class="value">3+ yrs</div>
+              <div class="label">Minimum<br>Aging Period</div>
+            </div>
+            <div class="fact-item">
+              <div class="value">高粱</div>
+              <div class="label">Red Sorghum<br>Main Ingredient</div>
+            </div>
+            <div class="fact-item">
+              <div class="value">1704</div>
+              <div class="label">First Documented<br>Distillery</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="culture">
+      <div class="section-content">
+        <h2><span class="emoji">🎭</span> Cultural Significance</h2>
+
+        <p>Moutai is far more than a drink in China — it's a symbol of celebration, respect, and national pride.</p>
+
+        <div class="cultural-grid">
+          <div class="cultural-card">
+            <div class="emoji">🏛️</div>
+            <h4>State Banquets</h4>
+            <p>Moutai has been served at virtually every major state dinner since 1949, including receptions for Nixon, Kissinger, and countless world leaders. It's the "diplomatic drink" of China.</p>
+          </div>
+          <div class="cultural-card">
+            <div class="emoji">🎁</div>
+            <h4>Gift Giving</h4>
+            <p>A bottle of premium Moutai is one of the most prestigious gifts in Chinese culture — given at weddings, business deals, and to show deep respect to elders and VIPs.</p>
+          </div>
+          <div class="cultural-card">
+            <div class="emoji">📈</div>
+            <h4>Investment & Collection</h4>
+            <p>Vintage Moutai bottles have become serious collectibles. Rare bottles from the 1970s-80s can sell for $100,000+ at auction, outperforming many traditional investments.</p>
+          </div>
+          <div class="cultural-card">
+            <div class="emoji">🎊</div>
+            <h4>Celebrations</h4>
+            <p>From Spring Festival reunions to wedding banquets, opening a bottle of Moutai marks life's most important moments. The saying goes: "No Moutai, no celebration."</p>
+          </div>
+        </div>
+
+        <p class="quote">"Moutai is not just a spirit — it carries the weight of Chinese history, diplomacy, and the bonds between people." — Chinese proverb</p>
+      </div>
+    </section>
+
+    <footer>
+      <p class="tagline">🍶 国酒茅台 · The Soul of China</p>
+      <p>An introduction for international friends curious about Chinese culture</p>
+      <p style="margin-top: 16px; font-size: 0.85em; color: #B0A090;">Please enjoy responsibly. Must be of legal drinking age.</p>
+    </footer>
+  </div>
+</body>
+</html>
