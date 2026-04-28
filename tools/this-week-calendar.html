@@ -3,6 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>家庭日程表</title>
+    <script>
+    (function(){
+      if(sessionStorage.getItem('cal_ok')==='1') return;
+      var p=prompt('请输入密码');
+      if(p==='0821'){sessionStorage.setItem('cal_ok','1');}
+      else{document.documentElement.innerHTML='<body style="text-align:center;padding:4rem;font-family:sans-serif"><h2>密码错误</h2>';}
+    })();
+    </script>
     <title>家庭日程表 4月27日 - 5月3日</title>
     <style>
         body {
