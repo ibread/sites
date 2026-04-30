@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1a1a2e">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+  <title>🌏 Asia Travel Weekly — April 30, 2026</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 52px; }
+    body { font-family: 'Source Serif 4', Georgia, serif; font-size: 15px; line-height: 1.5; background: #fafbfc; color: #1a1a2e; -webkit-font-smoothing: antialiased; }
+    .container { max-width: 720px; margin: 0 auto; padding: 0 20px 20px 20px; }
+    header { background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%); color: #fff; padding: 28px 20px; margin: 0 -20px 24px -20px; box-shadow: 0 4px 12px rgba(26, 26, 46, 0.15); position: relative; overflow: hidden; }
+    header h1 { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
+    header .dates { font-size: 14px; opacity: 0.85; }
+    header .back-link { position: absolute; top: 12px; right: 20px; color: rgba(255,255,255,0.7); text-decoration: none; font-size: 13px; }
+    header .back-link:hover { color: #fff; }
+    .page-nav { position: sticky; top: 0; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 8px 0; margin-bottom: 14px; border-bottom: 1px solid #e9ecef; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow-x: auto; white-space: nowrap; z-index: 100; }
+    .page-nav a { display: inline-block; padding: 6px 14px; margin: 0 3px; font-size: 13px; font-weight: 500; color: #6c757d; text-decoration: none; border-radius: 20px; transition: all 0.2s ease; }
+    .page-nav a:hover { background: #f1f3f5; color: #1a1a2e; }
+    .page-nav a.active { background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%); color: #fff; }
+    .section { margin-bottom: 16px; background: #ffffff; border-radius: 12px; padding: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.04); }
+    .section-header { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 20px; font-weight: 700; padding: 6px 0 6px 14px; margin-bottom: 10px; border-left: 4px solid; }
+    .section-header.china { border-color: #dc3545; background: linear-gradient(90deg, rgba(220,53,69,0.04) 0%, transparent 100%); }
+    .section-header.japan { border-color: #e63946; background: linear-gradient(90deg, rgba(230,57,70,0.04) 0%, transparent 100%); }
+    .section-header.korea { border-color: #457b9d; background: linear-gradient(90deg, rgba(69,123,157,0.04) 0%, transparent 100%); }
+    .section-header.india { border-color: #e07a5f; background: linear-gradient(90deg, rgba(224,122,95,0.04) 0%, transparent 100%); }
+    .section-header.sea { border-color: #2d936c; background: linear-gradient(90deg, rgba(45,147,108,0.04) 0%, transparent 100%); }
+    .section-header.hktw { border-color: #9b59b6; background: linear-gradient(90deg, rgba(155,89,182,0.04) 0%, transparent 100%); }
+    .section-header.competitor { border-color: #9b59b6; background: linear-gradient(90deg, rgba(155,89,182,0.04) 0%, transparent 100%); }
+    .section-header.implications { border-color: #27ae60; background: linear-gradient(90deg, rgba(39,174,96,0.04) 0%, transparent 100%); }
+    .section-header.sources { border-color: #6c757d; background: linear-gradient(90deg, rgba(108,117,125,0.04) 0%, transparent 100%); }
+    .section-header.holidays { border-color: #f39c12; background: linear-gradient(90deg, rgba(243,156,18,0.04) 0%, transparent 100%); }
+    .key-numbers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+    .kpi-tile { background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%); border-radius: 10px; padding: 16px 12px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.04); }
+    .kpi-tile .big-number { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 36px; font-weight: 700; line-height: 1.1; margin-bottom: 4px; }
+    .kpi-tile .big-number.warm { color: #e07a5f; }
+    .kpi-tile .big-number.cool { color: #457b9d; }
+    .kpi-tile .big-number.red { color: #e63946; }
+    .kpi-tile .big-number.green { color: #2d936c; }
+    .kpi-tile .label { font-size: 12px; color: #6c757d; font-weight: 500; }
+    .market-summary { font-size: 15px; font-weight: 500; padding: 14px; margin-bottom: 12px; background: #f0f2f5; color: #1a1a2e; border-radius: 10px; border-left: 4px solid; }
+    .market-summary p { margin: 4px 0; line-height: 1.5; }
+    .market-summary.china { border-color: #dc3545; }
+    .market-summary.japan { border-color: #e63946; }
+    .market-summary.korea { border-color: #457b9d; }
+    .market-summary.india { border-color: #e07a5f; }
+    .market-summary.sea { border-color: #2d936c; }
+    .market-summary.hktw { border-color: #9b59b6; }
+    .sub-market { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 16px; font-weight: 700; margin: 14px 0 8px 0; padding: 4px 0 4px 10px; border-left: 3px solid #adb5bd; color: #495057; }
+    .news-item { padding: 6px 0; border-bottom: 1px solid #f1f3f5; font-size: 14px; color: #2d3436; line-height: 1.5; }
+    .news-item:last-child { border-bottom: none; }
+    .news-item strong { font-weight: 600; color: #1a1a2e; font-size: 15px; }
+    .news-item .stat { font-weight: 600; font-size: 14px; }
+    .stat.up { color: #2d936c; }
+    .stat.up-strong { color: #1a7a52; }
+    .stat.down { color: #dc3545; }
+    .stat.neutral { color: #e07a5f; }
+    .news-item a { color: #6c757d; text-decoration: none; font-size: 12px; margin-left: 4px; }
+    .news-item a:hover { color: #1a1a2e; text-decoration: underline; }
+    .key-signals .news-item { padding: 12px 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #f1f3f5; }
+    th { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); font-weight: 600; color: #495057; font-size: 12px; }
+    footer { margin-top: 32px; padding-top: 20px; border-top: 1px solid #e9ecef; font-size: 12px; color: #adb5bd; text-align: center; }
+    ul { list-style: none; }
+    .cal-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 8px; }
+    .cal-month-title { font-weight: 700; font-size: 14px; color: #1a1a2e; margin-bottom: 6px; text-align: center; }
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; font-size: 12px; text-align: center; }
+    .cal-header { font-weight: 600; color: #6c757d; padding: 4px; }
+    .cal-day { padding: 6px 2px; border-radius: 4px; min-height: 32px; position: relative; }
+    .cal-day.empty { background: transparent; }
+    .cal-day.holiday-india { background: #fff3e0; }
+    .cal-day.holiday-japan { background: #fce4ec; }
+    .cal-day.holiday-korea { background: #e3f2fd; }
+    .cal-day.holiday-china { background: #ffebee; }
+    .cal-day.holiday-sea { background: #e8f5e9; }
+    .cal-day.holiday-hk { background: #f3e5f5; }
+    .cal-day.holiday-multi { background: linear-gradient(135deg, #fce4ec 50%, #e3f2fd 50%); }
+    .cal-day.holiday-cn-jp { background: linear-gradient(135deg, #ffebee 50%, #fce4ec 50%); }
+    .cal-day.today { border: 2px solid #1a1a2e; font-weight: 700; }
+    .cal-day .flag { font-size: 9px; display: block; line-height: 1.1; }
+    .cal-legend { margin-top: 12px; font-size: 12px; line-height: 1.9; color: #495057; background: #f8f9fa; border-radius: 8px; padding: 10px 12px; }
+    @media (max-width: 600px) { .cal-wrapper { grid-template-columns: 1fr; } .key-numbers { grid-template-columns: repeat(2, 1fr); } }
+    .section { opacity: 0; transform: translateY(12px); animation: fadeUp 0.4s ease forwards; }
+    .section:nth-child(1) { animation-delay: 0.05s; }
+    .section:nth-child(2) { animation-delay: 0.1s; }
+    .section:nth-child(3) { animation-delay: 0.15s; }
+    .section:nth-child(4) { animation-delay: 0.2s; }
+    .section:nth-child(5) { animation-delay: 0.25s; }
+    .section:nth-child(6) { animation-delay: 0.3s; }
+    .section:nth-child(7) { animation-delay: 0.35s; }
+    .section:nth-child(8) { animation-delay: 0.4s; }
+    .section:nth-child(9) { animation-delay: 0.45s; }
+    .section:nth-child(10) { animation-delay: 0.5s; }
+    .section:nth-child(11) { animation-delay: 0.55s; }
+    .section:nth-child(12) { animation-delay: 0.6s; }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a href="index.html" class="back-link">← All Issues</a>
+      <h1>🌏 Asia Travel Weekly</h1>
+      <div class="dates">Apr 23 – Apr 30, 2026</div>
+    </header>
+
+    <nav class="page-nav">
+      <a href="#signals">Key Signals</a>
+      <a href="#implications">Airbnb</a>
+      <a href="#competitors">Competitors</a>
+      <a href="#india">India</a>
+      <a href="#korea">Korea</a>
+      <a href="#japan">Japan</a>
+      <a href="#china">China</a>
+      <a href="#sea">SEA</a>
+      <a href="#hktw">HK/TW</a>
+      <a href="#holidays">Holidays</a>
+      <a href="#sources">Sources</a>
+    </nav>
+
+    <!-- KEY SIGNALS -->
+    <div class="section key-signals" id="signals">
+      <div class="section-header" style="border-color: #e74c3c;">🔥 KEY SIGNALS THIS WEEK</div>
+
+      <div class="key-numbers">
+        <div class="kpi-tile">
+          <div class="big-number green">+23%</div>
+          <div class="label">Korea Q1 arrivals YoY<br><span class="stat up">4.76M (record)</span></div>
+        </div>
+        <div class="kpi-tile">
+          <div class="big-number cool">+4%</div>
+          <div class="label">China May Day mobility YoY<br><span class="stat up">15.2B person-trips</span></div>
+        </div>
+        <div class="kpi-tile">
+          <div class="big-number green">+9%</div>
+          <div class="label">Philippines arrivals YoY<br><span class="stat up">2.24M (Jan-Apr)</span></div>
+        </div>
+        <div class="kpi-tile">
+          <div class="big-number red">−15%</div>
+          <div class="label">India outbound demand YoY<br><span class="stat down">Weak ₹ + ME tensions</span></div>
+        </div>
+      </div>
+
+      <div class="news-item">1. <strong>Mega-holiday convergence: May 1–6 is APAC's biggest travel week</strong> — China Labor Day (May 1–5), Japan Golden Week (Apr 29–May 6), Korea Children's Day (May 5) + Buddha's Birthday (May 6) all overlap. China MOT forecasts <span class="stat up">15.2B person-trips (+4% YoY)</span>, a record. Korea expects 180K–200K Japanese + Chinese visitors for the window. Seoul launched "Welcome Week" May 1–8. <a href="https://www.sina.cn/news/detail/5292912009281645.html" target="_blank">MOT</a> | <a href="https://www.koreatimes.co.kr/southkorea/20260428/korea-rolls-out-tourism-drive-to-woo-holiday-travelers-from-japan-china" target="_blank">Korea Times</a></div>
+
+      <div class="news-item">2. <strong>Korea Q1 2026: 4.76M arrivals, record quarter</strong> — <span class="stat up">+23% YoY</span>. March alone hit 2.06M (monthly record). BTS comeback + K-culture tourism + weak won driving the surge. Airbnb Korea's "Toward Korea" report: <span class="stat up">75% of inbound tourists visit for K-culture</span>. Seoul hotel avg $90 vs NYC $419 (Yanolja Research). <a href="https://www.travelandtourworld.com/news/article/south-korea-joins-thailand-vietnam-singapore-and-malaysia-in-leading-the-asia-pacific-tourism-surge-of-2026-setting-new-records-and-redefining-global-travel-dynamics/" target="_blank">Travel And Tour World</a> | <a href="https://biz.heraldcorp.com/article/10727399" target="_blank">Herald Business</a></div>
+
+      <div class="news-item">3. <strong>China May Day: county-level destinations explode, per-capita spend lags</strong> — Meituan bookings <span class="stat up">+28% YoY</span>. County-level orders <span class="stat up-strong">+82% YoY</span>. Hainan Ding'an hotels +8.7x, Sichuan Luzhou +5.3x. But per-capita spending growth continues to trail volume growth — the "spend gap" persists. <a href="https://www.msweekly.com/show.html?id=184238" target="_blank">民生周刊</a> | <a href="https://view.inews.qq.com/a/20260429A05J8E00" target="_blank">腾讯新闻</a></div>
+
+      <div class="news-item">4. <strong>Hong Kong braces for 980K mainland visitors over Labour Day</strong> — Financial Secretary Paul Chan forecasts <span class="stat up">+7% YoY</span>. Hotel occupancy expected to exceed 90% (Causeway Bay flagship at 95%). Sino-Japanese tensions redirecting mainland tourists from Japan to HK. <a href="https://www.dimsumdaily.hk/financial-secretary-paul-chan-forecasts-980000-visitors-for-golden-week/" target="_blank">Dim Sum Daily</a></div>
+
+      <div class="news-item">5. <strong>India: affluent travelers put 58% of wallet into travel</strong> — Visa's VCA Whitepaper reveals experience-led spending dominates. <span class="stat up">77% confident about summer travel</span> despite global turmoil (Skyscanner). But outbound demand drops <span class="stat down">15–20% YoY</span> from weak rupee + Middle East tensions. Domestic hill stations see record interest. <a href="https://economictimes.indiatimes.com/news/economy/indicators/affluent-india-shifts-to-experience-led-spending-travel-accounts-for-58-of-discretionary-wallet-report/articleshow/130580755.cms" target="_blank">Economic Times</a></div>
+
+      <div class="news-item">6. <strong>Singapore projects 17–18M arrivals, S$31–32.5B revenue for 2026</strong> — China overtook all others as top source market in Q1 (4M visitors). Tourism 2040 target: S$47–50B. Disney Cruise Asia homeport + F1 sprint race as anchor events. <a href="https://www.hotel-online.com/news/in-focus-singapore-1" target="_blank">Hotel Online</a></div>
+
+      <div class="news-item">7. <strong>Shanghai allows residents to visit Taiwan's Kinmen & Matsu</strong> — Major cross-strait development following KMT-CCP forum. Individual and group tours via qualified agencies. Could unlock new accommodation demand on capacity-limited islands. <a href="https://www.taipeitimes.com/News/taiwan/archives/2026/04/30/2003856501" target="_blank">Taipei Times</a></div>
+    </div>
+
+    <!-- AIRBNB IMPLICATIONS -->
+    <div class="section" id="implications">
+      <div class="section-header implications">💡 AIRBNB APAC IMPLICATIONS</div>
+      <div class="news-item">1. <strong>Korea: capture the mega-holiday surge</strong> — 180K–200K Japanese + Chinese visitors converging May 1–6. Airbnb Korea's own data shows 75% visit for K-culture. Seoul Welcome Week (May 1–8) and government travel coupons create co-marketing opportunities. Korean hosts should ensure Chinese/Japanese-language listings and payment readiness. Seoul's $90/night avg hotel rate means Airbnb must compete on experience, not price.</div>
+      <div class="news-item">2. <strong>Hong Kong: 90%+ hotel occupancy = Airbnb overflow moment</strong> — 980K mainland visitors expected, Causeway Bay hotels at 95%. This is a structural opportunity if Sino-Japanese tensions persist and redirect mainland demand from Japan to HK. Self-drive scheme (5,000+ Guangdong motorists) creates new demand for properties with parking. Regulatory crackdown on tourist scams improves ecosystem quality.</div>
+      <div class="news-item">3. <strong>China county-level boom: supply gap opportunity</strong> — County-level bookings +82% but hotel infrastructure is thin. Airbnb's unique/rural inventory proposition is well-suited for Hainan Ding'an (+8.7x), Sichuan Luzhou (+5.3x), Fujian Fuzhou (blue tears phenomenon +84%). Build host acquisition in trending counties.</div>
+      <div class="news-item">4. <strong>Southeast Asia: VM2026 + Vietnam digital transformation</strong> — Malaysia's 42.2M visitors in 2025, now targeting quality over quantity. Vietnam's digital arrival card (Apr 15) streamlines entry. Singapore's luxury positioning + Disney Cruise homeport drives high-value demand. APAC T&T GDP growing 8.2% — the region is the global growth engine.</div>
+      <div class="news-item">5. <strong>India: domestic opportunity despite outbound headwinds</strong> — 15–20% outbound decline redirects affluent Indian travelers to domestic hill stations (Manali, Spiti, Shillong). Hospitality sector in "golden cycle" (Nomura) with $263B→$588B trajectory. Build supply in trending domestic destinations. For outbound, strengthen Korea/SEA listings for Indian travelers.</div>
+      <div class="news-item">6. <strong>Japan regulatory tightening continues</strong> — Overtourism measures intensifying: humanoid robot baggage handlers signal infrastructure strain. Akiya-to-Airbnb conversion interest growing but minpaku 180-day cap remains. Departure tax hike + passport fee cut = Japan rebalancing inbound vs outbound. Full compliance critical.</div>
+      <div class="news-item">7. <strong>Cross-strait opening: Kinmen/Matsu as new micro-market</strong> — Shanghai residents can now visit these islands where hotel capacity is extremely limited. Airbnb could be the primary accommodation solution. Monitor regulatory framework and host acquisition opportunity.</div>
+    </div>
+
+    <!-- COMPETITOR WATCH -->
+    <div class="section" id="competitors">
+      <div class="section-header competitor">🏢 COMPETITOR & PLATFORM WATCH</div>
+      <div class="news-item">• <strong>Airbnb Korea "Toward Korea" report + Seongsu pop-up</strong> — 75% of inbound tourists visit for K-culture, 94% say Korean culture influenced travel decisions. Airbnb opened "secret space" pop-up in Seoul Seongsu-dong tied to CORTIS universe. Country Manager Seo Ga-yeon announced immersive K-culture content strategy. <a href="https://biz.heraldcorp.com/article/10727399" target="_blank">Herald Business</a></div>
+      <div class="news-item">• <strong>Yanolja: AI showcase + FTC corrective orders</strong> — Showcasing travel AI at AI EXPO KOREA 2026. Meanwhile, Fair Trade Commission ordered corrective measures on Nol Universe (Yanolja parent) for unfair contract terms. Accommodation association filed complaints with prosecutors. <a href="https://www.hankyung.com/article/202604280966P" target="_blank">Hankyung</a> | <a href="https://www.sukbakmagazine.com/news/articleView.html?idxno=68143" target="_blank">숙박매거진</a></div>
+      <div class="news-item">• <strong>Yeogi Eottae pivots to Japan hotel promos</strong> — Exclusive 4-star Osaka hotel deals to offset rising Korean outbound airfares. Domestic hotel/resort industry responding with "integrated travel products" bundling accommodation + meals + leisure. <a href="https://www.wolyo.co.kr/news/articleView.html?idxno=311428" target="_blank">Wolyo Shinmun</a></div>
+      <div class="news-item">• <strong>MakeMyTrip explores Mumbai listing</strong> — Nasdaq-listed company considering India IDR offering. RedBus India folded into MakeMyTrip (India) Pvt. Also partnered with Adani Airport for duty-free pre-booking across 10+ categories. <a href="https://www.thehindubusinessline.com/markets/stock-markets/makemytrip-considers-india-listing-amid-strategy-to-tap-domestic-investors/article70920184.ece" target="_blank">Hindu BusinessLine</a></div>
+      <div class="news-item">• <strong>Agoda names Tokyo top Labor Day destination</strong> — Targeting Chinese/Asian holiday traffic. Regional Director for North Asia highlighting Japan + Korea accommodations and flights. <a href="https://www.prnewswire.com/apac/news-releases/agoda-unveils-top-5-labor-day-destinations-for-2026-302756573.html" target="_blank">PR Newswire</a></div>
+      <div class="news-item">• <strong>TUI launches The Mora Singapore — luxury Asia debut</strong> — First Asia luxury hotel brand from TUI Hotels & Resorts. Bali expansion also revealed. European operators betting big on SEA luxury segment. <a href="https://www.travelandtourworld.com/news/article/tui-hotels-and-resorts-launches-the-mora-singapore-in-asia-with-luxury-debut-bali-expansion-plans-revealed/" target="_blank">Travel And Tour World</a></div>
+      <div class="news-item">• <strong>Varun Raina rejoins Airbnb as Senior Marketing Lead India</strong> — Signals continued investment in the Indian market with dedicated marketing leadership. <a href="https://bestmediainfo.com/mediainfo/mediainfo-marketing/varun-raina-rejoins-airbnb-as-senior-marketing-lead-india-11773276" target="_blank">BestMediaInfo</a></div>
+    </div>
+
+    <!-- INDIA -->
+    <div class="section" id="india">
+      <div class="section-header india">🇮🇳 INDIA (भारत)</div>
+      <div class="market-summary india">
+        <p>• <strong>Affluent India puts 58% of discretionary wallet into travel</strong> — Visa VCA Whitepaper. Experience-led spending dominates. 77% confident about summer travel (Skyscanner).</p>
+        <p>• <strong>Outbound demand drops 15–20% YoY</strong> — Weak rupee + West Asia tensions drive up costs. FAITH reports significant demand contraction for Apr–Jun window.</p>
+        <p>• <strong>Domestic surge: hill stations see record summer interest</strong> — Manali, Coorg, Shillong, Spiti, Auli. Indian Railways deploying 18,262 summer special trains.</p>
+        <p>• <strong>Hospitality "golden cycle"</strong> — Nomura: sustained ADR growth, mid-teen IRRs. Market projected $263B→$588B by 2034 (9.3% CAGR).</p>
+        <p>• <strong>Policy: eVisa expanded to 14 seaports; Korea extends group visa fee waiver for Indians</strong>.</p>
+      </div>
+      <div class="news-item">• <strong>Travel = 58% of affluent discretionary spending</strong> — Visa VCA Whitepaper: affluent Indians traveling to 10+ countries, spending ₹50,000/month on dining. Shift from retail to <span class="stat up">intentional, experience-driven consumption</span>. <a href="https://economictimes.indiatimes.com/news/economy/indicators/affluent-india-shifts-to-experience-led-spending-travel-accounts-for-58-of-discretionary-wallet-report/articleshow/130580755.cms" target="_blank">Economic Times</a></div>
+      <div class="news-item">• <strong>77% confident about summer travel despite turmoil</strong> — Skyscanner survey of 2,000: <span class="stat up">9 in 10 have planned or booked</span>. 81% interested in offbeat destinations. Travelers adapting by staying flexible. <a href="https://www.business-standard.com/industry/news/77-indians-confident-about-summer-travel-despite-global-turmoil-report-126042900715_1.html" target="_blank">Business Standard</a></div>
+      <div class="news-item">• <strong>Outbound demand drops 15–20%</strong> — West Asia tensions + weak rupee. <span class="stat down">Apr–Jun 2026 vs 2025</span>. Domestic travel boom offsets international slowdown. Staycations and "revenge travel" trending. <a href="https://economictimes.indiatimes.com/nri/visit/international-travel-demand-from-india-drops-as-west-asia-tensions-and-weak-rupee-drive-up-costs/articleshow/130547813.cms" target="_blank">Economic Times</a> | <a href="https://www.mid-day.com/lifestyle/travel/article/domestic-travel-boom-offsets-international-slowdown-supports-hospitality-sector-resilience-phdcci-report-23627706" target="_blank">Mid-Day</a></div>
+      <div class="news-item">• <strong>Experiential travel redefines India</strong> — Wellness, wildlife safaris, and event-led tourism (sports, music festivals) driving growth. More sophisticated traveler emerging, prioritizing personal enrichment over standard itineraries. <a href="https://www.travelandtourworld.com/news/article/india-tourism-boom-2026-how-wellness-wildlife-and-event-led-segments-are-redefining-experiential-travel/" target="_blank">Travel And Tour World</a></div>
+      <div class="news-item">• <strong>Hill stations see record summer interest</strong> — Manali, Coorg, Shillong, Nainital, Spiti Valley, Auli. <span class="stat up">Domestic tourism surging</span> as travelers seek cooler weather. Indian Railways deployed <span class="stat up">18,262 summer special trains</span> for Apr 15–Jul 15 window. <a href="https://www.travelandtourworld.com/news/article/manali-coorg-shillong-nainital-spiti-valley-and-auli-drive-record-summer-holiday-interest-as-domestic-tourism-surges-across-india-in-2026-you-need-to-know/" target="_blank">Travel And Tour World</a> | <a href="https://m.economictimes.com/industry/transportation/railways/indian-railways-rolls-out-18262-summer-special-train-trips-to-ease-rush-boost-connectivity/amp_articleshow/130485204.cms" target="_blank">ET</a></div>
+      <div class="news-item">• <strong>Hospitality enters 'golden cycle'</strong> — Nomura: sustained ADR growth, mid-teen IRRs, luxury demand outpacing supply. Market projected <span class="stat up">$263.2B (2025) → $588.2B (2034)</span> at 9.3% CAGR. US/UK/Canada/Australia travelers + Marriott adding 200 hotels. <a href="https://economictimes.indiatimes.com/industry/services/hotels-/-restaurants/indias-hospitality-sector-enters-a-golden-cycle-as-luxury-demand-outpaces-supply-nomura/articleshow/130456808.cms" target="_blank">ET</a></div>
+      <div class="news-item">• <strong>GITB 2026: 15th edition in Jaipur</strong> — 10,000+ B2B meetings planned. EY-FICCI calls for GST cut on premium hotels from 18% to 9%, visa reforms, 'Incredible India 4.0' positioning. eVisa expanded to <span class="stat up">14 additional seaports</span>. <a href="https://www.travelandtourworld.com/news/article/jaipur-hosts-gitb-2026-as-india-targets-growth-in-inbound-tourism-and-global-travel-investment/" target="_blank">Travel And Tour World</a> | <a href="https://tmv.in/article/indias-inbound-tourism-lags-global-peers-eyficci-calls-for-gst-cuts-and-visa-reforms-date=2026-04-29" target="_blank">TMV</a></div>
+      <div class="news-item">• <strong>Varun Raina rejoins Airbnb as Senior Marketing Lead India</strong> — Dedicated marketing leadership hire signals continued Airbnb investment in the Indian market. <a href="https://bestmediainfo.com/mediainfo/mediainfo-marketing/varun-raina-rejoins-airbnb-as-senior-marketing-lead-india-11773276" target="_blank">BestMediaInfo</a></div>
+    </div>
+
+    <!-- KOREA -->
+    <div class="section" id="korea">
+      <div class="section-header korea">🇰🇷 KOREA (대한민국)</div>
+      <div class="market-summary korea">
+        <p>• <strong>Q1 2026 record: 4.76M arrivals (+23% YoY)</strong> — March: 2.06M (monthly record). Record-breaking arrivals from Japan, China, Taiwan, UK.</p>
+        <p>• <strong>Korea = #1 destination for Golden Week + Labor Day</strong> — 180K–200K expected from Japan + China. Seoul Welcome Week May 1–8. Government ¥1,000–2,000 airfare discounts for Japanese tourists.</p>
+        <p>• <strong>"Not expensive" narrative strengthens</strong> — Seoul hotel $90 (NYC $419, Tokyo $140). Busan $53. Weak won amplifies value.</p>
+        <p>• <strong>Fuel surcharge drives domestic pivot</strong> — Overseas bookings at 75% of Feb levels. Domestic hotel/resort occupancy rising. Government issuing 300K accommodation coupons.</p>
+        <p>• <strong>Medical tourism surprise: 2.01M visitors, 65% chose dermatology</strong> over plastic surgery.</p>
+      </div>
+      <div class="news-item">• <strong>Record Q1: 4.76M visitors (+23% YoY)</strong> — March alone: <span class="stat up">2.06M (monthly record)</span>. Japan, China, Taiwan, UK all hit new highs. BTS return cited as major driver. Korean Air and Asiana reporting significant economic impact from K-culture tourism. <a href="https://www.travelandtourworld.com/news/article/south-korea-joins-thailand-vietnam-singapore-and-malaysia-in-leading-the-asia-pacific-tourism-surge-of-2026-setting-new-records-and-redefining-global-travel-dynamics/" target="_blank">Travel And Tour World</a> | <a href="https://www.travelandtourworld.com/news/article/japan-joins-china-taiwan-uk-arrivals-to-smash-records-korean-air-and-asiana-report-bts-linked-tourism-spike-with-massive-economic-impact/" target="_blank">Travel And Tour World</a></div>
+      <div class="news-item">• <strong>Airbnb Korea: 75% of tourists visit for K-culture</strong> — "Toward Korea" report: 94% of foreigners say Korean culture influenced travel. Content-driven tourists show higher spending and longer stays. Pop-up 'secret space' opened in Seoul Seongsu-dong tied to CORTIS universe. <a href="https://biz.heraldcorp.com/article/10727399" target="_blank">Herald Business</a></div>
+      <div class="news-item">• <strong>Golden Week tourism drive: 180K–200K visitors targeted</strong> — 80K–90K from Japan, 100K–110K from China. Jin Air/Air Busan airfare discounts of <span class="stat up">¥1,000–2,000/person</span>. Busan cruise packages 40–50% off. K-tourism roadshow in Fukuoka ft. Hwang Min-hyun. Welcome booths at Gimhae Airport for Chinese travelers. <a href="https://www.koreatimes.co.kr/southkorea/20260428/korea-rolls-out-tourism-drive-to-woo-holiday-travelers-from-japan-china" target="_blank">Korea Times</a></div>
+      <div class="news-item">• <strong>Seoul = best value globally</strong> — Yanolja Research: Seoul hotel avg <span class="stat up">$89.9</span> (NYC $419.4, Tokyo $140.5, Singapore $127.8). Busan: $53. Taxi 10km: $8.54. Meal: $8.79. Weak won driving value perception. <a href="https://en.sedaily.com/finance/2026/04/23/seoul-hotels-at-90-vs-new-yorks-420-k-tourism-tops-global" target="_blank">Seoul Economic Daily</a></div>
+      <div class="news-item">• <strong>Fuel surcharge shifts Koreans domestic</strong> — Overseas bookings fell to <span class="stat down">75% of Feb levels</span> (worse than last year's 82%). Fuel surcharges up ~5x from Middle East conflict. Domestic hotels/resorts in Gangwon and Jeju seeing higher occupancy. Consumer Sentiment Index fell to 99.2 in April (from 107 in March). <a href="https://www.yna.co.kr/view/AKR20260425044500030" target="_blank">Yonhap</a></div>
+      <div class="news-item">• <strong>Government boosts May consumption</strong> — 300,000 accommodation coupons for rural areas. Half-price travel rebate extended to public transport. 'Eco-Friendly Green Consumption and Tourism Boom Plan' to counter oil price impact. <a href="https://en.sedaily.com/finance/2026/04/28/korea-to-boost-consumption-during-may-golden-holiday-with" target="_blank">Seoul Economic Daily</a></div>
+      <div class="news-item">• <strong>Medical tourism boom: 2.01M foreign patients, dermatology leads</strong> — <span class="stat up-strong">Nearly 2x of 2024</span>. 1.31M chose dermatology (65%), not plastic surgery. Salmon-DNA injections and exosome therapy driving demand. Platform revenue $73M. <a href="https://www.seoulz.com/korea-medical-tourism-2026/" target="_blank">Seoulz</a></div>
+      <div class="news-item">• <strong>40-year tourism law overhaul debate launched</strong> — First formal discussion on overhauling Korea's tourism legislation. Potential implications for accommodation platforms and shared lodging regulations. K-ETA exemption extended through Dec 31, 2026 for 67 countries. <a href="https://dazabi.com/insurance_magazine/article.php?id=18347" target="_blank">Dazabi</a> | <a href="https://blog.wego.com/south-korea-travel-rules-k-eta-waiver-2026/" target="_blank">Wego</a></div>
+    </div>
+
+    <!-- JAPAN -->
+    <div class="section" id="japan">
+      <div class="section-header japan">🇯🇵 JAPAN (日本)</div>
+      <div class="market-summary japan">
+        <p>• <strong>Q1 spending: ¥2.3T ($15.3B), +2.5% YoY</strong> — Top 3 highest quarterly totals ever. Record 10M visitors in early 2026. 42.7M record in 2025.</p>
+        <p>• <strong>Where are the Chinese tourists?</strong> — Arrivals remain well below pre-pandemic. Composition diversifying: Taiwan (+37.7%), Korea driving growth.</p>
+        <p>• <strong>Golden Week 2026: 23.9M domestic trips</strong> — Shift beyond Golden Route to Shikoku. Shorter stays trending. Outbound bookings rising as consumers rush before costs climb.</p>
+        <p>• <strong>Overtourism fight intensifies</strong> — Mt. Fuji/cherry blossom crowd control. Passport fee −44% to ¥8,900 (July). Departure tax hike. Robot baggage handlers tested.</p>
+        <p>• <strong>Akiya-to-Airbnb interest growing</strong> — Minpaku 180-day cap remains. Special zones allow 365-day operation.</p>
+      </div>
+      <div class="news-item">• <strong>Q1 spending: ¥2.3T (+2.5% YoY)</strong> — Third-highest quarterly total ever. Tokyo, Osaka, Kyoto lead growth. <span class="stat up">Leisure and cultural demand robust</span>. Record 10M visitors in early 2026 after 42.7M record in 2025. <a href="https://www.travelandtourworld.com/news/article/tokyo-osaka-kyoto-lead-japan-tourism-growth-as-foreign-visitor-spending-surges-in-early-2026/" target="_blank">Travel And Tour World</a></div>
+      <div class="news-item">• <strong>Chinese tourist gap widens</strong> — Despite record totals, Chinese arrivals remain <span class="stat down">well below pre-pandemic levels</span>. Tourism composition diversifying. Taiwan: 544,503 visitors in March (+37.7% YoY). Japan redirecting airline capacity from China to Taiwan/Korea routes. <a href="https://www.channelnewsasia.com/listen/cna-correspondent/japans-tourism-rebounds-where-are-chinese-tourists-6087591" target="_blank">CNA</a> | <a href="https://www.tourism-review.com/japans-tourism-fills-the-gap-left-after-chinese-visitors-news15425" target="_blank">Tourism Review</a></div>
+      <div class="news-item">• <strong>Golden Week: 23.9M trips, shifting beyond Golden Route</strong> — Shikoku and secondary destinations trending. <span class="stat neutral">Shorter stays preferred</span>. Outbound overseas bookings up YoY as consumers rush before fuel surcharges climb further. <a href="https://www.travelandtourworld.com/news/article/japan-travel-trends-2026-shift-beyond-tokyo-kyoto-and-osaka-as-23-9-million-golden-week-trips-turn-to-shikoku-and-shorter-stays/" target="_blank">Travel And Tour World</a> | <a href="https://mainichi.jp/english/articles/20260424/p2a/00m/0na/039000c" target="_blank">Mainichi</a></div>
+      <div class="news-item">• <strong>Outbound still at 70% of pre-pandemic</strong> — 14.73M trips in 2025 vs 20.08M record in 2019. <span class="stat down">21% cite weak yen</span> as reason for not traveling abroad. Passport fee slashed 44% to ¥8,900 from July to boost ownership. <a href="https://english.kyodonews.net/articles/-/74892" target="_blank">Kyodo News</a></div>
+      <div class="news-item">• <strong>Overtourism fight escalates</strong> — Cherry blossom crowds put towns on edge. Mt. Fuji restrictions. Communities organizing crowd control. Departure tax hike planned. Meanwhile, humanoid robots tested as airport baggage handlers to address labor shortages. <a href="https://www.nytimes.com/2026/04/26/world/asia/japan-fuji-tourism-cherry-blossoms-overtourism.html" target="_blank">NYT</a> | <a href="https://www.theguardian.com/world/2026/apr/28/humanoid-robots-baggage-handlers-japan-airports" target="_blank">Guardian</a></div>
+      <div class="news-item">• <strong>'Zero-Kilometre Luxury' trend</strong> — Hyper-local experiences in Kanazawa, Shimane. Total locality: locally sourced everything + tech-enabled tourism management. Spreading visitors beyond major cities. <a href="https://www.travelandtourworld.com/news/article/japans-high-tech-revolution-is-changing-how-we-travel-forever-discover-the-future-of-smart-tourism/" target="_blank">Travel And Tour World</a></div>
+      <div class="news-item">• <strong>Akiya-to-Airbnb interest growing</strong> — Minpaku law: 180-day cap nationally. Special Zones (Tokyo Ota Ward, Kitakyushu, Niigata) allow 365-day with 2-night minimum. New hotel pipeline: Hotel101 Niseko (482 rooms, Dec 2026). JR Pass price revision announced. <a href="https://www.akiyajapan.com/articles/from-akiya-to-airbnb-how-our-layer-feature-reveals-minpaku-potential" target="_blank">Akiya Japan</a> | <a href="https://www.euronews.com/travel/2026/04/26/new-hotels-in-japan-the-standout-openings-to-book-in-2026" target="_blank">Euronews</a></div>
+    </div>
+
+    <!-- CHINA -->
+    <div class="section" id="china">
+      <div class="section-header china">🇨🇳 CHINA (中国)</div>
+      <div class="market-summary china">
+        <p>• <strong>May Day: 15.2B person-trips forecast (+4% YoY), record</strong> — Daily avg 304M. Civil aviation 227.2M passengers. Meituan bookings +28% YoY.</p>
+        <p>• <strong>County-level destinations explode</strong> — Orders +82% YoY. Hainan Ding'an +8.7x, Sichuan Luzhou +5.3x. "De-headlining" trend away from top-tier cities.</p>
+        <p>• <strong>Spend gap persists: volume grows faster than per-capita spend</strong>. Consumer downgrade trend continues into 2026.</p>
+        <p>• <strong>Government stimulus: ¥284M in tourism vouchers</strong> across 13,700 events. Spring holiday + May Day = 7–10 day super golden week in some cities.</p>
+        <p>• <strong>2025 baseline: 6.5B domestic trips, ¥6.3T spending</strong>. 2026 Spring Festival: 596M trips, ¥800B+.</p>
+      </div>
+      <div class="news-item">• <strong>May Day: 15.2B person-trips, record</strong> — MOT forecast: daily avg <span class="stat up">304M person-trips (+4% YoY)</span>. Civil aviation: 227.2M passengers/day (+1.9%). Immigration: 225M daily border crossings, single-day peak 240M+. A-share tourism sector rose 1.79% on Apr 29. <a href="https://www.sina.cn/news/detail/5292912009281645.html" target="_blank">MOT/Sina</a> | <a href="https://finance.sina.com.cn/stock/relnews/cn/2026-04-30/doc-inhwfihk7607535.shtml" target="_blank">证券时报</a></div>
+      <div class="news-item">• <strong>County-level boom: +82% YoY</strong> — Hainan Ding'an hotels <span class="stat up-strong">+8.7x</span>, Sichuan Luzhou +5.3x, Guangdong Zhongshan +4.3x. Fuzhou homestay orders +84% (blue tears phenomenon). Young travelers shifting from check-in tourism to <span class="stat neutral">emotion-value-driven travel</span>. Music festivals, Suzhou Super League, blue tears as trip triggers. <a href="https://www.msweekly.com/show.html?id=184238" target="_blank">民生周刊</a></div>
+      <div class="news-item">• <strong>Self-drive tourism +30% YoY</strong> — Tuniu: self-drive bookings surge. Spring holiday + May Day = 7–10 day super golden week in 30+ cities with school spring breaks. Shanghai Disneyland, Zhuhai Chimelong, Sanya, Jiuzhaigou most popular. <a href="https://www.stcn.com/article/detail/3790250.html" target="_blank">证券时报/途牛</a></div>
+      <div class="news-item">• <strong>Per-capita spend lags volume growth</strong> — Past 5 years: May Day trips grew ~15% annually, but per-capita spending growth <span class="stat down">failed to keep pace</span>. Consumer downgrade trend persists despite record volumes. <a href="https://view.inews.qq.com/a/20260429A05J8E00" target="_blank">腾讯新闻</a></div>
+      <div class="news-item">• <strong>Government stimulus: ¥284M vouchers, 13,700 events</strong> — MOCT launched "Cultural Tourism Benefits Week" from late April through May Day. Partners: China Mobile, ICBC, Gaode Maps, Tongcheng. Themes: spring outings, family trips, study tours. <a href="https://www.stcn.com/article/detail/3821849.html" target="_blank">证券时报</a></div>
+      <div class="news-item">• <strong>Q1 tourism stocks validate recovery</strong> — Lijiang Tourism Q1 net profit ¥66.6M <span class="stat up">(+93.3% YoY)</span>. Changbaishan net profit +80%+. Huachuang Securities: Qingming revenue recovery hit post-2023 holiday high. Travel remains key domestic consumption driver. <a href="https://finance.sina.com.cn/stock/relnews/cn/2026-04-30/doc-inhwfihk7607535.shtml" target="_blank">Sina Finance</a></div>
+      <div class="news-item">• <strong>CGTR 2026: B2B travel fair in Shanghai/Shenzhen</strong> — 40+ hotel groups and destination agencies. First time including China inbound tourism resources. Hoshino Resorts shared China expansion plans. LA Tourism Board pitched 2026 World Cup + 2028 Olympics. <a href="https://www.traveldaily.cn/article/189842/" target="_blank">环球旅讯</a></div>
+    </div>
+
+    <!-- SOUTHEAST ASIA -->
+    <div class="section" id="sea">
+      <div class="section-header sea">🌴 SOUTHEAST ASIA (东南亚)</div>
+      <div class="market-summary sea">
+        <p>• <strong>APAC T&T GDP grew 8.2% to $3.29T in 2025</strong> — Malaysia +11.2%, Philippines +10.8%. ASEAN arrivals: 144M (92% of pre-pandemic).</p>
+        <p>• <strong>China outbound fully rebounded to 101M passengers</strong> — Malaysia among top destinations. Visit Malaysia 2026 shifting to quality over quantity.</p>
+        <p>• <strong>Vietnam: Hanoi 12.14M visitors in Jan–Apr</strong>, revenue $1.92B. Digital arrival card launched Apr 15.</p>
+        <p>• <strong>Singapore: 4M visitors Q1, China now #1 source</strong>. STB projects 17–18M arrivals for 2026. Luxury positioning + Disney Cruise homeport.</p>
+        <p>• <strong>Philippines: 2.24M arrivals Jan–Apr (+9%)</strong>. Davao City #1 destination for 2nd year.</p>
+      </div>
+
+      <div class="sub-market">🇲🇾 Malaysia</div>
+      <div class="news-item">• <strong>42.2M international visitors in 2025, now targeting quality</strong> — VM2026 pivoting from volume to high-value tourists from China, India, ASEAN. B2B networking in Kaohsiung/Taipei (Apr 20–24) to boost Taiwan arrivals. <a href="https://www.travelandtourworld.com/news/article/south-korea-joins-thailand-vietnam-singapore-and-malaysia-in-leading-the-asia-pacific-tourism-surge-of-2026-setting-new-records-and-redefining-global-travel-dynamics/" target="_blank">Travel And Tour World</a></div>
+      <div class="news-item">• <strong>Digital Cultural Card for Chinese travelers</strong> — VM2026 innovation letting Chinese tourists explore Malaysian culture, food, destinations online before arrival. Starting the travel journey earlier. <a href="https://www.travelandtourworld.com/news/article/malaysia-transforms-tourism-through-digital-technology-as-chinese-travellers-explore-culture-food-and-destinations-online-before-arrival-ahead-of-visit-malaysia-2026/" target="_blank">Travel And Tour World</a></div>
+      <div class="news-item">• <strong>Ascend Airways: new carrier with first 737-800</strong> — Delivered to KL Subang Airport. Commercial flights planned mid-2026. Ramadan accommodation searches <span class="stat up">+200% YoY</span> reflecting digital adoption surge. <a href="https://www.travelandtourworld.com/news/article/ascend-airways-malaysia-takes-delivery-of-first-boeing-737-800-set-to-transform-malaysias-tourism-boom-in-2026/" target="_blank">Travel And Tour World</a> | <a href="https://cj.my/156965/how-malaysians-are-using-technology-to-plan-smarter-trips-in-2026" target="_blank">CJ</a></div>
+
+      <div class="sub-market">🇻🇳 Vietnam</div>
+      <div class="news-item">• <strong>Hanoi: 12.14M visitors Jan–Apr, revenue $1.92B</strong> — April alone: <span class="stat up">3.09M arrivals (+13.3% YoY)</span>, 780K international (+6.9%). Target: 12M international visitors by 2030. Ninh Binh Q1: 9.9M visitors (+20.9%). <a href="https://www.travelandtourworld.com/news/article/vietnam-tourism-2026-surges-as-hanoi-shatters-visitor-records-revenue-soars-and-green-travel-push-transforms-the-capital-into-a-global-tourism-powerhouse-new-update-you-need-to-know/" target="_blank">Travel And Tour World</a> | <a href="https://en.vietnamplus.vn/hanoi-tourism-grows-strongly-targeting-12-million-international-visitors-by-2030-post341835.vnp" target="_blank">VietnamPlus</a></div>
+      <div class="news-item">• <strong>Digital Arrival Card: free, mandatory at Tan Son Nhat from Apr 15</strong> — QR code replaces paper forms. Submit online up to 72 hours before arrival. Da Nang restoring Russia/CIS routes with 6 flights/week during peak. <a href="https://www.traveloka.com/en-en/explore/tips/vietnam-digital-arrival-card/1007396" target="_blank">Traveloka</a> | <a href="https://www.vietnam.vn/en/nang-tam-gia-tri-nganh-cong-nghiep-khong-khoi-du-lich-viet-nam" target="_blank">Vietnam.vn</a></div>
+      <div class="news-item">• <strong>Phu Tho: 6.5M visitors for Hung Kings festival</strong> — <span class="stat up">+12% YoY</span>. Cultural tourism driving regional growth beyond Hanoi/HCMC. <a href="https://en.vietnamplus.vn/phu-tho-serves-nearly-65-million-visitors-during-hung-kings-commemoration-day-2026-post341843.vnp" target="_blank">VietnamPlus</a></div>
+
+      <div class="sub-market">🇵🇭 Philippines</div>
+      <div class="news-item">• <strong>2.24M international arrivals Jan–Apr (+9% YoY)</strong> — Target: 6.7M for 2026. T&T GDP <span class="stat up">+10.8%</span> in 2025. Davao City named #1 PH destination for 2nd consecutive year (WTI April 2026). Monthly arrivals: Jan 166K → Feb 173K → Mar 186K, steady upward trend. <a href="https://context.ph/2026/04/29/philippines-bolsters-tourism-strategy-amid-shifting-demand/" target="_blank">Context.ph</a> | <a href="https://www.sunstar.com.ph/davao/davao-city-named-top-ph-destination-in-2026-world-travel-index" target="_blank">Sunstar</a></div>
+
+      <div class="sub-market">🇸🇬 Singapore</div>
+      <div class="news-item">• <strong>Q1: 4M visitors, China now #1 source market</strong> — Overtaking Australia, US, Japan. STB projects <span class="stat up">17–18M arrivals, S$31–32.5B revenue</span> for 2026. Tourism 2040: S$47–50B. Key events: F1 sprint race, Disney Cruise Asia homeport, LiveNation Grange Road venue. <a href="https://www.hotel-online.com/news/in-focus-singapore-1" target="_blank">Hotel Online</a> | <a href="https://www.travelandtourworld.com/news/article/china-overtakes-australia-us-japan-united-kingdom-germany-india-and-more-in-propelling-singapore-tourism-with-over-four-million-visitors-attracted-in-q1-2026-cementing-merlion-as-popular-touris/" target="_blank">Travel And Tour World</a></div>
+      <div class="news-item">• <strong>Luxury travel revolution</strong> — Ultra-high-net-worth hotel bookings surging. TUI launches The Mora Singapore (first Asia luxury brand). Government investing in world-class transport infrastructure. <a href="https://www.travelandtourworld.com/news/article/luxury-travel-revolution-singapore-sets-new-benchmark-for-southeast-asias-tourism-powerhouse/" target="_blank">Travel And Tour World</a></div>
+    </div>
+
+    <!-- HONG KONG & TAIWAN -->
+    <div class="section" id="hktw">
+      <div class="section-header hktw">🇭🇰🇹🇼 HONG KONG & TAIWAN</div>
+      <div class="market-summary hktw">
+        <p>• <strong>HK: 980K mainland visitors expected May 1–5 (+7% YoY)</strong> — Hotel occupancy 90%+. Causeway Bay flagship at 95%. Approaching 2019 levels.</p>
+        <p>• <strong>Sino-Japanese tensions redirect mainland tourists from Japan to HK</strong> — Structural shift creating overflow demand for short-term rentals.</p>
+        <p>• <strong>Guangdong self-drive scheme: 5,000+ motorists approved</strong> — 90% stay 1–2 days. 100 vehicles/day from 4 GBA cities.</p>
+        <p>• <strong>TW: Shanghai allows residents to visit Kinmen & Matsu</strong> — Major cross-strait opening. Bus accident in Gansu highlights gray-area group tours.</p>
+        <p>• <strong>TW outbound to Japan: 544,503 in March (+37.7% YoY)</strong> — Airlines redirecting China capacity to Taiwan/Korea routes.</p>
+      </div>
+
+      <div class="sub-market">🇭🇰 Hong Kong</div>
+      <div class="news-item">• <strong>980K mainland visitors expected May 1–5</strong> — <span class="stat up">+7% YoY</span>. Financial Secretary Paul Chan forecast. Hotel occupancy exceeding 90%. Causeway Bay flagship at 95%, Tsim Sha Tsui at 85% despite renovation. Approaching 2019 pre-pandemic levels. <a href="https://www.dimsumdaily.hk/financial-secretary-paul-chan-forecasts-980000-visitors-for-golden-week/" target="_blank">Dim Sum Daily</a> | <a href="https://www.visahq.com/news/2026-04-27/hk/mainland-visitor-pivot-sparks-hotel-occupancy-surge-ahead-of-golden-week/" target="_blank">VisaHQ</a></div>
+      <div class="news-item">• <strong>Crackdown on tourist scams for Labour Day</strong> — Tourism minister Rosanna Law: stepped-up enforcement against coerced shopping, unlicensed guides, unfair sales. Travel Industry Authority boosting patrols May 1–5. <a href="https://www.scmp.com/news/hong-kong/society/article/3351402/hong-kong-step-crackdown-coerced-shopping-scams-during-labour-day-golden-week" target="_blank">SCMP</a></div>
+      <div class="news-item">• <strong>Guangdong self-drive scheme gaining traction</strong> — <span class="stat up">5,000+ approved</span> since Dec 2025 launch. 3,500 bookings, 90% stayed 1–2 days. Up to 100 vehicles/day from Guangzhou, Zhuhai, Zhongshan, Jiangmen via HK-Zhuhai-Macau Bridge. <a href="https://www.scmp.com/news/hong-kong/transport/article/3351467/over-5000-guangdong-motorists-sign-hong-kongs-southbound-travel-scheme" target="_blank">SCMP</a></div>
+      <div class="news-item">• <strong>HK outbound to mainland surges 30–40%</strong> — GBA destinations dominate (Foshan, Dongguan, Zhongshan). Mainland feels "novel" vs traditional SEA. Bidirectional GBA travel strengthening. Cross-border yacht scheme could open 6 GBA ports. <a href="https://www.scmp.com/news/hong-kong/hong-kong-economy/article/3351916/hong-kong-tour-groups-mainland-china-surge-40-labour-day-weekend" target="_blank">SCMP</a></div>
+      <div class="news-item">• <strong>Disneyland: profit −36% but hotel occupancy up to 80%</strong> — From 73% prior year. Per-guest spending increased. Rising demand in Lantau/theme park corridor. <a href="https://hongkongfp.com/2026/04/29/hong-kong-disneyland-records-36-drop-in-profit-despite-higher-hotel-occupancy-guest-spending/" target="_blank">HKFP</a></div>
+
+      <div class="sub-market">🇹🇼 Taiwan</div>
+      <div class="news-item">• <strong>Shanghai allows residents to visit Kinmen & Matsu</strong> — Major development: individual and group tours via qualified agencies in Shanghai and Fujian. Follows KMT-CCP forum in Feb 2026. Taiwan MAC says it will process per existing regulations. Could unlock new accommodation demand on capacity-limited islands. <a href="https://www.taipeitimes.com/News/taiwan/archives/2026/04/30/2003856501" target="_blank">Taipei Times</a></div>
+      <div class="news-item">• <strong>Taiwan visitors to Japan: 544,503 in March (+37.7%)</strong> — Japan redirecting airline capacity from China to Taiwan/Korea. Korean Air + Asiana adding Taipei flights. BTS-linked tourism also driving Korea travel from Taiwan. Taiwan + Korea = nearly half of Japan's international tourists in early 2026. <a href="https://www.travelandtourworld.com/news/article/japan-joins-china-taiwan-uk-arrivals-to-smash-records-korean-air-and-asiana-report-bts-linked-tourism-spike-with-massive-economic-impact/" target="_blank">Travel And Tour World</a></div>
+      <div class="news-item">• <strong>Aviation diplomacy challenges persist</strong> — Presidential charter to Eswatini canceled due to Chinese airspace pressure. Highlights route reliability concerns for long-haul travelers. Short-haul routes (Japan, Korea) remain robust. <a href="https://www.travelandtourworld.com/news/article/taiwan-to-global-tourists-understanding-how-the-canceled-presidential-flight-affects-international-travel-and-aviation-routes-in-east-asia/" target="_blank">Travel And Tour World</a></div>
+      <div class="news-item">• <strong>Bus accident in Gansu kills 1 Taiwanese tourist</strong> — "Self-arranged group" circumventing Taiwan's official ban on organized China tours. Highlights gray area in cross-strait tourism regulations and safety risks. <a href="https://www.taipeitimes.com/News/taiwan/archives/2026/04/26/2003856256" target="_blank">Taipei Times</a></div>
+      <div class="news-item">• <strong>EVA Air wins 6 honors at WTCE 2026</strong> — Reinforcing premium positioning on Japan, Korea, US routes. Partnering with tourism boards to promote Taiwan as destination. <a href="https://www.travelandtourworld.com/news/article/eva-airs-game-changing-inflight-amenities-earn-six-prestigious-honors-how-this-transforms-your-travel-experience/" target="_blank">Travel And Tour World</a></div>
+    </div>
+
+    <!-- HOLIDAYS -->
+    <div class="section" id="holidays">
+      <div class="section-header holidays">📅 UPCOMING HOLIDAYS & TRAVEL PEAKS (Apr 30 – Jun 1)</div>
+      <div class="cal-wrapper">
+        <div class="cal-month">
+          <div class="cal-month-title">May 2026</div>
+          <div class="cal-grid">
+            <div class="cal-header">Mon</div><div class="cal-header">Tue</div><div class="cal-header">Wed</div><div class="cal-header">Thu</div><div class="cal-header">Fri</div><div class="cal-header">Sat</div><div class="cal-header">Sun</div>
+            <div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day holiday-cn-jp">1<span class="flag">🇨🇳🇯🇵🇮🇳</span></div><div class="cal-day holiday-cn-jp">2<span class="flag">🇨🇳🇯🇵</span></div><div class="cal-day holiday-cn-jp">3<span class="flag">🇨🇳🇯🇵</span></div>
+            <div class="cal-day holiday-cn-jp">4<span class="flag">🇨🇳🇯🇵</span></div><div class="cal-day holiday-multi">5<span class="flag">🇨🇳🇯🇵🇰🇷</span></div><div class="cal-day holiday-multi">6<span class="flag">🇯🇵🇰🇷</span></div><div class="cal-day">7</div><div class="cal-day">8</div><div class="cal-day">9</div><div class="cal-day">10</div>
+            <div class="cal-day">11</div><div class="cal-day holiday-sea">12<span class="flag">🇲🇾</span></div><div class="cal-day">13</div><div class="cal-day">14</div><div class="cal-day">15</div><div class="cal-day">16</div><div class="cal-day">17</div>
+            <div class="cal-day">18</div><div class="cal-day">19</div><div class="cal-day">20</div><div class="cal-day">21</div><div class="cal-day">22</div><div class="cal-day">23</div><div class="cal-day">24</div>
+            <div class="cal-day">25</div><div class="cal-day">26</div><div class="cal-day">27</div><div class="cal-day">28</div><div class="cal-day">29</div><div class="cal-day">30</div><div class="cal-day holiday-china">31<span class="flag">🇨🇳</span></div>
+          </div>
+        </div>
+        <div class="cal-month">
+          <div class="cal-month-title">June 2026</div>
+          <div class="cal-grid">
+            <div class="cal-header">Mon</div><div class="cal-header">Tue</div><div class="cal-header">Wed</div><div class="cal-header">Thu</div><div class="cal-header">Fri</div><div class="cal-header">Sat</div><div class="cal-header">Sun</div>
+            <div class="cal-day holiday-china">1<span class="flag">🇨🇳</span></div><div class="cal-day">2</div><div class="cal-day">3</div><div class="cal-day">4</div><div class="cal-day">5</div><div class="cal-day">6</div><div class="cal-day">7</div>
+            <div class="cal-day">8</div><div class="cal-day">9</div><div class="cal-day">10</div><div class="cal-day">11</div><div class="cal-day">12</div><div class="cal-day">13</div><div class="cal-day">14</div>
+            <div class="cal-day">15</div><div class="cal-day">16</div><div class="cal-day">17</div><div class="cal-day">18</div><div class="cal-day">19</div><div class="cal-day">20</div><div class="cal-day">21</div>
+          </div>
+        </div>
+      </div>
+      <div class="cal-legend">
+        <p>🇨🇳 <strong>China Labor Day</strong>: May 1–5 (5 days). Children's Day: May 31–Jun 1.</p>
+        <p>🇯🇵 <strong>Japan Golden Week</strong>: Apr 29 – May 6 (Showa Day Apr 29, Constitution Day May 3, Children's Day May 5, substitute holiday May 6)</p>
+        <p>🇰🇷 <strong>Korea</strong>: Children's Day (May 5), Buddha's Birthday (May 6)</p>
+        <p>🇮🇳 <strong>India</strong>: Maharashtra Day / May Day (May 1)</p>
+        <p>🇲🇾 <strong>Malaysia</strong>: Vesak Day (May 12)</p>
+        <p>🇭🇰 <strong>Hong Kong</strong>: Labour Day (May 1), Buddha's Birthday (May 5)</p>
+        <p>⚡ <strong>MEGA-OVERLAP: May 1–6</strong> — China, Japan, Korea, HK all active. Korea is #1 destination for Chinese + Japanese travelers. 180K–200K visitors expected in Korea alone.</p>
+      </div>
+    </div>
+
+    <!-- SOURCES -->
+    <div class="section" id="sources">
+      <div class="section-header sources">📋 SOURCES AUDIT</div>
+      <table>
+        <thead>
+          <tr><th>Market</th><th>Sources</th><th>Items</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>🇮🇳 India</td><td>Travel And Tour World, Economic Times, Business Standard, Mid-Day, BestMediaInfo, OpenPR, India Online Visa</td><td>18</td></tr>
+          <tr><td>🇰🇷 Korea</td><td>Travel And Tour World, Herald Business, Korea Times, JoongAng Daily, Seoul Economic Daily, Yonhap, Hankyung, 숙박매거진, Seoulz, Dazabi, Wego, Haps Korea, Asian Affairs, Maeil Business, Wolyo Shinmun, StayKorea</td><td>20</td></tr>
+          <tr><td>🇯🇵 Japan</td><td>Travel And Tour World, CNA, Kyodo News, NYT, The Guardian, The Mainichi, PR Newswire/Agoda, Akiya Japan, Euronews, Tourism Review, JNTO</td><td>13</td></tr>
+          <tr><td>🇨🇳 China</td><td>交通运输部/新浪, 证券时报, 民生周刊, 腾讯新闻, 36氪, 环球旅讯, 界面新闻/华创证券, 东方证券, 途牛, 文旅部</td><td>11</td></tr>
+          <tr><td>🌴 SEA</td><td>Travel And Tour World, VietnamPlus, Vietnam.vn, Traveloka, Context.ph, Sunstar, Hotel Online, CJ Malaysia, Visit Philippines, Travelindex</td><td>21</td></tr>
+          <tr><td>🇭🇰🇹🇼 HK/TW</td><td>Dim Sum Daily, VisaHQ, SCMP, HKFP, Taipei Times, Travel And Tour World, Tourism Review</td><td>13</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <footer>
+      Powered by 🦞 Max (小可) | Sources as of 2026-04-30
+    </footer>
+  </div>
+
+  <script>
+    const sections = document.querySelectorAll('.section');
+    const navLinks = document.querySelectorAll('.page-nav a');
+    window.addEventListener('scroll', () => {
+      const scrollPos = window.scrollY + 100;
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        const sectionId = section.getAttribute('id');
+        if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+          navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + sectionId) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
