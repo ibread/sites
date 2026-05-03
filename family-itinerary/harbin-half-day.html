@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>哈尔滨半日游 · 5/3</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;height:100vh;display:flex;flex-direction:column;background:#f7f5f0}
+header{background:linear-gradient(135deg,#1a365d 0%,#2d5a87 100%);color:#fff;padding:16px 14px 12px;position:relative}
+header h1{font-size:18px;font-weight:700;text-shadow:0 1px 4px rgba(0,0,0,.5)}
+header p{font-size:12px;opacity:.85;margin-top:3px}
+header .back{position:absolute;top:12px;right:14px;background:rgba(255,255,255,.2);color:#fff;padding:4px 10px;border-radius:14px;font-size:11px;text-decoration:none;font-weight:600;border:1px solid rgba(255,255,255,.4)}
+.layout{display:flex;flex-direction:column;flex:1;overflow:hidden}
+#map{flex:1;min-height:200px}
+.sidebar{overflow-y:auto;padding:10px;background:#fff;border-top:1px solid #e5e7eb}
+.spot-card{display:flex;align-items:flex-start;gap:8px;padding:8px;border-radius:8px;cursor:pointer;transition:background .15s}
+.spot-card:hover{background:#f0f4ff}
+.spot-num{width:22px;height:22px;border-radius:50%;background:#2d5a87;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.spot-info{flex:1}
+.spot-name{font-size:14px;font-weight:600;color:#1a365d}
+.spot-meta{font-size:12px;color:#666;margin-top:2px}
+.marker{width:32px;height:32px;border-radius:50%;color:#333;font-size:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.2);border:2px solid #fff}
+.location-label{background:none!important;border:none!important}
+.label-content{background:rgba(255,255,255,.92);padding:2px 6px;border-radius:4px;font-size:11px;font-weight:600;color:#333;white-space:nowrap;box-shadow:0 1px 3px rgba(0,0,0,.15);border:1px solid rgba(0,0,0,.08)}
+.route-label{background:none!important;border:none!important}
+.route-label-content{background:rgba(255,255,255,.85);padding:1px 5px;border-radius:3px;font-size:10px;color:#666;white-space:nowrap}
+@media(min-width:680px){
+.layout{flex-direction:row}
+#map{order:1;flex:1}
+.sidebar{order:2;width:320px;border-top:none;border-left:1px solid #e5e7eb}
+}
+@media(max-width:679px){
+.sidebar{max-height:40vh;order:1}
+#map{order:2}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>🏙️ 哈尔滨半日游</h1>
+<p>5月3日 · 12:00-17:00 · 中央大街周边</p>
+<a href="index.html" class="back">🗺️ 行程</a>
+</header>
+<div class="layout">
+<div class="sidebar" id="sidebar"></div>
+<div id="map"></div>
+</div>
+<script>
+const MARKER_COLORS={food:'#dcfce7',attraction:'#dbeafe',kids:'#fef9c3',hotel:'#e0e7ff',transport:'#e5e7eb',shopping:'#fae8ff'};
+const spots=[
+{lat:45.7713,lng:126.6170,name:'老昌春饼',emoji:'🥟',desc:'哈尔滨老字号，筋饼卷京酱肉丝、锅包肉',time:'12:00-13:00',type:'food'},
+{lat:45.7738,lng:126.6174,name:'马迭尔冷饮厅',emoji:'🍦',desc:'3元经典冰棍，中央大街必打卡',time:'13:00-13:30',type:'food'},
+{lat:45.7680,lng:126.6270,name:'圣索菲亚教堂',emoji:'⛪',desc:'拜占庭风格地标，广场可喂鸽子',time:'13:30-14:15',type:'attraction'},
+{lat:45.7720,lng:126.6155,name:'中央大街南段',emoji:'🛍️',desc:'秋林红肠、大列巴等特产',time:'14:15-15:00',type:'shopping'},
+{lat:45.7785,lng:126.6180,name:'防洪纪念塔',emoji:'🌊',desc:'松花江边散步，斯大林公园',time:'15:00-16:00',type:'attraction'},
+{lat:45.7830,lng:126.6140,name:'松花江索道',emoji:'🚡',desc:'横跨松花江，单程10分钟（可选）',time:'16:00-16:30',type:'attraction'}
+];
+const routes=[
+{from:0,to:1,mins:5,mode:'步行'},
+{from:1,to:2,mins:10,mode:'步行'},
+{from:2,to:3,mins:10,mode:'步行'},
+{from:3,to:4,mins:8,mode:'步行'},
+{from:4,to:5,mins:10,mode:'步行'}
+];
+
+const sidebar=document.getElementById('sidebar');
+spots.forEach((s,i)=>{
+const card=document.createElement('div');
+card.className='spot-card';
+card.innerHTML=`<div class="spot-num">${i+1}</div><div class="spot-info"><div class="spot-name">${s.emoji} ${s.name}</div><div class="spot-meta">🕐 ${s.time}<br>${s.desc}</div></div>`;
+card.onclick=()=>{map.setView([s.lat,s.lng],16);markers[i].openPopup()};
+sidebar.appendChild(card);
+});
+
+const map=L.map('map',{zoomControl:true});
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:18}).addTo(map);
+
+const markers=[];
+spots.forEach((s,i)=>{
+const icon=L.divIcon({className:'',html:`<div class="marker" style="background:${MARKER_COLORS[s.type]}">${s.emoji}</div>`,iconSize:[32,32],iconAnchor:[16,16]});
+const m=L.marker([s.lat,s.lng],{icon}).addTo(map);
+m.bindPopup(`<b>${i+1}. ${s.emoji} ${s.name}</b><br>🕐 ${s.time}<br>${s.desc}`);
+markers.push(m);
+
+const labelIcon=L.divIcon({className:'location-label',html:`<div class="label-content">${i+1} ${s.emoji} ${s.name}</div>`,iconSize:[140,30],iconAnchor:[70,-20]});
+L.marker([s.lat,s.lng],{icon:labelIcon,interactive:false}).addTo(map);
+});
+
+routes.forEach(r=>{
+const a=spots[r.from],b=spots[r.to];
+L.polyline([[a.lat,a.lng],[b.lat,b.lng]],{color:'#2d5a87',weight:2,dashArray:'6,6',opacity:.6}).addTo(map);
+const midLat=(a.lat+b.lat)/2,midLng=(a.lng+b.lng)/2;
+const rl=L.divIcon({className:'route-label',html:`<div class="route-label-content">${r.mins}分钟 → ${r.to+1}</div>`,iconAnchor:[40,10]});
+L.marker([midLat,midLng],{icon:rl,interactive:false}).addTo(map);
+});
+
+const bounds=L.latLngBounds(spots.map(s=>[s.lat,s.lng]));
+setTimeout(()=>{map.invalidateSize();map.fitBounds(bounds,{padding:[30,30],paddingTopLeft:[30,80],paddingBottomRight:[30,30]})},200);
+</script>
+</body>
+</html>
