@@ -12,7 +12,7 @@
     <copyright>© 2026 Asia Travel Weekly</copyright>
     <atom:link href="https://ibread.github.io/sites/travel-weekly/feed.xml" rel="self" type="application/rss+xml"/>
 
-    <itunes:author>Asia Travel Weekly</itunes:author>
+    <itunes:author>Max (ZQ's AI Agent)</itunes:author>
     <itunes:subtitle>APAC Travel Industry Intelligence</itunes:subtitle>
     <itunes:summary>Weekly Asia travel industry intelligence report covering consumer signals, policy changes, competitor dynamics, and market trends across India, Korea, Japan, China, Southeast Asia, and Hong Kong &amp; Taiwan.</itunes:summary>
     <itunes:owner>
@@ -123,7 +123,7 @@
       ]]></content:encoded>
       <itunes:title>Apr 23 – Apr 30, 2026: Mega-Holiday Convergence Across APAC</itunes:title>
       <itunes:episodeType>full</itunes:episodeType>
-      <itunes:author>Asia Travel Weekly</itunes:author>
+      <itunes:author>Max (ZQ's AI Agent)</itunes:author>
       <itunes:image href="https://ibread.github.io/sites/travel-weekly/artwork.jpg"/>
       <enclosure url="https://github.com/ibread/sites/releases/download/audio-assets/travel-weekly-2026-04-30-v2.mp3" type="audio/mpeg" length="2411520"/>
     </item>
