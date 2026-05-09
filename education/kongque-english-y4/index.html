@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>孔雀 Year 4 English Practice 🌟</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+}
+.container {
+  background: white;
+  border-radius: 24px;
+  max-width: 480px;
+  width: 100%;
+  padding: 28px 24px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  margin-top: 10px;
+}
+h1 { font-size: 24px; text-align: center; margin-bottom: 6px; }
+.subtitle { text-align: center; color: #666; font-size: 14px; margin-bottom: 24px; }
+.section-title {
+  font-size: 18px; font-weight: 700; margin: 20px 0 12px;
+  padding: 8px 14px; border-radius: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.s1 { background: #E8F5E9; color: #2E7D32; }
+.s2 { background: #E3F2FD; color: #1565C0; }
+.s3 { background: #FFF3E0; color: #E65100; }
+.s4 { background: #F3E5F5; color: #7B1FA2; }
+.s5 { background: #FFF8E1; color: #F57F17; }
+.instruction { font-size: 13px; color: #888; margin-bottom: 14px; padding: 0 4px; line-height: 1.6; }
+.q-card {
+  background: #FAFAFA; border-radius: 16px;
+  padding: 16px; margin-bottom: 12px;
+  border: 2px solid transparent; transition: border-color 0.3s;
+}
+.q-card.correct { border-color: #4CAF50; background: #F1F8E9; }
+.q-card.wrong { border-color: #EF5350; background: #FFEBEE; }
+.q-prompt {
+  font-size: 18px; font-weight: 700; margin-bottom: 12px;
+  text-align: center; line-height: 1.5;
+}
+.q-prompt.big { font-size: 28px; letter-spacing: 2px; }
+.q-prompt.sentence { font-size: 16px; font-style: italic; letter-spacing: 0; }
+.options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.opt-btn {
+  padding: 12px 8px; border-radius: 12px;
+  border: 2px solid #E0E0E0; background: white;
+  font-size: 15px; font-weight: 600;
+  cursor: pointer; transition: all 0.2s;
+  text-align: center; line-height: 1.3;
+}
+.opt-btn:active { transform: scale(0.95); }
+.opt-btn.correct-answer { border-color: #4CAF50; background: #E8F5E9; color: #2E7D32; }
+.opt-btn.wrong-answer { border-color: #EF5350; background: #FFEBEE; color: #C62828; }
+.opt-btn:disabled { cursor: default; opacity: 0.7; }
+.progress-bar { height: 6px; background: #E0E0E0; border-radius: 3px; margin-bottom: 20px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, #f093fb, #f5576c); border-radius: 3px; transition: width 0.4s ease; }
+.score-circle {
+  width: 120px; height: 120px; border-radius: 50%;
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; margin: 20px auto;
+  font-size: 36px; font-weight: 800; color: white;
+}
+.score-circle .label { font-size: 12px; font-weight: 400; opacity: 0.9; }
+.score-high { background: linear-gradient(135deg, #43A047, #66BB6A); }
+.score-mid { background: linear-gradient(135deg, #FB8C00, #FFA726); }
+.score-low { background: linear-gradient(135deg, #E53935, #EF5350); }
+.breakdown { text-align: left; margin: 20px 0; }
+.bd-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #F0F0F0; }
+.bd-row:last-child { border: none; }
+.bd-label { font-size: 14px; font-weight: 600; }
+.bd-score { font-size: 14px; }
+.bd-bar { flex: 1; height: 6px; background: #E0E0E0; border-radius: 3px; margin: 0 12px; }
+.bd-bar-fill { height: 100%; border-radius: 3px; }
+.level-tag { display: inline-block; padding: 6px 16px; border-radius: 50px; font-size: 14px; font-weight: 700; margin: 8px 4px; }
+.tip-box { background: #FCE4EC; border-radius: 12px; padding: 14px; margin-top: 16px; text-align: left; font-size: 13px; line-height: 1.6; }
+.tip-box b { color: #C2185B; }
+.start-btn, .restart-btn {
+  display: block; width: 100%; padding: 16px; border-radius: 16px; border: none;
+  background: linear-gradient(135deg, #f093fb, #f5576c);
+  color: white; font-size: 18px; font-weight: 700; cursor: pointer; margin-top: 16px;
+}
+.start-btn:active, .restart-btn:active { transform: scale(0.97); }
+.feedback { text-align: center; font-size: 24px; margin-top: 8px; min-height: 32px; }
+.hidden { display: none; }
+.explain { font-size: 12px; color: #777; margin-top: 6px; text-align: center; line-height: 1.5; min-height: 18px; }
+</style>
+</head>
+<body>
+<div class="container">
+<div id="startScreen">
+  <h1>🌟 孔雀 Year 4 英语练习</h1>
+  <p class="subtitle">UK Year 4 English Challenge</p>
+  <div style="text-align:center; font-size:60px; margin:20px 0;">🦚</div>
+  <div style="padding:0 8px; font-size:14px; color:#555; line-height:1.7;">
+    <p>Year 3 全对了！升级到 <b>Year 4</b>，一共 <b>25 道题</b>，约 <b>15 分钟</b>。</p><br>
+    <p>📋 <b>What's inside:</b></p>
+    <p>① Spelling — homophones & tricky patterns</p>
+    <p>② Grammar — fronted adverbials, pronouns & tenses</p>
+    <p>③ Punctuation — possessive apostrophes & speech marks</p>
+    <p>④ Reading Comprehension — inference & deduction</p>
+    <p>⑤ Vocabulary — figurative language & word meanings</p><br>
+    <p>💡 <b>Tips:</b></p>
+    <p>• Read each question carefully — some are tricky!</p>
+    <p>• Think about WHY your answer is right</p>
+    <p>• Good luck! 🍀</p>
+  </div>
+  <button class="start-btn" onclick="startTest()">Let's Go! 🚀</button>
+</div>
+
+<div id="testScreen" class="hidden">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+    <span id="qCount" style="font-size:13px; color:#999; font-weight:600;"></span>
+    <span id="sectionName" style="font-size:13px; font-weight:600; padding:4px 10px; border-radius:8px;"></span>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div id="questionArea"></div>
+</div>
+
+<div id="resultsScreen" class="hidden"></div>
+</div>
+
+<script>
+const questions = [
+  // SECTION 1: Spelling (5)
+  {section:1, sectionName:"Spelling", sectionClass:"s1",
+   instruction:"Choose the correct homophone:",
+   prompt:"We went over _____ to play in the park.", promptClass:"sentence",
+   options:["there","their","they're","thier"], correct:0,
+   explain:"'there' = a place. 'their' = belonging to them. 'they're' = they are."},
+  {section:1, sectionName:"Spelling", sectionClass:"s1",
+   instruction:"Which word is spelled correctly?",
+   prompt:"The teacher asked us to _____ our homework.", promptClass:"sentence",
+   options:["compleet","compelte","complete","compleat"], correct:2,
+   explain:"'complete' — remember the 'ete' ending."},
+  {section:1, sectionName:"Spelling", sectionClass:"s1",
+   instruction:"Add the suffix '-ous'. What does 'fame' become?",
+   prompt:"fame + ous = ?", promptClass:"big",
+   options:["fameous","famous","famus","fameious"], correct:1,
+   explain:"Drop the 'e' before adding '-ous': famous."},
+  {section:1, sectionName:"Spelling", sectionClass:"s1",
+   instruction:"Choose the correct homophone:",
+   prompt:"The knight _____ his sword bravely.", promptClass:"sentence",
+   options:["through","threw","thorough","throw"], correct:1,
+   explain:"'threw' is past tense of 'throw'. 'through' = passing from one side to another."},
+  {section:1, sectionName:"Spelling", sectionClass:"s1",
+   instruction:"Which spelling is correct?",
+   prompt:"It was an _____ day at the museum.", promptClass:"sentence",
+   options:["intresting","interesting","interresting","intressting"], correct:1,
+   explain:"'interesting' — say it slowly: in-ter-est-ing."},
+
+  // SECTION 2: Grammar (5)
+  {section:2, sectionName:"Grammar", sectionClass:"s2",
+   instruction:"Which sentence begins with a fronted adverbial?",
+   prompt:"Pick the one with a fronted adverbial:", promptClass:"",
+   options:["The cat sat on the mat.","Before sunrise, the birds began to sing.","She ran quickly to school.","I like chocolate cake."],
+   correct:1, explain:"'Before sunrise' is a fronted adverbial — it tells WHEN and comes before the main clause, followed by a comma."},
+  {section:2, sectionName:"Grammar", sectionClass:"s2",
+   instruction:"Choose the correct pronoun:",
+   prompt:"Sam and _____ went to the cinema.", promptClass:"sentence",
+   options:["me","I","myself","mine"], correct:1,
+   explain:"'I' is the subject pronoun. Trick: remove 'Sam and' — you'd say 'I went', not 'me went'."},
+  {section:2, sectionName:"Grammar", sectionClass:"s2",
+   instruction:"Which sentence is in the present perfect tense?",
+   prompt:"Pick the present perfect sentence:", promptClass:"",
+   options:["I ate my lunch.","I am eating my lunch.","I have eaten my lunch.","I will eat my lunch."],
+   correct:2, explain:"Present perfect = 'have/has' + past participle. 'I have eaten' = started in the past, relevant now."},
+  {section:2, sectionName:"Grammar", sectionClass:"s2",
+   instruction:"What is the determiner in this sentence?",
+   prompt:"She picked <u>those</u> flowers from the garden.", promptClass:"sentence",
+   options:["She","those","flowers","garden"], correct:1,
+   explain:"'those' is a determiner — it specifies WHICH flowers."},
+  {section:2, sectionName:"Grammar", sectionClass:"s2",
+   instruction:"Which is the best expanded noun phrase?",
+   prompt:"The dog barked loudly.", promptClass:"sentence",
+   options:["The dog barked very loudly.","The enormous, scruffy dog barked loudly.","The dog barked loudly at night.","A dog barked."],
+   correct:1, explain:"An expanded noun phrase adds adjectives before the noun: 'enormous, scruffy dog'."},
+
+  // SECTION 3: Punctuation (5)
+  {section:3, sectionName:"Punctuation", sectionClass:"s3",
+   instruction:"Where does the possessive apostrophe go? (more than one girl)",
+   prompt:"The _____ bikes were left outside.", promptClass:"sentence",
+   options:["girl's","girls'","girls's","girls"], correct:1,
+   explain:"Plural possessive: girls' — apostrophe goes AFTER the 's' for regular plurals."},
+  {section:3, sectionName:"Punctuation", sectionClass:"s3",
+   instruction:"Which punctuates direct speech correctly?",
+   prompt:"How should we write this?", promptClass:"",
+   options:["\"I can't believe it\" shouted Tom.","\"I can't believe it!\" shouted Tom.","\"I can't believe it!\" Shouted Tom.","I can't believe it! shouted Tom."],
+   correct:1, explain:"Speech in inverted commas, punctuation INSIDE the marks, reporting clause in lowercase."},
+  {section:3, sectionName:"Punctuation", sectionClass:"s3",
+   instruction:"Which uses commas correctly after a fronted adverbial?",
+   prompt:"Pick the correct one:", promptClass:"",
+   options:["During the storm the lights went out.","During the storm, the lights went out.","During, the storm the lights went out.","During the, storm the lights went out."],
+   correct:1, explain:"A comma always follows a fronted adverbial: 'During the storm, ...'."},
+  {section:3, sectionName:"Punctuation", sectionClass:"s3",
+   instruction:"Which uses the apostrophe correctly?",
+   prompt:"Pick the correct one:", promptClass:"",
+   options:["The childrens' coats were wet.","The children's coats were wet.","The childrens coats were wet.","The children coats' were wet."],
+   correct:1, explain:"'children' is already plural (no 's'), so: children's."},
+  {section:3, sectionName:"Punctuation", sectionClass:"s3",
+   instruction:"Where should the comma go?",
+   prompt:"As quick as a flash the rabbit disappeared.", promptClass:"sentence",
+   options:["As quick, as a flash the rabbit disappeared.","As quick as a flash, the rabbit disappeared.","As quick as a flash the rabbit, disappeared.","As quick as, a flash the rabbit disappeared."],
+   correct:1, explain:"Comma after the fronted adverbial: 'As quick as a flash, ...'."},
+
+  // SECTION 4: Reading Comprehension (5)
+  {section:4, sectionName:"Reading", sectionClass:"s4",
+   instruction:"Read the passage and answer:",
+   prompt:"Mia stared at the blank page. Her pencil hovered above the paper, but no words came. She glanced at the clock — only ten minutes left. Her palms were damp and her stomach churned.<br><br>What can you infer about Mia?",
+   promptClass:"sentence",
+   options:["She is enjoying writing a story","She is struggling with a timed test","She is drawing a picture","She has just finished her work"],
+   correct:1, explain:"Clues: 'blank page', 'no words came', 'ten minutes left', 'palms damp' — all suggest anxiety about a timed task."},
+  {section:4, sectionName:"Reading", sectionClass:"s4",
+   instruction:"Read and answer:",
+   prompt:"The Roman soldiers marched for days across muddy fields and steep hills. They carried heavy shields and slept in tents made of animal skins. Despite the hardship, they never complained.<br><br>What does 'despite the hardship' mean?",
+   promptClass:"sentence",
+   options:["Because of the difficulty","Even though it was very hard","After the difficulty ended","Without any difficulty"],
+   correct:1, explain:"'despite' means 'even though' or 'in spite of'."},
+  {section:4, sectionName:"Reading", sectionClass:"s4",
+   instruction:"Read and answer:",
+   prompt:"The old lighthouse stood alone on the cliff, its paint peeling and windows cracked. No light had shone from it for twenty years. Yet every night, fishermen still glanced towards it out of habit.<br><br>Why do the fishermen still look at it?",
+   promptClass:"sentence",
+   options:["The light is still on","It has been repainted","Out of old habit from when it worked","They want to buy it"],
+   correct:2, explain:"The text says 'out of habit' — they used to rely on it for guidance."},
+  {section:4, sectionName:"Reading", sectionClass:"s4",
+   instruction:"Read and answer:",
+   prompt:"\"You'll never make it across,\" warned Elsa, her arms folded tightly. But Leo took a deep breath, fixed his eyes on the far bank, and leapt.<br><br>What does Elsa's body language tell us?",
+   promptClass:"sentence",
+   options:["She is excited for Leo","She is worried or disapproving","She is about to jump too","She doesn't care"],
+   correct:1, explain:"'Arms folded tightly' + warning = worried or disapproving."},
+  {section:4, sectionName:"Reading", sectionClass:"s4",
+   instruction:"Read and answer:",
+   prompt:"Unlike reptiles, mammals are warm-blooded. This means they can keep their body temperature steady even when it is very cold. This is one reason mammals can live in so many different habitats.<br><br>Why can mammals live in many habitats?",
+   promptClass:"sentence",
+   options:["Because they are reptiles","Because they eat many things","Because they can control their body temperature","Because they live in warm places only"],
+   correct:2, explain:"The text links steady body temperature to living in many habitats."},
+
+  // SECTION 5: Vocabulary (5)
+  {section:5, sectionName:"Vocabulary", sectionClass:"s5",
+   instruction:"What does the underlined word mean?",
+   prompt:"The explorer made a <u>perilous</u> journey across the mountains.", promptClass:"sentence",
+   options:["boring","full of danger","very easy","pleasant"], correct:1,
+   explain:"'perilous' means extremely dangerous — from 'peril' (danger)."},
+  {section:5, sectionName:"Vocabulary", sectionClass:"s5",
+   instruction:"What type of figurative language is this?",
+   prompt:"The wind <u>howled</u> through the trees.", promptClass:"sentence",
+   options:["simile","personification","alliteration","rhyme"], correct:1,
+   explain:"Personification — the wind is given a human quality (howling)."},
+  {section:5, sectionName:"Vocabulary", sectionClass:"s5",
+   instruction:"Choose the best synonym for 'furious':",
+   prompt:"furious = ?", promptClass:"big",
+   options:["happy","curious","enraged","confused"], correct:2,
+   explain:"'enraged' and 'furious' both mean extremely angry."},
+  {section:5, sectionName:"Vocabulary", sectionClass:"s5",
+   instruction:"What does this simile mean?",
+   prompt:"She was as <u>quiet as a mouse</u>.", promptClass:"sentence",
+   options:["She was very loud","She was extremely quiet and still","She looked like a mouse","She was running fast"],
+   correct:1, explain:"A simile using 'as...as' — comparing her quietness to a mouse."},
+  {section:5, sectionName:"Vocabulary", sectionClass:"s5",
+   instruction:"Use context clues. What does 'reluctant' mean?",
+   prompt:"Jake was <u>reluctant</u> to jump into the cold pool. He stood at the edge, shivering.", promptClass:"sentence",
+   options:["eager","unwilling","excited","unable"], correct:1,
+   explain:"'reluctant' = unwilling or hesitant. Clues: standing at the edge, shivering, not jumping."}
+];
+
+let currentQ = 0, answers = [];
+const sectionScores = {1:0,2:0,3:0,4:0,5:0};
+const sectionTotals = {1:5,2:5,3:5,4:5,5:5};
+const sectionNames = {1:"✏️ Spelling",2:"📐 Grammar",3:"❗ Punctuation",4:"📖 Reading",5:"💬 Vocabulary"};
+const sectionColors = {1:"#2E7D32",2:"#1565C0",3:"#E65100",4:"#7B1FA2",5:"#F57F17"};
+
+function startTest() {
+  document.getElementById('startScreen').classList.add('hidden');
+  document.getElementById('testScreen').classList.remove('hidden');
+  showQuestion();
+}
+
+function showQuestion() {
+  const q = questions[currentQ], total = questions.length;
+  document.getElementById('qCount').textContent = `${currentQ+1} / ${total}`;
+  document.getElementById('progressFill').style.width = `${(currentQ/total)*100}%`;
+  const sn = document.getElementById('sectionName');
+  sn.textContent = q.sectionName;
+  sn.className = `section-title ${q.sectionClass}`;
+  sn.style.cssText = 'margin:0;font-size:13px;padding:4px 10px;';
+
+  let html = `<div class="q-card" id="qCard">`;
+  html += `<div class="instruction">${q.instruction}</div>`;
+  html += `<div class="q-prompt ${q.promptClass||''}">${q.prompt}</div>`;
+  html += `<div class="options">`;
+  q.options.forEach((opt,i) => {
+    html += `<button class="opt-btn" onclick="selectAnswer(${i})" id="opt${i}">${opt}</button>`;
+  });
+  html += `</div><div class="feedback" id="feedback"></div><div class="explain" id="explain"></div></div>`;
+  document.getElementById('questionArea').innerHTML = html;
+}
+
+function selectAnswer(idx) {
+  const q = questions[currentQ], isCorrect = idx === q.correct;
+  q.options.forEach((_,i) => document.getElementById(`opt${i}`).disabled = true);
+  if (isCorrect) {
+    document.getElementById(`opt${idx}`).classList.add('correct-answer');
+    document.getElementById('feedback').textContent = '✅ Brilliant!';
+    sectionScores[q.section]++;
+  } else {
+    document.getElementById(`opt${idx}`).classList.add('wrong-answer');
+    document.getElementById(`opt${q.correct}`).classList.add('correct-answer');
+    document.getElementById('feedback').textContent = '❌ Not quite!';
+  }
+  document.getElementById('explain').textContent = q.explain||'';
+  document.getElementById('qCard').classList.add(isCorrect?'correct':'wrong');
+  answers.push({question:currentQ, selected:idx, correct:isCorrect});
+  setTimeout(() => { currentQ++; currentQ < questions.length ? showQuestion() : showResults(); }, 2200);
+}
+
+function showResults() {
+  document.getElementById('testScreen').classList.add('hidden');
+  const screen = document.getElementById('resultsScreen');
+  screen.classList.remove('hidden');
+  const totalCorrect = Object.values(sectionScores).reduce((a,b)=>a+b,0);
+  const totalQ = questions.length, pct = Math.round((totalCorrect/totalQ)*100);
+  let scoreClass = pct>=70?'score-high':pct>=40?'score-mid':'score-low';
+  let levelText,levelColor,levelEmoji,advice;
+  if(pct>=85){levelText='Outstanding! 🎉';levelColor='#4CAF50';levelEmoji='🌟';advice="Incredible work! You're well ahead of Year 4 level. Try reading more challenging chapter books and writing your own stories with dialogue and descriptive language.";}
+  else if(pct>=65){levelText='Great Progress ✨';levelColor='#2196F3';levelEmoji='💪';advice='Really solid! A few areas to polish — check the breakdown below. Reading widely will help close any gaps.';}
+  else if(pct>=40){levelText='Keep Going 📚';levelColor='#FF9800';levelEmoji='📖';advice='Good effort! Focus on the weaker sections below. Try reading 20 minutes daily and practising tricky spellings.';}
+  else{levelText='More Practice Needed 🌱';levelColor='#F44336';levelEmoji='🌱';advice="Don't worry — focus on spelling rules, grammar basics, and reading comprehension.";}
+
+  let html = `<h1>${levelEmoji} Results</h1>`;
+  html += `<div class="score-circle ${scoreClass}"><div>${totalCorrect}/${totalQ}</div><div class="label">${pct}% correct</div></div>`;
+  html += `<div class="level-tag" style="background:${levelColor}22;color:${levelColor};border:2px solid ${levelColor};">${levelText}</div>`;
+  html += `<div class="breakdown">`;
+  for(let s=1;s<=5;s++){
+    const score=sectionScores[s],total=sectionTotals[s],spct=Math.round((score/total)*100),color=sectionColors[s];
+    const stars=score===total?' ⭐️':score===0?' ⚠️':'';
+    html+=`<div class="bd-row"><div class="bd-label" style="min-width:100px">${sectionNames[s]}</div><div class="bd-bar"><div class="bd-bar-fill" style="width:${spct}%;background:${color}"></div></div><div class="bd-score">${score}/${total}${stars}</div></div>`;
+  }
+  html += `</div>`;
+  html += `<div class="tip-box"><b>💡 What to do next</b><br><br>${advice}`;
+  let weak=[];
+  if(sectionScores[1]<=2)weak.push('Spelling patterns & homophones');
+  if(sectionScores[2]<=2)weak.push('Grammar (tenses, word classes, determiners)');
+  if(sectionScores[3]<=2)weak.push('Punctuation (apostrophes, speech marks)');
+  if(sectionScores[4]<=2)weak.push('Reading comprehension & inference');
+  if(sectionScores[5]<=2)weak.push('Vocabulary & figurative language');
+  if(weak.length>0){html+=`<br><br><b>⚠️ Focus areas:</b><br>`;weak.forEach(w=>{html+=`• ${w}<br>`;});}
+  let strong=[];
+  if(sectionScores[1]>=4)strong.push('Spelling');
+  if(sectionScores[2]>=4)strong.push('Grammar');
+  if(sectionScores[3]>=4)strong.push('Punctuation');
+  if(sectionScores[4]>=4)strong.push('Reading');
+  if(sectionScores[5]>=4)strong.push('Vocabulary');
+  if(strong.length>0){html+=`<br><b>✅ Strong areas:</b><br>`;strong.forEach(s=>{html+=`• ${s}<br>`;});}
+  html+=`</div>`;
+  html+=`<button class="restart-btn" onclick="location.reload()">Try Again 🔄</button>`;
+  html+=`<p style="text-align:center;color:#999;font-size:12px;margin-top:12px;">Screenshot your results and send to 小管家 📋</p>`;
+  screen.innerHTML = html;
+}
+</script>
+<script data-goatcounter="https://ibread.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
