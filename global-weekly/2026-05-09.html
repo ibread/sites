@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1a1a2e">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+  <title>🌐 Global Markets Weekly — May 9, 2026</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 52px; }
+    body { font-family: 'Source Serif 4', Georgia, serif; font-size: 15px; line-height: 1.5; background: #fafbfc; color: #1a1a2e; -webkit-font-smoothing: antialiased; }
+    .container { max-width: 720px; margin: 0 auto; padding: 0 20px 20px 20px; }
+    header { background: linear-gradient(135deg, #0A1628 0%, #1a2a44 50%, #2d2d44 100%); color: #fff; padding: 28px 20px; margin: 0 -20px 24px -20px; box-shadow: 0 4px 12px rgba(10, 22, 40, 0.25); position: relative; overflow: hidden; }
+    header h1 { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
+    header .dates { font-size: 14px; opacity: 0.85; }
+    header .back-link { position: absolute; top: 12px; right: 20px; color: rgba(255,255,255,0.7); text-decoration: none; font-size: 13px; }
+    header .back-link:hover { color: #fff; }
+    .page-nav { position: sticky; top: 0; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 8px 0; margin-bottom: 14px; border-bottom: 1px solid #e9ecef; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow-x: auto; white-space: nowrap; z-index: 100; }
+    .page-nav a { display: inline-block; padding: 6px 14px; margin: 0 3px; font-size: 13px; font-weight: 500; color: #6c757d; text-decoration: none; border-radius: 20px; transition: all 0.2s ease; }
+    .page-nav a:hover { background: #f1f3f5; color: #1a1a2e; }
+    .page-nav a.active { background: linear-gradient(135deg, #0A1628 0%, #1a2a44 100%); color: #fff; }
+    .section { margin-bottom: 16px; background: #ffffff; border-radius: 12px; padding: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.04); }
+    .section-header { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 20px; font-weight: 700; padding: 6px 0 6px 14px; margin-bottom: 10px; border-left: 4px solid; }
+    .section-header.signals { border-color: #e74c3c; background: linear-gradient(90deg, rgba(231,76,60,0.04) 0%, transparent 100%); }
+    .section-header.scorecard { border-color: #3498db; background: linear-gradient(90deg, rgba(52,152,219,0.04) 0%, transparent 100%); }
+    .section-header.implications { border-color: #27ae60; background: linear-gradient(90deg, rgba(39,174,96,0.04) 0%, transparent 100%); }
+    .section-header.patterns { border-color: #9b59b6; background: linear-gradient(90deg, rgba(155,89,182,0.04) 0%, transparent 100%); }
+    .section-header.asia { border-color: #e07a5f; background: linear-gradient(90deg, rgba(224,122,95,0.04) 0%, transparent 100%); }
+    .section-header.americas { border-color: #3b5998; background: linear-gradient(90deg, rgba(59,89,152,0.04) 0%, transparent 100%); }
+    .section-header.emeaa { border-color: #2d936c; background: linear-gradient(90deg, rgba(45,147,108,0.04) 0%, transparent 100%); }
+    .section-header.calendar { border-color: #f39c12; background: linear-gradient(90deg, rgba(243,156,18,0.04) 0%, transparent 100%); }
+    .section-header.sources { border-color: #6c757d; background: linear-gradient(90deg, rgba(108,117,125,0.04) 0%, transparent 100%); }
+    .key-numbers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+    .kpi-tile { background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%); border-radius: 10px; padding: 16px 12px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.04); }
+    .kpi-tile .big-number { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 36px; font-weight: 700; line-height: 1.1; margin-bottom: 4px; }
+    .kpi-tile .big-number.warm { color: #e07a5f; }
+    .kpi-tile .big-number.cool { color: #457b9d; }
+    .kpi-tile .big-number.red { color: #e63946; }
+    .kpi-tile .big-number.green { color: #2d936c; }
+    .kpi-tile .label { font-size: 12px; color: #6c757d; font-weight: 500; }
+    .news-item { padding: 8px 0; border-bottom: 1px solid #f1f3f5; font-size: 14px; color: #2d3436; line-height: 1.5; }
+    .news-item:last-child { border-bottom: none; }
+    .news-item strong { font-weight: 600; color: #1a1a2e; font-size: 15px; }
+    .stat { font-weight: 600; font-size: 14px; }
+    .stat.up { color: #2d936c; }
+    .stat.up-strong { color: #1a7a52; }
+    .stat.down { color: #dc3545; }
+    .stat.neutral { color: #e07a5f; }
+    .region-card { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+    .region-tile { background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%); border-radius: 10px; padding: 14px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.04); }
+    .region-tile .region-name { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+    .region-tile .region-stat { font-size: 13px; margin: 3px 0; line-height: 1.4; }
+    .region-link { display: inline-block; margin-top: 6px; font-size: 12px; color: #457b9d; text-decoration: none; font-weight: 600; }
+    .region-link:hover { color: #1a1a2e; text-decoration: underline; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #f1f3f5; }
+    th { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); font-weight: 600; color: #495057; font-size: 12px; }
+    footer { margin-top: 32px; padding-top: 20px; border-top: 1px solid #e9ecef; font-size: 12px; color: #adb5bd; text-align: center; }
+    .cal-legend { margin-top: 8px; font-size: 12px; line-height: 1.9; color: #495057; background: #f8f9fa; border-radius: 8px; padding: 10px 12px; }
+    @media (max-width: 600px) { .key-numbers { grid-template-columns: repeat(2, 1fr); } .region-card { grid-template-columns: 1fr; } }
+    .section { opacity: 0; transform: translateY(12px); animation: fadeUp 0.4s ease forwards; }
+    .section:nth-child(1) { animation-delay: 0.05s; }
+    .section:nth-child(2) { animation-delay: 0.1s; }
+    .section:nth-child(3) { animation-delay: 0.15s; }
+    .section:nth-child(4) { animation-delay: 0.2s; }
+    .section:nth-child(5) { animation-delay: 0.25s; }
+    .section:nth-child(6) { animation-delay: 0.3s; }
+    .section:nth-child(7) { animation-delay: 0.35s; }
+    .section:nth-child(8) { animation-delay: 0.4s; }
+    .section:nth-child(9) { animation-delay: 0.45s; }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a href="index.html" class="back-link">← All Issues</a>
+      <h1>🌐 Global Markets Weekly</h1>
+      <div class="dates">Synthesis: Asia (Apr 30) · Americas (May 8) · EMEAA (May 9), 2026</div>
+    </header>
+
+    <div style="background: linear-gradient(135deg, #f0f4f8 0%, #e8eef5 100%); border-radius: 12px; padding: 14px 18px; margin-bottom: 16px; display: flex; align-items: center; gap: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.06);">
+      <span style="font-size: 22px;">🎙️</span>
+      <div style="flex: 1;">
+        <div style="font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; color: #1a1a2e; margin-bottom: 6px;">Listen to this issue</div>
+        <audio controls preload="none" style="width: 100%; height: 36px;">
+          <source src="https://github.com/ibread/sites/releases/download/audio-assets/global-weekly-2026-05-09.mp3" type="audio/mpeg">
+        </audio>
+      </div>
+    </div>
+
+    <nav class="page-nav">
+      <a href="#signals">Global Signals</a>
+      <a href="#scorecard">Scorecard</a>
+      <a href="#implications">Airbnb</a>
+      <a href="#patterns">Patterns</a>
+      <a href="#asia">Asia</a>
+      <a href="#americas">Americas</a>
+      <a href="#emeaa">EMEAA</a>
+      <a href="#calendar">Calendar</a>
+      <a href="#sources">Sources</a>
+    </nav>
+
+    <!-- GLOBAL KEY SIGNALS -->
+    <div class="section" id="signals">
+      <div class="section-header signals">🔥 GLOBAL KEY SIGNALS</div>
+
+      <div class="key-numbers">
+        <div class="kpi-tile">
+          <div class="big-number red">−13K</div>
+          <div class="label">Flights cut globally in May<br><span class="stat down">Iran fuel crisis week 5</span></div>
+        </div>
+        <div class="kpi-tile">
+          <div class="big-number green">+8.2%</div>
+          <div class="label">APAC T&T GDP growth<br><span class="stat up">$3.29T (2025)</span></div>
+        </div>
+        <div class="kpi-tile">
+          <div class="big-number warm">$1.37T</div>
+          <div class="label">US travel spend forecast<br><span class="stat up">+3.4% record (2026)</span></div>
+        </div>
+        <div class="kpi-tile">
+          <div class="big-number red">+167%</div>
+          <div class="label">EU kerosene price surge<br><span class="stat down">€600→€1,600/t</span></div>
+        </div>
+      </div>
+
+      <div class="news-item">1. <strong>Iran war fuel crisis reshapes global travel — 13,000 flights cut, Spirit Airlines dead</strong> — The Strait of Hormuz disruption (week 5) is the single biggest force across all three regions. US jet fuel +56% ($3.13/gal); EU kerosene +167% (€1,600/t); APAC fuel surcharges 5x YoY driving Korean outbound down 25%. Spirit Airlines liquidated May 3 after burning $100M in 8 weeks. Airlines across the US, Europe, Canada, and Australia are cutting routes or absorbing massive losses. <span class="stat down">The crisis is accelerating a global shift from fly-to to drive-to destinations.</span> <em>(Americas, EMEAA, Asia)</em></div>
+
+      <div class="news-item">2. <strong>Consumer confidence gap: people feel poorer than they are</strong> — In France, EDV President says consumers "feel they can't travel even when they can afford it." In the US, 80% of hotels say World Cup bookings are missing forecasts despite record $1.37T spending. German tour operator bookings collapsed in March. Yet actual travel volumes remain robust: APAC tourism growing 8.2%, global T&T at $11.6T (+4% vs 2.8% GDP). <span class="stat neutral">The crisis is psychological, not yet economic — but perception shapes demand.</span> <em>(EMEAA, Americas)</em></div>
+
+      <div class="news-item">3. <strong>Domestic travel boom is the universal response</strong> — Every region is seeing consumers pivot inward. US: Marriott confirms fly-to→drive-to shift. India: outbound -15%, domestic hill stations at record demand. Korea: overseas bookings at 75% of Feb levels, domestic rising. Germany: Deutschlandticket driving secondary destinations. China: county-level bookings +82% YoY. France: second homes as "summer winners." <span class="stat up">Domestic is the safest bet globally.</span> <em>(All 3 regions)</em></div>
+
+      <div class="news-item">4. <strong>AI transforms travel distribution — Airbnb vs everyone</strong> — Chesky declares rivals' hotel/home mixing "pre-AI design." IHG partners with Google, OpenAI, Anthropic on content infrastructure. BlaBlaCar integrates ChatGPT. Mindtrip launches agentic AI booking with Sabre/PayPal. 59% of Italian Gen Z use AI for trip planning. MSC debuts AI concierge at sea. Airbnb internally building "AI for Non-Developers" with Claude + MCP. <span class="stat neutral">AI is no longer optional — it's the new distribution battleground.</span> <em>(Americas, EMEAA)</em></div>
+
+      <div class="news-item">5. <strong>Regulatory convergence: EU STR, EES, and overtourism measures tighten simultaneously</strong> — EU Short-Term Rental regulation takes effect May 20 (Berlin: 600 permits vs 38,000 listings). EES border system causing chaos in Spain and Italy (75-min passport delays). Japan intensifies overtourism countermeasures. Korea debates 40-year tourism law overhaul. EU Package Travel Directive approved. <span class="stat down">Compliance is becoming a competitive moat across all markets.</span> <em>(EMEAA, Asia)</em></div>
+    </div>
+
+    <!-- REGIONAL SCORECARD -->
+    <div class="section" id="scorecard">
+      <div class="section-header scorecard">📊 REGIONAL SCORECARD</div>
+      <div class="region-card">
+        <div class="region-tile">
+          <div class="region-name">🌏 Asia-Pacific</div>
+          <div class="region-stat"><span class="stat up">+23%</span> Korea Q1 arrivals YoY (4.76M record)</div>
+          <div class="region-stat"><span class="stat up">+4%</span> China May Day trips (15.2B)</div>
+          <div class="region-stat"><span class="stat down">−15%</span> India outbound demand</div>
+          <div class="region-stat"><span class="stat up">+8.2%</span> APAC T&T GDP growth</div>
+        </div>
+        <div class="region-tile">
+          <div class="region-name">🌎 Americas</div>
+          <div class="region-stat"><span class="stat up">+3.4%</span> US travel spend ($1.37T)</div>
+          <div class="region-stat"><span class="stat down">−80%</span> Hotels miss World Cup forecasts</div>
+          <div class="region-stat"><span class="stat down">+56%</span> US airline fuel cost surge</div>
+          <div class="region-stat"><span class="stat up">+5.6%</span> Brazil→Orlando (736K record)</div>
+        </div>
+        <div class="region-tile">
+          <div class="region-name">🌍 EMEAA</div>
+          <div class="region-stat"><span class="stat down">+167%</span> EU kerosene price surge</div>
+          <div class="region-stat"><span class="stat up">+39%</span> Wizz Air Spain capacity</div>
+          <div class="region-stat"><span class="stat up">+19%</span> Italy luxury hospitality vs 2019</div>
+          <div class="region-stat"><span class="stat down">−13K</span> Global flights cut in May</div>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>Metric</th><th>🌏 Asia</th><th>🌎 Americas</th><th>🌍 EMEAA</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Fuel Impact</strong></td><td>Surcharges 5x YoY; Korean outbound down</td><td>Spirit liquidated; +56% fuel; 5 fare hikes</td><td>+167% kerosene; 13K flights cut</td></tr>
+          <tr><td><strong>Demand Signal</strong></td><td>Record arrivals (Korea, Singapore)</td><td>Record $1.37T spend but hotels lagging</td><td>Consumer confidence crisis; packages surge</td></tr>
+          <tr><td><strong>Domestic Pivot</strong></td><td>China county +82%; India hills boom</td><td>Drive-to accelerating; 36% Canadians domestic</td><td>Germany Deutschlandticket; French second homes</td></tr>
+          <tr><td><strong>Regulatory</strong></td><td>Japan overtourism; Korea law overhaul</td><td>DHS shutdown aftermath; TSA shortages</td><td>EU STR May 20; EES chaos; Package Directive</td></tr>
+          <tr><td><strong>AI/Tech</strong></td><td>Airbnb K-culture content strategy</td><td>Chesky "post-AI"; IHG + Google/OpenAI</td><td>Mindtrip agentic; 59% Gen Z use AI</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- AIRBNB GLOBAL IMPLICATIONS -->
+    <div class="section" id="implications">
+      <div class="section-header implications">💡 AIRBNB GLOBAL IMPLICATIONS</div>
+
+      <div class="news-item">1. <strong>Fuel crisis = structural Airbnb tailwind for drive-to inventory</strong> — Across all three regions, rising airfares are pushing travelers toward road-trip destinations. Marriott confirms the shift in the US. German Deutschlandticket enables rail-accessible stays. Korea sees domestic hotel occupancy rising. Airbnb's rural, cabin, and suburban listings are the primary beneficiary. <strong>Action:</strong> Promote drive-to and rail-accessible listings globally, especially 2–5 hour corridors from major metros.</div>
+
+      <div class="news-item">2. <strong>World Cup hotel miss + EU STR crackdown = opposing forces</strong> — In the US, 80% of hotels below World Cup booking forecasts creates a pricing gap Airbnb can fill across 11 host cities. But in Europe, EU STR regulation (May 20) threatens to remove non-compliant listings at the worst possible time before summer. <strong>Action:</strong> Aggressive supply activation in US World Cup cities; compliance sprint in EU markets before May 20.</div>
+
+      <div class="news-item">3. <strong>Package holiday shift is a direct competitive threat in Europe</strong> — UK and French consumers are moving toward ATOL/ABTA-protected packages over independent booking. Jet2 reports "significant increase." EasyJet launches price-lock guarantees. This challenges Airbnb's unbundled model. <strong>Action:</strong> Strengthen cancellation/refund messaging; highlight flexible booking policies; consider partnerships with tour operators for accommodation supply.</div>
+
+      <div class="news-item">4. <strong>Asia's mega-holiday convergence proves Airbnb overflow thesis</strong> — Hong Kong hotel occupancy exceeded 90% during Golden Week (Causeway Bay at 95%). China county-level bookings +82% in places with thin hotel infrastructure. Korea sees 180K–200K visitors converging. <strong>Action:</strong> When hotels are full, Airbnb is the overflow solution. Build real-time surge supply activation for holiday peaks across APAC.</div>
+
+      <div class="news-item">5. <strong>AI differentiation race will define 2027 distribution</strong> — Chesky's "post-AI" framing is visionary but competitors are moving fast: IHG + Google/OpenAI/Anthropic, Mindtrip agentic booking, BlaBlaCar + ChatGPT. 59% of young Italian travelers already use AI for planning. <strong>Action:</strong> Airbnb must deliver concrete AI product improvements (not just vision) before competitors build AI-native booking flows that bypass platform search entirely.</div>
+    </div>
+
+    <!-- CROSS-REGION PATTERNS -->
+    <div class="section" id="patterns">
+      <div class="section-header patterns">🔄 CROSS-REGION PATTERNS</div>
+
+      <div class="news-item">• <strong>Visa & border policy divergence</strong> — Asia is liberalizing (Korea K-ETA waiver extended, China 144-hour visa-free expanded, Shanghai→Kinmen/Matsu opened, India eVisa to 14 seaports). Europe is tightening (EES causing chaos, EU STR compliance, Package Travel Directive). Americas sit in between (US-Mexico bilateral route deal progressing, DHS shutdown aftermath). The gap means APAC captures more spontaneous travel while Europe risks friction-driven demand loss.</div>
+
+      <div class="news-item">• <strong>Competitor global moves: TUI, Hyatt, IHG playing offense</strong> — TUI posts best-ever EBIT and restructures for growth (Musement targeting 1M activities — direct Airbnb Experiences competitor). Hyatt reopens Cancún flagship while Meliá reports double-digit summer growth. IHG names Mexico as 5th largest global market and partners with AI giants. Hotel chains are investing aggressively while Airbnb leans into AI messaging. The ground game matters.</div>
+
+      <div class="news-item">• <strong>Macro resilience: tourism outpacing global economy everywhere</strong> — WTTC: global T&T at $11.6T (+4% vs 2.8% GDP). APAC T&T grew 8.2% to $3.29T. US leisure travel at $909B (only segment exceeding pre-pandemic in real terms). India hospitality in "golden cycle" ($263B→$588B trajectory). Italy luxury +19% vs 2019. Despite fuel crisis and geopolitical turmoil, travel remains the most resilient consumer spending category.</div>
+
+      <div class="news-item">• <strong>"Spend gap" is global: volumes up, per-capita spending flat</strong> — China: May Day trips +4% but per-capita spend growth lags. Korea: record arrivals but consumers cutting secondary trips. Germany: travel intensity at 80.5% but price sensitivity rising. US: record $1.37T aggregate but international inbound still below 2019 in real terms. Volume growth masks per-guest revenue pressure across all regions.</div>
+
+      <div class="news-item">• <strong>Luxury segment decoupling from mass market</strong> — Italy luxury hospitality +19% (1% of stock = 25% of value). Marriott luxury/resort RevPAR +7%. India affluent travelers putting 58% of wallet into travel. Singapore positioning as luxury hub with Disney Cruise homeport. Australia's Luxury Escapes expanding aggressively. The K-shaped recovery is global: premium thrives while mass-market faces margin compression from fuel costs.</div>
+    </div>
+
+    <!-- ASIA HIGHLIGHTS -->
+    <div class="section" id="asia">
+      <div class="section-header asia">🌏 ASIA HIGHLIGHTS</div>
+      <div class="news-item">• <strong>Korea Q1 record: 4.76M arrivals (+23% YoY)</strong> — March alone hit 2.06M. BTS comeback + K-culture + weak won driving the surge. 75% of inbound tourists visit for K-culture (Airbnb Korea data). Seoul hotel avg $90 vs NYC $419.</div>
+      <div class="news-item">• <strong>China May Day: 15.2B person-trips (+4% YoY), county-level bookings +82%</strong> — Record volumes but per-capita spend gap persists. Meituan bookings +28%. Hainan Ding'an hotels +8.7x. Consumer downgrade trend continues.</div>
+      <div class="news-item">• <strong>Hong Kong: 980K mainland visitors, hotel occupancy 90%+</strong> — Sino-Japanese tensions redirecting mainland tourists from Japan to HK. Self-drive scheme from Guangdong gaining traction (5,000+ approved).</div>
+      <div class="news-item">• <strong>India: domestic surge as outbound drops 15%</strong> — Affluent Indians put 58% of wallet into travel. Hill stations at record interest. Hospitality in "golden cycle" ($263B→$588B). But weak rupee + Middle East tensions crushing outbound.</div>
+      <div class="news-item">• <strong>Singapore: China overtakes all as #1 source market</strong> — 4M visitors Q1. STB projects 17–18M arrivals for 2026. Disney Cruise Asia homeport + F1 sprint race as anchor events.</div>
+      <div class="news-item" style="text-align: right;"><a href="https://ibread.github.io/sites/travel-weekly/2026-04-30.html" class="region-link">📖 Read full Asia Travel Weekly →</a></div>
+    </div>
+
+    <!-- AMERICAS HIGHLIGHTS -->
+    <div class="section" id="americas">
+      <div class="section-header americas">🌎 AMERICAS HIGHLIGHTS</div>
+      <div class="news-item">• <strong>US travel spending forecast hits record $1.37T</strong> — Domestic leisure at $909B is the only segment above pre-pandemic. International inbound recovery not until 2029. 87% of spend is domestic.</div>
+      <div class="news-item">• <strong>Spirit Airlines ceases operations; JetBlue races for routes</strong> — Liquidated May 3 after $100M fuel burn. JetBlue launching 11 new Fort Lauderdale routes. Reduces ULCC options across US and Caribbean.</div>
+      <div class="news-item">• <strong>80% of US hotels say World Cup bookings miss forecasts</strong> — 37 days to kickoff across 11 host cities. FIFA ticket pricing and hotel rate aggression share blame. Cancún expects 20–50% spillover boost.</div>
+      <div class="news-item">• <strong>Canadians split generationally on US travel</strong> — 45% Gen Z plan US trips vs 8% of Boomers. Europe now #1 international destination (24%). Airlines pivoting to Spain/Canary Islands.</div>
+      <div class="news-item">• <strong>Mexico: tourists shifting to Dominican Republic (+52% Q1)</strong> — Hyatt reports Mexico packages -5%, DR +16%. Aeroméxico launches CDMX Stopover program (up to 7 days free).</div>
+      <div class="news-item" style="text-align: right;"><a href="https://ibread.github.io/sites/americas-weekly/2026-05-08.html" class="region-link">📖 Read full Americas Travel Weekly →</a></div>
+    </div>
+
+    <!-- EMEAA HIGHLIGHTS -->
+    <div class="section" id="emeaa">
+      <div class="section-header emeaa">🌍 EMEAA HIGHLIGHTS</div>
+      <div class="news-item">• <strong>Iran fuel crisis dominates: kerosene +167%, airlines absorbing costs</strong> — Governments across UK, France, Spain, Germany reassure "no shortage." Airlines maintaining summer programs but margins crushed. French agencies demand aviation tax suspension.</div>
+      <div class="news-item">• <strong>EU STR Regulation takes effect May 20</strong> — Platforms must collect and verify host registration numbers. Berlin faces massive reckoning: ~600 permits vs 38,000 estimated tourist apartments. Non-compliant listings risk suspension.</div>
+      <div class="news-item">• <strong>Package holidays surge in UK and France</strong> — Consumers seek ATOL/ABTA protection. EasyJet launches price-lock guarantee. French second homes predicted as summer "winners." Independent travel platforms face headwinds.</div>
+      <div class="news-item">• <strong>Spain as "refuge destination" — Meliá double-digit summer growth</strong> — Travelers diverting from Middle East zones. 677 Blue Flag beaches (world record). Gaudí centenary drives +278% experiential tourism in Barcelona.</div>
+      <div class="news-item">• <strong>Australia: Perth-Rome Qantas relaunch, solo travel 6th globally</strong> — Home-meal experiences surging. Luxury Escapes clears Melbourne-Maldives charter. Cadbury A$150M experience centre approved for Hobart.</div>
+      <div class="news-item" style="text-align: right;"><a href="https://ibread.github.io/sites/emeaa-weekly/2026-05-09.html" class="region-link">📖 Read full EMEAA Travel Weekly →</a></div>
+    </div>
+
+    <!-- GLOBAL CALENDAR -->
+    <div class="section" id="calendar">
+      <div class="section-header calendar">📅 GLOBAL TRAVEL CALENDAR (May 9 – Jun 15)</div>
+      <div class="cal-legend">
+        <p>🌏 <strong>May 1–6: APAC Mega-Holiday</strong> — China Labor Day, Japan Golden Week, Korea Children's Day + Buddha's Birthday all overlapping. 180K–200K visitors in Korea alone.</p>
+        <p>🇲🇽 <strong>May 10: Mexico Mother's Day</strong> — Major domestic travel occasion. Hotels and restaurants at peak.</p>
+        <p>🇫🇷🇩🇪 <strong>May 14: Ascension Day</strong> — Public holiday in France and Germany. French "pont" extends to 4-day break.</p>
+        <p>🇨🇦 <strong>May 18: Victoria Day</strong> — Long weekend kickoff of Canadian summer travel.</p>
+        <p>🇪🇺 <strong>May 20: EU STR Regulation takes effect</strong> — Platforms must verify host registration. ⚠️ Major compliance deadline.</p>
+        <p>🇬🇧 <strong>May 23–31: UK Half-Term</strong> — Key family travel week. TUI issuing reassurance ahead of departures.</p>
+        <p>🇺🇸 <strong>May 25: Memorial Day</strong> — Official US summer start. Peak domestic travel weekend.</p>
+        <p>🇨🇳 <strong>May 31–Jun 1: Children's Day</strong> — Chinese family travel spike.</p>
+        <p>🇮🇹 <strong>Jun 2: Republic Day</strong> — Italian ponte (bridge) to weekend drives domestic travel.</p>
+        <p>🇧🇷 <strong>Jun 4: Corpus Christi</strong> — Brazilian national holiday, often 4-day weekend.</p>
+        <p>🇫🇷 <strong>Jun 10: SNCF rail strike</strong> — ⚠️ Four-union strike could disrupt early summer French travel.</p>
+        <p>⚽ <strong>Jun 11: FIFA World Cup 2026 kicks off</strong> — 11 US + 3 Mexico + 2 Canada host cities. Global demand spike.</p>
+      </div>
+    </div>
+
+    <!-- SOURCES -->
+    <div class="section" id="sources">
+      <div class="section-header sources">📋 SOURCES</div>
+      <table>
+        <thead>
+          <tr><th>Region</th><th>Report</th><th>Period</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>🌏 Asia</td><td><a href="https://ibread.github.io/sites/travel-weekly/2026-04-30.html" style="color:#457b9d;font-size:13px">Asia Travel Weekly</a></td><td>Apr 23–30, 2026</td></tr>
+          <tr><td>🌎 Americas</td><td><a href="https://ibread.github.io/sites/americas-weekly/2026-05-08.html" style="color:#457b9d;font-size:13px">Americas Travel Weekly</a></td><td>May 1–8, 2026</td></tr>
+          <tr><td>🌍 EMEAA</td><td><a href="https://ibread.github.io/sites/emeaa-weekly/2026-05-09.html" style="color:#457b9d;font-size:13px">EMEAA Travel Weekly</a></td><td>May 2–9, 2026</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <footer>
+      Powered by 🦞 Max (小可) | Synthesized from Asia, Americas & EMEAA Travel Weekly | May 9, 2026
+    </footer>
+  </div>
+
+  <script>
+    const sections = document.querySelectorAll('.section[id]');
+    const navLinks = document.querySelectorAll('.page-nav a');
+    function highlightNav() {
+      let current = '';
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= 80) current = section.id;
+      });
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+      });
+    }
+    window.addEventListener('scroll', highlightNav, { passive: true });
+    highlightNav();
+  </script>
+  <script data-goatcounter="https://ibread.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script data-goatcounter="https://ibread.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
