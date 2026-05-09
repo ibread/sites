@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>孔雀 Year 3 English Practice 🌟</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+}
+.container {
+  background: white;
+  border-radius: 24px;
+  max-width: 480px;
+  width: 100%;
+  padding: 28px 24px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  margin-top: 10px;
+}
+h1 { font-size: 24px; text-align: center; margin-bottom: 6px; }
+.subtitle { text-align: center; color: #666; font-size: 14px; margin-bottom: 24px; }
+.section-title {
+  font-size: 18px; font-weight: 700; margin: 20px 0 12px;
+  padding: 8px 14px; border-radius: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.s1 { background: #E8F5E9; color: #2E7D32; }
+.s2 { background: #E3F2FD; color: #1565C0; }
+.s3 { background: #FFF3E0; color: #E65100; }
+.s4 { background: #F3E5F5; color: #7B1FA2; }
+.s5 { background: #FFF8E1; color: #F57F17; }
+
+.instruction {
+  font-size: 13px; color: #888; margin-bottom: 14px;
+  padding: 0 4px; line-height: 1.6;
+}
+.instruction b { color: #555; }
+
+.q-card {
+  background: #FAFAFA; border-radius: 16px;
+  padding: 16px; margin-bottom: 12px;
+  border: 2px solid transparent;
+  transition: border-color 0.3s;
+}
+.q-card.correct { border-color: #4CAF50; background: #F1F8E9; }
+.q-card.wrong { border-color: #EF5350; background: #FFEBEE; }
+
+.q-label { font-size: 13px; color: #999; margin-bottom: 8px; font-weight: 600; }
+.q-prompt {
+  font-size: 18px; font-weight: 700; margin-bottom: 12px;
+  text-align: center; line-height: 1.5;
+}
+.q-prompt.big { font-size: 28px; letter-spacing: 2px; }
+.q-prompt.sentence { font-size: 16px; font-style: italic; letter-spacing: 0; }
+
+.options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+.opt-btn {
+  padding: 12px 8px; border-radius: 12px;
+  border: 2px solid #E0E0E0; background: white;
+  font-size: 15px; font-weight: 600;
+  cursor: pointer; transition: all 0.2s;
+  text-align: center; line-height: 1.3;
+}
+.opt-btn:active { transform: scale(0.95); }
+.opt-btn.selected { border-color: #1976D2; background: #E3F2FD; color: #1976D2; }
+.opt-btn.correct-answer { border-color: #4CAF50; background: #E8F5E9; color: #2E7D32; }
+.opt-btn.wrong-answer { border-color: #EF5350; background: #FFEBEE; color: #C62828; }
+.opt-btn:disabled { cursor: default; opacity: 0.7; }
+
+.progress-bar {
+  height: 6px; background: #E0E0E0; border-radius: 3px;
+  margin-bottom: 20px; overflow: hidden;
+}
+.progress-fill {
+  height: 100%; background: linear-gradient(90deg, #43cea2, #185a9d);
+  border-radius: 3px; transition: width 0.4s ease;
+}
+
+.results { text-align: center; }
+.score-circle {
+  width: 120px; height: 120px; border-radius: 50%;
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; margin: 20px auto;
+  font-size: 36px; font-weight: 800; color: white;
+}
+.score-circle .label { font-size: 12px; font-weight: 400; opacity: 0.9; }
+.score-high { background: linear-gradient(135deg, #43A047, #66BB6A); }
+.score-mid { background: linear-gradient(135deg, #FB8C00, #FFA726); }
+.score-low { background: linear-gradient(135deg, #E53935, #EF5350); }
+
+.breakdown { text-align: left; margin: 20px 0; }
+.bd-row {
+  display: flex; justify-content: space-between;
+  align-items: center; padding: 10px 0;
+  border-bottom: 1px solid #F0F0F0;
+}
+.bd-row:last-child { border: none; }
+.bd-label { font-size: 14px; font-weight: 600; }
+.bd-score { font-size: 14px; }
+.bd-bar { flex: 1; height: 6px; background: #E0E0E0; border-radius: 3px; margin: 0 12px; }
+.bd-bar-fill { height: 100%; border-radius: 3px; }
+
+.level-tag {
+  display: inline-block; padding: 6px 16px;
+  border-radius: 50px; font-size: 14px; font-weight: 700;
+  margin: 8px 4px;
+}
+
+.tip-box {
+  background: #E8F5E9; border-radius: 12px;
+  padding: 14px; margin-top: 16px; text-align: left;
+  font-size: 13px; line-height: 1.6;
+}
+.tip-box b { color: #2E7D32; }
+
+.start-btn, .restart-btn {
+  display: block; width: 100%; padding: 16px;
+  border-radius: 16px; border: none;
+  background: linear-gradient(135deg, #43cea2, #185a9d);
+  color: white; font-size: 18px; font-weight: 700;
+  cursor: pointer; margin-top: 16px;
+  transition: transform 0.2s;
+}
+.start-btn:active, .restart-btn:active { transform: scale(0.97); }
+
+.feedback {
+  text-align: center; font-size: 24px;
+  margin-top: 8px; min-height: 32px;
+}
+
+.hidden { display: none; }
+
+.explain {
+  font-size: 12px; color: #777; margin-top: 6px;
+  text-align: center; line-height: 1.5; min-height: 18px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- START SCREEN -->
+<div id="startScreen">
+  <h1>🌟 孔雀 Year 3 英语练习</h1>
+  <p class="subtitle">UK Year 3 English Skills</p>
+  <div style="text-align:center; font-size:60px; margin:20px 0;">🦚</div>
+  <div style="padding:0 8px; font-size:14px; color:#555; line-height:1.7;">
+    <p>这是一套 Year 3 水平的英语练习，一共 <b>25 道题</b>，大约 <b>15 分钟</b>。</p>
+    <br>
+    <p>📋 <b>练习内容：</b></p>
+    <p>① Spelling — 拼写规则</p>
+    <p>② Grammar — 语法知识</p>
+    <p>③ Punctuation — 标点符号</p>
+    <p>④ Reading Comprehension — 阅读理解</p>
+    <p>⑤ Vocabulary — 词汇量</p>
+    <br>
+    <p>💡 <b>给孔雀：</b></p>
+    <p>• Read each question carefully</p>
+    <p>• Pick the answer you think is right</p>
+    <p>• Don't worry if you're not sure — just try your best! 💪</p>
+  </div>
+  <button class="start-btn" onclick="startTest()">Start! 🚀</button>
+</div>
+
+<!-- TEST SCREEN -->
+<div id="testScreen" class="hidden">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+    <span id="qCount" style="font-size:13px; color:#999; font-weight:600;"></span>
+    <span id="sectionName" style="font-size:13px; font-weight:600; padding:4px 10px; border-radius:8px;"></span>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div id="questionArea"></div>
+</div>
+
+<!-- RESULTS SCREEN -->
+<div id="resultsScreen" class="hidden"></div>
+
+</div>
+
+<script>
+const questions = [
+  // === SECTION 1: Spelling (5 questions) ===
+  {
+    section: 1, sectionName: "Spelling", sectionClass: "s1",
+    instruction: "Which word is spelled correctly?",
+    prompt: "I had a very good _____ at school today.",
+    promptClass: "sentence",
+    options: ["experiance", "experience", "expirence", "experence"],
+    correct: 1,
+    explain: "'experience' — the correct UK spelling."
+  },
+  {
+    section: 1, sectionName: "Spelling", sectionClass: "s1",
+    instruction: "Choose the correct spelling:",
+    prompt: "We had to _____ before we crossed the road.",
+    promptClass: "sentence",
+    options: ["dissappear", "disappear", "dissapear", "disappier"],
+    correct: 1,
+    explain: "'disappear' — dis + appear."
+  },
+  {
+    section: 1, sectionName: "Spelling", sectionClass: "s1",
+    instruction: "Add the suffix. What does 'hope' + 'ful' become?",
+    prompt: "hope + ful = ?",
+    promptClass: "big",
+    options: ["hopful", "hopeful", "hoopful", "hopefull"],
+    correct: 1,
+    explain: "Keep the 'e' before 'ful': hopeful."
+  },
+  {
+    section: 1, sectionName: "Spelling", sectionClass: "s1",
+    instruction: "Which is the correct plural?",
+    prompt: "one child → two _____",
+    promptClass: "big",
+    options: ["childs", "childrens", "children", "childes"],
+    correct: 2,
+    explain: "'children' is an irregular plural."
+  },
+  {
+    section: 1, sectionName: "Spelling", sectionClass: "s1",
+    instruction: "Add the prefix 'un' to make the opposite:",
+    prompt: "un + happy = ?",
+    promptClass: "big",
+    options: ["unhappy", "unhappi", "unhapy", "unhappey"],
+    correct: 0,
+    explain: "Just add 'un' — the root word doesn't change."
+  },
+
+  // === SECTION 2: Grammar (5 questions) ===
+  {
+    section: 2, sectionName: "Grammar", sectionClass: "s2",
+    instruction: "Choose the correct word to complete the sentence:",
+    prompt: "She _____ to the shops yesterday.",
+    promptClass: "sentence",
+    options: ["go", "going", "went", "goed"],
+    correct: 2,
+    explain: "'went' is the past tense of 'go'."
+  },
+  {
+    section: 2, sectionName: "Grammar", sectionClass: "s2",
+    instruction: "Which sentence uses 'a' or 'an' correctly?",
+    prompt: "Which is correct?",
+    promptClass: "",
+    options: ["a elephant", "an umbrella", "a honest man", "an big dog"],
+    correct: 1,
+    explain: "Use 'an' before a vowel sound: an umbrella."
+  },
+  {
+    section: 2, sectionName: "Grammar", sectionClass: "s2",
+    instruction: "Pick the correct conjunction to join the sentences:",
+    prompt: "I wanted to play outside _____ it was raining.",
+    promptClass: "sentence",
+    options: ["because", "but", "so", "or"],
+    correct: 1,
+    explain: "'but' shows contrast — wanted to play vs. raining."
+  },
+  {
+    section: 2, sectionName: "Grammar", sectionClass: "s2",
+    instruction: "What type of word is the underlined word?",
+    prompt: "The <u>enormous</u> dragon flew over the castle.",
+    promptClass: "sentence",
+    options: ["noun", "verb", "adjective", "adverb"],
+    correct: 2,
+    explain: "'enormous' describes the dragon — it's an adjective."
+  },
+  {
+    section: 2, sectionName: "Grammar", sectionClass: "s2",
+    instruction: "Choose the correct form:",
+    prompt: "The children _____ playing in the park right now.",
+    promptClass: "sentence",
+    options: ["is", "are", "was", "be"],
+    correct: 1,
+    explain: "'children' is plural, so we use 'are'."
+  },
+
+  // === SECTION 3: Punctuation (5 questions) ===
+  {
+    section: 3, sectionName: "Punctuation", sectionClass: "s3",
+    instruction: "Which sentence has the correct punctuation?",
+    prompt: "Pick the correct one:",
+    promptClass: "",
+    options: [
+      "its a sunny day",
+      "It's a sunny day.",
+      "its a sunny day.",
+      "It's a sunny day"
+    ],
+    correct: 1,
+    explain: "Capital letter + apostrophe in 'It's' + full stop."
+  },
+  {
+    section: 3, sectionName: "Punctuation", sectionClass: "s3",
+    instruction: "Where should the apostrophe go?",
+    prompt: "The dog chased _____ tail.",
+    promptClass: "sentence",
+    options: ["its (no apostrophe)", "it's", "its'", "its's"],
+    correct: 0,
+    explain: "'its' (no apostrophe) = belonging to it. 'it's' = it is."
+  },
+  {
+    section: 3, sectionName: "Punctuation", sectionClass: "s3",
+    instruction: "Which sentence uses the comma correctly?",
+    prompt: "Pick the correct one:",
+    promptClass: "",
+    options: [
+      "I like apples, bananas and oranges.",
+      "I like, apples bananas, and oranges.",
+      "I, like apples bananas and, oranges.",
+      "I like apples bananas, and, oranges."
+    ],
+    correct: 0,
+    explain: "Commas separate items in a list."
+  },
+  {
+    section: 3, sectionName: "Punctuation", sectionClass: "s3",
+    instruction: "Add the correct punctuation to the end:",
+    prompt: "What time does the film start",
+    promptClass: "sentence",
+    options: [".", "!", "?", ","],
+    correct: 2,
+    explain: "It's a question, so it needs a question mark."
+  },
+  {
+    section: 3, sectionName: "Punctuation", sectionClass: "s3",
+    instruction: "Which shows direct speech correctly?",
+    prompt: "How should we write what Mum said?",
+    promptClass: "",
+    options: [
+      "Mum said come here please.",
+      "Mum said, \"Come here, please.\"",
+      "Mum said \"come here please\"",
+      "\"Mum said, Come here please.\""
+    ],
+    correct: 1,
+    explain: "Reporting clause + comma + speech in inverted commas with punctuation inside."
+  },
+
+  // === SECTION 4: Reading Comprehension (5 questions) ===
+  {
+    section: 4, sectionName: "Reading", sectionClass: "s4",
+    instruction: "Read the passage and answer:",
+    prompt: "Tom crept down the stairs. The house was dark and silent. He could hear his heart beating fast. Slowly, he pushed open the kitchen door...<br><br>How was Tom probably feeling?",
+    promptClass: "sentence",
+    options: ["excited", "nervous or scared", "angry", "bored"],
+    correct: 1,
+    explain: "'crept', 'dark', 'heart beating fast' all suggest fear."
+  },
+  {
+    section: 4, sectionName: "Reading", sectionClass: "s4",
+    instruction: "Read and answer:",
+    prompt: "Penguins cannot fly, but they are excellent swimmers. They use their wings like flippers to glide through the water at great speed.<br><br>What do penguins use to swim?",
+    promptClass: "sentence",
+    options: ["their feet", "their wings", "their tails", "their beaks"],
+    correct: 1,
+    explain: "The text says 'they use their wings like flippers'."
+  },
+  {
+    section: 4, sectionName: "Reading", sectionClass: "s4",
+    instruction: "Read and answer:",
+    prompt: "After the long journey, Maya finally arrived at her grandmother's cottage. The smell of freshly baked bread filled the air.<br><br>What does 'freshly baked' tell us?",
+    promptClass: "sentence",
+    options: [
+      "The bread was old",
+      "The bread was just made",
+      "The bread was burnt",
+      "There was no bread"
+    ],
+    correct: 1,
+    explain: "'freshly baked' means it was made very recently."
+  },
+  {
+    section: 4, sectionName: "Reading", sectionClass: "s4",
+    instruction: "Read and answer:",
+    prompt: "The Ancient Egyptians built the pyramids as tombs for their pharaohs. The Great Pyramid of Giza took about 20 years to build.<br><br>Why were the pyramids built?",
+    promptClass: "sentence",
+    options: [
+      "As homes for people",
+      "As tombs for pharaohs",
+      "As schools",
+      "As temples for worship"
+    ],
+    correct: 1,
+    explain: "The text clearly states 'as tombs for their pharaohs'."
+  },
+  {
+    section: 4, sectionName: "Reading", sectionClass: "s4",
+    instruction: "Read and answer:",
+    prompt: "Although it was raining heavily, Lily refused to take an umbrella. \"I don't mind getting wet!\" she laughed.<br><br>What kind of person does Lily seem to be?",
+    promptClass: "sentence",
+    options: [
+      "shy and quiet",
+      "cheerful and carefree",
+      "grumpy and mean",
+      "worried and anxious"
+    ],
+    correct: 1,
+    explain: "She 'laughed' and didn't mind the rain — cheerful and carefree."
+  },
+
+  // === SECTION 5: Vocabulary (5 questions) ===
+  {
+    section: 5, sectionName: "Vocabulary", sectionClass: "s5",
+    instruction: "What does the underlined word mean?",
+    prompt: "The king lived in a <u>magnificent</u> palace.",
+    promptClass: "sentence",
+    options: ["tiny", "old", "very grand and impressive", "dark"],
+    correct: 2,
+    explain: "'magnificent' means extremely beautiful or impressive."
+  },
+  {
+    section: 5, sectionName: "Vocabulary", sectionClass: "s5",
+    instruction: "Which word is a synonym (similar meaning) for 'happy'?",
+    prompt: "happy = ?",
+    promptClass: "big",
+    options: ["sad", "joyful", "angry", "tired"],
+    correct: 1,
+    explain: "'joyful' means full of joy — similar to happy."
+  },
+  {
+    section: 5, sectionName: "Vocabulary", sectionClass: "s5",
+    instruction: "Which word is an antonym (opposite) of 'brave'?",
+    prompt: "brave ↔ ?",
+    promptClass: "big",
+    options: ["strong", "cowardly", "kind", "clever"],
+    correct: 1,
+    explain: "'cowardly' is the opposite of brave."
+  },
+  {
+    section: 5, sectionName: "Vocabulary", sectionClass: "s5",
+    instruction: "Choose the best word to complete the sentence:",
+    prompt: "The fox _____ through the bushes to catch the rabbit.",
+    promptClass: "sentence",
+    options: ["walked", "dashed", "sat", "whispered"],
+    correct: 1,
+    explain: "'dashed' means moved quickly — fits chasing a rabbit."
+  },
+  {
+    section: 5, sectionName: "Vocabulary", sectionClass: "s5",
+    instruction: "What does the word 'ancient' mean?",
+    prompt: "The explorers found an <u>ancient</u> map.",
+    promptClass: "sentence",
+    options: ["new", "very old", "colourful", "small"],
+    correct: 1,
+    explain: "'ancient' means belonging to a very long time ago."
+  }
+];
+
+let currentQ = 0;
+let answers = [];
+const sectionScores = {1:0, 2:0, 3:0, 4:0, 5:0};
+const sectionTotals = {1:5, 2:5, 3:5, 4:5, 5:5};
+const sectionNames = {
+  1: "✏️ Spelling",
+  2: "📐 Grammar",
+  3: "❗ Punctuation",
+  4: "📖 Reading",
+  5: "💬 Vocabulary"
+};
+const sectionColors = {
+  1: "#2E7D32", 2: "#1565C0", 3: "#E65100", 4: "#7B1FA2", 5: "#F57F17"
+};
+
+function startTest() {
+  document.getElementById('startScreen').classList.add('hidden');
+  document.getElementById('testScreen').classList.remove('hidden');
+  showQuestion();
+}
+
+function showQuestion() {
+  const q = questions[currentQ];
+  const total = questions.length;
+
+  document.getElementById('qCount').textContent = `${currentQ + 1} / ${total}`;
+  document.getElementById('progressFill').style.width = `${((currentQ) / total) * 100}%`;
+
+  const sn = document.getElementById('sectionName');
+  sn.textContent = q.sectionName;
+  sn.className = `section-title ${q.sectionClass}`;
+  sn.style.margin = '0'; sn.style.fontSize = '13px'; sn.style.padding = '4px 10px';
+
+  let html = `<div class="q-card" id="qCard">`;
+  html += `<div class="instruction">${q.instruction}</div>`;
+  html += `<div class="q-prompt ${q.promptClass || ''}">${q.prompt}</div>`;
+  html += `<div class="options">`;
+  q.options.forEach((opt, i) => {
+    html += `<button class="opt-btn" onclick="selectAnswer(${i})" id="opt${i}">${opt}</button>`;
+  });
+  html += `</div>`;
+  html += `<div class="feedback" id="feedback"></div>`;
+  html += `<div class="explain" id="explain"></div>`;
+  html += `</div>`;
+
+  document.getElementById('questionArea').innerHTML = html;
+}
+
+function selectAnswer(idx) {
+  const q = questions[currentQ];
+  const isCorrect = idx === q.correct;
+
+  q.options.forEach((_, i) => {
+    document.getElementById(`opt${i}`).disabled = true;
+  });
+
+  if (isCorrect) {
+    document.getElementById(`opt${idx}`).classList.add('correct-answer');
+    document.getElementById('feedback').textContent = '✅ Well done!';
+    sectionScores[q.section]++;
+  } else {
+    document.getElementById(`opt${idx}`).classList.add('wrong-answer');
+    document.getElementById(`opt${q.correct}`).classList.add('correct-answer');
+    document.getElementById('feedback').textContent = '❌ Not quite!';
+  }
+
+  document.getElementById('explain').textContent = q.explain || '';
+  document.getElementById('qCard').classList.add(isCorrect ? 'correct' : 'wrong');
+  answers.push({ question: currentQ, selected: idx, correct: isCorrect });
+
+  setTimeout(() => {
+    currentQ++;
+    if (currentQ < questions.length) {
+      showQuestion();
+    } else {
+      showResults();
+    }
+  }, 2000);
+}
+
+function showResults() {
+  document.getElementById('testScreen').classList.add('hidden');
+  const screen = document.getElementById('resultsScreen');
+  screen.classList.remove('hidden');
+
+  const totalCorrect = Object.values(sectionScores).reduce((a, b) => a + b, 0);
+  const totalQ = questions.length;
+  const pct = Math.round((totalCorrect / totalQ) * 100);
+
+  let scoreClass = pct >= 70 ? 'score-high' : pct >= 40 ? 'score-mid' : 'score-low';
+
+  let levelText, levelColor, levelEmoji, advice;
+  if (pct >= 85) {
+    levelText = 'Excellent! 🎉';
+    levelColor = '#4CAF50';
+    levelEmoji = '🌟';
+    advice = 'Amazing work! Year 3 English is well within reach. Focus on creative writing and reading longer chapter books to keep growing.';
+  } else if (pct >= 65) {
+    levelText = 'Good Progress ✨';
+    levelColor = '#2196F3';
+    levelEmoji = '💪';
+    advice = 'Strong foundation! Check which sections need a bit more practice and work on those. Reading regularly will help everything improve.';
+  } else if (pct >= 40) {
+    levelText = 'Keep Practising 📚';
+    levelColor = '#FF9800';
+    levelEmoji = '📖';
+    advice = 'You\'re on your way! Look at the sections below to see where to focus. Try reading for 15 minutes every day and practising spelling patterns.';
+  } else {
+    levelText = 'Let\'s Build Up 🌱';
+    levelColor = '#F44336';
+    levelEmoji = '🌱';
+    advice = 'Don\'t worry — everyone learns at their own pace! Start with the basics: spelling patterns, common grammar rules, and lots of reading.';
+  }
+
+  let html = `<h1>${levelEmoji} Results</h1>`;
+  html += `<div class="score-circle ${scoreClass}">
+    <div>${totalCorrect}/${totalQ}</div>
+    <div class="label">${pct}% correct</div>
+  </div>`;
+  html += `<div class="level-tag" style="background:${levelColor}22; color:${levelColor}; border:2px solid ${levelColor};">${levelText}</div>`;
+
+  html += `<div class="breakdown">`;
+  for (let s = 1; s <= 5; s++) {
+    const score = sectionScores[s];
+    const total = sectionTotals[s];
+    const spct = Math.round((score / total) * 100);
+    const color = sectionColors[s];
+    const stars = score === total ? ' ⭐️' : score === 0 ? ' ⚠️' : '';
+    html += `<div class="bd-row">
+      <div class="bd-label" style="min-width:100px;">${sectionNames[s]}</div>
+      <div class="bd-bar"><div class="bd-bar-fill" style="width:${spct}%; background:${color};"></div></div>
+      <div class="bd-score">${score}/${total}${stars}</div>
+    </div>`;
+  }
+  html += `</div>`;
+
+  html += `<div class="tip-box"><b>💡 What to do next</b><br><br>${advice}`;
+
+  let weak = [];
+  if (sectionScores[1] <= 2) weak.push('Spelling patterns & rules');
+  if (sectionScores[2] <= 2) weak.push('Grammar (tenses, word classes)');
+  if (sectionScores[3] <= 2) weak.push('Punctuation (apostrophes, speech marks)');
+  if (sectionScores[4] <= 2) weak.push('Reading comprehension & inference');
+  if (sectionScores[5] <= 2) weak.push('Vocabulary building');
+
+  if (weak.length > 0) {
+    html += `<br><br><b>⚠️ Focus areas:</b><br>`;
+    weak.forEach(w => { html += `• ${w}<br>`; });
+  }
+
+  let strong = [];
+  if (sectionScores[1] >= 4) strong.push('Spelling');
+  if (sectionScores[2] >= 4) strong.push('Grammar');
+  if (sectionScores[3] >= 4) strong.push('Punctuation');
+  if (sectionScores[4] >= 4) strong.push('Reading');
+  if (sectionScores[5] >= 4) strong.push('Vocabulary');
+
+  if (strong.length > 0) {
+    html += `<br><b>✅ Strong areas:</b><br>`;
+    strong.forEach(s => { html += `• ${s}<br>`; });
+  }
+
+  html += `</div>`;
+
+  html += `<button class="restart-btn" onclick="location.reload()">Try Again 🔄</button>`;
+  html += `<p style="text-align:center; color:#999; font-size:12px; margin-top:12px;">Screenshot your results and send to 小管家 📋</p>`;
+
+  screen.innerHTML = html;
+}
+</script>
+<script data-goatcounter="https://ibread.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
