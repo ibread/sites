@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1a1a2e">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+  <title>🌎 Americas Travel Weekly — May 11, 2026</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 52px; }
+    body { font-family: 'Source Serif 4', Georgia, serif; font-size: 15px; line-height: 1.5; background: #fafbfc; color: #1a1a2e; -webkit-font-smoothing: antialiased; }
+    .container { max-width: 720px; margin: 0 auto; padding: 0 20px 20px 20px; }
+    header { background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%); color: #fff; padding: 28px 20px; margin: 0 -20px 24px -20px; box-shadow: 0 4px 12px rgba(26, 26, 46, 0.15); position: relative; overflow: hidden; }
+    header h1 { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
+    header .dates { font-size: 14px; opacity: 0.85; }
+    header .back-link { position: absolute; top: 12px; right: 20px; color: rgba(255,255,255,0.7); text-decoration: none; font-size: 13px; }
+    header .back-link:hover { color: #fff; }
+    .page-nav { position: sticky; top: 0; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 8px 0; margin-bottom: 14px; border-bottom: 1px solid #e9ecef; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow-x: auto; white-space: nowrap; z-index: 100; }
+    .page-nav a { display: inline-block; padding: 6px 14px; margin: 0 3px; font-size: 13px; font-weight: 500; color: #6c757d; text-decoration: none; border-radius: 20px; transition: all 0.2s ease; }
+    .page-nav a:hover { background: #f1f3f5; color: #1a1a2e; }
+    .page-nav a.active { background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%); color: #fff; }
+    .section { margin-bottom: 16px; background: #ffffff; border-radius: 12px; padding: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.04); }
+    .section-header { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 20px; font-weight: 700; padding: 6px 0 6px 14px; margin-bottom: 10px; border-left: 4px solid; }
+    .section-header.us { border-color: #3b5998; background: linear-gradient(90deg, rgba(59,89,152,0.04) 0%, transparent 100%); }
+    .section-header.canada { border-color: #dc3545; background: linear-gradient(90deg, rgba(220,53,69,0.04) 0%, transparent 100%); }
+    .section-header.brazil { border-color: #2d936c; background: linear-gradient(90deg, rgba(45,147,108,0.04) 0%, transparent 100%); }
+    .section-header.mexico { border-color: #e07a5f; background: linear-gradient(90deg, rgba(224,122,95,0.04) 0%, transparent 100%); }
+    .section-header.competitor { border-color: #9b59b6; background: linear-gradient(90deg, rgba(155,89,182,0.04) 0%, transparent 100%); }
+    .section-header.implications { border-color: #27ae60; background: linear-gradient(90deg, rgba(39,174,96,0.04) 0%, transparent 100%); }
+    .section-header.sources { border-color: #6c757d; background: linear-gradient(90deg, rgba(108,117,125,0.04) 0%, transparent 100%); }
+    .section-header.holidays { border-color: #f39c12; background: linear-gradient(90deg, rgba(243,156,18,0.04) 0%, transparent 100%); }
+    .key-numbers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+    .kpi-tile { background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%); border-radius: 10px; padding: 16px 12px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.04); }
+    .kpi-tile .big-number { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 36px; font-weight: 700; line-height: 1.1; margin-bottom: 4px; }
+    .kpi-tile .big-number.warm { color: #e07a5f; }
+    .kpi-tile .big-number.cool { color: #457b9d; }
+    .kpi-tile .big-number.red { color: #e63946; }
+    .kpi-tile .big-number.green { color: #2d936c; }
+    .kpi-tile .label { font-size: 12px; color: #6c757d; font-weight: 500; }
+    .market-summary { font-size: 15px; font-weight: 500; padding: 14px; margin-bottom: 12px; background: #f0f2f5; color: #1a1a2e; border-radius: 10px; border-left: 4px solid; }
+    .market-summary p { margin: 4px 0; line-height: 1.5; }
+    .market-summary.us { border-color: #3b5998; }
+    .market-summary.canada { border-color: #dc3545; }
+    .market-summary.brazil { border-color: #2d936c; }
+    .market-summary.mexico { border-color: #e07a5f; }
+    .news-item { padding: 6px 0; border-bottom: 1px solid #f1f3f5; font-size: 14px; color: #2d3436; line-height: 1.5; }
+    .news-item:last-child { border-bottom: none; }
+    .news-item strong { font-weight: 600; color: #1a1a2e; font-size: 15px; }
+    .news-item .stat { font-weight: 600; font-size: 14px; }
+    .stat.up { color: #2d936c; }
+    .stat.up-strong { color: #1a7a52; }
+    .stat.down { color: #dc3545; }
+    .stat.neutral { color: #e07a5f; }
+    .news-item a { color: #6c757d; text-decoration: none; font-size: 12px; margin-left: 4px; }
+    .news-item a:hover { color: #1a1a2e; text-decoration: underline; }
+    .key-signals .news-item { padding: 12px 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #f1f3f5; }
+    th { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); font-weight: 600; color: #495057; font-size: 12px; }
+    footer { margin-top: 32px; padding-top: 20px; border-top: 1px solid #e9ecef; font-size: 12px; color: #adb5bd; text-align: center; }
+    ul { list-style: none; }
+    .cal-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 8px; }
+    .cal-month-title { font-weight: 700; font-size: 14px; color: #1a1a2e; margin-bottom: 6px; text-align: center; }
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; font-size: 12px; text-align: center; }
+    .cal-header { font-weight: 600; color: #6c757d; padding: 4px; }
+    .cal-day { padding: 6px 2px; border-radius: 4px; min-height: 32px; position: relative; }
+    .cal-day.empty { background: transparent; }
+    .cal-day.holiday-us { background: #e3f2fd; }
+    .cal-day.holiday-ca { background: #ffebee; }
+    .cal-day.holiday-br { background: #e8f5e9; }
+    .cal-day.holiday-mx { background: #fff3e0; }
+    .cal-day.holiday-multi { background: linear-gradient(135deg, #e3f2fd 50%, #ffebee 50%); }
+    .cal-day.today { border: 2px solid #1a1a2e; font-weight: 700; }
+    .cal-day .flag { font-size: 9px; display: block; line-height: 1.1; }
+    .cal-legend { margin-top: 12px; font-size: 12px; line-height: 1.9; color: #495057; background: #f8f9fa; border-radius: 8px; padding: 10px 12px; }
+    @media (max-width: 600px) { .cal-wrapper { grid-template-columns: 1fr; } .key-numbers { grid-template-columns: repeat(2, 1fr); } }
+    .section { opacity: 0; transform: translateY(12px); animation: fadeUp 0.4s ease forwards; }
+    .section:nth-child(1) { animation-delay: 0.05s; }
+    .section:nth-child(2) { animation-delay: 0.1s; }
+    .section:nth-child(3) { animation-delay: 0.15s; }
+    .section:nth-child(4) { animation-delay: 0.2s; }
+    .section:nth-child(5) { animation-delay: 0.25s; }
+    .section:nth-child(6) { animation-delay: 0.3s; }
+    .section:nth-child(7) { animation-delay: 0.35s; }
+    .section:nth-child(8) { animation-delay: 0.4s; }
+    .section:nth-child(9) { animation-delay: 0.45s; }
+    .section:nth-child(10) { animation-delay: 0.5s; }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a href="../americas-weekly/" class="back-link">← All Issues</a>
+      <h1>🌎 Americas Travel Weekly</h1>
+      <div class="dates">May 4 – May 11, 2026</div>
+    </header>
+
+    <div style="background: linear-gradient(135deg, #f0f4f8 0%, #e8eef5 100%); border-radius: 12px; padding: 14px 18px; margin-bottom: 16px; display: flex; align-items: center; gap: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.06);">
+      <span style="font-size: 22px;">🎙️</span>
+      <div style="flex: 1;">
+        <div style="font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; color: #1a1a2e; margin-bottom: 6px;">Listen to this issue</div>
+        <audio controls preload="none" style="width: 100%; height: 36px;">
+          <source src="https://github.com/ibread/sites/releases/download/audio-assets/americas-weekly-2026-05-11.mp3" type="audio/mpeg">
+        </audio>
+      </div>
+    </div>
+
+    <nav class="page-nav">
+      <a href="#signals">Key Signals</a>
+      <a href="#implications">Airbnb</a>
+      <a href="#competitors">Competitors</a>
+      <a href="#us">US</a>
+      <a href="#canada">Canada</a>
+      <a href="#brazil">Brazil</a>
+      <a href="#mexico">Mexico</a>
+      <a href="#holidays">Holidays</a>
+      <a href="#sources">Sources</a>
+    </nav>
+
+    <!-- KEY SIGNALS -->
+    <div class="section key-signals" id="signals">
+      <div class="section-header" style="border-color: #e74c3c;">🔥 KEY SIGNALS THIS WEEK</div>
+
+      <div class="key-numbers">
+        <div class="kpi-tile">
+          <div class="big-number green">+170%</div>
+          <div class="label">Azul charter flights YoY<br><span class="stat up">285 in March (record)</span></div>
+        </div>
+        <div class="kpi-tile">
+          <div class="big-number red">~65%</div>
+          <div class="label">Cancún occupancy post-Spirit<br><span class="stat down">Below prior year</span></div>
+        </div>
+        <div class="kpi-tile">
+          <div class="big-number warm">+9.9%</div>
+          <div class="label">Mexico cruise pax YoY<br><span class="stat neutral">3.6M in Q1 2026</span></div>
+        </div>
+        <div class="kpi-tile">
+          <div class="big-number green">+15%</div>
+          <div class="label">Canada advisor supplier sales<br><span class="stat up">C$300M+ (2025)</span></div>
+        </div>
+      </div>
+
+      <div class="news-item">1. <strong>Spirit's death ripples across the Americas — Cancún occupancy drops to ~65%</strong> — Hotel occupancy in Cancún, Costa Mujeres and Isla Mujeres has fallen below prior-year levels after Spirit ceased operations. Spirit operated <span class="stat down">91.3% of its US capacity on key Cancún routes</span> (Fort Lauderdale, Washington, NYC). Airfares expected to rise on 13% of US nonstop domestic routes where Spirit kept prices <span class="stat down">17% lower</span>. JetBlue and United racing to absorb demand. <a href="https://www.reportur.com/aerolineas/2026/05/08/qroo-hoteleros-golpeados-al-bajar-ocupacion-por-quebrar-spirit/" target="_blank">REPORTUR</a> | <a href="https://skift.com/2026/05/08/higher-fuel-costs-spirits-end-higher-fares/" target="_blank">Skift</a></div>
+
+      <div class="news-item">2. <strong>Mexico cruise tourism surges — 3.6M passengers in Q1, Pacific coast exploding</strong> — National ports received <span class="stat up">+9.9% YoY passengers</span> with 1,080 arrivals (+4.8%). Pacific coast led with <span class="stat up">+38.2% passengers</span>. Cabo San Lucas <span class="stat up-strong">+69.6%</span>, Huatulco nearly doubled at <span class="stat up-strong">+93.2%</span>. Average passengers per ship rose to 3,329 from 3,172. <a href="https://www.reportur.com/cruceros/2026/05/10/mexico-desbordada-de-cruceristas-al-dispararse-con-el-arranque-del-ano/" target="_blank">REPORTUR</a></div>
+
+      <div class="news-item">3. <strong>Brazil's Azul hits all-time charter record — 285 flights in March (+170% YoY)</strong> — Driven by Semana Santa holiday and corporate events. <span class="stat up">82% domestic, 18% international</span> including 9 flights from Montevideo to Brazilian beaches. Corporate and leisure charter demand signal strong appetite for secondary destinations where scheduled service is thin. <a href="https://www.panrotas.com.br/viagens-corporativas/aviacao/2026/05/azul-registra-recorde-de-fretamentos-em-marco-com-avanco-da-demanda-corporativa_228359.html" target="_blank">PANROTAS</a></div>
+
+      <div class="news-item">4. <strong>Iran war reshaping travel economics — hotels win, airlines and cruises lose</strong> — Jet fuel costs nearly doubled since February. Airlines and cruise lines cutting forecasts; five US fare increases already. But hotels are thriving: Marriott and Hilton both <span class="stat up">raised RevPAR guidance</span>. Airbnb raised full-year revenue guidance to <span class="stat up">low-to-mid teens growth</span>. Hilton CEO calls economy shifting from "K-shaped" to "C-shaped" convergence. <a href="https://skift.com/2026/05/08/iran-war-costs-have-hit-travels-profit-forecasts/" target="_blank">Skift</a></div>
+
+      <div class="news-item">5. <strong>Canadian travel advisor channel consolidating fast — 15% YoY growth</strong> — Travel Leaders Network preferred supplier sales exceeded <span class="stat up">C$300M (+15% YoY)</span>. Network added 300+ agencies in 2025 reaching 5,700 locations. Ensemble added 50 agencies. But Canada-US geopolitical tensions reducing cross-border conference attendance; TLN launching Canada-specific "Elevate" events. <a href="https://www.travelpress.com/growth-success-confirmed-at-travel-leaders-network-show/" target="_blank">TravelPress</a></div>
+
+      <div class="news-item">6. <strong>Expedia acquires Tiqets for $279M; Airbnb pockets $70M on the exit</strong> — Expedia's Q1 acquisition spend signals aggressive experiences/activities expansion. Airbnb's $70M gain from its earlier Tiqets investment adds to the Q1 bottom line. B2B engine continues outpacing consumer growth (22% vs 10%). Uber hotel partnership extends Expedia's distribution. <a href="https://skift.com/2026/05/09/expedia-spent-279-million-acquisitions-tiqets-airbnb-70-million-scoop/" target="_blank">Skift</a></div>
+
+      <div class="news-item">7. <strong>San Francisco projects record $9.9B visitor spending on AI conference boom</strong> — Moscone Center hosting <span class="stat up">38 events / 674K room nights in 2026</span>, up from 25 events / 399K in 2024. AI and tech conferences (Microsoft Ignite, Figma Config, Snowflake) driving momentum. RevPAR grew <span class="stat up">+8% on top of +14% prior year</span>. <a href="https://meetings.skift.com/2026/05/08/conventions-help-drive-san-franciscos-tourism-recovery/" target="_blank">Skift Meetings</a></div>
+    </div>
+
+    <!-- AIRBNB IMPLICATIONS -->
+    <div class="section" id="implications">
+      <div class="section-header implications">💡 AIRBNB AMERICAS IMPLICATIONS</div>
+      <div class="news-item">1. <strong>Spirit's collapse + rising fares = drive-to Airbnb boom</strong> — With Spirit gone from 13% of US nonstop routes and fares climbing, budget travelers face a squeeze. The shift to drive-to destinations (confirmed by Marriott CEO) directly benefits Airbnb's rural, cabin, and suburban inventory. Promote road-trip listings within 3–5 hour drives of East Coast metros where Spirit's absence hits hardest.</div>
+      <div class="news-item">2. <strong>Cancún occupancy dip creates pricing opportunity</strong> — Hotels at ~65% occupancy are under pressure. Airbnb listings in Cancún/Riviera Maya can capture price-sensitive travelers who previously flew Spirit. Focus on value messaging vs. all-inclusive hotel rates that remain elevated despite soft demand.</div>
+      <div class="news-item">3. <strong>World Cup countdown: 30 days to activate supply</strong> — Hotels missing forecasts by 80% across 11 US host cities. FIFA ticket prices and hotel rate aggression creating a pricing gap Airbnb can fill. Supply activation campaigns in host cities (NYC, LA, Miami, Dallas, Houston, Atlanta, Seattle, Toronto, Vancouver) should be the #1 Americas priority this month.</div>
+      <div class="news-item">4. <strong>Brazil charter explosion = secondary destination demand</strong> — Azul's 170% charter growth signals travelers going where scheduled flights don't. These secondary Brazilian beach destinations (Aracati, Porto Seguro, Cabo Frio) have limited hotel supply — Airbnb is the natural accommodation solution. The government's "Conheça o Brasil: Voando" relaunch amplifies this.</div>
+      <div class="news-item">5. <strong>Canada advisor channel is a headwind — but domestic pivot helps</strong> — 15% growth in advisor-driven supplier sales steers travelers toward hotel packages over Airbnb. Counter by promoting Canadian domestic listings (Rockies, Maritimes, BC) to the 36% of Canadians planning domestic-only travel. Victoria Day long weekend (May 18) is the first test.</div>
+      <div class="news-item">6. <strong>Mexico cruise surge = shore excursion Airbnb Experiences opportunity</strong> — 3.6M cruise passengers in Q1 (+9.9%) visiting Pacific ports like Cabo (+69.6%) and Huatulco (+93.2%). Shore day visitors are ideal for Airbnb Experiences. Partner with port destination marketing to capture this growing segment.</div>
+      <div class="news-item">7. <strong>Airbnb's $70M Tiqets gain validates experiences strategy</strong> — While Expedia paid $279M to acquire Tiqets, Airbnb realized a clean $70M exit gain. The experiences/activities segment is heating up — Airbnb needs to decide whether to compete aggressively or partner in this space as Expedia scales its offerings.</div>
+    </div>
+
+    <!-- COMPETITOR WATCH -->
+    <div class="section" id="competitors">
+      <div class="section-header competitor">🏢 COMPETITOR & PLATFORM WATCH</div>
+      <div class="news-item">• <strong>Expedia: $279M Tiqets acquisition + Uber hotel deal + 22% B2B growth</strong> — B2B revenue up 25%, more than double consumer growth. Uber partnership extends distribution beyond Airbnb's sphere. Experiences segment now a strategic battleground. <a href="https://skift.com/2026/05/09/expedia-spent-279-million-acquisitions-tiqets-airbnb-70-million-scoop/" target="_blank">Skift</a></div>
+      <div class="news-item">• <strong>Hilton CEO: K-shaped economy bending to "C-shaped" convergence</strong> — Lower and mid-chain hotels catching up to luxury. Deregulation, tax policy, AI-driven productivity cited as drivers. Both Marriott and Hilton <span class="stat up">raised annual RevPAR forecasts</span> despite macro uncertainty. <a href="https://skift.com/2026/05/08/the-hotel-industry-ceos-cant-decide-what-letter-the-economy-is/" target="_blank">Skift</a></div>
+      <div class="news-item">• <strong>Meliá: Paradisus Cancún = $100M revenue from single 678-room property</strong> — 4.2% of Meliá's total revenue, $25M gross profit. Reopened after $50M renovation. Middle East instability redirecting summer demand to Spain and Caribbean — Spain bookings <span class="stat up">double-digit YoY growth</span>. <a href="https://www.reportur.com/hoteles/2026/05/07/cancun-un-solo-hotel-ingresa-usd-100-millones-y-da-25-de-ganancia/" target="_blank">REPORTUR</a></div>
+      <div class="news-item">• <strong>MSC Cruises launches AI concierge in 90+ languages, hosts record 700 Brazilian agents</strong> — AI assistant handles bookings, excursions, dining across fleet. Full rollout by end of May. Simultaneously held record 700-agent sales convention aboard MSC Splendida — deep B2B engagement in Brazil. <a href="https://www.panrotas.com.br/mercado/cruzeiros/2026/05/msc-cruzeiros-lanca-concierge-com-inteligencia-artificial-em-mais-de-90-idiomas_228371.html" target="_blank">PANROTAS</a></div>
+      <div class="news-item">• <strong>IHG expands Mexico (5th largest market): 3 new hotels + AI search launch</strong> — Garner Mazatlán Beach (first midscale conversion brand in Mexico), Holiday Inn Express CDMX Condesa, Hotel Indigo Playa del Carmen. Pipeline: InterContinental Miyana + Kimpton in CDMX. Natural-language search live with Google/OpenAI/Anthropic partnerships. <a href="https://www.reportur.com/hoteles/2026/05/07/ihg-crece-en-mexico-con-3-nuevos-hoteles-mazatlan-cdmx-y-qroo/" target="_blank">REPORTUR</a></div>
+      <div class="news-item">• <strong>Grupo Posadas opens Izla Isla Mujeres (122 rooms) + record 1,000-room Cancún property</strong> — Mexico's largest hotel group expanding aggressively in Caribbean. Positioned for couples and wellness travelers. Competes directly with Airbnb's premium listings in Quintana Roo. <a href="https://www.reportur.com/mexico/2026/05/08/isla-mujeres-nuevo-hotel-de-posadas-con-llamativo-diseno/" target="_blank">REPORTUR</a></div>
+      <div class="news-item">• <strong>Wyndham bets on AI for franchisee margin relief; Hyatt expanding midscale</strong> — AI-driven efficiency targeted at midscale/economy segments. Hyatt's luxury holds firm but now expanding into midscale, recognizing demand broadening. Choice Hotels underperformed every segment in Q1 despite strong demand backdrop. <a href="https://skift.com/2026/04/30/wyndham-pitches-ai-as-antidote-to-hotel-margin-squeeze/" target="_blank">Skift</a></div>
+      <div class="news-item">• <strong>Smartness raises €47M for hotel AI; Decolar integrates ChatGPT</strong> — Italian AI startup targeting 5,000+ hotel clients in 41 countries. Brazil's largest OTA Decolar adding conversational AI travel planning. Corporate travel costs in Brazil <span class="stat down">+15% in 2026</span> due to fuel. <a href="https://www.panrotas.com.br/mercado/tecnologia/2026/05/novo-golpe-de-sequestro-de-reservas-expoe-risco-crescente-em-ciberseguranca-no-turismo_228379.html" target="_blank">PANROTAS</a></div>
+    </div>
+
+    <!-- UNITED STATES -->
+    <div class="section" id="us">
+      <div class="section-header us">🇺🇸 UNITED STATES</div>
+      <div class="market-summary us">
+        <p>• <strong>Spirit's exit + fuel spike = rising fares across 13% of US nonstop routes</strong>. DOJ: fares were 17% lower wherever Spirit operated. Five fare increases already in 2026.</p>
+        <p>• <strong>Iran war splits travel sectors</strong> — Airlines/cruises cutting forecasts; Marriott, Hilton, and Airbnb all raised guidance. Hilton calls economy shifting to "C-shaped" convergence.</p>
+        <p>• <strong>San Francisco projects record $9.9B visitor spending in 2026</strong> — AI conferences driving Moscone to 38 events / 674K room nights.</p>
+        <p>• <strong>World Cup bookings still 80% below hotel forecasts</strong> — 30 days to kickoff. 1,100+ TSA officers lost during DHS shutdown compounds concerns.</p>
+        <p>• <strong>Expedia acquires Tiqets ($279M); Airbnb gains $70M</strong> — Experiences/activities segment intensifying.</p>
+      </div>
+      <div class="news-item">• <strong>Spirit's end drives fare increases nationwide</strong> — Spirit impacted fares on <span class="stat down">13% of US nonstop domestic routes</span>; fares were 17% lower where Spirit operated (DOJ data). Combined with Iran-driven fuel cost doubling, East Coast routes to Florida and Caribbean most affected. JetBlue launched 11 new Fort Lauderdale routes to fill the gap. <a href="https://skift.com/2026/05/08/higher-fuel-costs-spirits-end-higher-fares/" target="_blank">Skift</a></div>
+      <div class="news-item">• <strong>Iran war creates winners and losers in travel</strong> — Airlines spent <span class="stat down">$5.06B on fuel in March alone</span>. Airlines and cruise lines cutting forecasts. But hotels thriving: Marriott select-service RevPAR <span class="stat up">+3.5%</span> (vs −1% in Q4 2025), luxury <span class="stat up">+7%</span>. Airbnb raised full-year guidance to <span class="stat up">low-to-mid teens revenue growth</span>. Middle East instability redirecting summer demand to Spain and Caribbean. <a href="https://skift.com/2026/05/08/iran-war-costs-have-hit-travels-profit-forecasts/" target="_blank">Skift</a></div>
+      <div class="news-item">• <strong>San Francisco: record $9.9B visitor spending projected for 2026</strong> — Surpassing pre-pandemic record of $9.6B (2019). <span class="stat up">38 Moscone events / 674K room nights</span> in 2026, up from 25/399K in 2024. AI conferences (Microsoft Ignite, Figma Config, Snowflake) fueling momentum. 2025 already hit 23.7M visitors / $9.4B / RevPAR +8%. <a href="https://meetings.skift.com/2026/05/08/conventions-help-drive-san-franciscos-tourism-recovery/" target="_blank">Skift Meetings</a></div>
+      <div class="news-item">• <strong>Expedia spends $279M to acquire Tiqets; Airbnb books $70M gain</strong> — B2B engine grew 22% bookings / 25% revenue, outpacing consumer (10%). Uber hotel partnership extends distribution. Airbnb's $70M Tiqets exit gain validates its experiences investment thesis. <a href="https://skift.com/2026/05/09/expedia-spent-279-million-acquisitions-tiqets-airbnb-70-million-scoop/" target="_blank">Skift</a></div>
+      <div class="news-item">• <strong>Hilton: economy shifting from K-shaped to "C-shaped"</strong> — CEO Nassetta sees lower/mid-chain convergence with luxury, citing deregulation, tax policy, AI productivity. Both Marriott and Hilton raised annual RevPAR forecasts. Drive-to destinations outperforming fly-to. <a href="https://skift.com/2026/05/08/the-hotel-industry-ceos-cant-decide-what-letter-the-economy-is/" target="_blank">Skift</a></div>
+      <div class="news-item">• <strong>World Cup readiness concerns persist</strong> — 80% of hotels below forecast in 11 host markets. Anti-World Cup travel campaigns active. TSA lost 1,100+ officers during longest DHS shutdown in history. U.S. Travel Association opposing proposed visa fees. <a href="https://skift.com/2026/05/04/80-of-hoteliers-say-world-cup-bookings-are-missing-forecasts/" target="_blank">Skift</a> | <a href="https://www.ustravel.org/press/us-travel-association-condemns-campaign-undermine-world-cup-travel-united-states" target="_blank">U.S. Travel Assn</a></div>
+      <div class="news-item">• <strong>Global traveler survey reveals 25pp demand spread across regions</strong> — Skift Research: 7,000 respondents show MENA at 86% travel intent vs Europe at 61%. North America in between. Loyalty programs influence but don't retain. Market growing in aggregate but diverging by segment. <a href="https://skift.com/2026/05/04/what-7000-travelers-reveal-about-loyalty-pricing-and-where-demand-is-really-heading/" target="_blank">Skift</a></div>
+    </div>
+
+    <!-- CANADA -->
+    <div class="section" id="canada">
+      <div class="section-header canada">🇨🇦 CANADA</div>
+      <div class="market-summary canada">
+        <p>• <strong>Jet fuel crisis deepens: Air India cuts Canada routes 30%; Manulife classifies fuel shortage as "known event"</strong> for insurance. Policies after May 5 won't cover fuel disruptions.</p>
+        <p>• <strong>Travel advisor ecosystem booming: TLN +300 agencies, Ensemble +50, C$300M+ supplier sales (+15% YoY)</strong>. But Canadian attendance at US conferences declining.</p>
+        <p>• <strong>WestJet launches first-ever direct Canada–Wales route (Cardiff)</strong>. Air Transat adds Canary Islands for winter 2026–27.</p>
+        <p>• <strong>FIFA World Cup 2026: Toronto and Vancouver as host cities</strong> — highlighted as major advisor opportunity.</p>
+      </div>
+      <div class="news-item">• <strong>Air India cuts 30% of Canada flights on fuel costs</strong> — Delhi–Toronto from 10 to <span class="stat down">7 weekly flights</span>; Delhi–Vancouver from 7 to <span class="stat down">5</span>. Ticket prices expected to rise for Indian diaspora corridor. Follows Air Canada and WestJet's own route/capacity cuts announced previously. <a href="https://www.paxnews.com/news/airline/air-india-scales-back-flights-canada-jet-fuel-prices-rise" target="_blank">PAX News</a></div>
+      <div class="news-item">• <strong>Manulife declares jet fuel shortage a "known event"</strong> — Travel insurance policies purchased on/after <span class="stat down">May 5, 2026 will not cover fuel-related disruptions</span>. Pre-May 5 customers may still qualify for misconnection benefits. Major signal of how deeply the fuel crisis is impacting the Canadian travel ecosystem. <a href="https://www.paxnews.com/news/travel-insurance/manulife-jet-fuel-shortage-now-known-event-insurance" target="_blank">PAX News</a></div>
+      <div class="news-item">• <strong>Travel Leaders Network: C$300M+ supplier sales, +15% YoY</strong> — 2,200 advisors at EDGE San Diego including 114 Canadian members (down from prior years due to geopolitics). Network at <span class="stat up">5,700 locations after adding 300+ agencies in 2025</span> (36 Canadian). Luxury and river cruising driving growth. <a href="https://www.travelpress.com/growth-success-confirmed-at-travel-leaders-network-show/" target="_blank">TravelPress</a></div>
+      <div class="news-item">• <strong>WestJet launches first direct Canada–Cardiff route</strong> — First-ever Canada–Wales nonstop. Visit Wales + Baxter Media hosting advisor webinar. Fall 2026 FAM trip planned. Part of broader Europe pivot as <span class="stat up">24% of Canadian travelers now choose Europe first</span>. <a href="https://www.travelpress.com/discover-wales-with-westjets-new-direct-flights-to-cardiff/" target="_blank">TravelPress</a></div>
+      <div class="news-item">• <strong>Air Transat adds Canary Islands (Las Palmas) for winter 2026–27</strong> — Weekly from Montreal (Sat) and Toronto (Sun), Dec 12 – Apr 4. Now <span class="stat up">5 Spanish destinations, 4 year-round</span>. Also launching Quebec City–Panama. Aligns with Boomer shift away from US toward Europe/sun. <a href="https://www.travelpress.com/air-transat-adds-las-palmas-de-gran-canaria-to-2026-2027-winter-program/" target="_blank">TravelPress</a></div>
+      <div class="news-item">• <strong>Ensemble adds 50 agencies; 1,000 at Horizons conference</strong> — President emphasizes profitability over size. 2027 conference on Norwegian Joy. Advisor channel influence growing — typically steers clients toward hotels/packages over Airbnb. <a href="https://www.travelpress.com/ensemble-is-on-a-mission-to-be-the-best-travel-consortium/" target="_blank">TravelPress</a></div>
+      <div class="news-item">• <strong>Hantavirus scare from expedition cruise may dampen niche segment</strong> — Two Canadians isolating after MV Hondius outbreak. WHO risk: "low." But expedition cruise confidence could take a short-term hit in Canadian market. <a href="https://www.paxnews.com/news/cruise/canadians-isolating-after-hantavirus-outbreak-expedition-low-risk-public-who" target="_blank">PAX News</a></div>
+    </div>
+
+    <!-- BRAZIL -->
+    <div class="section" id="brazil">
+      <div class="section-header brazil">🇧🇷 BRAZIL (Brasil)</div>
+      <div class="market-summary brazil">
+        <p>• <strong>Azul charter flights hit all-time record: 285 in March (+170% YoY)</strong>. 82% domestic, 18% international including Montevideo–Brazil beach routes.</p>
+        <p>• <strong>Rio Grande do Sul approves Tourism PEC — first state to enshrine tourism as constitutional policy</strong>. Provides investment predictability beyond political cycles.</p>
+        <p>• <strong>ILTM Latin America drew 1,500+ luxury professionals to São Paulo</strong>. Wellness + nature + Scandinavia trending for Brazilian outbound.</p>
+        <p>• <strong>MSC Cruises holds record 700-agent convention; launches AI concierge in 90+ languages</strong>.</p>
+        <p>• <strong>Europlus operator: 20% organic growth, projects 40% May sales increase</strong>. Top outbound: Lisbon, Punta Cana, Buenos Aires.</p>
+      </div>
+      <div class="news-item">• <strong>Azul charter record: 285 flights in March (+170% YoY)</strong> — Driven by Semana Santa and corporate events. International charters included <span class="stat up">9 flights from Montevideo</span> to Recife, Maceió, Porto Seguro, Cabo Frio, Florianópolis. Domestic 82%, international 18%. Signals strong demand for secondary destinations. <a href="https://www.panrotas.com.br/viagens-corporativas/aviacao/2026/05/azul-registra-recorde-de-fretamentos-em-marco-com-avanco-da-demanda-corporativa_228359.html" target="_blank">PANROTAS</a></div>
+      <div class="news-item">• <strong>Azul opens new Confins–Aracati route (Ceará beaches)</strong> — Twice-weekly Embraer 195-E2 service starting October. Exclusive route connecting Minas Gerais to Canoa Quebrada / Rota das Falésias. <span class="stat up">Direct state-government coordination</span> to boost beach tourism. <a href="https://www.panrotas.com.br/aviacao/empresas/2026/05/azul-inicia-vendas-de-passagens-para-voos-entre-confins-e-aracati_228367.html" target="_blank">PANROTAS</a></div>
+      <div class="news-item">• <strong>Rio Grande do Sul enshrines tourism in state constitution</strong> — PEC 302/2025 approved, creating the Marco Legal do Turismo Gaúcho. Tourism becomes essential state policy, providing <span class="stat up">legal certainty and investment predictability</span> beyond political cycles. Key destinations: Gramado, Canela. First-of-its-kind in Brazil. <a href="https://www.panrotas.com.br/mercado/economia-e-politica/2026/05/pec-do-turismo-e-aprovada-na-assembleia-legislativa-do-rio-grande-do-sul_228363.html" target="_blank">PANROTAS</a></div>
+      <div class="news-item">• <strong>ILTM Latin America: 1,500+ luxury travel professionals in São Paulo</strong> — Wellness and nature-guided experiences trending. Scandinavia emerging for Brazilian outbound. Carlos Ferreirinha (ex-LVMH Brazil) says luxury travel being redefined with "authenticity and quality of life." 2027 edition confirmed May 3–6. <a href="https://www.panrotas.com.br/viagens-de-luxo/eventos/2026/05/confira-aqui-todas-as-fotos-e-novidades-do-ultimo-dia-de-iltm-latin-america_228347.html" target="_blank">PANROTAS</a></div>
+      <div class="news-item">• <strong>Europlus: 20% growth, projects 40% May sales boost</strong> — Anniversary campaign targeting 1,500 active agencies. <span class="stat up">700+ hotels with up to 30% discounts</span> (Hotelbeds partnership). Top outbound: Lisbon, Punta Cana, Buenos Aires. Domestic: Maceió, Foz do Iguaçu. Traditional operator channel growing aggressively. <a href="https://www.panrotas.com.br/mercado/operadoras/2026/05/europlus-celebra-19-anos-com-crescimento-de-20-e-projeta-alta-de-40-nas-vendas-de-maio_228313.html" target="_blank">PANROTAS</a></div>
+      <div class="news-item">• <strong>WTTC: global tourism resilient despite Middle East crisis — Brazil highlighted</strong> — 1 in 7 international passengers routes through Middle East hubs. Aviation fuel doubled/tripled. But WTTC analysis of 90+ crises shows <span class="stat up">tourism always recovers</span>. Global tourism at $11.6T (+4% vs 2.8% economy). <a href="https://www.panrotas.com.br/mercado/economia-e-politica/2026/05/wttc-crise-no-oriente-medio-pressiona-aviacao-mas-turismo-seguira-resiliente_228362.html" target="_blank">PANROTAS</a></div>
+      <div class="news-item">• <strong>"Booking hijack" scam hits Brazil among top 3 globally</strong> — Sophisticated phishing using real reservation data (hotel names, dates, payment refs). ~12,000 people affected worldwide. Brazil alongside UK and Germany most impacted. <a href="https://www.panrotas.com.br/mercado/tecnologia/2026/05/novo-golpe-de-sequestro-de-reservas-expoe-risco-crescente-em-ciberseguranca-no-turismo_228379.html" target="_blank">PANROTAS</a></div>
+    </div>
+
+    <!-- MEXICO -->
+    <div class="section" id="mexico">
+      <div class="section-header mexico">🇲🇽 MEXICO (México)</div>
+      <div class="market-summary mexico">
+        <p>• <strong>Spirit shutdown drops Cancún occupancy to ~65%</strong>. Riviera Maya down 4–5pp YoY. Hotels using "solidarity breaks" to avoid layoffs. 10% of reservations cancelled due to Iran conflict.</p>
+        <p>• <strong>Cruise tourism surges: 3.6M passengers in Q1 (+9.9% YoY)</strong>. Pacific coast +38.2%; Cabo San Lucas +69.6%; Huatulco +93.2%.</p>
+        <p>• <strong>World Cup 30 days out: Cancún projects 20–50% summer boost</strong>. Uruguay at Mayakoba. But success tied to which LatAm teams advance.</p>
+        <p>• <strong>Meliá's Paradisus Cancún: $100M annual revenue from single property</strong>. Caribbean demand strengthened by Middle East demand shift.</p>
+        <p>• <strong>Bacalar rejects all-inclusive model</strong> — prioritizes ecological conservation over mass tourism.</p>
+      </div>
+      <div class="news-item">• <strong>Spirit bankruptcy drops Cancún occupancy to ~65%</strong> — Below prior-year levels across Cancún, Costa Mujeres, Isla Mujeres. Spirit operated <span class="stat down">91.3% of its US capacity on key routes</span>. 21 million seats lost in US market this year. United, American, JetBlue expected to partially fill gaps. <a href="https://www.reportur.com/aerolineas/2026/05/08/qroo-hoteleros-golpeados-al-bajar-ocupacion-por-quebrar-spirit/" target="_blank">REPORTUR</a></div>
+      <div class="news-item">• <strong>Riviera Maya occupancy down 4–5pp; hotels avoid layoffs</strong> — "Descansos solidarios" (solidarity breaks) retain trained staff ahead of high season. <span class="stat down">10% of reservations cancelled due to Iran conflict</span>. Seasonal dip compounded by Spirit exit. <a href="https://www.reportur.com/estados-unidos/2026/05/08/riviera-maya-hoteleros-evitan-despidos-con-descansos-solidarios/" target="_blank">REPORTUR</a></div>
+      <div class="news-item">• <strong>Cruise passengers surge: 3.6M in Q1 (+9.9% YoY)</strong> — 1,080 ship arrivals (+4.8%). Pacific coast exploding: <span class="stat up-strong">+38.2% passengers</span>. Cabo San Lucas <span class="stat up-strong">+69.6%</span>, Huatulco <span class="stat up-strong">+93.2%</span>. Average passengers per ship: 3,329 (up from 3,172). <a href="https://www.reportur.com/cruceros/2026/05/10/mexico-desbordada-de-cruceristas-al-dispararse-con-el-arranque-del-ano/" target="_blank">REPORTUR</a></div>
+      <div class="news-item">• <strong>World Cup: Cancún projects 20–50% summer visitor boost</strong> — Conservative +20%, optimistic +50% if key LatAm teams advance. Uruguay confirmed at Mayakoba base camp. <span class="stat up">LatAm market target: 8% → 10% of Quintana Roo visitors</span>. 21 Aeroméxico charters planned. <a href="https://www.reportur.com/mexico/2026/05/07/lleno-en-cancun-por-el-mundial-depende-de-que-triunfen-4-paises/" target="_blank">REPORTUR</a></div>
+      <div class="news-item">• <strong>Meliá's Paradisus Cancún: $100M revenue / $25M profit from 678 rooms</strong> — Single property = 4.2% of Meliá's total revenue across ~400 properties. Reopened after $50M renovation. Middle East instability redirecting summer demand — Spain bookings double-digit ahead. Caribbean benefits. <a href="https://www.reportur.com/hoteles/2026/05/07/cancun-un-solo-hotel-ingresa-usd-100-millones-y-da-25-de-ganancia/" target="_blank">REPORTUR</a></div>
+      <div class="news-item">• <strong>Cancún installs 400+ meters of anti-sargassum barriers</strong> — Joint SEMA/Sectur effort ahead of summer season. Follows 28,000 tons collected in April. Proactive infrastructure investment to protect beach tourism perception. <a href="https://www.reportur.com/agencias/2026/05/10/cancun-instalaran-al-menos-400-metros-de-barreras-antisargazo/" target="_blank">REPORTUR</a></div>
+      <div class="news-item">• <strong>Bacalar rejects all-inclusive hotel model for ecological balance</strong> — Mayor firmly prioritizes lagoon conservation over mass tourism. Signal of Mexico's evolving sustainable tourism stance in emerging destinations — aligns with Airbnb's boutique/unique stays positioning. <a href="https://www.reportur.com/estados-unidos/2026/05/08/bacalar-rechazan-hoteles-todo-incluido-por-equilibrio-ecologico/" target="_blank">REPORTUR</a></div>
+    </div>
+
+    <!-- HOLIDAYS -->
+    <div class="section" id="holidays">
+      <div class="section-header holidays">📅 UPCOMING HOLIDAYS & TRAVEL PEAKS (May 11 – Jun 30)</div>
+      <div class="cal-wrapper">
+        <div class="cal-month">
+          <div class="cal-month-title">May 2026</div>
+          <div class="cal-grid">
+            <div class="cal-header">Mon</div><div class="cal-header">Tue</div><div class="cal-header">Wed</div><div class="cal-header">Thu</div><div class="cal-header">Fri</div><div class="cal-header">Sat</div><div class="cal-header">Sun</div>
+            <div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day">1</div><div class="cal-day">2</div><div class="cal-day">3</div>
+            <div class="cal-day">4</div><div class="cal-day">5</div><div class="cal-day">6</div><div class="cal-day">7</div><div class="cal-day">8</div><div class="cal-day">9</div><div class="cal-day">10</div>
+            <div class="cal-day today">11</div><div class="cal-day">12</div><div class="cal-day">13</div><div class="cal-day">14</div><div class="cal-day">15</div><div class="cal-day">16</div><div class="cal-day">17</div>
+            <div class="cal-day holiday-ca">18<span class="flag">🇨🇦</span></div><div class="cal-day">19</div><div class="cal-day">20</div><div class="cal-day">21</div><div class="cal-day">22</div><div class="cal-day">23</div><div class="cal-day">24</div>
+            <div class="cal-day holiday-us">25<span class="flag">🇺🇸</span></div><div class="cal-day">26</div><div class="cal-day">27</div><div class="cal-day">28</div><div class="cal-day">29</div><div class="cal-day">30</div><div class="cal-day">31</div>
+          </div>
+        </div>
+        <div class="cal-month">
+          <div class="cal-month-title">June 2026</div>
+          <div class="cal-grid">
+            <div class="cal-header">Mon</div><div class="cal-header">Tue</div><div class="cal-header">Wed</div><div class="cal-header">Thu</div><div class="cal-header">Fri</div><div class="cal-header">Sat</div><div class="cal-header">Sun</div>
+            <div class="cal-day">1</div><div class="cal-day">2</div><div class="cal-day">3</div><div class="cal-day holiday-br">4<span class="flag">🇧🇷</span></div><div class="cal-day">5</div><div class="cal-day">6</div><div class="cal-day">7</div>
+            <div class="cal-day">8</div><div class="cal-day">9</div><div class="cal-day">10</div><div class="cal-day holiday-multi">11<span class="flag">⚽</span></div><div class="cal-day">12</div><div class="cal-day">13</div><div class="cal-day">14</div>
+            <div class="cal-day holiday-us">15<span class="flag">🇺🇸</span></div><div class="cal-day">16</div><div class="cal-day">17</div><div class="cal-day">18</div><div class="cal-day">19</div><div class="cal-day">20</div><div class="cal-day">21</div>
+            <div class="cal-day">22</div><div class="cal-day">23</div><div class="cal-day">24</div><div class="cal-day">25</div><div class="cal-day">26</div><div class="cal-day">27</div><div class="cal-day">28</div>
+            <div class="cal-day">29</div><div class="cal-day">30</div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div>
+          </div>
+        </div>
+      </div>
+      <div class="cal-legend">
+        <p>🇨🇦 <strong>Canada: Victoria Day</strong> (May 18) — Long weekend, kickoff of summer travel season.</p>
+        <p>🇺🇸 <strong>US: Memorial Day</strong> (May 25) — Official start of summer. Peak domestic travel weekend.</p>
+        <p>🇧🇷 <strong>Brazil: Corpus Christi</strong> (Jun 4) — National holiday, often extended to a 4-day weekend.</p>
+        <p>⚽ <strong>FIFA World Cup 2026 kicks off Jun 11</strong> — 11 US host cities + Mexico (CDMX, Guadalajara, Monterrey) + Canada (Toronto, Vancouver). Massive demand spike across all 3 countries.</p>
+        <p>🇺🇸 <strong>US: Father's Day</strong> (Jun 15) — Travel and dining peak.</p>
+      </div>
+    </div>
+
+    <!-- SOURCES -->
+    <div class="section" id="sources">
+      <div class="section-header sources">📋 SOURCES AUDIT</div>
+      <table>
+        <thead>
+          <tr><th>Market</th><th>Sources</th><th>Items</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>🇺🇸 US</td><td>Skift, U.S. Travel Association, AHLA, Skift Meetings</td><td>18</td></tr>
+          <tr><td>🇨🇦 Canada</td><td>TravelPress, PAX News, CBC</td><td>15</td></tr>
+          <tr><td>🇧🇷 Brazil</td><td>PANROTAS, WTTC, ILTM, MSC</td><td>16</td></tr>
+          <tr><td>🇲🇽 Mexico</td><td>REPORTUR, Sectur, Skift</td><td>15</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <footer>
+      Powered by 🦞 Max (小可) | Sources as of 2026-05-11
+    </footer>
+  </div>
+
+  <script>
+    const sections = document.querySelectorAll('.section');
+    const navLinks = document.querySelectorAll('.page-nav a');
+    window.addEventListener('scroll', () => {
+      const scrollPos = window.scrollY + 100;
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        const sectionId = section.getAttribute('id');
+        if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+          navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + sectionId) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    });
+  </script>
+<script data-goatcounter="https://ibread.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
