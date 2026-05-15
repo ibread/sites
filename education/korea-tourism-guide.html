@@ -98,10 +98,23 @@ footer { max-width: var(--max-w); margin: 0 auto; padding: 40px 20px; border-top
 .map-wrap { text-align: center; }
 .map-wrap img { margin: 0 auto; max-height: 520px; border-radius: 12px; }
 
+/* New content cards */
+.history-card { background: linear-gradient(135deg, #f8f4e8, #faf8f2); border-left: 4px solid #c49a3c; border-radius: var(--radius); padding: 24px; margin-bottom: 20px; }
+.history-card h4 { color: #8b6914; margin-bottom: 10px; font-size: 1.1rem; }
+.activities-card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 24px; margin-bottom: 20px; border: 1px solid var(--border); }
+.activities-card h4 { margin-bottom: 12px; font-size: 1.1rem; }
+.activities-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.activities-list li { font-size: .9rem; padding: 6px 0; }
+.itinerary-card { background: linear-gradient(135deg, #eef6ff, #f0f4ff); border-radius: var(--radius); padding: 24px; margin-bottom: 20px; border: 1px solid #d0e3ff; }
+.itinerary-card h4 { color: var(--accent); margin-bottom: 10px; font-size: 1.1rem; }
+.itinerary-card .day { margin-bottom: 8px; font-size: .9rem; line-height: 1.6; }
+.itinerary-card .day strong { color: var(--accent); }
+
 /* Responsive */
 @media (max-width: 768px) {
   .hero h1 { font-size: 1.8rem; }
   .grid2, .insight-row, .compare-grid { grid-template-columns: 1fr; }
+  .activities-list { grid-template-columns: 1fr; }
   .cal-grid { grid-template-columns: 1fr 1fr; }
   .compare-vs { text-align: center; }
   .stats { gap: 20px; }
@@ -225,6 +238,28 @@ footer { max-width: var(--max-w); margin: 0 auto; padding: 40px 20px; border-top
       <div class="video-wrap"><iframe src="https://www.youtube.com/embed/2v8uecv5LEQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
       <div class="video-wrap"><iframe src="https://www.youtube.com/embed/DdJGnAlkygs" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
     </div>
+    <div class="history-card">
+      <h4>📖 历史背景 Historical Background</h4>
+      <p>Capital of the Joseon Dynasty since 1394 when Yi Seong-gye (太祖/태조) moved the seat of power here. Home to the Five Grand Palaces (Gyeongbokgung, Changdeokgung, Deoksugung, Changgyeonggung, Gyeonghuigung). Endured Japanese colonial rule (1910–1945), was devastated during the Korean War, then rebuilt into one of Asia's most dynamic megacities through rapid industrialization. The Han River divides the old north (강북) from the modern south (강남).</p>
+    </div>
+    <div class="activities-card">
+      <h4>🎯 大家去那里干什么 What People Do There</h4>
+      <ul class="activities-list">
+        <li>👘 Hanbok rental + palace photo shoots</li>
+        <li>🧴 Myeongdong skincare & beauty shopping</li>
+        <li>🚲 Han River cycling & picnicking</li>
+        <li>🏘️ Bukchon hanok village walking tour</li>
+        <li>🎤 K-pop concerts / HYBE Insight visit</li>
+        <li>🥞 Gwangjang Market mung bean pancakes</li>
+        <li>🔒 Namsan Tower love locks at sunset</li>
+        <li>🎵 Hongdae nightlife + street busking</li>
+      </ul>
+    </div>
+    <div class="itinerary-card">
+      <h4>📅 推荐行程 Suggested Itinerary</h4>
+      <div class="day"><strong>Day 1:</strong> Gyeongbokgung Palace (hanbok rental) → Bukchon Hanok Village → Insadong tea & crafts → Myeongdong shopping → Namsan Tower sunset</div>
+      <div class="day"><strong>Day 2:</strong> Hongdae cafes & street art → Han River bike ride → Gangnam / COEX Starfield Library → Gwangjang Market dinner</div>
+    </div>
     <div class="insight-row">
       <div class="insight-box"><strong>🏠 Why Locals Love It</strong>High-end dining, business district hotels, cultural festivals, Han River parks. Jung-gu and Gangnam lead accommodation bookings.</div>
       <div class="insight-box"><strong>🌍 Why Foreigners Love It</strong>K-pop culture, palace tours, Myeongdong shopping, street food, nightlife in Hongdae and Itaewon. 80%+ of all foreign tourists visit Seoul.</div>
@@ -250,6 +285,28 @@ footer { max-width: var(--max-w); margin: 0 auto; padding: 40px 20px; border-top
     <div class="media-grid">
       <img src="https://images.unsplash.com/photo-1672671187899-a10f547341f1?w=800" alt="Gamcheon Culture Village, Busan">
       <div class="video-wrap"><iframe src="https://www.youtube.com/embed/lZic-pyl73I" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+    </div>
+    <div class="history-card">
+      <h4>📖 历史背景 Historical Background</h4>
+      <p>Served as Korea's temporary capital during the Korean War (1950–53) when Seoul fell. The Busan Perimeter (부산 교두보) was the last line of UN defense in summer 1950. After the war, refugees who settled on the hillsides created what is now the colorful Gamcheon Culture Village. As Korea's largest port since the Joseon era, Busan has long been the gateway for international trade and cultural exchange.</p>
+    </div>
+    <div class="activities-card">
+      <h4>🎯 大家去那里干什么 What People Do There</h4>
+      <ul class="activities-list">
+        <li>🏖️ Haeundae Beach sunbathing & swimming</li>
+        <li>🎨 Gamcheon Culture Village mural hunt</li>
+        <li>🐟 Jagalchi Market raw fish breakfast</li>
+        <li>🌅 Haedong Yonggungsa seaside temple sunrise</li>
+        <li>🌉 Songdo Skywalk over the ocean</li>
+        <li>🥞 BIFF zone street food (ssiat hotteok)</li>
+        <li>🌃 Gwangalli Bridge night view & craft beer</li>
+        <li>♨️ Spa Land jjimjilbang (Korean spa)</li>
+      </ul>
+    </div>
+    <div class="itinerary-card">
+      <h4>📅 推荐行程 Suggested Itinerary</h4>
+      <div class="day"><strong>Day 1:</strong> Jagalchi Fish Market breakfast → Gamcheon Culture Village → BIFF zone street food lunch → Songdo Skywalk → Gwangalli Beach sunset</div>
+      <div class="day"><strong>Day 2:</strong> Haedong Yonggungsa sunrise → Haeundae Beach → The Bay 101 → Spa Land jjimjilbang evening</div>
     </div>
     <div class="insight-row">
       <div class="insight-box"><strong>🏠 Why Locals Love It</strong>Popular among 20s–30s for beach vacations, seafood, and the Busan International Film Festival. Weekend getaway from Seoul via KTX (2.5h).</div>
@@ -278,6 +335,28 @@ footer { max-width: var(--max-w); margin: 0 auto; padding: 40px 20px; border-top
       <img src="https://images.unsplash.com/photo-1616798249081-30877e213b16?w=800" alt="Seongsan Ilchulbong, Jeju">
       <div class="video-wrap"><iframe src="https://www.youtube.com/embed/N2eMFs9Fntg" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
     </div>
+    <div class="history-card">
+      <h4>📖 历史背景 Historical Background</h4>
+      <p>Once the independent Tamna Kingdom (탐라국/耽罗国), a self-governing island state until absorbed by Goryeo in 1105. Served as a Mongol horse-breeding base in the 13th century. The tragic April 3rd Incident (제주4·3사건, 1948) — an uprising and brutal suppression — killed tens of thousands and scarred the island for decades. The haenyeo (해녀/海女) free-diving women, with origins spanning centuries, were inscribed on the UNESCO Intangible Cultural Heritage list in 2016.</p>
+    </div>
+    <div class="activities-card">
+      <h4>🎯 大家去那里干什么 What People Do There</h4>
+      <ul class="activities-list">
+        <li>⛰️ Hallasan summit hike (6–8h round trip)</li>
+        <li>🥾 Olle Trail coastal walking routes</li>
+        <li>🚲 Udo Island cycling & snorkeling</li>
+        <li>🌅 Seongsan Ilchulbong sunrise trek</li>
+        <li>🍊 Tangerine orchard picking experience</li>
+        <li>🐴 Horse riding on Jeju grasslands</li>
+        <li>🥩 Jeju black pork BBQ dinner</li>
+        <li>🌋 Manjanggul lava tube cave exploration</li>
+      </ul>
+    </div>
+    <div class="itinerary-card">
+      <h4>📅 推荐行程 Suggested Itinerary</h4>
+      <div class="day"><strong>Day 1:</strong> Seongsan Ilchulbong sunrise → Udo Island cycling & seafood lunch → Manjanggul Lava Cave → Jeju black pork BBQ dinner</div>
+      <div class="day"><strong>Day 2:</strong> Hallasan day hike (Seongpanak trail) or Olle Trail → Hyeopjae Beach → Hallim Park → Dongmun Market evening</div>
+    </div>
     <div class="insight-row">
       <div class="insight-box"><strong>🏠 Why Locals Love It</strong>Top destination for 20s–30s. Hamdeok Beach #1, pension/guesthouse stays, Olle hiking trails. Honeymoon island tradition since the 1980s.</div>
       <div class="insight-box"><strong>🌍 Why Foreigners Love It</strong>#3 after Seoul and Busan. Dramatic volcanic landscapes, unique haenyeo (sea women) culture, visa-free entry for many nationalities.</div>
@@ -305,6 +384,28 @@ footer { max-width: var(--max-w); margin: 0 auto; padding: 40px 20px; border-top
       <img src="https://images.unsplash.com/photo-1633437933765-67f9b9b7d244?w=800" alt="Seoraksan Mountain, Gangwon-do">
       <div class="video-wrap"><iframe src="https://www.youtube.com/embed/HsJ75QSwdZw" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
     </div>
+    <div class="history-card">
+      <h4>📖 历史背景 Historical Background</h4>
+      <p>Ancient homeland of the Yemaek (예맥/濊貊) tribes. Divided at the 38th parallel in 1945 — the northern half remains part of the DPRK as North Gangwon Province. The 2018 PyeongChang Winter Olympics carried deep reunification symbolism, with North and South Korean athletes marching together under a unified flag. The province's mountains have been sacred in Korean shamanism and Buddhism for millennia.</p>
+    </div>
+    <div class="activities-card">
+      <h4>🎯 大家去那里干什么 What People Do There</h4>
+      <ul class="activities-list">
+        <li>🍂 Seoraksan autumn foliage hiking</li>
+        <li>☕ Gangneung Anmok coffee street café hopping</li>
+        <li>🌳 Nami Island scenic walks</li>
+        <li>⛷️ Pyeongchang ski resorts (Alpensia, Yongpyong)</li>
+        <li>🦀 Sokcho seafood market & Abai Village</li>
+        <li>🌅 Jeongdongjin sunrise by train</li>
+        <li>🏕️ East Sea beach camping & glamping</li>
+        <li>🚴 MTB trails & Naerincheon river rafting</li>
+      </ul>
+    </div>
+    <div class="itinerary-card">
+      <h4>📅 推荐行程 Suggested Itinerary</h4>
+      <div class="day"><strong>Day 1:</strong> Nami Island morning → Gangneung Anmok Coffee Street → Jeongdongjin sunset → Sokcho seafood dinner</div>
+      <div class="day"><strong>Day 2:</strong> Seoraksan National Park hike (Ulsanbawi Rock trail) → Sokcho central market lunch → East Sea beach → return via KTX Gangneung</div>
+    </div>
     <div class="insight-row">
       <div class="insight-box"><strong>🏠 Why Locals Love It</strong>Absolute #1 for domestic overnight trips. Four-season appeal: skiing in winter, beaches in summer, foliage in autumn. Pension culture thrives here.</div>
       <div class="insight-box"><strong>🌍 Why Foreigners Love It</strong>Nami Island ("Winter Sonata" fame), Seoraksan national park hikes, Olympic legacy sites. Growing as a K-drama filming location destination.</div>
@@ -329,6 +430,26 @@ footer { max-width: var(--max-w); margin: 0 auto; padding: 40px 20px; border-top
     <div class="media-grid">
       <img src="https://plus.unsplash.com/premium_photo-1661886333708-877148b43ae1?w=800" alt="Korean Palace Architecture, Gyeongju">
       <div class="video-wrap"><iframe src="https://www.youtube.com/embed/b-ap7OkYNgQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+    </div>
+    <div class="history-card">
+      <h4>📖 历史背景 Historical Background</h4>
+      <p>Gyeongju (庆州) was the capital of the Silla Dynasty (57 BC–935 AD) for nearly 1,000 years — one of the longest-ruling dynasties in world history. Bulguksa Temple and Seokguram Grotto (751 AD) represent the golden age of Unified Silla. Andong (安东) was the heartland of Joseon-era Confucian scholars and yangban aristocracy. The region also encompassed the ancient Gaya Confederacy (가야, 42–562 AD), known for its ironwork and unique burial mounds.</p>
+    </div>
+    <div class="activities-card">
+      <h4>🎯 大家去那里干什么 What People Do There</h4>
+      <ul class="activities-list">
+        <li>🚲 Gyeongju Tumuli Park bike tour</li>
+        <li>🛕 Bulguksa Temple & Seokguram Grotto visit</li>
+        <li>🎭 Andong Hahoe mask dance festival</li>
+        <li>🚡 Tongyeong Hallyeohaesang cable car</li>
+        <li>🍜 Daegu Seomun night market food crawl</li>
+        <li>🌌 Cheomseongdae observatory stargazing</li>
+      </ul>
+    </div>
+    <div class="itinerary-card">
+      <h4>📅 推荐行程 Suggested Itinerary</h4>
+      <div class="day"><strong>Day 1:</strong> Gyeongju Tumuli Park → Cheomseongdae → Bulguksa Temple → Seokguram Grotto → Bomun Lake sunset</div>
+      <div class="day"><strong>Day 2:</strong> Andong Hahoe Village morning → mask museum → Daegu Seomun Market lunch → Tongyeong cable car (if extending)</div>
     </div>
     <div class="insight-row">
       <div class="insight-box"><strong>🏠 Why Locals Love It</strong>Gyeongju is a perennial school-trip and family destination. Andong for traditional culture. Tongyeong and Geoje for maritime scenery and seafood.</div>
@@ -356,6 +477,27 @@ footer { max-width: var(--max-w); margin: 0 auto; padding: 40px 20px; border-top
       <img src="https://images.unsplash.com/photo-1602479185195-32f5cd203559?w=800" alt="Jeonju Hanok Village">
       <div class="video-wrap"><iframe src="https://www.youtube.com/embed/YGWFWpd0AjY" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
     </div>
+    <div class="history-card">
+      <h4>📖 历史背景 Historical Background</h4>
+      <p>Western territory of the ancient Baekje Kingdom (百济). Birthplace of the Donghak Peasant Revolution (1894, 东学农民运动), Korea's first large-scale democratic uprising against feudal corruption and foreign interference. Gwangju is hallowed ground for Korean democracy — the May 18th Gwangju Democratization Movement (1980, 光州民主化运动/광주민주화운동) saw citizens rise against martial law, with hundreds killed. The region's culinary supremacy traces to its fertile Honam Plain and centuries of rice-culture abundance.</p>
+    </div>
+    <div class="activities-card">
+      <h4>🎯 大家去那里干什么 What People Do There</h4>
+      <ul class="activities-list">
+        <li>🍚 Jeonju bibimbap pilgrimage & food tour</li>
+        <li>👘 Jeonju Hanok Village hanbok rental</li>
+        <li>🌾 Suncheon Bay reed field wetland walk</li>
+        <li>🚡 Yeosu night sea cable car ride</li>
+        <li>🎋 Damyang bamboo forest meditation walk</li>
+        <li>🎨 Gwangju Biennale contemporary art</li>
+        <li>🍶 Makgeolli tasting & brewery visits</li>
+      </ul>
+    </div>
+    <div class="itinerary-card">
+      <h4>📅 推荐行程 Suggested Itinerary</h4>
+      <div class="day"><strong>Day 1:</strong> Jeonju Hanok Village (hanbok rental, bibimbap lunch) → Gyeonggijeon Shrine → Nambu Market → Jeonju craft makgeolli evening</div>
+      <div class="day"><strong>Day 2:</strong> Damyang bamboo forest morning → Suncheon Bay wetlands → Yeosu night sea cable car & seafood dinner</div>
+    </div>
     <div class="insight-row">
       <div class="insight-box"><strong>🏠 Why Locals Love It</strong>Jeonju Hanok Village is a top weekend food trip. Yeosu's night sea views went viral. Suncheon Bay for eco-tourism. Damyang's bamboo forest for healing retreats.</div>
       <div class="insight-box"><strong>🌍 Why Foreigners Love It</strong>Still under the radar for most foreign tourists — a hidden gem. Jeonju's bibimbap pilgrimage and hanok stays are gaining traction on social media.</div>
@@ -381,6 +523,26 @@ footer { max-width: var(--max-w); margin: 0 auto; padding: 40px 20px; border-top
     <div class="media-grid">
       <div class="video-wrap"><iframe src="https://www.youtube.com/embed/sWG5AXINvJ8" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
     </div>
+    <div class="history-card">
+      <h4>📖 历史背景 Historical Background</h4>
+      <p>Seat of the Baekje Kingdom's later capitals: Gongju (공주/公州, known as Ungjin 熊津, 475–538 AD) and Buyeo (부여/扶余, known as Sabi 泗沘, 538–660 AD). The kingdom fell in 660 AD to the Silla-Tang alliance at the Battle of Hwangsanbeol. The UNESCO World Heritage Baekje Historic Areas preserve royal tombs, fortress walls, and temple sites from this sophisticated ancient kingdom that significantly influenced Japanese art and architecture.</p>
+    </div>
+    <div class="activities-card">
+      <h4>🎯 大家去那里干什么 What People Do There</h4>
+      <ul class="activities-list">
+        <li>🪂 Danyang paragliding over river valley</li>
+        <li>🏛️ Gongju & Buyeo Baekje ruins tour</li>
+        <li>🎉 Boryeong Mud Festival (July)</li>
+        <li>🛕 Guinsa mountain temple stay</li>
+        <li>♨️ Hot spring resort relaxation</li>
+        <li>🚲 South Chungcheong coastal cycling</li>
+      </ul>
+    </div>
+    <div class="itinerary-card">
+      <h4>📅 推荐行程 Suggested Itinerary</h4>
+      <div class="day"><strong>Day 1:</strong> Gongju Gongsanseong Fortress → Songsan-ri Royal Tombs → Buyeo Busosanseong → Gudeurae Sculpture Park → Buyeo Lotte Resort</div>
+      <div class="day"><strong>Day 2:</strong> Danyang Suyanggae cliff walk → Gosu Cave → paragliding or Cheongpung Lake boat → return via Chungju</div>
+    </div>
     <div class="insight-row">
       <div class="insight-box"><strong>🏠 Why Locals Love It</strong>Traditional markets, hot springs, and weekend drives. Danyang's river valley is a favorite for pension stays. Boryeong Mud Festival draws summer crowds.</div>
       <div class="insight-box"><strong>🌍 Why Foreigners Love It</strong>Off the beaten path. Baekje historical sites (UNESCO) in Gongju/Buyeo appeal to history buffs. Boryeong Mud Festival is one of Korea's most famous international events.</div>
@@ -404,6 +566,26 @@ footer { max-width: var(--max-w); margin: 0 auto; padding: 40px 20px; border-top
     </div>
     <div class="media-grid">
       <div class="video-wrap"><iframe src="https://www.youtube.com/embed/DR9NkO48VwE" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+    </div>
+    <div class="history-card">
+      <h4>📖 历史背景 Historical Background</h4>
+      <p>The Korean War (1950–53) devastated this region, and the DMZ was established by the 1953 Armistice Agreement, splitting the peninsula along the 38th parallel. The Joint Security Area (JSA) at Panmunjom remains the only place where North and South Korean soldiers stand face to face. Suwon Hwaseong Fortress (수원화성/水原华城) was built 1794–1796 by King Jeongjo (正祖/정조) as a planned city to honor his father Crown Prince Sado — now a UNESCO World Heritage Site and masterpiece of late Joseon military architecture.</p>
+    </div>
+    <div class="activities-card">
+      <h4>🎯 大家去那里干什么 What People Do There</h4>
+      <ul class="activities-list">
+        <li>🔭 DMZ / JSA guided border tour</li>
+        <li>🏯 Suwon Hwaseong fortress wall walk</li>
+        <li>👀 Paju DMZ observation points & Imjingak</li>
+        <li>🎢 Everland / Caribbean Bay theme parks</li>
+        <li>🏘️ Korean Folk Village in Yongin (용인)</li>
+        <li>🎨 Pocheon Art Valley quarry lake</li>
+      </ul>
+    </div>
+    <div class="itinerary-card">
+      <h4>📅 推荐行程 Suggested Itinerary</h4>
+      <div class="day"><strong>Day 1:</strong> DMZ / JSA tour (advance booking required, passport needed) → Imjingak Peace Park → Paju Book City or Premium Outlets</div>
+      <div class="day"><strong>Day 2:</strong> Suwon Hwaseong fortress morning walk → Hwaseong Haenggung Palace → Suwon Galbi lunch → Korean Folk Village afternoon</div>
     </div>
     <div class="insight-row">
       <div class="insight-box"><strong>🏠 Why Locals Love It</strong>#2 domestic destination (8.9% share). Suburban water parks, outlet malls, Yangpyeong countryside getaways. Practical weekend escapes from Seoul.</div>
