@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Korea Tourism Geography Guide 🇰🇷</title>
+<style>
+:root {
+  --bg: #fafafa;
+  --card: #fff;
+  --text: #1d1d1f;
+  --muted: #6e6e73;
+  --accent: #0071e3;
+  --accent2: #e8f0fe;
+  --border: #e5e5e7;
+  --radius: 16px;
+  --shadow: 0 2px 12px rgba(0,0,0,.06);
+  --max-w: 1200px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro', 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+a { color: var(--accent); text-decoration: none; }
+img { max-width: 100%; border-radius: 12px; display: block; }
+
+/* Nav */
+nav { position: sticky; top: 0; z-index: 100; background: rgba(250,250,250,.85); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+nav .inner { max-width: var(--max-w); margin: 0 auto; display: flex; align-items: center; gap: 8px; padding: 10px 20px; overflow-x: auto; white-space: nowrap; }
+nav a { font-size: .82rem; padding: 5px 12px; border-radius: 20px; color: var(--muted); transition: .2s; flex-shrink: 0; }
+nav a:hover, nav a.active { background: var(--accent); color: #fff; }
+nav .logo { font-weight: 700; font-size: 1rem; color: var(--text); margin-right: 8px; }
+
+/* Sections */
+section { max-width: var(--max-w); margin: 0 auto; padding: 60px 20px; }
+h2 { font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
+h3 { font-size: 1.4rem; font-weight: 600; margin-bottom: 6px; }
+.subtitle { color: var(--muted); font-size: 1rem; margin-bottom: 32px; }
+
+/* Hero */
+.hero { text-align: center; padding: 100px 20px 60px; background: linear-gradient(135deg, #e8f4fd 0%, #f0e6ff 100%); }
+.hero h1 { font-size: 2.8rem; font-weight: 800; letter-spacing: -.02em; }
+.hero p { color: var(--muted); font-size: 1.15rem; margin-top: 12px; max-width: 640px; margin-left: auto; margin-right: auto; }
+.stats { display: flex; justify-content: center; gap: 40px; margin-top: 36px; flex-wrap: wrap; }
+.stat { text-align: center; }
+.stat .num { font-size: 1.8rem; font-weight: 800; color: var(--accent); }
+.stat .label { font-size: .82rem; color: var(--muted); }
+
+/* Cards */
+.card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 28px; border: 1px solid var(--border); }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.grid3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+
+/* Ranking list */
+.rank-list { list-style: none; counter-reset: rank; }
+.rank-list li { counter-increment: rank; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: .92rem; line-height: 1.5; }
+.rank-list li:last-child { border-bottom: none; }
+.rank-list li::before { content: counter(rank); display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; background: var(--accent2); color: var(--accent); font-weight: 700; font-size: .8rem; margin-right: 10px; vertical-align: middle; }
+.rank-list li:nth-child(-n+3)::before { background: var(--accent); color: #fff; }
+
+/* Region section */
+.region { margin-bottom: 48px; }
+.region-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+.region-header h2 { font-size: 1.8rem; }
+.region-header .alt-names { color: var(--muted); font-size: 1rem; }
+.region-desc { color: var(--muted); margin-bottom: 20px; max-width: 720px; }
+.media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; margin-bottom: 20px; }
+.media-grid img { width: 100%; height: 220px; object-fit: cover; }
+.media-grid .video-wrap { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 12px; overflow: hidden; }
+.media-grid .video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+.spot-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.chip { background: var(--accent2); color: var(--accent); padding: 5px 14px; border-radius: 20px; font-size: .82rem; font-weight: 500; }
+.insight-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.insight-box { background: var(--bg); border-radius: 12px; padding: 16px; font-size: .88rem; }
+.insight-box strong { display: block; margin-bottom: 6px; }
+
+/* Calendar */
+.cal-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.cal-card { border-radius: var(--radius); padding: 24px; text-align: center; }
+.cal-card.spring { background: linear-gradient(135deg, #fce4ec, #fff3e0); }
+.cal-card.summer { background: linear-gradient(135deg, #e0f7fa, #e8f5e9); }
+.cal-card.autumn { background: linear-gradient(135deg, #fff3e0, #fbe9e7); }
+.cal-card.winter { background: linear-gradient(135deg, #e3f2fd, #ede7f6); }
+.cal-card .season-icon { font-size: 2.4rem; }
+.cal-card h3 { margin: 8px 0 4px; font-size: 1.1rem; }
+.cal-card p { font-size: .82rem; color: var(--muted); }
+
+/* Comparison */
+.compare-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 24px; align-items: start; }
+.compare-col h3 { margin-bottom: 12px; }
+.compare-col ul { list-style: none; }
+.compare-col li { padding: 8px 0; border-bottom: 1px solid var(--border); font-size: .9rem; }
+.compare-vs { font-size: 2rem; font-weight: 800; color: var(--muted); align-self: center; }
+
+/* Footer */
+footer { max-width: var(--max-w); margin: 0 auto; padding: 40px 20px; border-top: 1px solid var(--border); color: var(--muted); font-size: .8rem; line-height: 1.8; }
+
+/* Map section */
+.map-wrap { text-align: center; }
+.map-wrap img { margin: 0 auto; max-height: 520px; border-radius: 12px; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 1.8rem; }
+  .grid2, .insight-row, .compare-grid { grid-template-columns: 1fr; }
+  .cal-grid { grid-template-columns: 1fr 1fr; }
+  .compare-vs { text-align: center; }
+  .stats { gap: 20px; }
+  section { padding: 40px 16px; }
+}
+@media (max-width: 480px) {
+  .cal-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="inner">
+  <span class="logo">🇰🇷</span>
+  <a href="#hero">Home</a>
+  <a href="#map">Map</a>
+  <a href="#rankings">Rankings</a>
+  <a href="#seoul">Seoul</a>
+  <a href="#busan">Busan</a>
+  <a href="#jeju">Jeju</a>
+  <a href="#gangwon">Gangwon</a>
+  <a href="#gyeongsang">Gyeongsang</a>
+  <a href="#jeolla">Jeolla</a>
+  <a href="#chungcheong">Chungcheong</a>
+  <a href="#gyeonggi">Gyeonggi</a>
+  <a href="#calendar">Seasons</a>
+  <a href="#compare">Compare</a>
+</div>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="hero">
+  <h1>🇰🇷 Korea Tourism Geography Guide<br><span style="font-size:.6em;font-weight:600;color:var(--muted)">韩国旅游地理指南</span></h1>
+  <p>Understanding Korea's destinations through data, maps, and media</p>
+  <div class="stats">
+    <div class="stat"><div class="num">17.6M</div><div class="label">Inbound Tourists (2025)</div></div>
+    <div class="stat"><div class="num">2,167</div><div class="label">Registered Tourist Sites</div></div>
+    <div class="stat"><div class="num">#1</div><div class="label">Gangwon-do — Top Domestic Dest.</div></div>
+  </div>
+</div>
+
+<!-- MAP -->
+<section id="map">
+  <h2>Korea Overview Map</h2>
+  <p class="subtitle">Major provinces and metropolitan areas at a glance</p>
+  <div class="map-wrap">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/South_Korea_location_map.svg/800px-South_Korea_location_map.svg.png" alt="South Korea Map" style="max-width:480px;">
+  </div>
+  <div class="grid3" style="margin-top:28px;">
+    <div class="card" style="text-align:center;padding:16px;"><strong>서울</strong><br>Seoul / 首尔</div>
+    <div class="card" style="text-align:center;padding:16px;"><strong>부산</strong><br>Busan / 釜山</div>
+    <div class="card" style="text-align:center;padding:16px;"><strong>제주도</strong><br>Jeju / 济州岛</div>
+    <div class="card" style="text-align:center;padding:16px;"><strong>강원도</strong><br>Gangwon / 江原道</div>
+    <div class="card" style="text-align:center;padding:16px;"><strong>경상도</strong><br>Gyeongsang / 庆尚道</div>
+    <div class="card" style="text-align:center;padding:16px;"><strong>전라도</strong><br>Jeolla / 全罗道</div>
+    <div class="card" style="text-align:center;padding:16px;"><strong>충청도</strong><br>Chungcheong / 忠清道</div>
+    <div class="card" style="text-align:center;padding:16px;"><strong>경기도</strong><br>Gyeonggi / 京畿道</div>
+    <div class="card" style="text-align:center;padding:16px;"><strong>인천</strong><br>Incheon / 仁川</div>
+  </div>
+</section>
+
+<!-- RANKINGS -->
+<section id="rankings">
+  <h2>Destination Rankings</h2>
+  <p class="subtitle">Where Koreans travel domestically vs. where foreign tourists go</p>
+  <div class="grid2">
+    <div class="card">
+      <h3>🏠 Korean Domestic Travel Top Destinations</h3>
+      <p style="font-size:.78rem;color:var(--muted);margin-bottom:12px;">Nonghyup Bank card data 2023–2025 · 24.91M transactions</p>
+      <ol class="rank-list">
+        <li><strong>강원도 / Gangwon-do / 江原道</strong> — #1 by accommodation payments, 21.6% share. 143M visitors Jan–Nov 2025. Seoraksan, East Sea coast, ski resorts (Pyeongchang, Hongcheon, Gangneung)</li>
+        <li><strong>경기도 / Gyeonggi-do / 京畿道</strong> — 8.9% share. Suburban Seoul, water parks, DMZ tours</li>
+        <li><strong>서울 / Seoul / 首尔</strong> — Jung-gu 11.3%, Gangnam-gu 9.3%, Songpa-gu 8.5% of Seoul accommodations. High-end hotels, business + tourism</li>
+        <li><strong>충남 / Chungnam / 忠清南道</strong> — Traditional markets, hot springs</li>
+        <li><strong>전남 / Jeonnam / 全罗南道</strong> — Suncheon Bay, Yeosu, food culture</li>
+        <li><strong>제주도 / Jeju-do / 济州岛</strong> — Top among 20s–30s. Hamdeok Beach #1, Seongsan Ilchulbong #2, Hyeopjae Beach #3</li>
+        <li><strong>부산 / Busan / 釜山</strong> — Popular among young travelers (20s–30s)</li>
+      </ol>
+      <p style="font-size:.78rem;color:var(--muted);margin-top:12px;">📊 50s–60s "active seniors" lead travel spending (25.7% + 22.2%), but 20s–30s dominate app-based bookings (Yanolja etc.)</p>
+    </div>
+    <div class="card">
+      <h3>🌍 Foreign Tourist Top Destinations</h3>
+      <p style="font-size:.78rem;color:var(--muted);margin-bottom:12px;">KTO / Statista 2024–2025 data</p>
+      <ol class="rank-list">
+        <li><strong>서울 / Seoul / 首尔</strong> — Overwhelming #1. Myeongdong, Gyeongbokgung, Bukchon, Hongdae, Gangnam. 80%+ of foreign tourists visit Seoul</li>
+        <li><strong>부산 / Busan / 釜山</strong> — Haeundae Beach, Gamcheon Culture Village, Jagalchi Market, Songdo Cable Car</li>
+        <li><strong>제주도 / Jeju-do / 济州岛</strong> — Hallasan, Seongsan Ilchulbong, Udo Island, Jungmun Resort. UNESCO World Heritage</li>
+        <li><strong>인천 / Incheon / 仁川</strong> — Gateway (airport), Wolmido, Chinatown, Songdo</li>
+        <li><strong>경주 / Gyeongju / 庆州</strong> — "Museum without walls", Bulguksa, Seokguram, Cheomseongdae. Silla Dynasty capital</li>
+      </ol>
+      <div style="margin-top:16px;padding:14px;background:var(--accent2);border-radius:12px;font-size:.85rem;">
+        <strong>Top Inbound Markets 2025:</strong><br>
+        🇯🇵 Japan 4.78M · 🇨🇳 China 3.58M · 🇺🇸 USA 1.41M · 🇹🇼 Taiwan 1.10M<br>
+        <strong>Total: ~17.6M visitors</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEOUL -->
+<section id="seoul">
+  <div class="region">
+    <div class="region-header">
+      <h2>首尔 / 서울 / Seoul</h2>
+      <span class="alt-names">Capital City</span>
+    </div>
+    <p class="region-desc">Capital city on the Han River, surrounded by mountains including Bukhansan and Namsan. Population ~9.7M. The political, economic, and cultural heart of Korea — a megacity seamlessly blending 600-year-old palaces with cutting-edge modernity.</p>
+    <div class="spot-chips">
+      <span class="chip">景福宫 / 경복궁 / Gyeongbokgung</span>
+      <span class="chip">明洞 / 명동 / Myeongdong</span>
+      <span class="chip">北村韩屋村 / 북촌한옥마을 / Bukchon</span>
+      <span class="chip">弘大 / 홍대 / Hongdae</span>
+      <span class="chip">江南 / 강남 / Gangnam</span>
+      <span class="chip">南山塔 / 남산타워 / Namsan Tower</span>
+      <span class="chip">梨泰院 / 이태원 / Itaewon</span>
+    </div>
+    <div class="media-grid">
+      <img src="https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=800" alt="Gyeongbokgung Palace">
+      <img src="https://images.unsplash.com/photo-1534274988757-a28bf1a57c17?w=800" alt="Seoul Skyline">
+      <div class="video-wrap"><iframe src="https://www.youtube.com/embed/jXfGiUqCIXg" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="video-wrap"><iframe src="https://www.youtube.com/embed/N5VAPYqYfRE" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+    </div>
+    <div class="insight-row">
+      <div class="insight-box"><strong>🏠 Why Locals Love It</strong>High-end dining, business district hotels, cultural festivals, Han River parks. Jung-gu and Gangnam lead accommodation bookings.</div>
+      <div class="insight-box"><strong>🌍 Why Foreigners Love It</strong>K-pop culture, palace tours, Myeongdong shopping, street food, nightlife in Hongdae and Itaewon. 80%+ of all foreign tourists visit Seoul.</div>
+    </div>
+  </div>
+</section>
+
+<!-- BUSAN -->
+<section id="busan">
+  <div class="region">
+    <div class="region-header">
+      <h2>釜山 / 부산 / Busan</h2>
+      <span class="alt-names">South Korea's 2nd Largest City</span>
+    </div>
+    <p class="region-desc">Southeastern coastal metropolis and Korea's largest port city. Known for beaches, seafood, film festivals, and a vibrant street culture distinct from Seoul.</p>
+    <div class="spot-chips">
+      <span class="chip">海云台 / 해운대 / Haeundae Beach</span>
+      <span class="chip">甘川文化村 / 감천문화마을 / Gamcheon</span>
+      <span class="chip">札嘎其市场 / 자갈치시장 / Jagalchi Market</span>
+      <span class="chip">海东龙宫寺 / 해동용궁사 / Haedong Yonggungsa</span>
+      <span class="chip">广安里 / 광안리 / Gwangalli Beach</span>
+    </div>
+    <div class="media-grid">
+      <img src="https://images.unsplash.com/photo-1578037571214-25e07e2b4f2c?w=800" alt="Gamcheon Culture Village">
+      <div class="video-wrap"><iframe src="https://www.youtube.com/embed/1hLQQrqzaS0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+    </div>
+    <div class="insight-row">
+      <div class="insight-box"><strong>🏠 Why Locals Love It</strong>Popular among 20s–30s for beach vacations, seafood, and the Busan International Film Festival. Weekend getaway from Seoul via KTX (2.5h).</div>
+      <div class="insight-box"><strong>🌍 Why Foreigners Love It</strong>#2 destination after Seoul. Gamcheon's colorful hillside, Jagalchi's raw seafood, temple-on-the-sea Haedong Yonggungsa. Great Instagram spots.</div>
+    </div>
+  </div>
+</section>
+
+<!-- JEJU -->
+<section id="jeju">
+  <div class="region">
+    <div class="region-header">
+      <h2>济州岛 / 제주도 / Jeju Island</h2>
+      <span class="alt-names">UNESCO World Heritage</span>
+    </div>
+    <p class="region-desc">Volcanic island 80km south of mainland Korea with subtropical climate. Formed by Hallasan volcano (1,947m), Korea's highest peak. A UNESCO Triple Crown site — World Heritage, Global Geopark, and Biosphere Reserve.</p>
+    <div class="spot-chips">
+      <span class="chip">汉拿山 / 한라산 / Hallasan</span>
+      <span class="chip">城山日出峰 / 성산일출봉 / Seongsan Ilchulbong</span>
+      <span class="chip">牛岛 / 우도 / Udo Island</span>
+      <span class="chip">协才海边 / 협재해변 / Hyeopjae Beach</span>
+      <span class="chip">中文旅游区 / 중문관광단지 / Jungmun Resort</span>
+      <span class="chip">东门市场 / 동문시장 / Dongmun Market</span>
+    </div>
+    <div class="media-grid">
+      <img src="https://images.unsplash.com/photo-1597668338977-a57cdbeac249?w=800" alt="Seongsan Ilchulbong">
+      <div class="video-wrap"><iframe src="https://www.youtube.com/embed/NZ-CeSjw_O8" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+    </div>
+    <div class="insight-row">
+      <div class="insight-box"><strong>🏠 Why Locals Love It</strong>Top destination for 20s–30s. Hamdeok Beach #1, pension/guesthouse stays, Olle hiking trails. Honeymoon island tradition since the 1980s.</div>
+      <div class="insight-box"><strong>🌍 Why Foreigners Love It</strong>#3 after Seoul and Busan. Dramatic volcanic landscapes, unique haenyeo (sea women) culture, visa-free entry for many nationalities.</div>
+    </div>
+  </div>
+</section>
+
+<!-- GANGWON -->
+<section id="gangwon">
+  <div class="region">
+    <div class="region-header">
+      <h2>江原道 / 강원도 / Gangwon-do</h2>
+      <span class="alt-names">#1 Domestic Destination</span>
+    </div>
+    <p class="region-desc">Northeastern province with dramatic mountains and the pristine East Sea coastline. Host of the 2018 PyeongChang Winter Olympics. Korea's undisputed #1 domestic travel destination with 21.6% of all accommodation spending.</p>
+    <div class="spot-chips">
+      <span class="chip">雪岳山 / 설악산 / Seoraksan</span>
+      <span class="chip">江陵 / 강릉 / Gangneung</span>
+      <span class="chip">平昌 / 평창 / Pyeongchang</span>
+      <span class="chip">南怡岛 / 남이섬 / Nami Island</span>
+      <span class="chip">束草 / 속초 / Sokcho</span>
+      <span class="chip">正东津 / 정동진 / Jeongdongjin</span>
+    </div>
+    <div class="media-grid">
+      <img src="https://images.unsplash.com/photo-1580945009498-90c0940adb44?w=800" alt="Seoraksan Autumn">
+      <div class="video-wrap"><iframe src="https://www.youtube.com/embed/gFnXnOYfVGw" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+    </div>
+    <div class="insight-row">
+      <div class="insight-box"><strong>🏠 Why Locals Love It</strong>Absolute #1 for domestic overnight trips. Four-season appeal: skiing in winter, beaches in summer, foliage in autumn. Pension culture thrives here.</div>
+      <div class="insight-box"><strong>🌍 Why Foreigners Love It</strong>Nami Island ("Winter Sonata" fame), Seoraksan national park hikes, Olympic legacy sites. Growing as a K-drama filming location destination.</div>
+    </div>
+  </div>
+</section>
+
+<!-- GYEONGSANG -->
+<section id="gyeongsang">
+  <div class="region">
+    <div class="region-header">
+      <h2>庆尚道 / 경상도 / Gyeongsang Province</h2>
+      <span class="alt-names">Southeast Korea</span>
+    </div>
+    <p class="region-desc">Southeastern region encompassing Daegu, Gyeongju, Andong, Tongyeong, and Geoje. Home to the ancient Silla Dynasty capital and some of Korea's most significant historical sites.</p>
+    <div class="spot-chips">
+      <span class="chip">庆州 / 경주 / Gyeongju</span>
+      <span class="chip">安东河回村 / 안동 하회마을 / Andong Hahoe</span>
+      <span class="chip">统营 / 통영 / Tongyeong</span>
+      <span class="chip">大邱 / 대구 / Daegu</span>
+    </div>
+    <div class="media-grid">
+      <img src="https://images.unsplash.com/photo-1600712242805-5f78671b24da?w=800" alt="Bulguksa Temple">
+      <div class="video-wrap"><iframe src="https://www.youtube.com/embed/JFpqr5XKDX0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+    </div>
+    <div class="insight-row">
+      <div class="insight-box"><strong>🏠 Why Locals Love It</strong>Gyeongju is a perennial school-trip and family destination. Andong for traditional culture. Tongyeong and Geoje for maritime scenery and seafood.</div>
+      <div class="insight-box"><strong>🌍 Why Foreigners Love It</strong>Gyeongju — the "museum without walls" — ranks #5 for foreign visitors. Bulguksa, Seokguram Grotto, and Cheomseongdae observatory are must-sees.</div>
+    </div>
+  </div>
+</section>
+
+<!-- JEOLLA -->
+<section id="jeolla">
+  <div class="region">
+    <div class="region-header">
+      <h2>全罗道 / 전라도 / Jeolla Province</h2>
+      <span class="alt-names">Korea's Food Capital</span>
+    </div>
+    <p class="region-desc">Southwestern Korea, renowned as the country's culinary heartland. From Jeonju's birthplace of bibimbap to Suncheon Bay's ecological wetlands, this region rewards travelers seeking authentic Korean food and natural beauty.</p>
+    <div class="spot-chips">
+      <span class="chip">全州 / 전주 / Jeonju</span>
+      <span class="chip">光州 / 광주 / Gwangju</span>
+      <span class="chip">顺天湾 / 순천만 / Suncheon Bay</span>
+      <span class="chip">丽水 / 여수 / Yeosu</span>
+      <span class="chip">潭阳 / 담양 / Damyang</span>
+    </div>
+    <div class="media-grid">
+      <img src="https://images.unsplash.com/photo-1590559899731-a382839e5549?w=800" alt="Jeonju Hanok Village">
+      <div class="video-wrap"><iframe src="https://www.youtube.com/embed/RCyIVRhPMwA" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+    </div>
+    <div class="insight-row">
+      <div class="insight-box"><strong>🏠 Why Locals Love It</strong>Jeonju Hanok Village is a top weekend food trip. Yeosu's night sea views went viral. Suncheon Bay for eco-tourism. Damyang's bamboo forest for healing retreats.</div>
+      <div class="insight-box"><strong>🌍 Why Foreigners Love It</strong>Still under the radar for most foreign tourists — a hidden gem. Jeonju's bibimbap pilgrimage and hanok stays are gaining traction on social media.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CHUNGCHEONG -->
+<section id="chungcheong">
+  <div class="region">
+    <div class="region-header">
+      <h2>忠清道 / 충청도 / Chungcheong Province</h2>
+      <span class="alt-names">Central Korea</span>
+    </div>
+    <p class="region-desc">Central Korea spanning both North and South Chungcheong provinces. Home to the science city of Daejeon, the ancient Baekje Kingdom capitals of Gongju and Buyeo, and the scenic river valley of Danyang.</p>
+    <div class="spot-chips">
+      <span class="chip">大田 / 대전 / Daejeon</span>
+      <span class="chip">公州 / 공주 / Gongju</span>
+      <span class="chip">扶余 / 부여 / Buyeo</span>
+      <span class="chip">丹阳 / 단양 / Danyang</span>
+      <span class="chip">保宁 / 보령 / Boryeong</span>
+    </div>
+    <div class="media-grid">
+      <div class="video-wrap"><iframe src="https://www.youtube.com/embed/2vq7yTUmKFQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+    </div>
+    <div class="insight-row">
+      <div class="insight-box"><strong>🏠 Why Locals Love It</strong>Traditional markets, hot springs, and weekend drives. Danyang's river valley is a favorite for pension stays. Boryeong Mud Festival draws summer crowds.</div>
+      <div class="insight-box"><strong>🌍 Why Foreigners Love It</strong>Off the beaten path. Baekje historical sites (UNESCO) in Gongju/Buyeo appeal to history buffs. Boryeong Mud Festival is one of Korea's most famous international events.</div>
+    </div>
+  </div>
+</section>
+
+<!-- GYEONGGI -->
+<section id="gyeonggi">
+  <div class="region">
+    <div class="region-header">
+      <h2>京畿道 & DMZ / 경기도 / Gyeonggi-do</h2>
+      <span class="alt-names">Greater Seoul & Border Zone</span>
+    </div>
+    <p class="region-desc">The province surrounding Seoul, home to 13M+ people in satellite cities. The northern border area includes the DMZ — the world's most heavily fortified border and one of Korea's most unique tourist experiences.</p>
+    <div class="spot-chips">
+      <span class="chip">板门店 / 판문점 / Panmunjom (DMZ)</span>
+      <span class="chip">水原华城 / 수원화성 / Suwon Hwaseong</span>
+      <span class="chip">坡州 / 파주 / Paju</span>
+      <span class="chip">杨平 / 양평 / Yangpyeong</span>
+    </div>
+    <div class="media-grid">
+      <div class="video-wrap"><iframe src="https://www.youtube.com/embed/0bMJCXpGajc" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+    </div>
+    <div class="insight-row">
+      <div class="insight-box"><strong>🏠 Why Locals Love It</strong>#2 domestic destination (8.9% share). Suburban water parks, outlet malls, Yangpyeong countryside getaways. Practical weekend escapes from Seoul.</div>
+      <div class="insight-box"><strong>🌍 Why Foreigners Love It</strong>DMZ/JSA tours are a bucket-list item. Suwon Hwaseong fortress (UNESCO) offers a half-day trip from Seoul. Paju for DMZ-adjacent experiences.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SEASONAL CALENDAR -->
+<section id="calendar">
+  <h2>Seasonal Travel Calendar</h2>
+  <p class="subtitle">Best times to visit each region</p>
+  <div class="cal-grid">
+    <div class="cal-card spring">
+      <div class="season-icon">🌸</div>
+      <h3>Spring</h3>
+      <p>Mar – May</p>
+      <p style="margin-top:8px;font-size:.85rem;"><strong>Cherry Blossoms</strong><br>Jinhae (진해) · Gyeongju · Jeju<br>Yeouido (Seoul) · Seomjingang</p>
+    </div>
+    <div class="cal-card summer">
+      <div class="season-icon">🏖️</div>
+      <h3>Summer</h3>
+      <p>Jun – Aug</p>
+      <p style="margin-top:8px;font-size:.85rem;"><strong>Beaches & Festivals</strong><br>Busan · Gangneung · Jeju<br>Boryeong Mud Festival<br>East Sea coast</p>
+    </div>
+    <div class="cal-card autumn">
+      <div class="season-icon">🍂</div>
+      <h3>Autumn</h3>
+      <p>Sep – Nov</p>
+      <p style="margin-top:8px;font-size:.85rem;"><strong>Peak Foliage</strong><br>Seoraksan · Naejangsan<br>Gyeongju · Nami Island<br>Best overall travel season</p>
+    </div>
+    <div class="cal-card winter">
+      <div class="season-icon">⛷️</div>
+      <h3>Winter</h3>
+      <p>Dec – Feb</p>
+      <p style="margin-top:8px;font-size:.85rem;"><strong>Ski & Snow</strong><br>Pyeongchang · Gangwon-do<br>Hongcheon · Muju<br>Seoul Christmas markets</p>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section id="compare">
+  <h2>Locals vs. Foreign Tourists</h2>
+  <p class="subtitle">How domestic and international travelers experience Korea differently</p>
+  <div class="compare-grid">
+    <div class="compare-col card">
+      <h3>🏠 Korean Locals Prefer</h3>
+      <ul>
+        <li>🥇 <strong>Gangwon-do</strong> — #1 domestic destination</li>
+        <li>🎪 Local festivals & seasonal events</li>
+        <li>🍜 Regional food markets & specialties</li>
+        <li>🏡 Countryside pensions & glamping</li>
+        <li>🌾 Healing trips & slow travel</li>
+        <li>📱 App-based booking (Yanolja, Goodchoice)</li>
+      </ul>
+    </div>
+    <div class="compare-vs">vs</div>
+    <div class="compare-col card">
+      <h3>🌍 Foreign Tourists Prefer</h3>
+      <ul>
+        <li>🥇 <strong>Seoul</strong> — 80%+ visit rate</li>
+        <li>🎤 K-pop locations & fan experiences</li>
+        <li>🛍️ Shopping (Myeongdong, duty-free)</li>
+        <li>🏛️ Historical palaces & temples</li>
+        <li>🥩 Korean BBQ streets & food tours</li>
+        <li>📸 Instagram-worthy spots</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card" style="margin-top:24px;text-align:center;padding:20px;">
+    <strong>🤝 Where Both Groups Overlap:</strong> Jeju, Busan — Top 3 for both domestic and international travelers
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>Data Sources:</strong> KTO (한국관광공사) · Nonghyup Bank Card Data 2023–2025 · Statista · Korea Culture &amp; Tourism Institute</p>
+  <p>Last updated: May 2026 · Built for Airbnb APAC team reference</p>
+</footer>
+
+<script data-goatcounter="https://ibread.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
