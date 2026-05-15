@@ -122,6 +122,8 @@ footer { max-width: var(--max-w); margin: 0 auto; padding: 40px 20px; border-top
 
 /* Region maps */
 .region-map { height: 300px; border-radius: 12px; overflow: hidden; margin-bottom: 20px; border: 1px solid var(--border); z-index: 1; }
+.marker-label { background: rgba(255,255,255,.92); border: 1px solid #d0d0d0; border-radius: 6px; padding: 2px 8px; font-size: .72rem; font-weight: 600; box-shadow: 0 1px 4px rgba(0,0,0,.1); white-space: nowrap; color: #333; }
+.leaflet-tooltip-top:before { border-top-color: rgba(255,255,255,.92); }
 
 /* Video attribution */
 .video-attr { font-size: .75rem; color: var(--muted); margin-top: 4px; }
@@ -179,9 +181,7 @@ footer { max-width: var(--max-w); margin: 0 auto; padding: 40px 20px; border-top
 <section id="map">
   <h2>Korea Overview Map</h2>
   <p class="subtitle">Major provinces and metropolitan areas at a glance</p>
-  <div class="map-wrap">
-    <img src="https://plus.unsplash.com/premium_photo-1661936414165-3039a8d906f9?w=800" alt="Seoul Skyline with N Seoul Tower" style="max-width:600px;">
-  </div>
+  <div id="map-overview" style="height:500px;border-radius:12px;overflow:hidden;margin-bottom:12px;"></div>
   <div class="grid3" style="margin-top:28px;">
     <div class="card" style="text-align:center;padding:16px;"><strong>서울</strong><br>Seoul / 首尔</div>
     <div class="card" style="text-align:center;padding:16px;"><strong>부산</strong><br>Busan / 釜山</div>
@@ -772,9 +772,34 @@ function initMaps() {
       maxZoom: 18
     }).addTo(map);
     markers.forEach(function(p) {
-      L.marker(p[0]).addTo(map).bindPopup('<strong>' + p[1] + '</strong>');
+      L.marker(p[0]).addTo(map).bindTooltip(p[1], {permanent: true, direction: 'top', className: 'marker-label'}).bindPopup('<strong>' + p[1] + '</strong>');
     });
   }
+  // Overview map with all major destinations
+  var overview = L.map('map-overview', {scrollWheelZoom: false}).setView([36.0, 127.5], 7);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap', maxZoom: 18
+  }).addTo(overview);
+  var majors = [
+    [[37.5665, 126.9780], '首尔 Seoul 서울'],
+    [[35.1796, 129.0756], '釜山 Busan 부산'],
+    [[33.3617, 126.5292], '济州 Jeju 제주'],
+    [[37.8813, 127.7300], '江原 Gangwon 강원'],
+    [[35.8562, 129.2247], '庆州 Gyeongju 경주'],
+    [[35.8175, 127.1530], '全州 Jeonju 전주'],
+    [[36.3504, 127.3845], '大田 Daejeon 대전'],
+    [[37.2851, 127.0104], '水原 Suwon 수원'],
+    [[37.9564, 126.6774], 'DMZ 비무장지대'],
+    [[37.4563, 126.7052], '仁川 Incheon 인천'],
+    [[36.9845, 128.3653], '丹阳 Danyang 단양'],
+    [[34.7604, 127.6622], '丽水 Yeosu 여수'],
+    [[38.1197, 128.4656], '雪岳山 Seoraksan 설악산'],
+    [[35.8714, 128.6014], '大邱 Daegu 대구']
+  ];
+  majors.forEach(function(p) {
+    L.marker(p[0]).addTo(overview).bindTooltip(p[1], {permanent: true, direction: 'top', className: 'marker-label'}).bindPopup('<strong>' + p[1] + '</strong>');
+  });
+
   m('map-seoul', [37.5665, 126.9780], 12, [
     [[37.5796, 126.9770], '景福宫 Gyeongbokgung'],
     [[37.5636, 126.9869], '明洞 Myeongdong'],
