@@ -124,6 +124,11 @@ footer { max-width: var(--max-w); margin: 0 auto; padding: 40px 20px; border-top
 .region-map { height: 300px; border-radius: 12px; overflow: hidden; margin-bottom: 20px; border: 1px solid var(--border); z-index: 1; }
 .marker-label { background: rgba(255,255,255,.92); border: 1px solid #d0d0d0; border-radius: 6px; padding: 2px 8px; font-size: .72rem; font-weight: 600; box-shadow: 0 1px 4px rgba(0,0,0,.1); white-space: nowrap; color: #333; }
 .leaflet-tooltip-top:before { border-top-color: rgba(255,255,255,.92); }
+.ov-icon { position: relative; }
+.ov-dot { width: 12px; height: 12px; background: var(--accent); border: 2px solid #fff; border-radius: 50%; box-shadow: 0 1px 4px rgba(0,0,0,.25); position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); }
+.ov-label { position: absolute; white-space: nowrap; font-size: .7rem; font-weight: 700; color: #1d1d1f; text-shadow: 1px 1px 2px #fff, -1px -1px 2px #fff, 1px -1px 2px #fff, -1px 1px 2px #fff; pointer-events: none; }
+.region-dot { transition: transform .2s; }
+.region-dot:hover { transform: scale(1.3); }
 
 /* Video attribution */
 .video-attr { font-size: .75rem; color: var(--muted); margin-top: 4px; }
@@ -765,6 +770,7 @@ footer { max-width: var(--max-w); margin: 0 auto; padding: 40px 20px; border-top
 <script>
 // Leaflet maps for each region
 function initMaps() {
+  // Region maps: colored circle markers + hover tooltip
   function m(id, center, zoom, markers) {
     var map = L.map(id, {scrollWheelZoom: false}).setView(center, zoom);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -772,32 +778,44 @@ function initMaps() {
       maxZoom: 18
     }).addTo(map);
     markers.forEach(function(p) {
-      L.marker(p[0]).addTo(map).bindTooltip(p[1], {permanent: true, direction: 'top', className: 'marker-label'}).bindPopup('<strong>' + p[1] + '</strong>');
+      L.circleMarker(p[0], {
+        radius: 7, fillColor: '#0071e3', fillOpacity: .9,
+        color: '#fff', weight: 2, className: 'region-dot'
+      }).addTo(map)
+        .bindTooltip(p[1], {direction: 'top', className: 'marker-label', offset: [0, -8]})
+        .bindPopup('<strong>' + p[1] + '</strong>');
     });
   }
-  // Overview map with all major destinations
+
+  // Overview map: custom DivIcon with dot + positioned label
   var overview = L.map('map-overview', {scrollWheelZoom: false}).setView([36.0, 127.5], 7);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap', maxZoom: 18
   }).addTo(overview);
+  // [coords, shortLabel, labelOffsetX, labelOffsetY] — offsets hand-tuned to avoid overlap
   var majors = [
-    [[37.5665, 126.9780], '首尔 Seoul 서울'],
-    [[35.1796, 129.0756], '釜山 Busan 부산'],
-    [[33.3617, 126.5292], '济州 Jeju 제주'],
-    [[37.8813, 127.7300], '江原 Gangwon 강원'],
-    [[35.8562, 129.2247], '庆州 Gyeongju 경주'],
-    [[35.8175, 127.1530], '全州 Jeonju 전주'],
-    [[36.3504, 127.3845], '大田 Daejeon 대전'],
-    [[37.2851, 127.0104], '水原 Suwon 수원'],
-    [[37.9564, 126.6774], 'DMZ 비무장지대'],
-    [[37.4563, 126.7052], '仁川 Incheon 인천'],
-    [[36.9845, 128.3653], '丹阳 Danyang 단양'],
-    [[34.7604, 127.6622], '丽水 Yeosu 여수'],
-    [[38.1197, 128.4656], '雪岳山 Seoraksan 설악산'],
-    [[35.8714, 128.6014], '大邱 Daegu 대구']
+    [[37.5665, 126.9780], 'Seoul 首尔', 10, -6],
+    [[35.1796, 129.0756], 'Busan 釜山', 10, -6],
+    [[33.3617, 126.5292], 'Jeju 济州', -40, 12],
+    [[37.8813, 127.7300], 'Gangwon 江原', 10, -6],
+    [[35.8562, 129.2247], 'Gyeongju 庆州', 10, 4],
+    [[35.8175, 127.1530], 'Jeonju 全州', -65, -4],
+    [[36.3504, 127.3845], 'Daejeon 大田', -72, -4],
+    [[37.2851, 127.0104], 'Suwon 水原', 10, 6],
+    [[37.9564, 126.6774], 'DMZ', -32, -14],
+    [[37.4563, 126.7052], 'Incheon 仁川', -72, 2],
+    [[36.9845, 128.3653], 'Danyang 丹阳', 10, -6],
+    [[34.7604, 127.6622], 'Yeosu 丽水', -55, 10],
+    [[38.1197, 128.4656], 'Seoraksan 雪岳山', 10, -6],
+    [[35.8714, 128.6014], 'Daegu 大邱', -65, 6]
   ];
   majors.forEach(function(p) {
-    L.marker(p[0]).addTo(overview).bindTooltip(p[1], {permanent: true, direction: 'top', className: 'marker-label'}).bindPopup('<strong>' + p[1] + '</strong>');
+    var icon = L.divIcon({
+      className: 'ov-icon',
+      iconSize: [0, 0],
+      html: '<div class="ov-dot"></div><div class="ov-label" style="left:' + p[2] + 'px;top:' + p[3] + 'px">' + p[1] + '</div>'
+    });
+    L.marker(p[0], {icon: icon}).addTo(overview);
   });
 
   m('map-seoul', [37.5665, 126.9780], 12, [
