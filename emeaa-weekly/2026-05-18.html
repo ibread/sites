@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1a1a2e">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+  <title>🌍 EMEAA Travel Weekly — May 12–18, 2026</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 52px; }
+    body { font-family: 'Source Serif 4', Georgia, serif; font-size: 15px; line-height: 1.5; background: #fafbfc; color: #1a1a2e; -webkit-font-smoothing: antialiased; }
+    .container { max-width: 720px; margin: 0 auto; padding: 0 20px 20px 20px; }
+    header { background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%); color: #fff; padding: 28px 20px; margin: 0 -20px 24px -20px; box-shadow: 0 4px 12px rgba(26, 26, 46, 0.15); position: relative; overflow: hidden; }
+    header h1 { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
+    header .dates { font-size: 14px; opacity: 0.85; }
+    header .back-link { position: absolute; top: 12px; right: 20px; color: rgba(255,255,255,0.7); text-decoration: none; font-size: 13px; }
+    header .back-link:hover { color: #fff; }
+    .page-nav { position: sticky; top: 0; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 8px 0; margin-bottom: 14px; border-bottom: 1px solid #e9ecef; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow-x: auto; white-space: nowrap; z-index: 100; }
+    .page-nav a { display: inline-block; padding: 6px 14px; margin: 0 3px; font-size: 13px; font-weight: 500; color: #6c757d; text-decoration: none; border-radius: 20px; transition: all 0.2s ease; }
+    .page-nav a:hover { background: #f1f3f5; color: #1a1a2e; }
+    .page-nav a.active { background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%); color: #fff; }
+    .section { margin-bottom: 16px; background: #ffffff; border-radius: 12px; padding: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.04); }
+    .section-header { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 20px; font-weight: 700; padding: 6px 0 6px 14px; margin-bottom: 10px; border-left: 4px solid; }
+    .section-header.signals { border-color: #e74c3c; background: linear-gradient(90deg, rgba(231,76,60,0.04) 0%, transparent 100%); }
+    .section-header.implications { border-color: #27ae60; background: linear-gradient(90deg, rgba(39,174,96,0.04) 0%, transparent 100%); }
+    .section-header.competitor { border-color: #9b59b6; background: linear-gradient(90deg, rgba(155,89,182,0.04) 0%, transparent 100%); }
+    .section-header.uk { border-color: #1a3a5c; background: linear-gradient(90deg, rgba(26,58,92,0.04) 0%, transparent 100%); }
+    .section-header.france { border-color: #002395; background: linear-gradient(90deg, rgba(0,35,149,0.04) 0%, transparent 100%); }
+    .section-header.spain { border-color: #c60b1e; background: linear-gradient(90deg, rgba(198,11,30,0.04) 0%, transparent 100%); }
+    .section-header.germany { border-color: #000000; background: linear-gradient(90deg, rgba(0,0,0,0.04) 0%, transparent 100%); }
+    .section-header.italy { border-color: #008C45; background: linear-gradient(90deg, rgba(0,140,69,0.04) 0%, transparent 100%); }
+    .section-header.australia { border-color: #00843D; background: linear-gradient(90deg, rgba(0,132,61,0.04) 0%, transparent 100%); }
+    .section-header.holidays { border-color: #f39c12; background: linear-gradient(90deg, rgba(243,156,18,0.04) 0%, transparent 100%); }
+    .section-header.sources { border-color: #6c757d; background: linear-gradient(90deg, rgba(108,117,125,0.04) 0%, transparent 100%); }
+    .key-numbers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+    .kpi-tile { background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%); border-radius: 10px; padding: 16px 12px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.04); }
+    .kpi-tile .big-number { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 36px; font-weight: 700; line-height: 1.1; margin-bottom: 4px; }
+    .kpi-tile .big-number.warm { color: #e07a5f; }
+    .kpi-tile .big-number.cool { color: #457b9d; }
+    .kpi-tile .big-number.red { color: #e63946; }
+    .kpi-tile .big-number.green { color: #2d936c; }
+    .kpi-tile .label { font-size: 12px; color: #6c757d; font-weight: 500; }
+    .market-summary { font-size: 15px; font-weight: 500; padding: 14px; margin-bottom: 12px; background: #f0f2f5; color: #1a1a2e; border-radius: 10px; border-left: 4px solid; }
+    .market-summary p { margin: 4px 0; line-height: 1.5; }
+    .market-summary.uk { border-color: #1a3a5c; }
+    .market-summary.france { border-color: #002395; }
+    .market-summary.spain { border-color: #c60b1e; }
+    .market-summary.germany { border-color: #000000; }
+    .market-summary.italy { border-color: #008C45; }
+    .market-summary.australia { border-color: #00843D; }
+    .news-item { padding: 6px 0; border-bottom: 1px solid #f1f3f5; font-size: 14px; color: #2d3436; line-height: 1.5; }
+    .news-item:last-child { border-bottom: none; }
+    .news-item strong { font-weight: 600; color: #1a1a2e; font-size: 15px; }
+    .news-item .stat { font-weight: 600; font-size: 14px; }
+    .stat.up { color: #2d936c; }
+    .stat.down { color: #dc3545; }
+    .stat.neutral { color: #e07a5f; }
+    .news-item a { color: #6c757d; text-decoration: none; font-size: 12px; margin-left: 4px; }
+    .news-item a:hover { color: #1a1a2e; text-decoration: underline; }
+    .key-signals .news-item { padding: 12px 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #f1f3f5; }
+    th { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); font-weight: 600; color: #495057; font-size: 12px; }
+    footer { margin-top: 32px; padding-top: 20px; border-top: 1px solid #e9ecef; font-size: 12px; color: #adb5bd; text-align: center; }
+    ul { list-style: none; }
+    .cal-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 8px; }
+    .cal-month-title { font-weight: 700; font-size: 14px; color: #1a1a2e; margin-bottom: 6px; text-align: center; }
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; font-size: 12px; text-align: center; }
+    .cal-header { font-weight: 600; color: #6c757d; padding: 4px; }
+    .cal-day { padding: 6px 2px; border-radius: 4px; min-height: 32px; position: relative; }
+    .cal-day.empty { background: transparent; }
+    .cal-day.holiday-uk { background: #e3edf7; }
+    .cal-day.holiday-fr { background: #e3e8f7; }
+    .cal-day.holiday-es { background: #fce4e6; }
+    .cal-day.holiday-de { background: #f0f0f0; }
+    .cal-day.holiday-it { background: #e0f2e9; }
+    .cal-day.holiday-au { background: #e0f2e5; }
+    .cal-day.holiday-multi { background: linear-gradient(135deg, #e3edf7 33%, #e3e8f7 33%, #e3e8f7 66%, #f0f0f0 66%); }
+    .cal-day.today { border: 2px solid #1a1a2e; font-weight: 700; }
+    .cal-day .flag { font-size: 9px; display: block; line-height: 1.1; }
+    .cal-legend { margin-top: 12px; font-size: 12px; line-height: 1.9; color: #495057; background: #f8f9fa; border-radius: 8px; padding: 10px 12px; }
+    @media (max-width: 600px) { .cal-wrapper { grid-template-columns: 1fr; } .key-numbers { grid-template-columns: repeat(2, 1fr); } }
+    .section { opacity: 0; transform: translateY(12px); animation: fadeUp 0.4s ease forwards; }
+    .section:nth-child(1) { animation-delay: 0.05s; }
+    .section:nth-child(2) { animation-delay: 0.1s; }
+    .section:nth-child(3) { animation-delay: 0.15s; }
+    .section:nth-child(4) { animation-delay: 0.2s; }
+    .section:nth-child(5) { animation-delay: 0.25s; }
+    .section:nth-child(6) { animation-delay: 0.3s; }
+    .section:nth-child(7) { animation-delay: 0.35s; }
+    .section:nth-child(8) { animation-delay: 0.4s; }
+    .section:nth-child(9) { animation-delay: 0.45s; }
+    .section:nth-child(10) { animation-delay: 0.5s; }
+    .section:nth-child(11) { animation-delay: 0.55s; }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a href="../emeaa-weekly/" class="back-link">← All Issues</a>
+      <h1>🌍 EMEAA Travel Weekly</h1>
+      <div class="dates">May 12 – May 18, 2026</div>
+    </header>
+
+    <div style="background: linear-gradient(135deg, #f0f4f8 0%, #e8eef5 100%); border-radius: 12px; padding: 14px 18px; margin-bottom: 16px; display: flex; align-items: center; gap: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.06);">
+      <span style="font-size: 22px;">🎙️</span>
+      <div style="flex: 1;">
+        <div style="font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; color: #1a1a2e; margin-bottom: 6px;">Listen to this issue</div>
+        <audio controls preload="none" style="width: 100%; height: 36px;">
+          <source src="https://github.com/ibread/sites/releases/download/audio-assets/emeaa-weekly-2026-05-18.mp3" type="audio/mpeg">
+        </audio>
+      </div>
+    </div>
+
+    <nav class="page-nav">
+      <a href="#signals">Key Signals</a>
+      <a href="#implications">Airbnb</a>
+      <a href="#competitors">Competitors</a>
+      <a href="#uk">UK</a>
+      <a href="#france">France</a>
+      <a href="#spain">Spain</a>
+      <a href="#germany">Germany</a>
+      <a href="#italy">Italy</a>
+      <a href="#australia">Australia</a>
+      <a href="#holidays">Holidays</a>
+      <a href="#sources">Sources</a>
+    </nav>
+
+    <!-- KEY SIGNALS -->
+    <div class="section key-signals" id="signals">
+      <div class="section-header signals">🔥 KEY SIGNALS THIS WEEK</div>
+
+      <div class="key-numbers">
+        <div class="kpi-tile">
+          <div class="big-number red">−82%</div>
+          <div class="label">ME jet fuel to Europe Apr<br>(330K→60K bbl/day)</div>
+        </div>
+        <div class="kpi-tile">
+          <div class="big-number red">−35%</div>
+          <div class="label">German visitors to USA Apr<br>(~126K vs 193K YoY)</div>
+        </div>
+        <div class="kpi-tile">
+          <div class="big-number green">+55%</div>
+          <div class="label">China arrivals to Spain YoY<br>(2× pre-pandemic levels)</div>
+        </div>
+        <div class="kpi-tile">
+          <div class="big-number red">−10%</div>
+          <div class="label">TUI UK summer bookings YoY<br>(45% still unbooked)</div>
+        </div>
+      </div>
+
+      <div class="news-item">1. <strong>Kerosene crisis deepens — Middle East jet fuel to Europe crashes 82%</strong> — IEA data shows imports collapsed from 330K to 60K barrels/day in April due to Hormuz Strait blockade. ARA fuel stocks at <span class="stat down">lowest since April 2020</span>, down 28% YoY. No shortage yet but safety margin narrowing fast. Airlines still absorbing costs but surcharge timeline now "when, not if." <a href="https://www.hosteltur.com/176222_crisis-de-queroseno-5-indicios-que-evidencian-el-deterioro-en-la-llegada-de-combustible-aereo-a-europa.html" target="_blank">Hosteltur</a></div>
+
+      <div class="news-item">2. <strong>TUI H1: losses cut €45M but UK summer bookings down 10% — last-minute surge dominates</strong> — Package holidays called "gold standard in turbulent times." 45% of holiday intenders still unbooked for summer. Eastern Mediterranean out, Western Mediterranean in. App sales <span class="stat up">+20% YoY</span>. Cruise segment earnings up 25.9%. New loyalty program "TUI Smiles Rewards Club" launching across Europe. <a href="https://travelweekly.co.uk/news/package-holidays-are-gold-standard-in-turbulent-times-despite-shift-in-booking-behaviour-tui-insists" target="_blank">Travel Weekly UK</a></div>
+
+      <div class="news-item">3. <strong>German outbound collapses: US visitors −35%, agency tourism revenue −21% in April</strong> — Only ~126K Germans entered the US in April (vs 193K YoY). Counter tourism revenues down 21.3% in the segment. Consumer booking hesitancy linked to geopolitics, fuel costs, and macro uncertainty. YTD still barely positive at +0.4%. <a href="https://www.fvw.de/touristik/destination/us-einreisestatistik-kein-aprilscherz--ein-drittel-weniger-deutsche-usa-reisende-261265" target="_blank">fvw|TravelTalk</a></div>
+
+      <div class="news-item">4. <strong>Italy: 70% choosing domestic, 50% undecided on summer — "information terrorism" blamed</strong> — Tour operators warn media scaremongering worse than pandemic impact. Security now #1 criterion (55.8%). ME bookings <span class="stat down">down 80%+</span>, North Africa −66%. Italy itself and Spain benefiting as "refuge destinations." Free cancellation (67%) now a critical booking trigger. <a href="https://www.travelquotidiano.com/tour_operator/lallarme-dei-t-o-stiamo-subendo-gli-effetti-di-una-cattiva-informazione/tqid-514198" target="_blank">Travel Quotidiano</a></div>
+
+      <div class="news-item">5. <strong>CMA enforcement crackdown: UK travel firms face action on transparent pricing</strong> — 19 travel firms received advisory letters; AA fined <span class="stat down">£4.2M (~$5.4M)</span> for hidden booking fees. Mandatory all-in pricing now enforced under DMCC Act. Resort fees and mandatory charges must appear in headline prices. Direct implication for STR platform pricing display. <a href="https://travelweekly.co.uk/news/cma-starts-to-enforce-rules-in-pricing-crackdown" target="_blank">Travel Weekly UK</a></div>
+
+      <div class="news-item">6. <strong>Barcelona doubles cruise tax to €8/day, aims to eliminate transit cruises by 2027</strong> — Terminals cut from 7 to 5. 3.9M passengers and 832 calls in 2025 was a record — now the city is actively shrinking capacity. Basque Country also approved new tourist tax with higher rates for VUTs. Spain's patchwork of regional STR regulations expanding. <a href="https://www.hosteltur.com/176197_golpe-de-barcelona-a-las-escalas-de-los-cruceros-via-tasa-turistica.html" target="_blank">Hosteltur</a></div>
+
+      <div class="news-item">7. <strong>Expedia shuts Ebookers (Sep 2) and nears $350M CarTrawler acquisition</strong> — OTA consolidation accelerating. Ebookers closure affects Germany and Switzerland. CarTrawler deal brings B2B partnerships with Lufthansa-group carriers. Meanwhile, Tourism Australia launches AI-powered "Skye" bookable itineraries on Escape.com.au — NTOs going direct-to-consumer. <a href="https://www.fvw.de/touristik/vertrieb/aus-fuer-traditions-ota-exklusiv-expedia-zieht-bei-ebookers-den-stecker-261262" target="_blank">fvw|TravelTalk</a> | <a href="https://skift.com/2026/05/17/expedia-350-million-cartrawler-acquisition-scoop/" target="_blank">Skift</a></div>
+    </div>
+
+    <!-- AIRBNB IMPLICATIONS -->
+    <div class="section" id="implications">
+      <div class="section-header implications">💡 AIRBNB EMEAA IMPLICATIONS</div>
+
+      <div class="news-item">1. <strong>Last-minute booking surge = dynamic pricing opportunity</strong> — TUI reports 45% of UK summer intenders unbooked; Italian TOs say 50% undecided. This late-booking wave favors platforms with real-time inventory and flexible cancellation. Airbnb should promote "Book Tonight" and last-minute deals prominently in UK, France, and Italy where hesitancy is highest.</div>
+
+      <div class="news-item">2. <strong>CMA transparent pricing enforcement — get ahead of compliance</strong> — UK now actively fining platforms for hidden fees. Airbnb's all-in pricing rollout positions it well vs competitors still showing base rates. Use this as a marketing differentiator: "What you see is what you pay." Proactively audit EU markets where Package Travel Directive transposition is imminent (Germany by March 2029).</div>
+
+      <div class="news-item">3. <strong>Italy 2-property cap creates supply squeeze and professionalization</strong> — New Italian law caps private STR operators at 2 properties. Hosts with 3+ must register as businesses. This reduces casual multi-property supply while pushing remaining hosts toward professional management — an opportunity for Airbnb's host tools and co-hosting marketplace.</div>
+
+      <div class="news-item">4. <strong>Barcelona + Basque Country tax escalation — pricing transparency imperative</strong> — Cruise tax doubling and new VUT-specific taxes signal that Spain is deliberately making STRs more expensive than hotels. Airbnb must ensure guest-facing pricing accurately reflects these taxes to avoid post-booking surprise complaints that damage trust.</div>
+
+      <div class="news-item">5. <strong>"Coolcation" trend + domestic shift = rural inventory gold</strong> — 37% of French travelers chose cooler destinations; 70% of Italians staying domestic; 71% of young Spaniards Spain-only. Massive addressable market for rural, mountain, and northern coastal inventory. Accelerate supply acquisition in Asturias, Auvergne, Trentino, Scottish Highlands.</div>
+
+      <div class="news-item">6. <strong>Fuel crisis makes accommodation the controllable cost lever</strong> — As jet fuel issues push airfares higher, consumers will trade down on flights (LCCs) but maintain accommodation quality expectations. Airbnb's value proposition vs hotels strengthens: "Save on stays, fly further." Position against the kerosene surcharge narrative.</div>
+
+      <div class="news-item">7. <strong>Expedia's Ebookers shutdown + CarTrawler deal reshuffles European OTA landscape</strong> — Traffic from Ebookers (Germany, Switzerland) will redistribute. Airbnb should target displaced Ebookers users via SEM and retargeting in DACH markets. CarTrawler acquisition signals Expedia building an end-to-end B2B stack — monitor for airline partnership bundling that could compete with Airbnb's experiences expansion.</div>
+    </div>
+
+    <!-- COMPETITOR WATCH -->
+    <div class="section" id="competitors">
+      <div class="section-header competitor">🏢 COMPETITOR & PLATFORM WATCH</div>
+
+      <div class="news-item">• <strong>TUI launches "Smiles Rewards Club" loyalty program across Europe</strong> — Piloted in Scandinavia, Germany and UK rollout imminent. Competes with airline loyalty programs (Miles & More, Avios). TUI pushing full-stack travel platform with recurring relationships. App sales already +20% YoY. <a href="https://www.fvw.de/touristik/veranstalter/treue-soll-sich-lohnen-tui-fuehrt-kundenbindungs-programm-ein-261210" target="_blank">fvw|TravelTalk</a></div>
+
+      <div class="news-item">• <strong>Expedia shuts Ebookers (Sep 2, 2026) — consolidates OTA portfolio</strong> — Affects Germany and Switzerland. Existing bookings honored. Traffic likely redistributes to Expedia.de and Booking.com. Signals ongoing OTA brand rationalization in Europe. <a href="https://www.fvw.de/touristik/vertrieb/aus-fuer-traditions-ota-exklusiv-expedia-zieht-bei-ebookers-den-stecker-261262" target="_blank">fvw|TravelTalk</a></div>
+
+      <div class="news-item">• <strong>Expedia in $350M talks to acquire CarTrawler — B2B scale-up</strong> — Irish travel tech company has partnerships with Lufthansa-group carriers and European airlines. Following recent Tiqets acquisition ($279M). Expedia aggressively building a B2B distribution empire. <a href="https://skift.com/2026/05/17/expedia-350-million-cartrawler-acquisition-scoop/" target="_blank">Skift</a></div>
+
+      <div class="news-item">• <strong>Tourism Australia launches "Skye" AI bookable itineraries — NTO goes D2C</strong> — Consumer-facing platform on Escape.com.au offering AI-powered bookable trips. Potentially disruptive to OTAs and travel advisors in the AU market. Signals government tourism bodies becoming competitors, not just demand generators. <a href="https://travelweekly.com.au/news-australia-launches-consumer-facing-skye-bookable-itineraries-on-escape-com-au/" target="_blank">Travel Weekly AU</a></div>
+
+      <div class="news-item">• <strong>Italy AGCM probes Booking.com for search-ranking manipulation</strong> — Antitrust investigation alleges Booking boosts properties paying higher commissions in search results. Could result in algorithm transparency obligations and fines. Follows pan-European 15,000-hotel class action. <a href="https://www.visahq.com/news/2026-04-27/it/italys-competition-authority-probes-bookingcom-for-alleged-search-ranking-manipulation/" target="_blank">VisaHQ / AGCM</a></div>
+
+      <div class="news-item">• <strong>Travel Counsellors AI Co-Pilot hits 70% adoption, 90% satisfaction</strong> — UK's largest homeworking agency on track for record year (+8% YoY). Forward bookings into 2027 up 27%. Won King's Enterprise Award for Innovation. AI-powered advisory proving commercially viable at scale. <a href="https://travelweekly.co.uk/news/travel-counsellors-on-track-for-a-record-year-despite-middle-east-conflict" target="_blank">Travel Weekly UK</a></div>
+
+      <div class="news-item">• <strong>Lufthansa takes 90% of ITA Airways — Star Alliance integration complete</strong> — ITA now contributing 350+ daily flights through Rome and Milan. Strategy focused on domestic/business core + long-haul feeding Lufthansa hubs. Air China launching Venice-Beijing direct (4x weekly from July 2). <a href="https://www.ttgitalia.com/compagnie-aeree/lufthansa-sale-al-90-di-ita-mantenuta-la-promessa-CD26079957" target="_blank">TTG Italia</a></div>
+
+      <div class="news-item">• <strong>eDreams ODIGEO sued in Portugal over "deceptive" Prime subscription</strong> — Consumer group challenges subscription model transparency. Part of broader European regulatory scrutiny of OTA subscription/loyalty schemes (TUI Smiles, Booking Genius, eDreams Prime). <a href="https://www.preferente.com/noticias-de-agencias-de-viajes/denuncian-a-edreams-por-practicas-enganosas-y-agresivas-con-prime-349758.html" target="_blank">Preferente</a></div>
+    </div>
+
+    <!-- UK -->
+    <div class="section" id="uk">
+      <div class="section-header uk">🇬🇧 UNITED KINGDOM</div>
+      <div class="market-summary uk">
+        <p>• <strong>TUI UK summer bookings down 10% YoY — but last-minute demand "extremely strong"</strong> — 45% of intenders unbooked. Eastern Med losing to Western Med (Spain, Greece). CEO tips Turkey/Cyprus for late deals. <a style="color:#999;font-size:12px" href="https://travelweekly.co.uk/news/package-holidays-are-gold-standard-in-turbulent-times-despite-shift-in-booking-behaviour-tui-insists">Travel Weekly UK</a></p>
+        <p>• <strong>CMA actively enforcing transparent pricing — AA fined £4.2M (~$5.4M), 19 travel firms on notice</strong> — Hidden fees and mandatory charges must appear in headline prices under DMCC Act. <a style="color:#999;font-size:12px" href="https://travelweekly.co.uk/news/cma-starts-to-enforce-rules-in-pricing-crackdown">Travel Weekly UK</a></p>
+        <p>• <strong>UK booking window shrinks from 7 months to 16 weeks — cost-of-living now top concern</strong> — Hays Travel warns economic uncertainty outpacing security fears. Cruise and touring holidays resilient. <a style="color:#999;font-size:12px" href="https://travelweekly.co.uk/news/hays-travel-owner-calls-for-economic-certainty-as-booking-window-narrows">Travel Weekly UK</a></p>
+      </div>
+
+      <div class="news-item">• <strong>TUI UK summer: −10% booked but last-minute "extremely strong"</strong> — CEO Sebastian Ebel tips eastern Med for great late deals as western Med already sold. <span class="stat down">4% capacity cut</span> reflects geopolitical caution. TUI app sales up 20% YoY (11.4% of Q2 revenue). Cruise segment earnings +25.9% to €163.5M (~$177M). <a href="https://travelweekly.co.uk/news/tui-chief-tips-eastern-mediterranean-for-great-lates-offers" target="_blank">Travel Weekly UK</a></div>
+
+      <div class="news-item">• <strong>CMA pricing crackdown enters enforcement phase</strong> — £4.2M (~$5.4M) fine on the AA for excluding £3 mandatory booking fee. <span class="stat down">~100 advisory letters sent</span> including 19 travel firms. Resort fees must appear in total. Non-compliance now an "aggravating factor" increasing penalties. <a href="https://travelweekly.co.uk/news/cma-starts-to-enforce-rules-in-pricing-crackdown" target="_blank">Travel Weekly UK</a></div>
+
+      <div class="news-item">• <strong>UK cruise sector: 3rd largest global source market, £6.3B (~$8.1B) economic contribution</strong> — Tourism Minister reaffirmed government support at CLIA summit. 69,000 jobs supported. Wizz Air resuming Tel Aviv flights week of May 18, signalling Middle East air corridor confidence returning. <a href="https://travelweekly.co.uk/news/tourism-minister-calls-for-uk-cruise-growth-as-clia-hosts-summit" target="_blank">Travel Weekly UK</a></div>
+    </div>
+
+    <!-- FRANCE -->
+    <div class="section" id="france">
+      <div class="section-header france">🇫🇷 FRANCE</div>
+      <div class="market-summary france">
+        <p>• <strong>90% of French travelers now consider security essential — 37% choosing cooler "coolcation" destinations</strong> — Italy #1 planned destination; Japan, Vietnam, Iceland rising. Turkey falling. 30% plan to increase travel budget despite costs. <a style="color:#999;font-size:12px" href="https://www.tourmag.com/Securite-budget-et-climat-redessinent-les-choix-de-voyage-des-Francais-cet-ete_a131764.html">TourMag</a></p>
+        <p>• <strong>Short stays now majority booking type in French outdoor hospitality</strong> — Camping/glamping shifting from 2-week stays to flexible short breaks. TUI also sees strong last-minute surge in France. <a style="color:#999;font-size:12px" href="https://www.tourmag.com/Hotellerie-de-plein-air-les-courts-sejours-deviennent-majoritaires-selon-ZEcamping_a131724.html">TourMag</a></p>
+        <p>• <strong>~50% of young French people saving specifically to travel — demand resilient despite cost pressures</strong> — Travel remains top discretionary spending priority for French youth. <a style="color:#999;font-size:12px" href="https://www.lechotouristique.com/article/pres-dun-jeune-sur-deux-epargne-pour-voyager">L'Echo Touristique</a></p>
+      </div>
+
+      <div class="news-item">• <strong>Security reshapes French summer: 90% now require political stability</strong> — Polarsteps study: 7.5% cancelled trips, 11% changed destination due to geopolitics. <span class="stat up">37% chose cooler destinations</span> (coolcation trend). Japan, Vietnam, Iceland, Malaysia, Korea gaining as Turkey falls. 30% increasing travel budgets. <a href="https://www.tourmag.com/Securite-budget-et-climat-redessinent-les-choix-de-voyage-des-Francais-cet-ete_a131764.html" target="_blank">TourMag</a></div>
+
+      <div class="news-item">• <strong>Hantavirus fears managed — minister says "travel as you wish"</strong> — Tourism Minister Philippe Tabarot issued reassurance amid 6-country outbreak. One French passenger repatriated positive. Government actively preventing booking panic. French bee pilot strike (May 13–18) disrupting Reunion/Polynesia connections. <a href="https://www.tourmag.com/Hantavirus-les-Francais-peuvent-voyager-comme-ils-le-souhaitent-selon-Philippe-Tabarot_a131768.html" target="_blank">TourMag</a></div>
+
+      <div class="news-item">• <strong>Government enters "travel planner vs agency" regulatory debate</strong> — Unregistered influencer-style travel planners operating outside consumer protection. EU Package Travel Directive transposition underway. Tightening of online travel planning regulations expected — potential impact on informal booking channels. <a href="https://www.lechotouristique.com/article/travel-planner-contre-agence-de-voyages-le-gouvernement-entre-dans-le-debat" target="_blank">L'Echo Touristique</a></div>
+    </div>
+
+    <!-- SPAIN -->
+    <div class="section" id="spain">
+      <div class="section-header spain">🇪🇸 SPAIN (España)</div>
+      <div class="market-summary spain">
+        <p>• <strong>Spain inbound +2% but composition shifting: UK +2.5%, China +55.3% (2× pre-pandemic), France −11.7%</strong> — Spain consolidating as "refuge destination" amid geopolitical uncertainty. ETC projects 7.8% Europe-wide growth. <a style="color:#999;font-size:12px" href="https://www.hosteltur.com/176152_espana-resiste-en-europa-por-reino-unido-y-china-pero-cae-en-francia-y-paises-bajos.html">Hosteltur</a></p>
+        <p>• <strong>Barcelona doubles cruise tax to €8/day, cutting terminals 7→5 — transit cruises to zero by 2027</strong> — Basque Country also approves new tourist tax with higher VUT rates. Spain's regulatory patchwork expanding. <a style="color:#999;font-size:12px" href="https://www.hosteltur.com/176197_golpe-de-barcelona-a-las-escalas-de-los-cruceros-via-tasa-turistica.html">Hosteltur</a></p>
+        <p>• <strong>Kerosene crisis: Middle East fuel to Europe −82% in April — ARA stocks at 2020 lows</strong> — EU confirms new international aviation emission taxes. Ryanair estimates +38% cost on short-haul non-EU routes. Hotel transactions pausing as capital turns "prudent." <a style="color:#999;font-size:12px" href="https://www.hosteltur.com/176222_crisis-de-queroseno-5-indicios-que-evidencian-el-deterioro-en-la-llegada-de-combustible-aereo-a-europa.html">Hosteltur</a></p>
+      </div>
+
+      <div class="news-item">• <strong>China arrivals surge +55.3% — composition shift favors premium spend</strong> — UK +2.5%, but France <span class="stat down">−11.7%</span>, Netherlands −5.1%, Germany flat. Canada arrivals −12.7% but nights +17.7% (longer stays). International flight prices <span class="stat down">−19% YoY</span> in April while hotel prices +7%. Supply-demand divergence signals strong accommodation pricing power. <a href="https://www.hosteltur.com/176152_espana-resiste-en-europa-por-reino-unido-y-china-pero-cae-en-francia-y-paises-bajos.html" target="_blank">Hosteltur</a></div>
+
+      <div class="news-item">• <strong>Costa del Sol branded residences: €2.5B (~$2.7B) in 23 active projects</strong> — 1,559 units including first St. Regis in Spain. Average unit 247 sqm at €2.9M (~$3.1M). 600+ deliveries in 2028. EasyJet puts 5M+ seats on sale for spring/summer 2027 — signalling strong forward demand for Spain routes. <a href="https://www.hosteltur.com/176246_branded-residences-en-costa-del-sol-los-proyectos-activos-alcanzan-los-2500-m.html" target="_blank">Hosteltur</a></div>
+
+      <div class="news-item">• <strong>EU confirms aviation emission taxes for international flights</strong> — Ryanair estimates <span class="stat down">+38% cost</span> on UK/Morocco routes; long-haul could rise +256%. British Airways cuts 19 routes. Combined with kerosene crisis, air travel costs are entering a structural upshift that will reshape destination competitiveness. <a href="https://www.preferente.com/rss1/europa-dara-otro-mazazo-fiscal-a-la-aviacion-349767.html" target="_blank">Preferente</a></div>
+    </div>
+
+    <!-- GERMANY -->
+    <div class="section" id="germany">
+      <div class="section-header germany">🇩🇪 GERMANY (Deutschland)</div>
+      <div class="market-summary germany">
+        <p>• <strong>German visitors to USA −34.9% in April — ESTA fees, park fees, and political chill all weighing</strong> — Only ~126K entries vs 193K YoY. Part structural timing, part genuine demand destruction. <a style="color:#999;font-size:12px" href="https://www.fvw.de/touristik/destination/us-einreisestatistik-kein-aprilscherz--ein-drittel-weniger-deutsche-usa-reisende-261265">fvw|TravelTalk</a></p>
+        <p>• <strong>Travel agency counter revenue: tourism segment −21.3% in April, total −4.4%</strong> — YTD Jan–Apr still +0.4%. Consumer booking hesitancy rising sharply. Operators introducing flex options for 2027. <a style="color:#999;font-size:12px" href="https://www.fvw.de/touristik/vertrieb/tats-reisebuero-spiegel-april-umsaetze-am-counter-unter-vorjahr-261255">fvw|TravelTalk</a></p>
+        <p>• <strong>Expedia shuts Ebookers (Sep 2) + nears $350M CarTrawler deal — OTA landscape reshuffling</strong> — German market directly affected. DRV launches government-funded AI training initiative for travel industry. <a style="color:#999;font-size:12px" href="https://www.fvw.de/touristik/vertrieb/aus-fuer-traditions-ota-exklusiv-expedia-zieht-bei-ebookers-den-stecker-261262">fvw|TravelTalk</a></p>
+      </div>
+
+      <div class="news-item">• <strong>US outbound collapses: −34.9% in April</strong> — ESTA fee increases, national park fee hikes, and Germany-US political tensions all contributing. <span class="stat down">Only ~126K Germans entered the USA</span> (vs 193K prior year). fvw notes part is calendar effects but trend is concerning for transatlantic tourism. <a href="https://www.fvw.de/touristik/destination/us-einreisestatistik-kein-aprilscherz--ein-drittel-weniger-deutsche-usa-reisende-261265" target="_blank">fvw|TravelTalk</a></div>
+
+      <div class="news-item">• <strong>Middle East conflict reshaping flows — Europe benefits 8–15%</strong> — Berlin School of Business economist projects Barcelona and similar cities gaining 8–15% revenue from rerouted tourists. Germany both beneficiary (inbound) and victim (outbound disruption). EU Package Travel Directive effective in Germany by March 2029. <a href="https://www.fvw.de/touristik/vertrieb/interview-mit-wirtschaftsexpertin-umsaetze-maerkte--wie-der-nahost-krieg-den-tourismus-neu-ordnet-261252" target="_blank">fvw|TravelTalk</a></div>
+
+      <div class="news-item">• <strong>TUI Smiles Rewards Club + Airbnb "own the trip" strategy intensifies competition</strong> — TUI launching loyalty program in Scandinavia then Germany. Skift analysis: Airbnb and Uber expanding beyond core into full-trip ownership, but "historically difficult." Germany is Airbnb's largest European source market — competitive dynamics particularly significant. <a href="https://www.fvw.de/touristik/veranstalter/treue-soll-sich-lohnen-tui-fuehrt-kundenbindungs-programm-ein-261210" target="_blank">fvw|TravelTalk</a> | <a href="https://skift.com/2026/05/15/airbnb-uber-want-to-own-your-trip/" target="_blank">Skift</a></div>
+    </div>
+
+    <!-- ITALY -->
+    <div class="section" id="italy">
+      <div class="section-header italy">🇮🇹 ITALY (Italia)</div>
+      <div class="market-summary italy">
+        <p>• <strong>70% of Italians choosing domestic this summer — security fears dominate, 77% among youth</strong> — Avg budget €1,896 (~$2,050), below EU average. 17% won't travel at all (+14pp citing economics). Sea (56%), art cities (21%), mountains (16%) as top choices. <a style="color:#999;font-size:12px" href="https://www.travelquotidiano.com/">Travel Quotidiano</a></p>
+        <p>• <strong>Italy's new 2-property STR cap forces professionalization — 3+ requires entrepreneur status + VAT</strong> — No transition period. Combined with AGCM Booking.com probe, regulatory pressure on accommodation platforms intensifying. <a style="color:#999;font-size:12px" href="">Italian law / Guida Viaggi</a></p>
+        <p>• <strong>Air capacity surges +10.6% YoY — Ryanair at 35.5% market share, Lufthansa takes ITA to 90%</strong> — Air China launches Venice-Beijing direct (4×/week from July 2). ITA joins Star Alliance with 350+ daily flights. <a style="color:#999;font-size:12px" href="https://www.routesonline.com/">Routes / TTG Italia</a></p>
+      </div>
+
+      <div class="news-item">• <strong>Consumer paralysis: 50% undecided, TOs blame "information terrorism"</strong> — Massimo Diana (Ota Viaggi): uncertainty, not price, is the barrier. Free cancellation (32%) now second only to price (36%) as booking criterion. <span class="stat down">ME bookings −80%+</span>, North Africa −66%, Turkey −47%. Italy (+41.1%) and Spain (+23.6%) gaining as alternatives. <a href="https://www.travelquotidiano.com/tour_operator/lallarme-dei-t-o-stiamo-subendo-gli-effetti-di-una-cattiva-informazione/tqid-514198" target="_blank">Travel Quotidiano</a></div>
+
+      <div class="news-item">• <strong>TUI H1 improving but Iran war cost €40M (~$43M) — Western Med demand surging</strong> — Q2 loss narrowed to €188M (~$203M) from €206.8M YoY. Spain (Balearics, Canaries) is top summer destination. Last-minute "sotto data" trend confirmed by Astoi president. Revenue management challenge across Italian accommodation. <a href="https://www.travelquotidiano.com/tour_operator/tui-semestrale-in-miglioramento-malgrado-limpatto-della-guerra/tqid-514404" target="_blank">Travel Quotidiano</a></div>
+
+      <div class="news-item">• <strong>Air capacity +10.6%, Ryanair dominates at 35.5% — Venice-Beijing direct from July</strong> — Wizz Air growing fastest (+2.2pp to 9.9% share). ITA Airways at only 3.9M seats vs Alitalia's 6.1M in 2019. Air China A330-220 (267 seats) 4×/week Venice-Beijing from July 2. Minister Mazzi studying tourist tax reform and proposing EU emergency tourism fund. <a href="https://www.travelquotidiano.com/trasporti/air-china-quattro-voli-alla-settimana-sulla-venezia-pechino-con-a330-220/tqid-514220" target="_blank">Travel Quotidiano</a></div>
+    </div>
+
+    <!-- AUSTRALIA -->
+    <div class="section" id="australia">
+      <div class="section-header australia">🇦🇺 AUSTRALIA</div>
+      <div class="market-summary australia">
+        <p>• <strong>Tourism Australia launches "Skye" AI bookable itineraries — NTO goes direct-to-consumer</strong> — Potentially disruptive to OTAs and travel advisors. Marks significant step into AI-powered travel planning. <a style="color:#999;font-size:12px" href="https://travelweekly.com.au/news-australia-launches-consumer-facing-skye-bookable-itineraries-on-escape-com-au/">Travel Weekly AU</a></p>
+        <p>• <strong>AirAsia suspends Melbourne + Adelaide to Bali — fuel costs reducing LCC capacity on leisure routes</strong> — Shifts demand to other carriers or alternative destinations. SIA Group reports demand surging past capacity growth. <a style="color:#999;font-size:12px" href="https://travelweekly.com.au/airasia-suspends-melbourne-and-adelaide-flights-to-bali-amid-fuel-cost-pressures/">Travel Weekly AU</a></p>
+        <p>• <strong>Consumer saves A$600 booking direct vs major OTA — pricing transparency under scrutiny</strong> — SMH Traveller highlighting OTA markup on Australian domestic holiday lettings. Pinterest sponsoring major trade event (Cairns Crocodiles). <a style="color:#999;font-size:12px" href="https://www.smh.com.au/traveller/travel-news/i-cancelled-my-previous-booking-through-a-major-website-and-saved-600-on-my-stay-20260513-p5zwh9.html">SMH Traveller</a></p>
+      </div>
+
+      <div class="news-item">• <strong>Tourism Australia "Skye" — government NTO enters booking game</strong> — AI-powered bookable itineraries on Escape.com.au (News Corp platform). First major NTO to offer direct consumer booking. Significant competitive signal — when governments become booking platforms, the OTA/STR disintermediation threat comes from above. <a href="https://travelweekly.com.au/news-australia-launches-consumer-facing-skye-bookable-itineraries-on-escape-com-au/" target="_blank">Travel Weekly AU</a></div>
+
+      <div class="news-item">• <strong>Sydney Harbour Bridge Museum opens May 27 — A$10M attraction targeting 4M int'l visitors</strong> — First Nations perspectives via Balarinji design. Add-on to BridgeClimb. Sydney attracting A$12B (~$7.8B) annually from international visitors. ATE 2026 preparations underway — flagship B2B event for inbound tourism pipeline. <a href="https://www.smh.com.au/traveller/travel-news/a-new-way-to-experience-the-sydney-harbour-bridge-is-set-to-open-20260512-p5zvvv.html" target="_blank">SMH Traveller</a></div>
+
+      <div class="news-item">• <strong>LCC capacity shrinking: AirAsia cuts Melbourne + Adelaide–Bali</strong> — Fuel costs forcing low-cost carriers off marginal leisure routes. SIA Group reports demand exceeding capacity growth on AU-Asia corridors. Visit Maldives appoints Luxury Escapes as ANZ representative — luxury outbound competition intensifying. APT reveals expanded 2027 Asia program signalling strong forward booking appetite. <a href="https://travelweekly.com.au/airasia-suspends-melbourne-and-adelaide-flights-to-bali-amid-fuel-cost-pressures/" target="_blank">Travel Weekly AU</a></div>
+    </div>
+
+    <!-- HOLIDAYS -->
+    <div class="section" id="holidays">
+      <div class="section-header holidays">📅 HOLIDAYS & TRAVEL PEAKS (May – June 2026)</div>
+      <div class="cal-wrapper">
+        <div class="cal-month">
+          <div class="cal-month-title">May 2026</div>
+          <div class="cal-grid">
+            <div class="cal-header">Mon</div><div class="cal-header">Tue</div><div class="cal-header">Wed</div><div class="cal-header">Thu</div><div class="cal-header">Fri</div><div class="cal-header">Sat</div><div class="cal-header">Sun</div>
+            <div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day">1</div><div class="cal-day">2</div><div class="cal-day">3</div>
+            <div class="cal-day">4</div><div class="cal-day">5</div><div class="cal-day">6</div><div class="cal-day">7</div><div class="cal-day">8</div><div class="cal-day">9</div><div class="cal-day">10</div>
+            <div class="cal-day">11</div><div class="cal-day">12</div><div class="cal-day">13</div><div class="cal-day">14</div><div class="cal-day">15</div><div class="cal-day">16</div><div class="cal-day">17</div>
+            <div class="cal-day today">18</div><div class="cal-day">19</div><div class="cal-day">20</div><div class="cal-day">21</div><div class="cal-day">22</div><div class="cal-day holiday-uk">23<span class="flag">🇬🇧</span></div><div class="cal-day holiday-uk">24<span class="flag">🇬🇧</span></div>
+            <div class="cal-day holiday-multi">25<span class="flag">🇬🇧🇩🇪</span></div><div class="cal-day holiday-uk">26<span class="flag">🇬🇧</span></div><div class="cal-day holiday-au">27<span class="flag">🇦🇺</span></div><div class="cal-day holiday-uk">28<span class="flag">🇬🇧</span></div><div class="cal-day holiday-uk">29<span class="flag">🇬🇧</span></div><div class="cal-day holiday-uk">30<span class="flag">🇬🇧</span></div><div class="cal-day holiday-uk">31<span class="flag">🇬🇧</span></div>
+          </div>
+        </div>
+        <div class="cal-month">
+          <div class="cal-month-title">June 2026</div>
+          <div class="cal-grid">
+            <div class="cal-header">Mon</div><div class="cal-header">Tue</div><div class="cal-header">Wed</div><div class="cal-header">Thu</div><div class="cal-header">Fri</div><div class="cal-header">Sat</div><div class="cal-header">Sun</div>
+            <div class="cal-day">1</div><div class="cal-day holiday-it">2<span class="flag">🇮🇹</span></div><div class="cal-day">3</div><div class="cal-day holiday-de">4<span class="flag">🇩🇪</span></div><div class="cal-day">5</div><div class="cal-day">6</div><div class="cal-day">7</div>
+            <div class="cal-day">8</div><div class="cal-day">9</div><div class="cal-day holiday-fr">10<span class="flag">🇫🇷⚡</span></div><div class="cal-day">11</div><div class="cal-day">12</div><div class="cal-day">13</div><div class="cal-day">14</div>
+            <div class="cal-day holiday-de">15<span class="flag">🇩🇪</span></div><div class="cal-day">16</div><div class="cal-day">17</div><div class="cal-day">18</div><div class="cal-day">19</div><div class="cal-day">20</div><div class="cal-day">21</div>
+            <div class="cal-day">22</div><div class="cal-day">23</div><div class="cal-day">24</div><div class="cal-day">25</div><div class="cal-day">26</div><div class="cal-day">27</div><div class="cal-day">28</div>
+            <div class="cal-day">29</div><div class="cal-day">30</div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div>
+          </div>
+        </div>
+      </div>
+      <div class="cal-legend">
+        <p>🇬🇧 <strong>May half-term</strong> (May 23–31) — Key UK family travel week. TUI reports last-minute demand "extremely strong" ahead of this period.</p>
+        <p>🇬🇧🇩🇪 <strong>Spring Bank Holiday / Whit Monday</strong> (May 25) — UK bank holiday + German Whit Monday. Long weekend driving short-haul bookings.</p>
+        <p>🇦🇺 <strong>Reconciliation Day</strong> (May 27) — Australian public holiday (ACT). Winter season begins.</p>
+        <p>🇮🇹 <strong>Republic Day</strong> (Jun 2) — Italian national holiday. Ponte to weekend drives domestic travel spike.</p>
+        <p>🇩🇪 <strong>Corpus Christi</strong> (Jun 4) — Public holiday in many German states. Bridge day opportunities for short trips.</p>
+        <p>🇫🇷⚡ <strong>SNCF Strike (potential)</strong> (Jun 10) — Four-union rail strike called. Major risk to early summer travel; could redirect demand to road trips and STR.</p>
+        <p>🇩🇪 <strong>Whit Monday</strong> (Jun 15) — German public holiday. Another long weekend driving domestic/short-haul demand.</p>
+      </div>
+    </div>
+
+    <!-- SOURCES -->
+    <div class="section" id="sources">
+      <div class="section-header sources">📋 SOURCES AUDIT</div>
+      <table>
+        <tr><th>Country</th><th>Sources</th></tr>
+        <tr><td>🇬🇧 United Kingdom</td><td>Travel Weekly UK, TTG Media, CLIA</td></tr>
+        <tr><td>🇫🇷 France</td><td>TourMag, L'Echo Touristique, Atout France, Polarsteps</td></tr>
+        <tr><td>🇪🇸 Spain</td><td>Hosteltur, Preferente, Europa Press Turismo, ETC, IEA, Lodging Econometrics</td></tr>
+        <tr><td>🇩🇪 Germany</td><td>fvw|TravelTalk, DRV, Skift, BSBI</td></tr>
+        <tr><td>🇮🇹 Italy</td><td>Travel Quotidiano, TTG Italia, ISTAT, Aidit Federturismo, AGCM, OAG/Routes</td></tr>
+        <tr><td>🇦🇺 Australia</td><td>Travel Weekly AU, SMH Traveller, Tourism Australia</td></tr>
+        <tr><td>🌍 Cross-market</td><td>Skift, PhocusWire, European Travel Commission</td></tr>
+      </table>
+    </div>
+
+    <footer>Powered by 🦞 Max (小可) · Sources as of May 18, 2026</footer>
+  </div>
+
+  <script>
+    const sections = document.querySelectorAll('.section[id]');
+    const navLinks = document.querySelectorAll('.page-nav a');
+    function highlightNav() {
+      let current = '';
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= 80) current = section.id;
+      });
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+      });
+    }
+    window.addEventListener('scroll', highlightNav, { passive: true });
+    highlightNav();
+  </script>
+
+  <script data-goatcounter="https://ibread.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
