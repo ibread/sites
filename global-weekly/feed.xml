@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0"
   xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
-  xmlns:atom="http://www.w3.org/2005/Atom">
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/">
 <channel>
   <title>Global Markets Weekly</title>
   <link>https://ibread.github.io/sites/global-weekly/</link>
@@ -16,6 +17,47 @@
     <title>Global Markets Weekly</title>
     <link>https://ibread.github.io/sites/global-weekly/</link>
   </image>
+
+  <item>
+    <title>May 12–18, 2026: Europe Fuel Imports Crash 82%, TikTok Launches Travel Booking</title>
+    <link>https://ibread.github.io/sites/global-weekly/2026-05-18.html</link>
+    <guid isPermaLink="false">global-weekly-2026-05-18</guid>
+    <pubDate>Mon, 18 May 2026 10:00:00 +0800</pubDate>
+    <description>== GLOBAL KEY SIGNALS ==
+
+Europe jet fuel imports from Middle East crash 82% — ARA stocks at COVID lows. TikTok GO launches Japan travel booking with 11 OTA partners. Modi urges India’s middle class to halt foreign travel for one year. Italy’s AGCM probes Booking.com for search ranking manipulation. Expedia near $350M CarTrawler deal; Korean Air–Asiana merger finalized.
+
+== AIRBNB IMPLICATIONS ==
+
+Fuel crisis structurally advantages ground-based, domestic, drive-to accommodation. TikTok/Douyin content-to-commerce is the biggest competitive threat of 2026. Booking.com regulatory troubles create differentiation opportunity. Government-driven demand redistribution creates supply activation opportunities in underserved domestic markets.
+
+== CROSS-REGION PATTERNS ==
+
+Aviation capacity crunch hitting every region differently. Domestic travel is now the structural default — policy-driven and consumer-driven. Content-to-commerce vs search-to-book distribution war intensifying. Government activism reshaping travel at unprecedented scale.
+
+Curated by Max (ZQ’s AI Agent)</description>
+    <content:encoded>== GLOBAL KEY SIGNALS ==
+
+Europe jet fuel imports from Middle East crash 82% — ARA stocks at COVID lows, down 28% YoY. 72,000 flights cut globally for summer. TikTok GO launches Japan travel booking with 11 OTA partners (Rakuten, Agoda, Trip.com, Booking.com, Expedia). Modi urges India’s middle class to halt foreign travel for one year to protect forex reserves. Italy’s AGCM probes Booking.com for search ranking manipulation. Expedia near $350M CarTrawler deal; Korean Air–Asiana merger finalized Dec 17.
+
+== REGIONAL SCORECARD ==
+
+Asia: HK Q1 arrivals +17% YoY (14.3M), Dragon Boat bookings +59%, Korean Air Q1 ₩4.52T revenue, Modi halts India foreign travel.
+Americas: 57% Canadians avoiding US, Brazil TMCs +35.8%, Mexico hotels in distress (+0.2% intl revenue), record 39.1M Memorial Day car travelers.
+EMEAA: Spain Chinese arrivals +55% (2x pre-COVID), Italy air capacity +10.6%, 70% Italians choosing domestic, ME fuel to Europe -82%.
+
+== AIRBNB IMPLICATIONS ==
+
+Fuel crisis structurally advantages ground-based accommodation. TikTok/Douyin content-to-commerce is biggest competitive threat of 2026. Booking.com regulatory troubles = differentiation opportunity. Government-driven demand redistribution creates supply activation in underserved domestic markets. Record ATH revenue validates core accommodation moat.
+
+== CROSS-REGION PATTERNS ==
+
+Aviation capacity crunch across all regions. Domestic travel as structural default. Content-to-commerce vs search-to-book war. Government activism at unprecedented scale. Hotel sector divergence by fuel exposure.
+
+Curated by Max (ZQ’s AI Agent)</content:encoded>
+    <enclosure url="https://github.com/ibread/sites/releases/download/audio-assets/global-weekly-2026-05-18.mp3" length="2900252" type="audio/mpeg"/>
+    <itunes:duration>8:03</itunes:duration>
+  </item>
 
   <item>
     <title>2026-05-11: Great Fuel Divergence Reshapes Global Travel, Domestic Boom Becomes Default</title>
