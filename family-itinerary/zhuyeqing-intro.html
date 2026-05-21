@@ -208,6 +208,43 @@
       .grade-cards { grid-template-columns: 1fr; }
     }
     
+    /* Tea type cards */
+    .tea-types {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin: 20px 0;
+    }
+    .tea-card {
+      background: var(--card-bg);
+      padding: 12px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      text-align: center;
+      transition: border 0.2s;
+    }
+    .tea-card:hover { border: 1.5px solid var(--gold); }
+    .tea-card .img-wrap {
+      height: 90px;
+      overflow: hidden;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      background: #faf9f7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .tea-card img { max-width: 100%; max-height: 100%; object-fit: cover; }
+    .tea-card .name { font-weight: 700; color: var(--ink); margin-bottom: 4px; font-size: 0.9em; }
+    .tea-card .desc { font-size: 0.8em; color: var(--muted); margin-bottom: 6px; line-height: 1.4; }
+    .tea-card .examples {
+      font-size: 0.75em; color: var(--gold); font-weight: 600;
+      background: #f7f4ef; padding: 4px 8px; border-radius: 4px; display: inline-block;
+    }
+    @media (max-width: 600px) {
+      .tea-types { grid-template-columns: repeat(2, 1fr); }
+    }
+
     /* Standing buds feature */
     .standing-buds {
       background: linear-gradient(135deg, #f0ede4 0%, #e8e4d8 100%);
@@ -344,6 +381,7 @@
     #brew .section-content { animation-delay: 0.3s; }
     #emei .section-content { animation-delay: 0.4s; }
     #vs .section-content { animation-delay: 0.5s; }
+    #types .section-content { animation-delay: 0.6s; }
     
     @media (prefers-reduced-motion: reduce) {
       .section-content { animation: none !important; opacity: 1; }
@@ -361,6 +399,7 @@
         <li><a href="#brew">Brew</a></li>
         <li><a href="#emei">Emei</a></li>
         <li><a href="#vs">vs Longjing</a></li>
+        <li><a href="#types">Tea Types</a></li>
       </ul>
     </div>
   </nav>
@@ -553,6 +592,64 @@
         <p class="quote">"Longjing is the scholar's tea — refined and poetic. Zhuyeqing is the monk's tea — quiet, pure, and transcendent."</p>
         
         <p>Neither is "better" — they represent two different philosophies of Chinese green tea. Longjing celebrates the gentle landscape of Jiangnan; Zhuyeqing channels the spiritual grandeur of Sichuan's sacred mountains.</p>
+      </div>
+    </section>
+
+    <section id="types">
+      <div class="section-content">
+        <h2>Chinese Tea: A Simple Guide</h2>
+        <p>Chinese tea is categorized by how the leaves are processed, especially the level of <strong>oxidation</strong> (exposure to air). Here are the main types:</p>
+        <div class="tea-types">
+          <div class="tea-card">
+            <div class="img-wrap"><img src="images/green-tea.jpg" alt="Green tea" loading="lazy"></div>
+            <div class="name">🟢 Green Tea</div>
+            <div class="desc">Zero oxidation. Fresh, grassy, light.</div>
+            <div class="examples">Longjing, Zhuyeqing, Biluochun</div>
+          </div>
+          <div class="tea-card">
+            <div class="img-wrap"><img src="images/yellow-tea.jpg" alt="Yellow tea" loading="lazy"></div>
+            <div class="name">🟡 Yellow Tea</div>
+            <div class="desc">Slight oxidation. Mellow and sweet.</div>
+            <div class="examples">Junshan Yinzhen, Mengding Huangya</div>
+          </div>
+          <div class="tea-card">
+            <div class="img-wrap"><img src="images/white-tea.jpg" alt="White tea" loading="lazy"></div>
+            <div class="name">🔵 White Tea</div>
+            <div class="desc">Minimal processing. Delicate and sweet.</div>
+            <div class="examples">Baihaoyinzhen, Shoumei</div>
+          </div>
+          <div class="tea-card">
+            <div class="img-wrap"><img src="images/oolong-tea.jpg" alt="Oolong tea" loading="lazy"></div>
+            <div class="name">🟠 Oolong Tea</div>
+            <div class="desc">Partial oxidation (10–70%). Complex, floral.</div>
+            <div class="examples">Tieguanyin, Da Hong Pao</div>
+          </div>
+          <div class="tea-card">
+            <div class="img-wrap"><img src="images/black-tea.jpg" alt="Black tea" loading="lazy"></div>
+            <div class="name">🔴 Black Tea</div>
+            <div class="desc">Full oxidation ("Red Tea" in China). Bold, malty.</div>
+            <div class="examples">Keemun, Yunnan Gold</div>
+          </div>
+          <div class="tea-card">
+            <div class="img-wrap"><img src="images/dark-tea.jpg" alt="Dark tea" loading="lazy"></div>
+            <div class="name">⚫ Dark Tea</div>
+            <div class="desc">Post-fermented &amp; aged. Earthy and smooth.</div>
+            <div class="examples">Hei Zhuan (Hunan Brick Tea)</div>
+          </div>
+          <div class="tea-card">
+            <div class="img-wrap"><img src="images/puerh-tea.jpg" alt="Pu'er tea" loading="lazy"></div>
+            <div class="name">🟤 Pu'er</div>
+            <div class="desc">Aged dark tea from Yunnan. Deep and complex.</div>
+            <div class="examples">Pu'er Cake, Liu Bao</div>
+          </div>
+          <div class="tea-card">
+            <div class="img-wrap"><img src="images/flower-tea.jpg" alt="Flower tea" loading="lazy"></div>
+            <div class="name">🌸 Flower Tea</div>
+            <div class="desc">Green tea scented with flowers. Fragrant and refreshing.</div>
+            <div class="examples">Jasmine Tea, Rose Tea</div>
+          </div>
+        </div>
+        <p style="margin-top: 20px;"><strong>Zhuyeqing is a Green Tea</strong> — it's pan-fired immediately after picking to stop oxidation, preserving its fresh character, chestnut aroma, and bright jade-green color.</p>
       </div>
     </section>
 
