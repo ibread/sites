@@ -208,6 +208,55 @@
       .grade-cards { grid-template-columns: 1fr; }
     }
     
+    /* Standing buds feature */
+    .standing-buds {
+      background: linear-gradient(135deg, #f0ede4 0%, #e8e4d8 100%);
+      border: 2px solid var(--gold);
+      border-radius: 8px;
+      padding: 28px 24px;
+      margin: 28px 0;
+    }
+    .standing-buds-inner {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+    .standing-buds-img {
+      flex: 0 0 220px;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(26,42,26,0.15);
+    }
+    .standing-buds-img img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .standing-buds-text h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3em;
+      color: var(--ink);
+      margin-bottom: 10px;
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: 8px;
+      display: inline-block;
+    }
+    .standing-buds-text p {
+      font-size: 0.95em;
+      margin: 8px 0;
+    }
+    .standing-buds-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.1em !important;
+      color: var(--gold);
+      margin-top: 14px !important;
+    }
+    @media (max-width: 600px) {
+      .standing-buds-inner { flex-direction: column; }
+      .standing-buds-img { flex: none; max-width: 260px; margin: 0 auto; }
+    }
+
     /* Comparison table */
     .comparison {
       background: var(--card-bg);
@@ -359,7 +408,7 @@
           <h3>🌿 What Makes It Unique</h3>
           <ul>
             <li><strong>Single bud only (独芽):</strong> The highest grades use only the unopened bud — no leaves at all. It takes roughly 40,000 hand-picked buds to make one kilogram of top-grade Zhuyeqing</li>
-            <li><strong>Standing leaves:</strong> When brewed in a glass, the buds stand upright in the water, gently swaying like a bamboo grove — a mesmerizing visual experience unique to this tea</li>
+            <li><strong>Standing leaves:</strong> When brewed in a glass, the buds stand upright in the water, gently swaying like a bamboo grove — a mesmerizing visual experience unique to this tea <em>(more on this below ↓)</em></li>
             <li><strong>Spring harvest:</strong> Like Longjing, the best Zhuyeqing is picked before Qingming (清明). The earliest spring buds carry the concentrated essence of winter dormancy</li>
             <li><strong>Clean, chestnut fragrance:</strong> Unlike the bean-fragrance of Longjing, Zhuyeqing has a distinctive <em>chestnut-like roasted aroma (栗香)</em> with a lingering sweetness in the throat</li>
           </ul>
@@ -378,12 +427,21 @@
             <li><strong>Wait:</strong> Watch the buds slowly sink, swirl, and eventually stand upright at the bottom — this takes about 2–3 minutes. The liquor turns a clear, pale jade green</li>
             <li><strong>Infusions:</strong> Good for 3 steeps. The first steep is the most aromatic; the second has the fullest body; the third is gentle and sweet</li>
           </ol>
-          <p style="margin-top: 14px; font-style: italic; color: var(--muted); font-family: 'Cormorant Garamond', serif;">💡 Tip: The "standing buds" (竖立) phenomenon is the hallmark of authentic, high-quality Zhuyeqing. If the buds float sideways, the tea may be lower grade or stale.</p>
         </div>
         
-        <div class="img-block">
-          <img src="images/zhuyeqing/zhuyeqing-brewing.jpg" alt="Zhuyeqing tea buds standing upright in a glass cup" style="max-width: 400px;" loading="lazy">
-          <p class="caption">The buds slowly sink and stand upright — a bamboo grove in miniature</p>
+        <div class="standing-buds">
+          <div class="standing-buds-inner">
+            <div class="standing-buds-img">
+              <img src="images/zhuyeqing/zhuyeqing-brewing.jpg" alt="Zhuyeqing tea buds standing upright in a glass cup" loading="lazy">
+            </div>
+            <div class="standing-buds-text">
+              <h3>The Standing Buds · 竖立</h3>
+              <p>This is <strong>the</strong> hallmark of Zhuyeqing and what sets it apart from every other Chinese green tea.</p>
+              <p>When you drop the buds into hot water, they slowly sink, twirl, and then — one by one — stand perfectly upright at the bottom of the glass, like a miniature bamboo grove swaying in a spring breeze.</p>
+              <p>The phenomenon only happens with perfectly shaped, single-bud tea of the right density. If the buds float sideways or clump together, the tea is likely lower grade or past its prime.</p>
+              <p class="standing-buds-quote">"观茶如观竹" — <em>Watching the tea is like watching bamboo.</em></p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
