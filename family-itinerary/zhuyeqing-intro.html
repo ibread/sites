@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zhuyeqing Tea — A Gift from Mount Emei</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --ink: #1a2a1a;
+      --gold: #b8945a;
+      --cream: #f8f4ed;
+      --muted: #8a9a8a;
+      --card-bg: #ffffff;
+      --border: #e0d8cc;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--ink);
+      background: var(--cream);
+      min-height: 100vh;
+    }
+    
+    .container { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+    
+    /* Navigation */
+    nav {
+      background: var(--ink);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+    }
+    nav .logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: var(--gold);
+      font-weight: 600;
+      font-size: 1.2em;
+      text-decoration: none;
+    }
+    nav ul { display: flex; list-style: none; gap: 18px; }
+    nav a {
+      color: #e8ece8;
+      text-decoration: none;
+      font-size: 0.85em;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--gold); }
+    nav a:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+    @media (max-width: 600px) {
+      nav ul { gap: 10px; }
+      nav a { font-size: 0.75em; }
+    }
+    
+    /* Hero */
+    header { text-align: center; padding: 40px 0 30px; }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3em;
+      color: var(--ink);
+      margin-bottom: 8px;
+      font-weight: 600;
+      text-wrap: balance;
+    }
+    .subtitle-zh {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.4em;
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+    .subtitle-en { color: var(--muted); font-size: 0.95em; margin-bottom: 24px; }
+    .hero-img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(26,42,26,0.15);
+      margin: 16px 0;
+    }
+    
+    /* Sections */
+    section { padding: 28px 0; }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7em;
+      color: var(--ink);
+      margin: 0 0 18px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--gold);
+      scroll-margin-top: 56px;
+      text-wrap: balance;
+    }
+    p { margin: 14px 0; color: var(--ink); }
+    strong { font-weight: 700; }
+    em { font-style: italic; }
+    ul, ol { margin: 14px 0 14px 24px; }
+    li { margin: 6px 0; }
+    
+    /* Images */
+    .img-block { margin: 20px 0; text-align: center; }
+    .img-block img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .img-block .caption {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.9em;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+    
+    /* Highlight box */
+    .highlight {
+      background: #f0ede4;
+      padding: 20px;
+      border-radius: 6px;
+      margin: 20px 0;
+      border-left: 4px solid var(--gold);
+    }
+    .highlight h3 {
+      font-family: 'Playfair Display', serif;
+      color: var(--ink);
+      margin-bottom: 12px;
+      font-size: 1.15em;
+    }
+    
+    /* Brewing section */
+    .brewing {
+      background: #f5f2eb;
+      padding: 20px;
+      border-radius: 6px;
+      margin: 20px 0;
+    }
+    .brewing ol { margin-left: 20px; }
+    .brewing li { margin: 10px 0; }
+    
+    /* Quote */
+    .quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.2em;
+      color: var(--ink);
+      padding: 16px 20px;
+      background: transparent;
+      border-left: 3px solid var(--gold);
+      margin: 20px 0;
+    }
+    
+    /* Grade cards */
+    .grade-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 20px 0;
+    }
+    .grade-card {
+      background: var(--card-bg);
+      padding: 18px 14px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      text-align: center;
+      transition: border 0.2s;
+    }
+    .grade-card:hover { border: 1.5px solid var(--gold); }
+    .grade-card .icon { font-size: 2em; margin-bottom: 8px; }
+    .grade-card .name {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 4px;
+      font-size: 1em;
+    }
+    .grade-card .name-zh {
+      font-size: 0.85em;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .grade-card .desc {
+      font-size: 0.85em;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    @media (max-width: 600px) {
+      .grade-cards { grid-template-columns: 1fr; }
+    }
+    
+    /* Comparison table */
+    .comparison {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      margin: 20px 0;
+    }
+    .comparison table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .comparison th {
+      background: var(--ink);
+      color: var(--cream);
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      padding: 12px 14px;
+      text-align: left;
+      font-size: 0.9em;
+    }
+    .comparison td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9em;
+    }
+    .comparison tr:last-child td { border-bottom: none; }
+    .comparison tr:nth-child(even) { background: #faf9f6; }
+    
+    /* Timeline */
+    .timeline {
+      margin: 20px 0;
+      padding-left: 24px;
+      border-left: 3px solid var(--gold);
+    }
+    .timeline-item {
+      margin: 18px 0;
+      position: relative;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -30px;
+      top: 6px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+    .timeline-item .year {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      color: var(--gold);
+      font-size: 0.95em;
+    }
+    .timeline-item .event {
+      color: var(--ink);
+      margin-top: 2px;
+      font-size: 0.95em;
+    }
+    
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 0;
+      color: var(--muted);
+      font-size: 0.85em;
+      border-top: 1px solid var(--border);
+      margin-top: 28px;
+    }
+    footer a { color: var(--gold); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    
+    /* Page load animation */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .section-content {
+      animation: fadeUp 0.5s ease-out forwards;
+      opacity: 0;
+    }
+    #what .section-content { animation-delay: 0.1s; }
+    #why .section-content { animation-delay: 0.2s; }
+    #grades .section-content { animation-delay: 0.3s; }
+    #brew .section-content { animation-delay: 0.4s; }
+    #emei .section-content { animation-delay: 0.5s; }
+    #vs .section-content { animation-delay: 0.6s; }
+    
+    @media (prefers-reduced-motion: reduce) {
+      .section-content { animation: none !important; opacity: 1; }
+      .grade-card { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <a href="#" class="logo">🎋 Zhuyeqing</a>
+      <ul>
+        <li><a href="#what">What</a></li>
+        <li><a href="#why">Why</a></li>
+        <li><a href="#grades">Grades</a></li>
+        <li><a href="#brew">Brew</a></li>
+        <li><a href="#emei">Emei</a></li>
+        <li><a href="#vs">vs Longjing</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <header>
+      <h1>Zhuyeqing</h1>
+      <p class="subtitle-zh">竹叶青 · 峨眉山</p>
+      <p class="subtitle-en">The Bamboo Leaf Green of Mount Emei, Sichuan</p>
+      <div class="img-block">
+        <img src="images/zhuyeqing/zhuyeqing-tea-leaves.jpg" alt="Zhuyeqing (竹叶青) premium green tea leaves and brewed cup" class="hero-img" fetchpriority="high">
+        <p class="caption">Premium Zhuyeqing — flat, slender needles the shape of young bamboo leaves</p>
+      </div>
+    </header>
+
+    <section id="what">
+      <div class="section-content">
+        <h2>What is Zhuyeqing?</h2>
+        <p><strong>Zhuyeqing (竹叶青, "Bamboo Leaf Green")</strong> is a premium flat-shaped green tea grown on the mist-shrouded slopes of <strong>Mount Emei (峨眉山)</strong> in Sichuan Province, China. The tea takes its poetic name from the shape of its leaves — slender, flat, and tapered at both ends, resembling tender bamboo leaves.</p>
+        
+        <p>The tea was officially named in 1964 by <strong>Marshal Chen Yi (陈毅)</strong>, China's then-Foreign Minister. While visiting a Buddhist temple on Mount Emei, a monk served him a cup of the local spring tea. Enchanted by its fresh fragrance and the graceful dancing of leaves in the glass, Chen Yi asked for its name. When told it had none, he said: <em>"The leaves look just like bamboo — let's call it Zhuyeqing."</em></p>
+        
+        <p class="quote">"竹叶青青不肯黄，枝条楚楚耐严霜。" — The bamboo stays green and refuses to turn yellow, its branches stand elegant through the harshest frost.</p>
+      </div>
+    </section>
+
+    <section id="why">
+      <div class="section-content">
+        <h2>Why Zhuyeqing is Special</h2>
+        <div class="highlight">
+          <h3>🏔️ Three Gifts from Mount Emei</h3>
+          <ul>
+            <li><strong>Altitude:</strong> Grown at 800–1,500 meters above sea level, where clouds and fog envelop the tea gardens year-round. The diffused sunlight slows leaf growth, concentrating amino acids and creating a natural sweetness</li>
+            <li><strong>Climate:</strong> Mount Emei has over 320 foggy days per year — more than almost anywhere else in China. The persistent moisture and cool temperatures produce exceptionally tender buds</li>
+            <li><strong>Soil:</strong> Rich, acidic mountain soil nourished by millennia of decaying forest litter, providing deep mineral complexity to the tea</li>
+          </ul>
+        </div>
+        
+        <div class="highlight">
+          <h3>🌿 What Makes It Unique</h3>
+          <ul>
+            <li><strong>Single bud only (独芽):</strong> The highest grades use only the unopened bud — no leaves at all. It takes roughly 40,000 hand-picked buds to make one kilogram of top-grade Zhuyeqing</li>
+            <li><strong>Standing leaves:</strong> When brewed in a glass, the buds stand upright in the water, gently swaying like a bamboo grove — a mesmerizing visual experience unique to this tea</li>
+            <li><strong>Spring harvest:</strong> Like Longjing, the best Zhuyeqing is picked before Qingming (清明). The earliest spring buds carry the concentrated essence of winter dormancy</li>
+            <li><strong>Clean, chestnut fragrance:</strong> Unlike the bean-fragrance of Longjing, Zhuyeqing has a distinctive <em>chestnut-like roasted aroma (栗香)</em> with a lingering sweetness in the throat</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="grades">
+      <div class="section-content">
+        <h2>The Three Grades</h2>
+        <p>Zhuyeqing is officially graded into three levels. The difference lies in bud selection, picking time, and production altitude:</p>
+        
+        <div class="grade-cards">
+          <div class="grade-card">
+            <div class="icon">💎</div>
+            <div class="name">Lun Dao</div>
+            <div class="name-zh">论道 · The Pinnacle</div>
+            <div class="desc">The absolute peak. Only the most perfect single buds from the highest-altitude gardens (above 1,200m), picked in the first days of spring. Exquisite sweetness, no bitterness at all. Rare and expensive.</div>
+          </div>
+          
+          <div class="grade-card">
+            <div class="icon">🌟</div>
+            <div class="name">Jing Xin</div>
+            <div class="name-zh">静心 · Tranquil Mind</div>
+            <div class="desc">Premium grade. Beautiful single buds, uniform in size and color. Sweet with a hint of chestnut fragrance. The most popular choice for gifting and daily luxury.</div>
+          </div>
+          
+          <div class="grade-card">
+            <div class="icon">🍃</div>
+            <div class="name">Pin Wei</div>
+            <div class="name-zh">品味 · Fine Taste</div>
+            <div class="desc">Entry-level but still excellent. Slightly larger buds with gentle sweetness and clean finish. A wonderful daily drinking tea and a great introduction to Zhuyeqing.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="brew">
+      <div class="section-content">
+        <h2>How to Brew Zhuyeqing</h2>
+        <div class="brewing">
+          <ol>
+            <li><strong>Vessel:</strong> Use a tall, clear glass cup (玻璃杯). This is essential — half the pleasure is watching the buds dance and stand upright in the water</li>
+            <li><strong>Water temperature:</strong> 85°C (185°F). Slightly hotter than Longjing, to coax out Zhuyeqing's chestnut aroma. Never use boiling water</li>
+            <li><strong>Method:</strong> Pour water first (about 200ml), then gently drop in 3–4g of tea. This is the "上投法" (top-drop method), best for single-bud teas — it prevents scalding the delicate buds</li>
+            <li><strong>Wait:</strong> Watch the buds slowly sink, swirl, and eventually stand upright at the bottom — this takes about 2–3 minutes. The liquor turns a clear, pale jade green</li>
+            <li><strong>Infusions:</strong> Good for 3 steeps. The first steep is the most aromatic; the second has the fullest body; the third is gentle and sweet</li>
+          </ol>
+          <p style="margin-top: 14px; font-style: italic; color: var(--muted); font-family: 'Cormorant Garamond', serif;">💡 Tip: The "standing buds" (竖立) phenomenon is the hallmark of authentic, high-quality Zhuyeqing. If the buds float sideways, the tea may be lower grade or stale.</p>
+        </div>
+        
+        <div class="img-block">
+          <img src="images/zhuyeqing/zhuyeqing-brewing.jpg" alt="Zhuyeqing tea buds standing upright in a glass cup" style="max-width: 400px;" loading="lazy">
+          <p class="caption">The buds slowly sink and stand upright — a bamboo grove in miniature</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="emei">
+      <div class="section-content">
+        <h2>About Mount Emei</h2>
+        <p><strong>Mount Emei (峨眉山)</strong> is one of China's Four Sacred Buddhist Mountains and a <strong>UNESCO World Heritage Site</strong> (dual: cultural and natural). Rising to 3,099 meters, it is the highest of the four sacred mountains and home to over 30 Buddhist temples dating back to the 1st century CE.</p>
+        
+        <div class="img-block">
+          <img src="images/zhuyeqing/mount-emei.jpg" alt="Mount Emei (峨眉山), Sichuan — UNESCO World Heritage Site with misty peaks and ancient temples" loading="lazy">
+          <p class="caption">Mount Emei — where clouds, Buddhism, and tea have intertwined for two millennia</p>
+        </div>
+        
+        <p>The mountain's unique microclimate — perpetual mist, diffused sunlight, and rich biodiversity — makes it one of China's finest terroirs for tea cultivation. Buddhist monks have been growing tea here since the <strong>Tang Dynasty (618–907 CE)</strong>, originally for meditation practice. The caffeine and L-theanine in tea helped monks stay alert yet calm during long meditation sessions.</p>
+        
+        <div class="highlight">
+          <h3>🕰️ A Brief History</h3>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="year">Tang Dynasty (618–907)</div>
+              <div class="event">Buddhist monks begin cultivating tea on Mount Emei for meditation aid</div>
+            </div>
+            <div class="timeline-item">
+              <div class="year">Song Dynasty (960–1279)</div>
+              <div class="event">Mount Emei tea gains fame as tribute tea for the imperial court</div>
+            </div>
+            <div class="timeline-item">
+              <div class="year">1964</div>
+              <div class="event">Marshal Chen Yi names the tea "Zhuyeqing" during his visit to Wannian Temple</div>
+            </div>
+            <div class="timeline-item">
+              <div class="year">1985</div>
+              <div class="event">Wins Gold Medal at the 24th International Food Quality Selection in Portugal</div>
+            </div>
+            <div class="timeline-item">
+              <div class="year">2004</div>
+              <div class="event">Zhuyeqing becomes China's first tea brand to sponsor a Go (围棋) tournament, aligning with its philosophy of quiet contemplation</div>
+            </div>
+            <div class="timeline-item">
+              <div class="year">Today</div>
+              <div class="event">One of China's most recognized premium green tea brands, the top-selling green tea in its home province of Sichuan</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="vs">
+      <div class="section-content">
+        <h2>Zhuyeqing vs Longjing</h2>
+        <p>Both are elite Chinese flat green teas, but they come from very different worlds:</p>
+        
+        <div class="comparison">
+          <table>
+            <tr>
+              <th></th>
+              <th>🎋 Zhuyeqing</th>
+              <th>🍃 Longjing</th>
+            </tr>
+            <tr>
+              <td><strong>Origin</strong></td>
+              <td>Mount Emei, Sichuan</td>
+              <td>West Lake, Hangzhou</td>
+            </tr>
+            <tr>
+              <td><strong>Altitude</strong></td>
+              <td>800–1,500m (high mountain)</td>
+              <td>100–300m (hillside)</td>
+            </tr>
+            <tr>
+              <td><strong>Leaf shape</strong></td>
+              <td>Slender needle, tapered</td>
+              <td>Flat, broad, sword-like</td>
+            </tr>
+            <tr>
+              <td><strong>Raw material</strong></td>
+              <td>Single bud (独芽)</td>
+              <td>One bud + one leaf</td>
+            </tr>
+            <tr>
+              <td><strong>Aroma</strong></td>
+              <td>Chestnut, roasted (栗香)</td>
+              <td>Bean, grassy (豆香)</td>
+            </tr>
+            <tr>
+              <td><strong>Taste</strong></td>
+              <td>Sweet, clean, lingering</td>
+              <td>Mellow, umami, nutty</td>
+            </tr>
+            <tr>
+              <td><strong>In the glass</strong></td>
+              <td>Buds stand upright ↑</td>
+              <td>Leaves float & sink gently</td>
+            </tr>
+            <tr>
+              <td><strong>Liquor color</strong></td>
+              <td>Pale jade green</td>
+              <td>Yellow-green</td>
+            </tr>
+            <tr>
+              <td><strong>Cultural vibe</strong></td>
+              <td>Buddhist mountain, contemplative</td>
+              <td>West Lake elegance, literary</td>
+            </tr>
+          </table>
+        </div>
+        
+        <p class="quote">"Longjing is the scholar's tea — refined and poetic. Zhuyeqing is the monk's tea — quiet, pure, and transcendent."</p>
+        
+        <p>Neither is "better" — they represent two different philosophies of Chinese green tea. Longjing celebrates the gentle landscape of Jiangnan; Zhuyeqing channels the spiritual grandeur of Sichuan's sacred mountains.</p>
+      </div>
+    </section>
+
+    <footer>
+      <p>A cup of clouds and mountains from the Buddhist peaks of Sichuan 🏔️</p>
+      <p style="margin-top: 8px;"><a href="longjing-intro.html">Also explore: Pre-Qingming Longjing →</a></p>
+    </footer>
+  </div>
+<script data-goatcounter="https://ibread.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
