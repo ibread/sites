@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1a1a2e">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+  <title>🌎 Americas Travel Weekly — May 19–25, 2026</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 52px; }
+    body { font-family: 'Source Serif 4', Georgia, serif; font-size: 15px; line-height: 1.5; background: #fafbfc; color: #1a1a2e; -webkit-font-smoothing: antialiased; }
+    .container { max-width: 720px; margin: 0 auto; padding: 0 20px 20px 20px; }
+    header { background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%); color: #fff; padding: 28px 20px; margin: 0 -20px 24px -20px; box-shadow: 0 4px 12px rgba(26, 26, 46, 0.15); position: relative; overflow: hidden; }
+    header h1 { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
+    header .dates { font-size: 14px; opacity: 0.85; }
+    header .back-link { position: absolute; top: 12px; right: 20px; color: rgba(255,255,255,0.7); text-decoration: none; font-size: 13px; }
+    header .back-link:hover { color: #fff; }
+    .page-nav { position: sticky; top: 0; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 8px 0; margin-bottom: 14px; border-bottom: 1px solid #e9ecef; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow-x: auto; white-space: nowrap; z-index: 100; }
+    .page-nav a { display: inline-block; padding: 6px 14px; margin: 0 3px; font-size: 13px; font-weight: 500; color: #6c757d; text-decoration: none; border-radius: 20px; transition: all 0.2s ease; }
+    .page-nav a:hover { background: #f1f3f5; color: #1a1a2e; }
+    .page-nav a.active { background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%); color: #fff; }
+    .section { margin-bottom: 16px; background: #ffffff; border-radius: 12px; padding: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.04); }
+    .section-header { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 20px; font-weight: 700; padding: 6px 0 6px 14px; margin-bottom: 10px; border-left: 4px solid; }
+    .section-header.us { border-color: #3b5998; background: linear-gradient(90deg, rgba(59,89,152,0.04) 0%, transparent 100%); }
+    .section-header.canada { border-color: #dc3545; background: linear-gradient(90deg, rgba(220,53,69,0.04) 0%, transparent 100%); }
+    .section-header.brazil { border-color: #2d936c; background: linear-gradient(90deg, rgba(45,147,108,0.04) 0%, transparent 100%); }
+    .section-header.mexico { border-color: #e07a5f; background: linear-gradient(90deg, rgba(224,122,95,0.04) 0%, transparent 100%); }
+    .section-header.competitor { border-color: #9b59b6; background: linear-gradient(90deg, rgba(155,89,182,0.04) 0%, transparent 100%); }
+    .section-header.implications { border-color: #27ae60; background: linear-gradient(90deg, rgba(39,174,96,0.04) 0%, transparent 100%); }
+    .section-header.sources { border-color: #6c757d; background: linear-gradient(90deg, rgba(108,117,125,0.04) 0%, transparent 100%); }
+    .section-header.holidays { border-color: #f39c12; background: linear-gradient(90deg, rgba(243,156,18,0.04) 0%, transparent 100%); }
+    .key-numbers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+    .kpi-tile { background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%); border-radius: 10px; padding: 16px 12px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.04); }
+    .kpi-tile .big-number { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 36px; font-weight: 700; line-height: 1.1; margin-bottom: 4px; }
+    .kpi-tile .big-number.warm { color: #e07a5f; }
+    .kpi-tile .big-number.cool { color: #457b9d; }
+    .kpi-tile .big-number.red { color: #e63946; }
+    .kpi-tile .big-number.green { color: #2d936c; }
+    .kpi-tile .label { font-size: 12px; color: #6c757d; font-weight: 500; }
+    .market-summary { font-size: 15px; font-weight: 500; padding: 14px; margin-bottom: 12px; background: #f0f2f5; color: #1a1a2e; border-radius: 10px; border-left: 4px solid; }
+    .market-summary p { margin: 4px 0; line-height: 1.5; }
+    .market-summary.us { border-color: #3b5998; }
+    .market-summary.canada { border-color: #dc3545; }
+    .market-summary.brazil { border-color: #2d936c; }
+    .market-summary.mexico { border-color: #e07a5f; }
+    .news-item { padding: 6px 0; border-bottom: 1px solid #f1f3f5; font-size: 14px; color: #2d3436; line-height: 1.5; }
+    .news-item:last-child { border-bottom: none; }
+    .news-item strong { font-weight: 600; color: #1a1a2e; font-size: 15px; }
+    .news-item .stat { font-weight: 600; font-size: 14px; }
+    .stat.up { color: #2d936c; }
+    .stat.up-strong { color: #1a7a52; }
+    .stat.down { color: #dc3545; }
+    .stat.neutral { color: #e07a5f; }
+    .news-item a { color: #6c757d; text-decoration: none; font-size: 12px; margin-left: 4px; }
+    .news-item a:hover { color: #1a1a2e; text-decoration: underline; }
+    .key-signals .news-item { padding: 12px 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #f1f3f5; }
+    th { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); font-weight: 600; color: #495057; font-size: 12px; }
+    footer { margin-top: 32px; padding-top: 20px; border-top: 1px solid #e9ecef; font-size: 12px; color: #adb5bd; text-align: center; }
+    ul { list-style: none; }
+    .cal-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 8px; }
+    .cal-month-title { font-weight: 700; font-size: 14px; color: #1a1a2e; margin-bottom: 6px; text-align: center; }
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; font-size: 12px; text-align: center; }
+    .cal-header { font-weight: 600; color: #6c757d; padding: 4px; }
+    .cal-day { padding: 6px 2px; border-radius: 4px; min-height: 32px; position: relative; }
+    .cal-day.empty { background: transparent; }
+    .cal-day.holiday-us { background: #e3f2fd; }
+    .cal-day.holiday-ca { background: #ffebee; }
+    .cal-day.holiday-br { background: #e8f5e9; }
+    .cal-day.holiday-mx { background: #fff3e0; }
+    .cal-day.holiday-multi { background: linear-gradient(135deg, #e3f2fd 50%, #ffebee 50%); }
+    .cal-day.today { border: 2px solid #1a1a2e; font-weight: 700; }
+    .cal-day .flag { font-size: 9px; display: block; line-height: 1.1; }
+    .cal-legend { margin-top: 12px; font-size: 12px; line-height: 1.9; color: #495057; background: #f8f9fa; border-radius: 8px; padding: 10px 12px; }
+    @media (max-width: 600px) { .cal-wrapper { grid-template-columns: 1fr; } .key-numbers { grid-template-columns: repeat(2, 1fr); } }
+    .section { opacity: 0; transform: translateY(12px); animation: fadeUp 0.4s ease forwards; }
+    .section:nth-child(1) { animation-delay: 0.05s; }
+    .section:nth-child(2) { animation-delay: 0.1s; }
+    .section:nth-child(3) { animation-delay: 0.15s; }
+    .section:nth-child(4) { animation-delay: 0.2s; }
+    .section:nth-child(5) { animation-delay: 0.25s; }
+    .section:nth-child(6) { animation-delay: 0.3s; }
+    .section:nth-child(7) { animation-delay: 0.35s; }
+    .section:nth-child(8) { animation-delay: 0.4s; }
+    .section:nth-child(9) { animation-delay: 0.45s; }
+    .section:nth-child(10) { animation-delay: 0.5s; }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    .data-note { background: #fff8e1; border: 1px solid #ffe082; border-radius: 8px; padding: 8px 12px; font-size: 12px; color: #795548; margin-bottom: 12px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a href="../americas-weekly/" class="back-link">← All Issues</a>
+      <h1>🌎 Americas Travel Weekly</h1>
+      <div class="dates">May 19 – May 25, 2026</div>
+    </header>
+
+    <div style="background: linear-gradient(135deg, #f0f4f8 0%, #e8eef5 100%); border-radius: 12px; padding: 14px 18px; margin-bottom: 16px; display: flex; align-items: center; gap: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.06);">
+      <span style="font-size: 22px;">🎙️</span>
+      <div style="flex: 1;">
+        <div style="font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; color: #1a1a2e; margin-bottom: 6px;">Listen to this issue</div>
+        <audio controls preload="none" style="width: 100%; height: 36px;">
+          <source src="https://github.com/ibread/sites/releases/download/audio-assets/americas-weekly-2026-05-25.mp3" type="audio/mpeg">
+        </audio>
+      </div>
+    </div>
+
+    <nav class="page-nav">
+      <a href="#signals">Key Signals</a>
+      <a href="#implications">Airbnb</a>
+      <a href="#competitors">Competitors</a>
+      <a href="#us">US</a>
+      <a href="#canada">Canada</a>
+      <a href="#brazil">Brazil</a>
+      <a href="#mexico">Mexico</a>
+      <a href="#holidays">Holidays</a>
+      <a href="#sources">Sources</a>
+    </nav>
+
+    <!-- KEY SIGNALS -->
+    <div class="section key-signals" id="signals">
+      <div class="section-header" style="border-color: #e74c3c;">🔥 KEY SIGNALS THIS WEEK</div>
+
+      <div class="key-numbers">
+        <div class="kpi-tile">
+          <div class="big-number red">−14%</div>
+          <div class="label">US inbound tourism YoY<br><span class="stat down">2.6M intl visitors in April</span></div>
+        </div>
+        <div class="kpi-tile">
+          <div class="big-number green">+18%</div>
+          <div class="label">Airbnb Q1 revenue YoY<br><span class="stat up">$2.68B; 156M nights booked</span></div>
+        </div>
+        <div class="kpi-tile">
+          <div class="big-number warm">+8.5%</div>
+          <div class="label">Mexico intl arrivals YoY<br><span class="stat neutral">8M Q1 2026; $3.27B spending</span></div>
+        </div>
+        <div class="kpi-tile">
+          <div class="big-number green">+6.5%</div>
+          <div class="label">Brazil domestic air YoY<br><span class="stat up">33.7M passengers Jan–Apr</span></div>
+        </div>
+      </div>
+
+      <div class="news-item">1. <strong>Airbnb Q1 2026 blowout: +18% revenue, raised guidance, World Cup push</strong> — Airbnb reported Q1 revenue of <span class="stat up-strong">$2.68B (+18% YoY)</span>, beating estimates, with 156.2M nights &amp; experiences booked (+9%). Company lifted full-year guidance to "low to mid teens" growth. "Slightly elevated" cancellations in EMEA/APAC from the Iran war. Oppenheimer upgraded to Outperform ($180 PT) citing hotel expansion, Reserve Now Pay Later, and AI search. Airbnb aims to host its most guests ever during FIFA World Cup. <a href="https://www.cnbc.com/2026/05/07/airbnb-abnb-earnings-q1-2026.html" target="_blank">CNBC</a> | <a href="https://www.phocuswire.com/news/finance/expedia-group-q1-2026-financial-earnings" target="_blank">PhocusWire</a></div>
+
+      <div class="news-item">2. <strong>TikTok GO &amp; Google AI Mode threaten Airbnb's discovery-to-booking funnel</strong> — TikTok launched TikTok GO in the US enabling in-app hotel/attraction booking via Booking.com, Expedia, Viator, and GetYourGuide — Airbnb is notably absent. Simultaneously, Google I/O announced AI Mode passed <span class="stat up">1B monthly users</span>, with agentic travel booking expanded to local experiences in 200 countries. Both moves bypass Airbnb as a destination. <a href="https://techcrunch.com/2026/05/12/tiktok-now-wants-to-be-the-place-you-book-the-trip-you-just-saw-on-tiktok" target="_blank">TechCrunch</a> | <a href="https://blog.google/products-and-platforms/products/search/search-io-2026" target="_blank">Google Blog</a></div>
+
+      <div class="news-item">3. <strong>Memorial Day record: 45M Americans traveling despite $4.53/gal gas and record-low sentiment</strong> — AAA projects <span class="stat up">45M travelers (+0.4% YoY)</span>, a new Memorial Day record. University of Michigan consumer sentiment hit an all-time low in May; 57% cite high prices eroding finances. Yet travel demand persists — driven by higher-income households. Gas at $4.53/gallon, domestic flights avg $800 roundtrip (−6%). K-shaped market: affluent travel up, budget segment constrained. <a href="https://newsroom.aaa.com/2026/05/45-million-americans-planning-memorial-day-weekend-getaways" target="_blank">AAA</a> | <a href="https://www.cnn.com/2026/05/22/economy/consumer-sentiment-final-may" target="_blank">CNN</a></div>
+
+      <div class="news-item">4. <strong>Brazil faces triple regulatory pressure on Airbnb: STJ ruling, SP social housing, new tax decree</strong> — In a landmark week for Brazil's STR market: (1) STJ ruled condo-based Airbnb requires 2/3 resident approval; (2) São Paulo notified Airbnb over social housing properties; (3) Decree 12.955 taxes short-stay rentals under 90 days as hospitality for hosts with 3+ units and R$240K+/year revenue. FGV study: Airbnb contributed nearly <span class="stat up">R$100B (~$17.5B)</span> to Brazil's local economies. <a href="https://www1.folha.uol.com.br/mercado/2026/05/stj-decide-que-oferta-de-imovel-em-airbnb-exige-aval-de-dois-tercos-dos-condominos.shtml" target="_blank">Folha</a> | <a href="https://portas.com.br/investimentos/legislacao-tributacao/o-que-esta-acontecendo-com-o-airbnb-no-brasil-em-2026" target="_blank">Portas</a></div>
+
+      <div class="news-item">5. <strong>Canada's structural US exodus deepens: 450K seats cut, overseas trips hit 1972 record</strong> — IITA confirmed 450,000 Canada–US seats cut in Q1 2026 (10.1% reduction), with Flair −58% and WestJet −19%. For the first time since records began in 1972, Canadian overseas trips surpassed US land trips. April data showed a modest first uptick (+1.4% YoY) but the structural shift persists ahead of the July 1 USMCA review. <a href="https://www.inboundtravel.org/news/canada-us-cross-border-travel" target="_blank">IITA</a> | <a href="https://www150.statcan.gc.ca/n1/daily-quotidien/260323/dq260323a-eng.htm" target="_blank">StatCan</a></div>
+
+      <div class="news-item">6. <strong>Mexico leads North America tourism growth at +7.4% — but safety anxiety lingers</strong> — Mexico outpaced both US and Canada in international overnight visitor growth in 2025 (+7.4%), and Q1 2026 arrivals are up <span class="stat up">+8.5% YoY</span> to 8M. Yet Expedia shares dropped 8% citing Mexico's travel advisory impact on bookings (−200 bps). Reddit communities show sustained safety anxiety. Cancún downtown hotels at just 47% occupancy vs 67% in the Hotel Zone. <a href="https://mexicobusiness.news/policyandeconomy/news/mexico-leads-north-america-tourism-ahead-2026-world-cup" target="_blank">Mexico Business News</a> | <a href="https://gringogazette.com/2026/05/18/mexicos-tourism-sector-maintains-a-solid-trend-in-the-first-trimester-of-2026" target="_blank">Gringo Gazette</a></div>
+
+      <div class="news-item">7. <strong>World Cup 2026: hotels underperform, but Airbnb aims for record guest volumes</strong> — AHLA survey of 205+ US hotels finds nearly <span class="stat down">80%</span> report World Cup bookings below forecasts, after FIFA cancelled thousands of reserved rooms. Visa barriers and geopolitical concerns suppress international demand. But Airbnb publicly commits to hosting its most guests ever during the tournament — targeting price-sensitive fans as hotel rates surge. <a href="https://fortune.com/2026/05/12/us-hotels-world-cup-bookings-falling-short-expectations-report" target="_blank">Fortune</a></div>
+    </div>
+
+    <!-- AIRBNB IMPLICATIONS -->
+    <div class="section" id="implications">
+      <div class="section-header implications">💡 AIRBNB AMERICAS IMPLICATIONS</div>
+
+      <div class="news-item">1. <strong>World Cup opportunity is real — but Airbnb must fill the gap hotels are vacating</strong> — With 80% of US host-city hotels reporting bookings below forecast, and Airbnb publicly committing to record World Cup guests, the opportunity is clear. US host cities (Dallas, Philadelphia, Seattle, Miami, etc.) and Mexican host cities (CDMX, Guadalajara, Monterrey) need aggressive supply activation. Airbnb's "Rutas del Aficionado" secondary destination play — via Morelos and other overflow markets — should be bolstered with targeted host incentives.</div>
+
+      <div class="news-item">2. <strong>TikTok GO exclusion is a strategic alarm — Airbnb must close the discovery gap</strong> — Airbnb was not among TikTok GO's launch partners (Booking.com, Expedia, Viator, GetYourGuide all are). With Brazil being TikTok's 3rd largest global market and Gen Z/Millennials leading US travel plans (49%/43% per PwC), the social discovery-to-booking channel is critical. Airbnb's AI-powered search is a moat, but the platform must engage TikTok or risk losing the Gen Z travel funnel to OTAs.</div>
+
+      <div class="news-item">3. <strong>Brazil regulatory triple-hit demands supply-side crisis management</strong> — The STJ ruling + São Paulo housing enforcement + Decree 12.955 could reduce Airbnb Brazil's urban supply by 15–20% in São Paulo and Rio. Airbnb must accelerate lobbying efforts (FGV's R$100B economic impact study is a powerful tool), engage condo associations proactively, and pivot toward compliant professional hosts. The crisis also opens opportunity: professionalized supply = better host quality = better guest outcomes.</div>
+
+      <div class="news-item">4. <strong>Canada domestic rebound is Airbnb's clearest near-term win in the Americas</strong> — With 92% of Canadians planning domestic trips, C$47.6B (~$34.3B) in projected vacation spend, and the post-Victoria Day summer window open, Airbnb Canada should be running aggressive domestic supply and demand campaigns. Cottage country (Ontario, BC), Atlantic provinces, and Quebec are high-potential. The US-exodus creates sustained, structural demand for non-US alternatives.</div>
+
+      <div class="news-item">5. <strong>K-shaped US market requires dual strategy: value positioning for budget travelers, premium for affluent</strong> — PwC data shows nontraditional lodging avg spend of only $217 vs $605 for hotels — Airbnb underperforming its pricing potential. Yet 71% of Americans plan same or more summer travel spending. The challenge: serve budget-conscious families who trade down from hotels (value messaging needed) while upselling premium/unique stays to higher-income households who are still spending aggressively.</div>
+    </div>
+
+    <!-- COMPETITOR WATCH -->
+    <div class="section" id="competitors">
+      <div class="section-header competitor">🏢 COMPETITOR & PLATFORM WATCH</div>
+
+      <div class="news-item">• <strong>Expedia Q1: +15% revenue to $3.43B, +83% EBITDA — Vrbo's strongest start in years</strong> — Vrbo promos now driving 1/3 of bookings. Uber integration (Vrbo listings in Uber app) coming H2 2026 — a massive new distribution channel targeting Airbnb's family travel segment. Expedia is also a TikTok GO partner. Claude AI integration live. Trading at 11.7x forward earnings vs Airbnb at 26.9x. <a href="https://www.phocuswire.com/news/finance/expedia-group-q1-2026-financial-earnings" target="_blank">PhocusWire</a></div>
+
+      <div class="news-item">• <strong>TikTok GO: in-app booking with Booking/Expedia/Viator — Airbnb absent from launch</strong> — TikTok's social-to-booking play is now live in the US. Creator commissions, direct booking links, and seamless social context give it an edge in Gen Z discovery. Brazil (TikTok's 3rd largest market) and Mexico (heavy TikTok penetration) are high-risk markets for Airbnb losing the discovery layer. <a href="https://techcrunch.com/2026/05/12/tiktok-now-wants-to-be-the-place-you-book-the-trip-you-just-saw-on-tiktok" target="_blank">TechCrunch</a></div>
+
+      <div class="news-item">• <strong>Google AI Mode at 1B monthly users — agentic travel booking expanding globally</strong> — Google I/O confirmed AI Mode queries doubled every quarter. Universal Cart + agentic booking for local experiences now in 200 countries, 98 languages. When travelers ask Google to find accommodations, Google can close the transaction without an Airbnb visit. Airbnb's AI search moat faces its strongest test yet. <a href="https://blog.google/products-and-platforms/products/search/search-io-2026" target="_blank">Google Blog</a></div>
+
+      <div class="news-item">• <strong>Montreal STR ban risks $19M lost during F1 GP &amp; UCI Cycling — Airbnb lobbying hard</strong> — Airbnb/Raymond Chabot Grant Thornton report projects 26,000-night shortfall and $19M+ in lost economic activity from Montreal's seasonal ban (June 10–Sept 10). Hotel rates hit $892/night during 2025 F1 GP. Airbnb pushing for year-round principal-residence hosting and digital permitting. <a href="https://news.airbnb.com/report-montreal-seasonal-short-term-rental-ban-risks-millions-in-tourism-revenue" target="_blank">Airbnb News</a></div>
+
+      <div class="news-item">• <strong>Tren Maya pivots to cargo as passenger model fails — coastal STR demand holds</strong> — Mexico's flagship infrastructure project has lost money for 2 years. Stations far from actual tourism destinations require bus transfers; reliability is poor. The pivot to cargo signals the rail-driven tourism redistribution thesis is failing, keeping demand concentrated in traditional Airbnb-heavy coastal zones (Tulum, Playa del Carmen, Mérida). <a href="https://yucatanmagazine.com/tren-maya-new-plan" target="_blank">Yucatán Magazine</a></div>
+    </div>
+
+    <!-- UNITED STATES -->
+    <div class="section" id="us">
+      <div class="section-header us">🇺🇸 UNITED STATES</div>
+      <div class="market-summary us">
+        <p>• <strong>Record Memorial Day travel (45M, +0.4% YoY) despite all-time low consumer sentiment and $4.53/gal gas</strong> — higher-income households driving the growth; budget travelers pulling back. K-shaped travel market fully established.</p>
+        <p>• <strong>US inbound tourism collapsed −14% in April</strong>, reversing earlier gains. Only Brazil and Japan posted slight increases among all source markets. Recovery to pre-pandemic inbound levels now forecast for 2029.</p>
+        <p>• <strong>Airbnb Q1 2026 blowout: $2.68B revenue (+18% YoY), 156.2M nights booked (+9%)</strong> — guidance raised to "low to mid teens" growth for full year.</p>
+      </div>
+
+      <div class="news-item">• <strong>Memorial Day 2026: 45M travelers, record drive-to demand, but macro headwinds bite</strong> — AAA projects <span class="stat up">45M total travelers</span> (39.1M driving, 3.66M flying, 2.2M bus/train/cruise). Domestic flights avg $800 roundtrip, down 6% YoY. Top destinations: Orlando, Seattle, NYC, Las Vegas, Miami. PwC finds <span class="stat up">71%</span> of US adults plan same or more summer travel spending; avg Memorial Day spend of $898. Yet Michigan consumer sentiment hit all-time low, with 57% citing prices. <a href="https://newsroom.aaa.com/2026/05/45-million-americans-planning-memorial-day-weekend-getaways" target="_blank">AAA</a> | <a href="https://www.pwc.com/us/en/industries/consumer-markets/library/summer-spending-trends-2026.html" target="_blank">PwC</a></div>
+
+      <div class="news-item">• <strong>US inbound −14% in April: geopolitics, safety perceptions, and Iran war deterring visitors</strong> — Only 2.6M international visitors in April, down 14.1% YoY — erasing Feb/Mar gains. Skift podcast: foreigners in Asia repeatedly ask "Is the United States physically safe?" Brand USA launching charm offensive. Gulf travelers searching but not booking. World Cup in June-July could be a partial offset if visa processing improves. <a href="https://skift.com/2026/05/11/us-inbound-international-tourism-april" target="_blank">Skift</a> | <a href="https://skift.com/2026/05/15/americas-travel-problem-is-getting-worse" target="_blank">Skift Podcast</a></div>
+
+      <div class="news-item">• <strong>World Cup 2026: 80% of US hotels below booking forecast — Airbnb's opening</strong> — AHLA survey of 205+ hotels across 11 US host cities: nearly 80% below initial forecasts after FIFA cancelled thousands of reserved rooms. 5M+ tickets sold but visa barriers and geopolitical concerns suppress international fans. Airbnb explicitly targeting World Cup guests — well-positioned to capture price-sensitive fans as hotel premiums discourage booking. <a href="https://fortune.com/2026/05/12/us-hotels-world-cup-bookings-falling-short-expectations-report" target="_blank">Fortune</a></div>
+    </div>
+
+    <!-- CANADA -->
+    <div class="section" id="canada">
+      <div class="section-header canada">🇨🇦 CANADA</div>
+      <div class="market-summary canada">
+        <p>• <strong>92% of Canadians plan domestic trips in 2026; 62% actively boycotting US travel</strong> — structural shift, not temporary. April data showed first YoY uptick in US trips (+1.4%) since Dec 2024, but Canadian sentiment and seat cuts suggest the plateau is fragile.</p>
+        <p>• <strong>C$47.6B (~$34.3B) projected vacation spending in 2026 (+22% YoY)</strong> — record, with average vacation budget at C$4,169 (~$3,000). Victoria Day (May 18) kicked off summer cottage season.</p>
+        <p>• <strong>Montreal STR ban creating 26,000-night gap for F1 Grand Prix + UCI Cycling — Airbnb lobbying for reform</strong>. Vancouver World Cup still faces 70,000-night shortfall per Deloitte.</p>
+      </div>
+
+      <div class="news-item">• <strong>Canada's US exodus is structural: 450K seats cut, overseas trips hit historic milestone</strong> — IITA confirmed 450,000 Canada–US seats eliminated in Q1 2026 (Flair −58%, WestJet −19%). For the first time in modern records (since 1972), overseas Canadian trips surpassed US land trips in January. Desjardins May 20 report confirms domestic demand "remains firm" even as Canadian GDP slows to 1.0% growth. <a href="https://www.inboundtravel.org/news/canada-us-cross-border-travel" target="_blank">IITA</a> | <a href="https://www.desjardins.com/en/savings-investment/economic-studies/canada-tourism-outlook-20-may-2026.html" target="_blank">Desjardins</a></div>
+
+      <div class="news-item">• <strong>Victoria Day (May 18) launched Canada's summer season — domestic bookings in focus</strong> — The statutory holiday marks the unofficial start of summer travel: cottages, lake houses, and weekend getaways. BDC survey: <span class="stat up">92%</span> of Canadian travelers plan at least one domestic trip in 2026, with <span class="stat down">62%</span> less likely to visit the US. Average household travel budget C$7,000 (~$5,100). Airbnb's cottage country supply (Ontario, BC, Maritimes) is directly in the path of this demand. <a href="https://www.bdc.ca/en/articles-tools/blog/canada-tourism-outlook-2026" target="_blank">BDC</a></div>
+
+      <div class="news-item">• <strong>Montreal STR ban risks $19M in lost F1/UCI revenue — Airbnb fights for reform</strong> — Montreal's June 10–Sept 10 ban creates a 26,000-night gap during the F1 Canadian Grand Prix (May 22–24) and 19,000 during UCI Cycling Championships. Hotel rates hit $892/night during 2025 F1 (+167%). Airbnb's report (with Raymond Chabot Grant Thornton) projects $19M+ in lost economic activity. Separately, Vancouver still faces a Deloitte-estimated 70,000-night shortfall for 7 World Cup matches. <a href="https://news.airbnb.com/report-montreal-seasonal-short-term-rental-ban-risks-millions-in-tourism-revenue" target="_blank">Airbnb News</a> | <a href="https://www.cbc.ca/news/canada/british-columbia/airbnb-wants-str-rules-relaxed-for-upcoming-2026-fifa-world-cup-in-vancouver-1.7649128" target="_blank">CBC</a></div>
+    </div>
+
+    <!-- BRAZIL -->
+    <div class="section" id="brazil">
+      <div class="section-header brazil">🇧🇷 BRAZIL (Brasil)</div>
+      <div class="market-summary brazil">
+        <p>• <strong>Domestic aviation record: 8M passengers in April 2026 (+1.1% YoY); Jan–Apr at 33.7M (+6.5%)</strong> — strongest domestic air demand in Brazilian history, directly driving short-term rental demand.</p>
+        <p>• <strong>Triple regulatory shock for Airbnb Brazil: STJ 2/3 condo rule, SP social housing enforcement, Decree 12.955 hotel tax for large hosts</strong> — supply at risk in São Paulo and Rio; FGV quantifies Airbnb's R$100B (~$17.5B) economic contribution as key lobbying tool.</p>
+        <p>• <strong>344K Brazilians visited Florida in Q1 2026 (−1% but near-record); 643K seats Brazil–Florida May–Oct (+3%)</strong> — outbound US demand robust despite geopolitics; Airbnb's Florida portfolio directly relevant.</p>
+      </div>
+
+      <div class="news-item">• <strong>Brazil domestic aviation hits all-time records — strong tailwind for STR demand</strong> — ANAC data: <span class="stat up-strong">8,006,624 passengers in April 2026 (+1.1% YoY)</span>, a new monthly record. Jan–Apr total: 33,735,228 (+6.5% YoY). International also growing: 2,224,730 in April (+4.2% YoY). Women account for 53% of all domestic trips (women lead 57% of Brazilian tourism businesses). Copa 2026 driving massive consumer travel engagement — Azul Airlines launched special World Cup candy packaging at Seleção announcement. <a href="https://brasilturis.com.br/2026/05/21/aviacao-domestica-registra-recorde-em-abril-e-no-acumulado-de-2026" target="_blank">Brasilturis/ANAC</a> | <a href="https://www1.folha.uol.com.br/colunas/monicabergamo/2026/05/mulheres-sao-maioria-no-turismo-e-comandam-57-dos-negocios-diz-ministerio.shtml" target="_blank">Folha</a></div>
+
+      <div class="news-item">• <strong>STJ ruling + tax decree = Brazil Airbnb regulatory crisis week</strong> — The STJ's Second Section ruled: condo-based short-term rentals require explicit 2/3 resident approval in assembly. Simultaneously, Decreto 12.955 (April 30) classifies stays under 90 days as hospitality for CBS/IBS taxation when hosts have 3+ properties and earn R$240K+/year (~$42K). São Paulo also forced Airbnb to restrict social housing listings. FGV study: Airbnb contributed nearly <span class="stat up">R$100B (~$17.5B)</span> to Brazil's local economies — Airbnb's most powerful counter-argument. <a href="https://www1.folha.uol.com.br/mercado/2026/05/stj-decide-que-oferta-de-imovel-em-airbnb-exige-aval-de-dois-tercos-dos-condominos.shtml" target="_blank">Folha</a> | <a href="https://portas.com.br/investimentos/legislacao-tributacao/o-que-esta-acontecendo-com-o-airbnb-no-brasil-em-2026" target="_blank">Portas/Loft</a></div>
+
+      <div class="news-item">• <strong>Brazilian outbound to Florida near-record; hotel pipeline accelerates domestic competition</strong> — 344,204 Brazilians visited Florida in Q1 2026 (−1% vs 2024 but historically high), with Brazil remaining Florida's #1 long-haul international market. 643K Brazil–Florida seats programmed May–Oct (+3%). Domestically: R$13.6B (~$2.4B) invested in 178 new hotels/26K units — midscale expansion competing head-on with Airbnb's core Brazil inventory. Secondary cities (beyond Rio-SP axis) gaining hotel supply. <a href="https://www.panrotas.com.br/mercado/destinos/2026/05/brasil-consolida-lideranca-ao-enviar-quase-350-mil-turistas-a-florida-no-1o-trimestre_228738.html" target="_blank">PANROTAS</a> | <a href="https://www.panrotas.com.br/hotelaria/investimentos/2026/04/brasil-soma-r-136-bilhoes-de-investimentos-em-quase-180-novos-hoteis_227522.html" target="_blank">PANROTAS</a></div>
+    </div>
+
+    <!-- MEXICO -->
+    <div class="section" id="mexico">
+      <div class="section-header mexico">🇲🇽 MEXICO (México)</div>
+      <div class="market-summary mexico">
+        <p>• <strong>Mexico Q1 2026: 8M international arrivals (+8.5% YoY), $3.27B in spending</strong> — but low per-visit spend growth (+0.4%) signals more budget travelers arriving. Mexico outpaced US and Canada in 2025 overnight visitor growth (+7.4%).</p>
+        <p>• <strong>La Gran Escapada 2026 launched (June 18–21): Mexico's "Buen Fin of Tourism" targeting MX$44B (~$2.44B) economic impact</strong> — government backing domestic tourism with national discounts campaign.</p>
+        <p>• <strong>Record sargazo season, Cancún downtown at 47% occupancy, and Mexico travel advisory lingering — safety anxiety persisting on Reddit/social media despite advisory being lifted</strong>.</p>
+      </div>
+
+      <div class="news-item">• <strong>Mexico inbound growth leads North America — but budget traveler mix and safety perception temper outlook</strong> — Q1 2026: <span class="stat up">8,012,213 international arrivals (+8.5% YoY)</span>. Non-border overnight tourists in February: US led (1,295,151), followed by South America/Caribbean (356,102), Canada (303,254), Europe (163,955). Leisure/recreation was #1 purpose. Spending: $3.27B (+0.4% YoY) — the flat spend-per-visitor suggests more budget-conscious travelers. Expedia flagged Mexico travel advisory cutting ~200 bps from quarterly bookings. Reddit communities show sustained safety anxiety despite Cancún advisory being lifted. <a href="https://gringogazette.com/2026/05/18/mexicos-tourism-sector-maintains-a-solid-trend-in-the-first-trimester-of-2026" target="_blank">Gringo Gazette</a> | <a href="https://www.sahmcapital.com/news/content/expedia-tumbles-as-middle-east-conflict-mexico-travel-advisory-hit-bookings-2026-05-08" target="_blank">Sahm Capital</a></div>
+
+      <div class="news-item">• <strong>La Gran Escapada 2026 launches: domestic tourism "Buen Fin" targets MX$44B impact</strong> — SECTUR's second edition (June 18–21, 2026) launched nationally May 22 with nationwide hotel, airline, and tour operator discounts. Secretary Josefina Rodríguez highlighted: <span class="stat up">7.5 out of 10</span> hotel guests are Mexican nationals — domestic demand is Mexico's travel backbone. Morelos joined FIFA's "Rutas del Aficionado" to channel World Cup fans to secondary destinations. Mazatlán confirmed as northwest Mexico's meetings tourism leader. <a href="https://www.gob.mx/sectur/articulos/la-gran-escapada-el-buen-fin-del-turismo-2026-impulsara-una-derrama-economica-superior-a-44-mil-mdp-con-ofertas-para-viajar-por-mexico" target="_blank">SECTUR</a> | <a href="https://www.concanaco.org/blog/turismo-noticias-del-sector-13/hablemos-de-turismo-22-de-mayo-2026-1830" target="_blank">CONCANACO</a></div>
+
+      <div class="news-item">• <strong>Sargazo crisis + downtown Cancún at 47% occupancy — alternative Mexico destinations benefit</strong> — 2026 sargazo season is among the worst on record (started February, peak May–August). Cancún Centro hotels: just <span class="stat down">47% occupancy</span> through May 18 (vs 53.3% in 2025). Hotel Zone: 67.2%; Costa Mujeres/Isla Mujeres: 70%. Sargazo-free destinations — Mérida, Valladolid, Baja California, Pacific coast — seeing spillover demand. FMM tourist permit fee rose to ~$54 USD (MX$983); stricter long-stay visa rules may reduce digital nomad bookings in Tulum and Playa del Carmen. <a href="https://quintanaroo.quadratin.com.mx/cae-ocupacion-hotelera-en-el-centro-de-cancun-durante-mayo" target="_blank">Quadratín QR</a> | <a href="https://www.travelandtourworld.com/news/article/mexico-joins-spain-portugal-italy-greece-and-thailand-in-tightening-travel-rules-as-new-2026-visa-changes-reshape-tourism-long-stay-travel-and-digital-nomad-movement-across-cancun-mexico-city-tu" target="_blank">Travel &amp; Tour World</a></div>
+    </div>
+
+    <!-- HOLIDAYS -->
+    <div class="section" id="holidays">
+      <div class="section-header holidays">📅 UPCOMING HOLIDAYS & TRAVEL PEAKS (May 25 – Jun 30)</div>
+      <div class="cal-wrapper">
+        <div class="cal-month">
+          <div class="cal-month-title">May 2026</div>
+          <div class="cal-grid">
+            <div class="cal-header">Mon</div><div class="cal-header">Tue</div><div class="cal-header">Wed</div><div class="cal-header">Thu</div><div class="cal-header">Fri</div><div class="cal-header">Sat</div><div class="cal-header">Sun</div>
+            <div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day">1</div><div class="cal-day">2</div><div class="cal-day">3</div>
+            <div class="cal-day">4</div><div class="cal-day">5</div><div class="cal-day">6</div><div class="cal-day">7</div><div class="cal-day">8</div><div class="cal-day">9</div><div class="cal-day">10</div>
+            <div class="cal-day">11</div><div class="cal-day">12</div><div class="cal-day">13</div><div class="cal-day">14</div><div class="cal-day">15</div><div class="cal-day">16</div><div class="cal-day">17</div>
+            <div class="cal-day holiday-ca">18<span class="flag">🇨🇦</span></div><div class="cal-day">19</div><div class="cal-day">20</div><div class="cal-day">21</div><div class="cal-day">22</div><div class="cal-day">23</div><div class="cal-day">24</div>
+            <div class="cal-day holiday-us today">25<span class="flag">🇺🇸</span></div><div class="cal-day">26</div><div class="cal-day">27</div><div class="cal-day">28</div><div class="cal-day">29</div><div class="cal-day">30</div><div class="cal-day">31</div>
+          </div>
+        </div>
+        <div class="cal-month">
+          <div class="cal-month-title">June 2026</div>
+          <div class="cal-grid">
+            <div class="cal-header">Mon</div><div class="cal-header">Tue</div><div class="cal-header">Wed</div><div class="cal-header">Thu</div><div class="cal-header">Fri</div><div class="cal-header">Sat</div><div class="cal-header">Sun</div>
+            <div class="cal-day">1</div><div class="cal-day">2</div><div class="cal-day">3</div><div class="cal-day holiday-br">4<span class="flag">🇧🇷</span></div><div class="cal-day">5</div><div class="cal-day">6</div><div class="cal-day">7</div>
+            <div class="cal-day">8</div><div class="cal-day">9</div><div class="cal-day holiday-ca">10<span class="flag">🇨🇦</span></div><div class="cal-day holiday-multi">11<span class="flag">⚽</span></div><div class="cal-day">12</div><div class="cal-day holiday-br">13<span class="flag">🇧🇷</span></div><div class="cal-day">14</div>
+            <div class="cal-day holiday-us">15<span class="flag">🇺🇸</span></div><div class="cal-day">16</div><div class="cal-day">17</div><div class="cal-day holiday-mx">18<span class="flag">🇲🇽</span></div><div class="cal-day">19</div><div class="cal-day holiday-us">19<span class="flag">🇺🇸</span></div><div class="cal-day">21</div>
+            <div class="cal-day">22</div><div class="cal-day">23</div><div class="cal-day holiday-br">24<span class="flag">🇧🇷</span></div><div class="cal-day">25</div><div class="cal-day">26</div><div class="cal-day">27</div><div class="cal-day">28</div>
+            <div class="cal-day">29</div><div class="cal-day">30</div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div>
+          </div>
+        </div>
+      </div>
+      <div class="cal-legend">
+        <p>🇨🇦 <strong>Canada: Victoria Day</strong> (May 18, passed) — Kickoff of summer cottage season; domestic bookings peak.</p>
+        <p>🇺🇸 <strong>US: Memorial Day</strong> (May 25, today) — Official summer start. Record 45M travelers. Airbnb drive-to peak.</p>
+        <p>🇧🇷 <strong>Brazil: Corpus Christi</strong> (Jun 4) — National holiday, typically extended to 4-day weekend.</p>
+        <p>🇨🇦 <strong>Canada: Montreal STR ban begins</strong> (Jun 10) — Seasonal ban affecting F1 GP and UCI Cycling availability.</p>
+        <p>⚽ <strong>FIFA World Cup 2026 kicks off Jun 11</strong> — US (11 host cities) + Mexico (CDMX, Guadalajara, Monterrey) + Canada (Toronto, Vancouver). Airbnb targets record guests.</p>
+        <p>🇧🇷 <strong>Brazil: Santo Antônio</strong> (Jun 13) — Regional holiday in many Brazilian states.</p>
+        <p>🇺🇸 <strong>US: Father's Day / Juneteenth</strong> (Jun 15/19) — Domestic travel and dining peaks.</p>
+        <p>🇲🇽 <strong>Mexico: La Gran Escapada 2026</strong> (Jun 18–21) — Domestic tourism discount campaign, MX$44B (~$2.44B) projected impact.</p>
+        <p>🇧🇷 <strong>Brazil: São João / Festa Junina</strong> (Jun 24) — Major cultural festival; strong domestic travel to Northeast Brazil.</p>
+      </div>
+    </div>
+
+    <!-- SOURCES -->
+    <div class="section" id="sources">
+      <div class="section-header sources">📋 SOURCES AUDIT</div>
+      <table>
+        <thead>
+          <tr><th>Market</th><th>Primary Sources</th><th>Items</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>🇺🇸 US</td><td>AAA, PwC, University of Michigan/CNN, Skift, CNBC, PhocusWire, Fortune/AHLA, TechCrunch, Google Blog</td><td>9</td></tr>
+          <tr><td>🇨🇦 Canada</td><td>IITA, Statistics Canada, BDC, Desjardins, Ipsos/Allianz, Airbnb News, CBC, Newswire, VisaHQ</td><td>9</td></tr>
+          <tr><td>🇧🇷 Brazil</td><td>ANAC/Brasilturis, Folha de S.Paulo, PANROTAS, Portas (Loft), MundoBa, Diário do Turismo</td><td>8</td></tr>
+          <tr><td>🇲🇽 Mexico</td><td>SECTUR/gob.mx, CONCANACO, Gringo Gazette/INEGI, Mexico Business News, Quadratín QR, El País, Yucatán Magazine, Sahm Capital/Baird, Travel &amp; Tour World, Reddit</td><td>9</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <footer>
+      Powered by 🦞 Max (小可) | Sources as of 2026-05-25
+    </footer>
+  </div>
+
+  <script>
+    const sections = document.querySelectorAll('.section');
+    const navLinks = document.querySelectorAll('.page-nav a');
+    window.addEventListener('scroll', () => {
+      const scrollPos = window.scrollY + 100;
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        const sectionId = section.getAttribute('id');
+        if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+          navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + sectionId) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    });
+  </script>
+<script data-goatcounter="https://ibread.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
