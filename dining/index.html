@@ -86,12 +86,12 @@ const rs=DATA.filter(matchR);let h="",lg="";
 rs.forEach(r=>{
 if(r.dg!==lg){h+='<div class="sectit">'+r.dg+'</div>';lg=r.dg;}
 const tag=r.anniv?'<span class="ribbon">'+r.anniv+'</span>':'<span class="tag">'+(r.id==="rongpao"?"守正派":"仪式派")+'</span>';
-h+='<div class="rcard '+(r.anniv?'anniv':'')+'" onclick="showDetail(\''+r.id+'\')"><img src="'+r.hero+'" loading="lazy"><div class="info"><div class="nm">'+r.name+' <span class="star">⭐'+r.score+'</span></div><div class="m">📍 '+r.area+' · '+r.people+' · '+r.date.slice(5)+'</div><div class="best">'+r.best+'</div>'+tag+'</div></div>';});
+h+='<div class="rcard '+(r.anniv?'anniv':'')+'" onclick="showDetail(\''+r.id+'\')"><img src="'+r.hero+'"><div class="info"><div class="nm">'+r.name+' <span class="star">⭐'+r.score+'</span></div><div class="m">📍 '+r.area+' · '+r.people+' · '+r.date.slice(5)+'</div><div class="best">'+r.best+'</div>'+tag+'</div></div>';});
 listEl.innerHTML=h||'<div class="foot">没找到匹配的餐厅</div>';}
 function showDetail(id,noHash){
 const r=DATA.find(x=>x.id===id);if(!r)return;
 if(!noHash)location.hash=id;
-let dh=r.dishes.map(d=>'<div class="dish"><img src="'+d.img+'" loading="lazy"><div class="body"><div class="t"><span>'+d.n+'</span><span class="star">'+d.star+'</span></div><div class="desc">'+d.desc+'</div><div class="spar">'+(d.ok?'<span class="ok">✅ </span>'+d.ok:'')+(d.blind?'<br><span class="blind">🔍 盲点:</span>'+d.blind:'')+'</div>'+(d.warn?'<div class="warnbox">'+d.warn+'</div>':'')+'</div></div>').join("");
+let dh=r.dishes.map(d=>'<div class="dish"><img src="'+d.img+'"><div class="body"><div class="t"><span>'+d.n+'</span><span class="star">'+d.star+'</span></div><div class="desc">'+d.desc+'</div><div class="spar">'+(d.ok?'<span class="ok">✅ </span>'+d.ok:'')+(d.blind?'<br><span class="blind">🔍 盲点:</span>'+d.blind:'')+'</div>'+(d.warn?'<div class="warnbox">'+d.warn+'</div>':'')+'</div></div>').join("");
 let to=r.textOnly?'<div class="dish"><div class="body"><div class="t" style="font-size:14px">其他菜品(未单独存图)</div><div class="desc">'+r.textOnly.map(t=>"· "+t).join("<br>")+'</div></div></div>':"";
 let bl=r.bill?'<div class="billbox"><h3>💰 账单</h3>'+r.bill.items.map(i=>'<div class="row"><span>'+i[0]+'</span><b>'+i[1]+'</b></div>').join("")+'<div class="tot"><span>合计</span><span>'+r.bill.total+'</span></div><div style="font-size:11px;color:#999;margin-top:7px">'+r.bill.note+'</div></div>':"";
 let rk='<div class="rankbar"><h3>🏆 ZQ 整桌排行</h3>'+r.rank.map((x,i)=>'<div class="item"><span class="num">'+(i+1)+'</span>'+x+'</div>').join("")+'</div>';
