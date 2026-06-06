@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>老饕日志 · ZQ 的美食足迹</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,"PingFang SC",sans-serif;background:#f2f1ec;color:#2b2b2b}
+img{display:block}.view{display:none}.view.active{display:block}
+#home .top{background:linear-gradient(135deg,#8b2e2e,#a83838);color:#fff;padding:26px 20px 20px}
+#home .top h1{font-size:23px;font-weight:800;letter-spacing:1px}
+#home .top .sub{font-size:12.5px;opacity:.9;margin-top:4px}
+#home .stat{display:flex;margin-top:18px;gap:9px}
+#home .stat div{flex:1;background:rgba(255,255,255,.15);border-radius:10px;padding:11px 0;text-align:center}
+#home .stat .n{font-size:19px;font-weight:800}.stat .l{font-size:10.5px;opacity:.85;margin-top:1px}
+.search{margin:14px;background:#fff;border-radius:12px;padding:11px 15px;font-size:14px;color:#333;border:none;width:calc(100% - 28px);box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.search::placeholder{color:#aaa}
+.filters{display:flex;gap:7px;padding:0 14px 4px;overflow-x:auto;scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
+.chip{font-size:12px;padding:5px 13px;border-radius:20px;white-space:nowrap;font-weight:600;cursor:pointer;border:1px solid #e5e2db;background:#fff;color:#777}
+.chip.on{background:#8b2e2e;color:#fff;border-color:#8b2e2e}
+.sectit{font-size:12px;color:#a89a7c;font-weight:700;padding:14px 20px 8px;letter-spacing:1px}
+.rcard{display:flex;background:#fff;margin:0 14px 12px;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.05);cursor:pointer}
+.rcard:active{transform:scale(.985)}
+.rcard img{width:110px;height:114px;object-fit:cover;flex-shrink:0}
+.rcard .info{padding:12px 14px;flex:1;min-width:0}
+.rcard .nm{font-size:16px;font-weight:700;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.rcard .nm .star{font-size:11.5px;color:#fff;background:#e8a020;padding:1px 7px;border-radius:10px}
+.rcard .m{font-size:11.5px;color:#999;margin-top:4px}
+.rcard .best{font-size:12.5px;color:#8b2e2e;margin-top:7px;font-weight:600}
+.rcard .ribbon{display:inline-block;font-size:10.5px;color:#241c16;background:#c9a55c;padding:1px 7px;border-radius:6px;margin-top:6px;font-weight:700}
+.rcard .tag{display:inline-block;font-size:10.5px;color:#a8862c;background:#f3ede1;padding:1px 7px;border-radius:6px;margin-top:6px}
+.anniv{border:2px solid #c9a55c}
+.foot{text-align:center;font-size:11px;color:#aaa;padding:18px;letter-spacing:1px}
+.back{position:sticky;top:0;z-index:20;background:rgba(36,28,22,.95);color:#c9a55c;padding:13px 18px;font-size:14px;font-weight:600;cursor:pointer}
+.cover{background:linear-gradient(170deg,#241c16,#2e2218);padding:18px 24px 22px;text-align:center}
+.cover .badge{font-size:10px;letter-spacing:4px;color:#c9a55c}
+.cover h1{font-size:22px;font-weight:800;color:#fff;margin:8px 0 4px}
+.cover .ann{font-size:12px;color:#c9a55c}
+.cover .heroimg{width:100%;height:185px;object-fit:cover;border-radius:12px;margin-top:14px;border:1px solid #4a3a28}
+.cover .tags{display:flex;gap:8px;justify-content:center;margin-top:13px;flex-wrap:wrap}
+.cover .tags span{font-size:11.5px;color:#e8d9c4;background:rgba(201,165,92,.15);border:1px solid #5a4a30;padding:3px 10px;border-radius:20px}
+.impr{font-size:12.5px;color:#bbae97;line-height:1.6;margin-top:13px}
+.rankbar{background:linear-gradient(135deg,#8b2e2e,#b04545);color:#fff;margin:14px;border-radius:14px;padding:15px 17px}
+.rankbar h3{font-size:13px;opacity:.92;margin-bottom:9px;letter-spacing:1px}
+.rankbar .item{font-size:13px;padding:4px 0;display:flex;gap:8px;align-items:center;line-height:1.4}
+.rankbar .num{width:20px;height:20px;background:#fff;color:#8b2e2e;border-radius:50%;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.dish{background:#fff;margin:0 14px 14px;border-radius:14px;overflow:hidden;box-shadow:0 1px 8px rgba(0,0,0,.05)}
+.dish img{width:100%;height:200px;object-fit:cover}
+.dish .body{padding:14px 16px}
+.dish .t{font-size:16px;font-weight:700;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.dish .star{color:#e8a020;font-size:12px;white-space:nowrap;flex-shrink:0}
+.dish .desc{font-size:13px;color:#555;line-height:1.6;margin-top:7px}
+.spar{margin-top:10px;background:#f7f9f4;border-radius:9px;padding:9px 12px;font-size:12.5px;line-height:1.6}
+.spar .ok{color:#2e7d32;font-weight:600}.spar .blind{color:#1565c0;font-weight:600}
+.warnbox{background:#fdf0ee;color:#c0392b;font-size:12px;padding:7px 11px;border-radius:8px;margin-top:8px}
+.billbox{background:#fff;margin:0 14px 14px;border-radius:14px;padding:16px;box-shadow:0 1px 8px rgba(0,0,0,.05)}
+.billbox h3{font-size:14px;font-weight:700;margin-bottom:10px}
+.billbox .row{display:flex;justify-content:space-between;font-size:12.5px;padding:3px 0;color:#555;border-bottom:1px dashed #eee}
+.billbox .row b{color:#222}
+.billbox .tot{font-size:15px;font-weight:800;color:#8b2e2e;margin-top:8px;display:flex;justify-content:space-between}
+.verdict{margin:14px;background:rgba(201,165,92,.12);border:1px solid #ddc9a0;border-radius:12px;padding:14px 16px}
+.verdict .vh{font-size:11px;color:#9a7d3a;letter-spacing:2px;margin-bottom:7px;font-weight:700}
+.verdict p{font-size:13px;line-height:1.7;color:#5a4a30}.verdict b{color:#8b2e2e}
+</style></head><body>
+<div id="home" class="view active">
+<div class="top"><h1>🍽️ 老饕日志</h1><div class="sub">ZQ 的美食足迹 · 点任意一家看详情</div>
+<div class="stat"><div><div class="n">2</div><div class="l">餐厅</div></div><div><div class="n">14</div><div class="l">道菜</div></div><div><div class="n">¥1858</div><div class="l">累计</div></div><div><div class="n">川菜</div><div class="l">最常吃</div></div></div></div>
+<input class="search" id="search" placeholder="🔍 搜餐厅 / 菜名 / 菜系…" oninput="curSearch=this.value;renderList()">
+<div class="filters" id="filters">
+<span class="chip on" data-f="all">全部</span><span class="chip" data-f="川菜">川菜</span><span class="chip" data-f="纪念">纪念日</span><span class="chip" data-f="48">⭐4.8+</span></div>
+<div id="list"></div>
+<div class="foot">— 吃了新店发给小管家,自动加进来 —</div></div>
+<div id="detail" class="view"><div class="back" onclick="showHome()">‹ 返回日志</div><div id="db"></div></div>
+<script src="data.js"></script>
+<script>
+let curFilter="all",curSearch="";
+const listEl=document.getElementById('list');
+function matchR(r){
+if(curFilter==="川菜"&&r.cuisine!=="川菜")return false;
+if(curFilter==="纪念"&&!r.anniv)return false;
+if(curFilter==="48"&&r.score<4.8)return false;
+if(curSearch){const b=(r.name+r.cuisine+r.dishes.map(d=>d.n).join()+(r.textOnly||[]).join()).toLowerCase();if(!b.includes(curSearch.toLowerCase()))return false;}
+return true;}
+function renderList(){
+const rs=DATA.filter(matchR);let h="",lg="";
+rs.forEach(r=>{
+if(r.dg!==lg){h+='<div class="sectit">'+r.dg+'</div>';lg=r.dg;}
+const tag=r.anniv?'<span class="ribbon">'+r.anniv+'</span>':'<span class="tag">'+(r.id==="rongpao"?"守正派":"仪式派")+'</span>';
+h+='<div class="rcard '+(r.anniv?'anniv':'')+'" onclick="showDetail(\''+r.id+'\')"><img src="'+r.hero+'" loading="lazy"><div class="info"><div class="nm">'+r.name+' <span class="star">⭐'+r.score+'</span></div><div class="m">📍 '+r.area+' · '+r.people+' · '+r.date.slice(5)+'</div><div class="best">'+r.best+'</div>'+tag+'</div></div>';});
+listEl.innerHTML=h||'<div class="foot">没找到匹配的餐厅</div>';}
+function showDetail(id,noHash){
+const r=DATA.find(x=>x.id===id);if(!r)return;
+if(!noHash)location.hash=id;
+let dh=r.dishes.map(d=>'<div class="dish"><img src="'+d.img+'" loading="lazy"><div class="body"><div class="t"><span>'+d.n+'</span><span class="star">'+d.star+'</span></div><div class="desc">'+d.desc+'</div><div class="spar">'+(d.ok?'<span class="ok">✅ </span>'+d.ok:'')+(d.blind?'<br><span class="blind">🔍 盲点:</span>'+d.blind:'')+'</div>'+(d.warn?'<div class="warnbox">'+d.warn+'</div>':'')+'</div></div>').join("");
+let to=r.textOnly?'<div class="dish"><div class="body"><div class="t" style="font-size:14px">其他菜品(未单独存图)</div><div class="desc">'+r.textOnly.map(t=>"· "+t).join("<br>")+'</div></div></div>':"";
+let bl=r.bill?'<div class="billbox"><h3>💰 账单</h3>'+r.bill.items.map(i=>'<div class="row"><span>'+i[0]+'</span><b>'+i[1]+'</b></div>').join("")+'<div class="tot"><span>合计</span><span>'+r.bill.total+'</span></div><div style="font-size:11px;color:#999;margin-top:7px">'+r.bill.note+'</div></div>':"";
+let rk='<div class="rankbar"><h3>🏆 ZQ 整桌排行</h3>'+r.rank.map((x,i)=>'<div class="item"><span class="num">'+(i+1)+'</span>'+x+'</div>').join("")+'</div>';
+document.getElementById('db').innerHTML='<div class="cover"><div class="badge">'+(r.anniv?'ANNIVERSARY · DINING':'DINING JOURNAL')+'</div><h1>'+r.name+'</h1><div class="ann">'+r.ann+'</div><img class="heroimg" src="'+r.hero+'"><div class="tags"><span>⭐ '+r.score+'</span><span>'+r.people+'</span><span>📍 '+r.area+'</span>'+(r.anniv?'<span>'+r.anniv+'</span>':'')+'</div><div class="impr">'+r.impr+'</div></div>'+rk+dh+to+bl+'<div class="verdict"><div class="vh">— 一句话定论 —</div><p>'+r.verdict+'</p></div><div class="foot">— 老饕日志 · 小管家整理 —</div>';
+document.getElementById('home').classList.remove('active');
+document.getElementById('detail').classList.add('active');
+window.scrollTo(0,0);}
+function showHome(){
+if(location.hash)history.pushState('','',location.pathname);
+document.getElementById('detail').classList.remove('active');
+document.getElementById('home').classList.add('active');
+window.scrollTo(0,0);}
+window.addEventListener('hashchange',function(){var id=location.hash.replace('#','');if(id)showDetail(id,true);else showHome();});
+document.querySelectorAll('.chip').forEach(c=>c.onclick=function(){
+document.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));
+this.classList.add('on');curFilter=this.dataset.f;renderList();});
+renderList();
+if(location.hash){var hid=location.hash.replace('#','');if(DATA.find(x=>x.id===hid))showDetail(hid,true);}
+</script></body></html>
