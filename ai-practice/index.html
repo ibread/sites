@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Practice — How I Turned AI Into My Chief of Staff</title>
+<style>
+  :root{
+    --bg:#f8f9fa; --ink:#1d1d1f; --sub:#6e6e73; --line:#e3e3e6;
+    --coral:#ff5a5f; --coralink:#e0484d; --card:#ffffff;
+    --gap:#fbfbfd;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    font-family:-apple-system,"SF Pro Display","Helvetica Neue","Segoe UI",sans-serif;
+    background:#000;color:var(--ink);overflow:hidden;
+  }
+  /* 16:9 stage */
+  .stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;}
+  .slide{
+    position:absolute;width:1280px;height:720px;background:var(--bg);
+    border-radius:18px;overflow:hidden;
+    box-shadow:0 30px 90px rgba(0,0,0,.5);
+    padding:64px 76px;display:none;flex-direction:column;
+    opacity:0;transform:translateY(14px) scale(.99);
+    transition:opacity .35s ease,transform .35s ease;
+  }
+  .slide.active{display:flex;opacity:1;transform:none;}
+  .eyebrow{font-size:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--coral);}
+  h1{font-size:62px;line-height:1.07;font-weight:800;letter-spacing:-1px;margin:18px 0 0;}
+  h2{font-size:40px;font-weight:800;letter-spacing:-.5px;margin:14px 0 0;}
+  .lead{font-size:26px;color:var(--sub);line-height:1.45;margin-top:22px;font-weight:400;}
+  .hi{color:var(--coral);}
+  .foot{position:absolute;left:76px;right:76px;bottom:30px;display:flex;justify-content:space-between;align-items:center;font-size:15px;color:#a1a1a6;}
+  .pageno{font-variant-numeric:tabular-nums;}
+  .spacer{flex:1;}
+
+  /* cover */
+  .cover{background:linear-gradient(160deg,#fff 0%,#fff5f5 60%,#fff9f3 100%);}
+  .cover h1{font-size:72px;}
+  .by{margin-top:30px;font-size:21px;color:var(--sub);}
+  .by b{color:var(--ink);}
+
+  /* hook */
+  .hook-grid{display:flex;gap:30px;margin-top:34px;flex:1;}
+  .hook-card{flex:1;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:30px 28px;display:flex;flex-direction:column;}
+  .hook-card .ic{font-size:34px;}
+  .hook-card .t{font-size:23px;font-weight:700;margin-top:14px;}
+  .hook-card .d{font-size:17px;color:var(--sub);line-height:1.5;margin-top:10px;}
+  .pill{display:inline-block;background:#fff0f0;color:var(--coralink);font-size:15px;font-weight:600;padding:5px 12px;border-radius:20px;margin-top:auto;}
+
+  /* three assistants */
+  .agents{display:flex;gap:26px;margin-top:40px;flex:1;}
+  .agent{flex:1;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:32px 28px;}
+  .agent .badge{font-size:14px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--coral);}
+  .agent .nm{font-size:27px;font-weight:800;margin-top:8px;}
+  .agent .role{font-size:18px;color:var(--sub);margin-top:6px;}
+  .agent ul{margin-top:18px;padding-left:0;list-style:none;}
+  .agent li{font-size:17px;color:#3a3a3c;line-height:1.7;padding-left:22px;position:relative;}
+  .agent li:before{content:"–";position:absolute;left:4px;color:var(--coral);}
+
+  /* case slide: pain / proof / you-too */
+  .case-top{display:flex;align-items:baseline;gap:14px;margin-top:8px;}
+  .case-tag{font-size:15px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--coral);}
+  .pain{font-size:34px;font-weight:800;line-height:1.18;margin-top:8px;max-width:1000px;}
+  .case-body{display:flex;gap:34px;margin-top:26px;flex:1;}
+  .proof{flex:1.55;background:var(--card);border:1px solid var(--line);border-radius:16px;display:flex;align-items:center;justify-content:center;color:#b6b6bb;font-size:19px;text-align:center;padding:24px;position:relative;}
+  .proof .ph{display:flex;flex-direction:column;align-items:center;gap:12px;}
+  .proof .ph .px{font-size:46px;}
+  .side{flex:1;display:flex;flex-direction:column;gap:18px;}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;}
+  .stat .n{font-size:34px;font-weight:800;color:var(--coral);letter-spacing:-.5px;}
+  .stat .l{font-size:16px;color:var(--sub);margin-top:4px;line-height:1.4;}
+  .youtoo{background:#1d1d1f;color:#fff;border-radius:14px;padding:20px 22px;font-size:18px;line-height:1.5;}
+  .youtoo b{color:#ff8a8f;}
+
+  /* numbers wall */
+  .wall{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:38px;flex:1;}
+  .num{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px 26px;display:flex;flex-direction:column;justify-content:center;}
+  .num .big{font-size:48px;font-weight:800;color:var(--coral);letter-spacing:-1px;line-height:1;}
+  .num .cap{font-size:17px;color:var(--sub);margin-top:12px;line-height:1.45;}
+
+  /* capability boundary 2x2 matrix */
+  .matrix{display:flex;flex-direction:column;margin-top:18px;flex:1;position:relative;padding-left:34px;padding-bottom:30px;}
+  .m-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:16px;flex:1;}
+  .cell{border-radius:14px;padding:20px 22px;border:1px solid var(--line);display:flex;flex-direction:column;}
+  .cell-h{font-size:21px;font-weight:800;}
+  .cell-d{font-size:16px;color:var(--sub);line-height:1.45;margin-top:8px;}
+  .cell-d b{color:#3a3a3c;}
+  .cell.keep{background:#fff;}
+  .cell.meh{background:#fafafa;color:#86868b;}
+  .cell.sweet{background:linear-gradient(150deg,#fff5f5,#ffeceb);border:2px solid var(--coral);}
+  .cell.sweet .cell-h{color:var(--coralink);}
+  .cell-tag{margin-top:auto;padding-top:12px;font-size:14px;font-weight:600;color:var(--coralink);}
+  .m-yaxis{position:absolute;left:-2px;top:0;bottom:30px;width:26px;writing-mode:vertical-rl;transform:rotate(180deg);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;letter-spacing:1px;color:#a1a1a6;text-transform:uppercase;}
+  .m-xaxis{position:absolute;left:34px;right:0;bottom:4px;text-align:center;font-size:14px;font-weight:700;letter-spacing:1px;color:#a1a1a6;text-transform:uppercase;}
+  .mental{margin-top:20px;background:#1d1d1f;color:#fff;border-radius:14px;padding:20px 26px;font-size:20px;line-height:1.5;text-align:center;}
+  .mental b{color:#ff8a8f;}
+
+  /* real stumbles */
+  .stumbles{display:flex;flex-direction:column;gap:14px;margin-top:24px;flex:1;}
+  .stmb{display:flex;gap:18px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 22px;}
+  .st-ic{font-size:30px;flex-shrink:0;line-height:1.1;}
+  .st-b{font-size:18px;color:#3a3a3c;line-height:1.5;}
+  .st-b b{color:var(--ink);}
+
+  /* sweet-spot time contrast */
+  .ss-pain{font-size:30px;font-weight:800;line-height:1.2;margin-top:6px;max-width:1000px;}
+  .ss-sub{font-size:20px;color:var(--sub);margin-top:10px;line-height:1.45;}
+  .contrast{display:flex;align-items:stretch;gap:0;margin-top:26px;border-radius:16px;overflow:hidden;border:1px solid var(--line);}
+  .c-side{flex:1;padding:30px 32px;display:flex;flex-direction:column;justify-content:center;}
+  .c-side.real{background:#f1f1f3;}
+  .c-side.you{background:linear-gradient(150deg,#fff5f5,#ffeceb);}
+  .c-label{font-size:15px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#86868b;}
+  .c-side.you .c-label{color:var(--coralink);}
+  .c-time{font-size:50px;font-weight:800;letter-spacing:-1px;margin-top:8px;line-height:1;}
+  .c-side.real .c-time{color:#48484a;}
+  .c-side.you .c-time{color:var(--coral);}
+  .c-who{font-size:17px;color:var(--sub);margin-top:8px;}
+  .c-arrow{display:flex;align-items:center;justify-content:center;padding:0 6px;background:#fff;font-size:22px;color:#c7c7cc;font-weight:800;}
+  .c-mult{position:absolute;}
+  .ss-punch{margin-top:22px;background:#1d1d1f;color:#fff;border-radius:14px;padding:20px 26px;font-size:21px;line-height:1.5;text-align:center;}
+  .ss-punch b{color:#ff8a8f;}
+
+  /* two-layer value */
+  .layers{display:flex;flex-direction:column;gap:18px;margin-top:28px;flex:1;}
+  .layer{display:flex;gap:24px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px 30px;}
+  .layer .ln{font-size:54px;font-weight:800;color:var(--coral);line-height:1;flex-shrink:0;width:64px;}
+  .layer .lt{font-size:24px;font-weight:800;}
+  .layer .ld{font-size:18px;color:var(--sub);line-height:1.5;margin-top:6px;}
+  .frag{margin-top:20px;background:linear-gradient(150deg,#fff5f5,#ffeceb);border:1px solid #ffd9d9;border-radius:14px;padding:18px 24px;font-size:19px;line-height:1.5;color:#3a3a3c;text-align:center;}
+  .frag b{color:var(--coralink);}
+
+  /* same-pattern recap rows */
+  .recap{display:flex;flex-direction:column;gap:14px;margin-top:24px;flex:1;}
+  .rrow{display:flex;align-items:center;gap:20px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 24px;}
+  .r-ic{font-size:32px;flex-shrink:0;}
+  .r-name{font-size:20px;font-weight:800;width:200px;flex-shrink:0;}
+  .r-tag{font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#a1a1a6;margin-top:2px;}
+  .r-bar{flex:1;display:flex;align-items:center;gap:14px;font-size:18px;}
+  .r-real{color:#86868b;}
+  .r-arr{color:#c7c7cc;font-weight:800;}
+  .r-you{color:#3a3a3c;font-weight:700;}
+  .r-mult{font-size:30px;font-weight:800;color:var(--coral);letter-spacing:-1px;flex-shrink:0;width:80px;text-align:right;}
+
+  /* voice input */
+  .voice-grid{display:flex;gap:30px;margin-top:30px;flex:1;}
+  .vcard{flex:1;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:30px 30px;display:flex;flex-direction:column;}
+  .vcard .vic{font-size:36px;}
+  .vcard .vt{font-size:23px;font-weight:800;margin-top:14px;}
+  .vcard .vd{font-size:18px;color:var(--sub);line-height:1.55;margin-top:12px;}
+  .vcard .vd b{color:#3a3a3c;}
+  .vstats{display:flex;gap:18px;margin-top:20px;}
+  .vstat{flex:1;background:linear-gradient(150deg,#fff5f5,#ffeceb);border:1px solid #ffd9d9;border-radius:14px;padding:18px 20px;text-align:center;}
+  .vstat .vn{font-size:38px;font-weight:800;color:var(--coral);letter-spacing:-1px;line-height:1;}
+  .vstat .vl{font-size:15px;color:var(--sub);margin-top:8px;line-height:1.35;}
+  .vstat .vl b{color:var(--coralink);}
+
+  /* closing */
+  .closing{background:linear-gradient(160deg,#1d1d1f 0%,#2a2a3e 100%);color:#fff;justify-content:center;}
+  .closing .eyebrow{color:#ff8a8f;}
+  .closing h1{font-size:56px;color:#fff;max-width:1050px;}
+  .closing .cta{margin-top:30px;font-size:24px;color:#d6d6db;line-height:1.5;}
+  .closing .cta b{color:#fff;}
+  .closing .foot{color:#6b6b76;}
+
+  /* progress dots */
+  .dots{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:9px;z-index:10;}
+  .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.32);transition:all .25s;}
+  .dot.on{background:#fff;width:22px;border-radius:5px;}
+  .hint{position:fixed;bottom:16px;right:20px;color:rgba(255,255,255,.4);font-size:13px;z-index:10;}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+
+  <!-- 1 COVER -->
+  <section class="slide cover active">
+    <div class="eyebrow">AI Practice · Personal Sharing</div>
+    <h1>How I Turned AI Into<br>My <span class="hi">Chief of Staff</span></h1>
+    <div class="lead">A look at what one always-on AI assistant quietly does for me —<br>at work and at home. <b>Zero code written by me.</b></div>
+    <div class="by">By <b>ZQ</b> · APAC, Airbnb</div>
+    <div class="foot"><span>AI Practice</span><span class="pageno">01</span></div>
+  </section>
+
+  <!-- 2 HOOK -->
+  <section class="slide">
+    <div class="eyebrow">The Hook · 30 seconds</div>
+    <h2>Everything on this slide was done <span class="hi">automatically</span> this week.</h2>
+    <div class="lead" style="margin-top:16px">I didn't lift a finger — and I didn't write a single line of code.</div>
+    <div class="hook-grid">
+      <div class="hook-card">
+        <div class="ic">🖼️</div>
+        <div class="t">A painting on my desk</div>
+        <div class="d">My DIY e-ink frame pulled a world-famous painting, wrote the curator note, and switched to my kid's photo before her birthday.</div>
+        <span class="pill">[ photo placeholder ]</span>
+      </div>
+      <div class="hook-card">
+        <div class="ic">🎧</div>
+        <div class="t">A 10-min industry podcast</div>
+        <div class="d">My weekly travel-industry report shipped as a web page + a real two-host podcast — across 4 regions.</div>
+        <span class="pill">[ 10-sec audio clip ]</span>
+      </div>
+      <div class="hook-card">
+        <div class="ic">📸</div>
+        <div class="t">My daughter, found</div>
+        <div class="d">From dozens of class photos, AI picked out the ones she's in — and translated her teacher's weekly note.</div>
+        <span class="pill">[ before/after image ]</span>
+      </div>
+    </div>
+    <div class="foot"><span>AI Practice</span><span class="pageno">02</span></div>
+  </section>
+
+  <!-- 3 THREE ASSISTANTS -->
+  <section class="slide">
+    <div class="eyebrow">The Setup</div>
+    <h2>Not one assistant — <span class="hi">three</span>, each with a job.</h2>
+    <div class="agents">
+      <div class="agent">
+        <div class="badge">Work</div>
+        <div class="nm">Max</div>
+        <div class="role">My right hand at work</div>
+        <ul>
+          <li>Asia Travel Weekly</li>
+          <li>Meeting notes &amp; archives</li>
+          <li>Market deep-dives</li>
+          <li>Exec deck polishing</li>
+        </ul>
+      </div>
+      <div class="agent">
+        <div class="badge">Life</div>
+        <div class="nm">Housekeeper</div>
+        <div class="role">Runs the household</div>
+        <ul>
+          <li>Kids' school &amp; photos</li>
+          <li>Family trip planning</li>
+          <li>Daily parenting intel</li>
+          <li>Health &amp; expenses</li>
+        </ul>
+      </div>
+      <div class="agent">
+        <div class="badge">Industry</div>
+        <div class="nm">Min</div>
+        <div class="role">Helps a friend's rental</div>
+        <ul>
+          <li>Connects to the PMS</li>
+          <li>OCC / ADR / RevPAR</li>
+          <li>Auto weekly &amp; annual reports</li>
+          <li>Guest-review analysis</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot"><span>AI Practice</span><span class="pageno">03</span></div>
+  </section>
+
+  <!-- 4 CASE: TRAVEL WEEKLY (flagship opener) -->
+  <section class="slide">
+    <div class="case-top"><span class="case-tag">Work · Flagship</span></div>
+    <div class="pain">“I need to stay on top of my whole industry — but who has time to read everything?”</div>
+    <div class="case-body">
+      <div class="proof">
+        <div class="ph">
+          <div class="px">🌏</div>
+          <div>[ screenshot: Asia Travel Weekly web report<br>+ 10-sec podcast clip ]</div>
+        </div>
+      </div>
+      <div class="side">
+        <div class="stat"><div class="n">4 regions</div><div class="l">Asia · Americas · EMEAA · Global — every Monday, automatically</div></div>
+        <div class="stat"><div class="n">90+ sources</div><div class="l">synthesized weekly into a web page and a two-host podcast</div></div>
+        <div class="youtoo">It's like having <b>a personal industry analyst + podcast host</b> who never sleeps.</div>
+      </div>
+    </div>
+    <div class="foot"><span>Case 1 — Asia Travel Weekly</span><span class="pageno">04</span></div>
+  </section>
+
+  <!-- 5 CASE: KID PHOTO FACE-REC (life wow) -->
+  <section class="slide">
+    <div class="case-top"><span class="case-tag">Life · The wow one</span></div>
+    <div class="pain">“I don't want to miss my kid's moments — but I can't scan 40 class photos every week.”</div>
+    <div class="case-body">
+      <div class="proof">
+        <div class="ph">
+          <div class="px">📸</div>
+          <div>[ before: wall of class photos →<br>after: only the ones she's in ]</div>
+        </div>
+      </div>
+      <div class="side">
+        <div class="stat"><div class="n">2× / week</div><div class="l">Auto-logs into the school platform, face-recognizes my daughter</div></div>
+        <div class="stat"><div class="n">+ translated</div><div class="l">Teacher's weekly note in English → “what she learned this week”</div></div>
+        <div class="youtoo">AI helps a working parent <b>never miss the moments</b> — that's the magic.</div>
+      </div>
+    </div>
+    <div class="foot"><span>Case 2 — School photos, found</span><span class="pageno">05</span></div>
+  </section>
+
+  <!-- 6 CASE: 民宿 (industry / can-run-a-business) -->
+  <section class="slide">
+    <div class="case-top"><span class="case-tag">Industry · It runs a real business</span></div>
+    <div class="pain">“Can AI do more than chat — can it actually run on a real business system?”</div>
+    <div class="case-body">
+      <div class="proof">
+        <div class="ph">
+          <div class="px">📊</div>
+          <div>[ screenshot: auto-generated annual<br>operating report dashboard ]</div>
+        </div>
+      </div>
+      <div class="side">
+        <div class="stat"><div class="n">¥1.14M</div><div class="l">2025 full-year revenue report — generated automatically from the PMS</div></div>
+        <div class="stat"><div class="n">2,000+ orders</div><div class="l">synced weekly · ~1,500 guest reviews mined for listing tips</div></div>
+        <div class="youtoo">For a friend's rental, AI delivers <b>boardroom-grade reports</b> — directly relevant to our industry.</div>
+      </div>
+    </div>
+    <div class="foot"><span>Case 3 — A friend's rental, by the numbers</span><span class="pageno">06</span></div>
+  </section>
+
+  <!-- 7 NUMBERS WALL -->
+  <section class="slide">
+    <div class="eyebrow">The Proof</div>
+    <h2>What “always-on” actually looks like.</h2>
+    <div class="wall">
+      <div class="num"><div class="big">92 days</div><div class="cap">of continuous daily logs — barely a day missed</div></div>
+      <div class="num"><div class="big">20+</div><div class="cap">automations running on schedule, across 3 assistants</div></div>
+      <div class="num"><div class="big">4 + 4</div><div class="cap">weekly industry reports + podcasts, every Monday</div></div>
+      <div class="num"><div class="big">15+</div><div class="cap">family trips planned end-to-end with interactive maps</div></div>
+      <div class="num"><div class="big">~94%</div><div class="cap">hit rate on the evening “things you'll need to know” check</div></div>
+      <div class="num"><div class="big">¥1.14M</div><div class="cap">annual rental report, fully auto-generated</div></div>
+    </div>
+    <div class="foot"><span>AI Practice</span><span class="pageno">07</span></div>
+  </section>
+
+  <!-- 7 SWEET SPOT ANCHOR: MARKET RESEARCH (work example, leads the point) -->
+  <section class="slide">
+    <div class="case-top"><span class="case-tag">Work · The sweet spot</span></div>
+    <div class="ss-pain">“I had a rough hunch about a market — but no time to actually go validate it.”</div>
+    <div class="ss-sub">A deep-dive on Starbucks' localization in Korea: multilingual research (EN / KR / JP / CN), synthesized into one report. The kind of homework I'd never find a free afternoon for.</div>
+    <div class="contrast">
+      <div class="c-side real">
+        <div class="c-label">A research analyst</div>
+        <div class="c-time">~8–12 hrs</div>
+        <div class="c-who">≈ 1–2 days of multilingual desk research + write-up</div>
+      </div>
+      <div class="c-arrow">→</div>
+      <div class="c-side you">
+        <div class="c-label">Me, with AI</div>
+        <div class="c-time">~30 min</div>
+        <div class="c-who">one chat to scope &amp; steer — done from spare pockets of time</div>
+      </div>
+    </div>
+    <div class="ss-punch">And it's not just speed — it <b>validates or reshapes my thinking</b>. Half my rough hunches turn out only partly right.</div>
+    <div class="foot"><span>Case · The sweet spot</span><span class="pageno">07</span></div>
+  </section>
+
+  <!-- 8 TWO LAYERS OF VALUE -->
+  <section class="slide">
+    <div class="eyebrow">Why this is possible now</div>
+    <h2>Two shifts that change the math.</h2>
+    <div class="layers">
+      <div class="layer">
+        <div class="ln">1</div>
+        <div>
+          <div class="lt">Time collapses — often to ~1/10</div>
+          <div class="ld">What took days now takes about an hour. That doesn't just save time — it makes tasks <b>feasible at all</b>.</div>
+        </div>
+      </div>
+      <div class="layer">
+        <div class="ln">2</div>
+        <div>
+          <div class="lt">Dead time becomes deep work</div>
+          <div class="ld">Over Telegram + voice, I push real work forward from the school pickup line or any spare gap — then pick it up again later.</div>
+        </div>
+      </div>
+    </div>
+    <div class="frag">A 10-hour job → <b>1 hour</b> — and that hour splits into <b>3–4 pockets of downtime</b>. (This very deck was built that way.)</div>
+    <div class="foot"><span>AI Practice</span><span class="pageno">08</span></div>
+  </section>
+
+  <!-- 8b SAME PATTERN x3 (expand from one example to three, incl. life) -->
+  <section class="slide">
+    <div class="eyebrow">It's not a one-off</div>
+    <h2>Same pattern, everywhere — work <span class="hi">and</span> life.</h2>
+    <div class="lead" style="margin-top:8px;font-size:20px">Each was “good to have, but too time-consuming” — so I'd skipped it. Until now.</div>
+    <div class="recap">
+      <div class="rrow">
+        <div class="r-ic">📈</div>
+        <div class="r-name">Market deep-dive<div class="r-tag">work</div></div>
+        <div class="r-bar"><span class="r-real">analyst ~8–12 h</span><span class="r-arr">→</span><span class="r-you">me ~30 min</span></div>
+        <div class="r-mult">~20×</div>
+      </div>
+      <div class="rrow">
+        <div class="r-ic">🧒</div>
+        <div class="r-name">Kid's pinyin course<div class="r-tag">life</div></div>
+        <div class="r-bar"><span class="r-real">edu dev ~20–28 h</span><span class="r-arr">→</span><span class="r-you">me ~1 hr</span></div>
+        <div class="r-mult">~24×</div>
+      </div>
+      <div class="rrow">
+        <div class="r-ic">🖼️</div>
+        <div class="r-name">E-ink art frame<div class="r-tag">life</div></div>
+        <div class="r-bar"><span class="r-real">engineer ~30 h</span><span class="r-arr">→</span><span class="r-you">me ~2–3 hrs</span></div>
+        <div class="r-mult">~12×</div>
+      </div>
+    </div>
+    <div class="frag">The point isn't the hours saved — it's that <b>things that never would have happened, now do.</b></div>
+    <div class="foot"><span>AI Practice</span><span class="pageno">08</span></div>
+  </section>
+
+  <!-- 9 VOICE INPUT -->
+  <section class="slide">
+    <div class="eyebrow">The unlock under it all</div>
+    <h2>Voice makes capturing <span class="hi">frictionless</span>.</h2>
+    <div class="lead" style="margin-top:8px;font-size:20px">The real win isn't hours saved — it's that recording anything costs me nothing.</div>
+    <div class="vstats">
+      <div class="vstat"><div class="vn">110 hrs</div><div class="vl">saved by dictation — <b>≈ 2 full work-weeks</b></div></div>
+      <div class="vstat"><div class="vn">240K</div><div class="vl">characters spoken — <b>≈ 2 novels' worth</b></div></div>
+      <div class="vstat"><div class="vn">3×</div><div class="vl">faster than typing (151 chars/min)</div></div>
+    </div>
+    <div class="voice-grid">
+      <div class="vcard">
+        <div class="vic">👆</div>
+        <div class="vt">Double-tap, then talk</div>
+        <div class="vd">Two taps on the back of my phone → I just speak. A thought or to-do gets captured <b>anytime, anywhere</b> — no typing, no breaking stride.</div>
+      </div>
+      <div class="vcard">
+        <div class="vic">🗓️</div>
+        <div class="vt">Then AI takes over</div>
+        <div class="vd">It hands me a <b>weekly summary</b> of what happened, and nudges me during work — e.g. before my 1:1 with Chris, it surfaces topics worth raising.</div>
+      </div>
+    </div>
+    <div class="foot"><span>AI Practice</span><span class="pageno">09</span></div>
+  </section>
+
+  <!-- 10 AI CAPABILITY BOUNDARY (2x2 matrix) -->
+  <section class="slide">
+    <div class="eyebrow">An Honest Note</div>
+    <h2>What to hand off — and what to keep.</h2>
+    <div class="lead" style="margin-top:10px;font-size:21px">A simple rule: weigh <b>how much time it eats</b> against <b>how much is at stake</b>.</div>
+    <div class="matrix">
+      <div class="m-yaxis">Stakes → high</div>
+      <div class="m-grid">
+        <!-- top-left: high stakes, low effort -->
+        <div class="cell keep">
+          <div class="cell-h">🔒 Do it yourself</div>
+          <div class="cell-d">Quick <b>but critical</b> — not worth the risk of handing off.</div>
+        </div>
+        <!-- top-right: high stakes, high effort -->
+        <div class="cell keep">
+          <div class="cell-h">⚠️ Do it yourself</div>
+          <div class="cell-d">Complex <b>and</b> high-stakes — you're often faster doing it than briefing it.</div>
+        </div>
+        <!-- bottom-left: low stakes, low effort -->
+        <div class="cell meh">
+          <div class="cell-h">🤷 Either way</div>
+          <div class="cell-d">Quick &amp; low-stakes — not worth the effort to delegate.</div>
+        </div>
+        <!-- bottom-right: low stakes, high effort = SWEET SPOT -->
+        <div class="cell sweet">
+          <div class="cell-h">✅ Hand it to AI</div>
+          <div class="cell-d"><b>Time-consuming, simple, low-stakes.</b> The sweet spot.</div>
+          <div class="cell-tag">summaries · research · first drafts · sync &amp; reports</div>
+        </div>
+      </div>
+      <div class="m-xaxis">Time it eats → a lot</div>
+    </div>
+    <div class="mental">🧠 It's like <b>an extremely talented teenager</b> — gifted &amp; fast, but stumbles on common sense, so it needs direction, a check, and a grown-up to sign off.</div>
+    <div class="foot"><span>AI Practice</span><span class="pageno">08</span></div>
+  </section>
+
+  <!-- 9 REAL STUMBLES (frustration examples) -->
+  <section class="slide">
+    <div class="eyebrow">Keeping It Real</div>
+    <h2>Where it actually trips up <span class="hi">on me</span>.</h2>
+    <div class="lead" style="margin-top:10px;font-size:21px">Real moments — brilliant one minute, oddly clueless the next.</div>
+    <div class="stumbles">
+      <div class="stmb">
+        <div class="st-ic">📅</div>
+        <div class="st-b"><b>Got the day of the week wrong.</b> Gave me a 10-day forecast but labeled May 18 as Sunday — it was a Monday. Pure common sense, and it whiffed.</div>
+      </div>
+      <div class="stmb">
+        <div class="st-ic">🎂</div>
+        <div class="st-b"><b>Guessed my kid's age instead of counting.</b> It eyeballed “about 5” from memory rather than doing the math from her birthday — twice. Now it's a hard rule to always calculate.</div>
+      </div>
+      <div class="stmb">
+        <div class="st-ic">🧩</div>
+        <div class="st-b"><b>Confidently made up “facts.”</b> When building a page it invented real-looking YouTube/photo IDs that didn't exist, and trusted a search engine's wrong publish dates. Anything factual needs a cross-check.</div>
+      </div>
+      <div class="stmb">
+        <div class="st-ic">🔘</div>
+        <div class="st-b"><b>Forgets small standing instructions.</b> I asked it to always show options as buttons — it still forgets sometimes. Not critical, but a reminder: it needs harnessing, not blind trust.</div>
+      </div>
+    </div>
+    <div class="foot"><span>AI Practice</span><span class="pageno">09</span></div>
+  </section>
+
+  <!-- 10 CLOSING -->
+  <section class="slide closing">
+    <div class="eyebrow">The Takeaway</div>
+    <h1>You don't need to be technical.<br>You need to <span class="hi">delegate</span>.</h1>
+    <div class="cta">Think of AI as an assistant you can direct.<br><b>Start with the one boring, repetitive thing you hate most today.</b></div>
+    <div class="foot"><span>Thank you · ZQ</span><span class="pageno">10</span></div>
+  </section>
+
+</div>
+
+<div class="dots" id="dots"></div>
+<div class="hint">← → or click to navigate</div>
+
+<script>
+  const slides=[...document.querySelectorAll('.slide')];
+  const dots=document.getElementById('dots');
+  let i=0;
+  slides.forEach((_,k)=>{const d=document.createElement('div');d.className='dot'+(k===0?' on':'');d.onclick=()=>go(k);dots.appendChild(d);});
+  const dotEls=[...dots.children];
+  function go(n){
+    n=Math.max(0,Math.min(slides.length-1,n));
+    slides[i].classList.remove('active');dotEls[i].classList.remove('on');
+    i=n;
+    slides[i].classList.add('active');dotEls[i].classList.add('on');
+  }
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown')go(i+1);
+    if(e.key==='ArrowLeft'||e.key==='PageUp')go(i-1);
+  });
+  document.getElementById('stage').addEventListener('click',e=>{
+    const x=e.clientX/window.innerWidth;go(x<0.32?i-1:i+1);
+  });
+</script>
+<script data-goatcounter="https://ibread.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
