@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Practice · Case Catalog (Appendix)</title>
+<style>
+  :root{
+    --bg:#f8f9fa; --ink:#1d1d1f; --sub:#6e6e73; --line:#e3e3e6;
+    --coral:#ff5a5f; --coralink:#e0484d; --card:#ffffff; --gap:#fbfbfd;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:-apple-system,"SF Pro Display","Helvetica Neue","Segoe UI",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.5;
+    padding:48px 0 80px;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px;}
+
+  /* header */
+  .hdr{margin-bottom:14px;}
+  .hdr .eyebrow{font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--coral);}
+  .hdr h1{font-size:40px;font-weight:800;letter-spacing:-1px;margin-top:8px;}
+  .hdr .sub{font-size:19px;color:var(--sub);margin-top:14px;max-width:760px;}
+  .legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:22px;}
+  .lg{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--sub);background:#fff;border:1px solid var(--line);border-radius:20px;padding:7px 14px;}
+  .dot{width:10px;height:10px;border-radius:50%;}
+  .dot.feat{background:var(--coral);}
+  .dot.pool{background:#c7c7cc;}
+  .dot.ph{background:#f0b429;}
+
+  /* section */
+  .sec{margin-top:46px;}
+  .sec-h{display:flex;align-items:baseline;gap:12px;border-bottom:2px solid var(--line);padding-bottom:12px;margin-bottom:22px;}
+  .sec-h .ic{font-size:24px;}
+  .sec-h h2{font-size:26px;font-weight:800;letter-spacing:-.4px;}
+  .sec-h .cnt{font-size:15px;color:var(--sub);font-weight:600;margin-left:auto;}
+
+  /* card grid */
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  @media(max-width:760px){.grid{grid-template-columns:1fr;} .hdr h1{font-size:32px;}}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px;position:relative;display:flex;flex-direction:column;}
+  .card.feat{border:2px solid var(--coral);background:linear-gradient(160deg,#fff 0%,#fff6f6 100%);}
+  .card.ph{border:2px dashed #f0b429;background:linear-gradient(160deg,#fff 0%,#fffaf0 100%);}
+
+  .badge-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+  .num-badge{font-size:13px;font-weight:800;color:#fff;background:#1d1d1f;border-radius:7px;padding:3px 9px;letter-spacing:.5px;}
+  .num-badge.life{background:#3a8a5f;}
+  .tag{font-size:12px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--sub);background:#f2f2f4;border-radius:6px;padding:3px 9px;}
+  .tag.feat{color:#fff;background:var(--coral);}
+  .tag.ph{color:#fff;background:#f0b429;}
+
+  .card h3{font-size:20px;font-weight:800;letter-spacing:-.3px;margin-bottom:8px;line-height:1.25;}
+  .card .one{font-size:15.5px;color:#3a3a3c;line-height:1.55;}
+  .card .why{font-size:14px;color:var(--sub);line-height:1.5;margin-top:12px;padding-top:12px;border-top:1px solid var(--line);}
+  .card .why b{color:var(--coralink);}
+  .card .meta{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;}
+  .chip{font-size:12.5px;color:var(--sub);background:var(--gap);border:1px solid var(--line);border-radius:14px;padding:4px 11px;}
+  .chip.run{color:#2e7d4f;background:#eefaf2;border-color:#cdeeda;}
+
+  /* multiplier highlight for sweet-spot */
+  .mult{font-size:13px;font-weight:800;color:var(--coralink);background:#fff0f0;border-radius:6px;padding:3px 9px;}
+
+  /* sub-case list (compact) */
+  .subs{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:760px){.subs{grid-template-columns:1fr;}}
+  .sub{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;}
+  .sub b{font-size:15px;color:var(--ink);}
+  .sub p{font-size:13.5px;color:var(--sub);margin-top:5px;line-height:1.5;}
+
+  .note{background:#1d1d1f;color:#fff;border-radius:14px;padding:20px 24px;font-size:15.5px;line-height:1.6;margin-top:20px;}
+  .note b{color:#ff8a8f;}
+
+  .ftr{margin-top:54px;text-align:center;font-size:13px;color:#a1a1a6;border-top:1px solid var(--line);padding-top:24px;}
+  a.deck-link{color:var(--coralink);text-decoration:none;font-weight:600;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hdr">
+    <div class="eyebrow">AI Practice · Appendix</div>
+    <h1>Case Catalog — the full pool</h1>
+    <div class="sub">Every case I&rsquo;ve built, in one place — so we can browse together and pick which ones go on stage. The <b style="color:var(--coralink)">coral-bordered</b> ones are already featured as deep-dive slides in the deck. The rest are the bench.</div>
+    <div class="legend">
+      <span class="lg"><span class="dot feat"></span> Featured in deck (deep-dive slide)</span>
+      <span class="lg"><span class="dot pool"></span> In the pool (bench / one-liner)</span>
+      <span class="lg"><span class="dot ph"></span> Placeholder — to build</span>
+    </div>
+  </div>
+
+  <!-- FEATURED -->
+  <div class="sec">
+    <div class="sec-h"><span class="ic">⭐</span><h2>Already featured in the deck</h2><span class="cnt">4 deep-dive slides</span></div>
+    <div class="grid">
+
+      <div class="card feat">
+        <div class="badge-row"><span class="num-badge">W1</span><span class="tag feat">Featured · Flagship</span></div>
+        <h3>Asia Travel Weekly — auto industry intel + podcast</h3>
+        <div class="one">Every Monday, auto-produces 4 regional travel-industry weeklies (web) + a real-voice podcast, synthesizing 90+ sources per issue — consumer trends, policy, competitors, Airbnb implications.</div>
+        <div class="why"><b>Strongest wow:</b> like having a dedicated industry researcher + podcast host. Hands-off, delivered Monday morning. The opener.</div>
+        <div class="meta"><span class="chip run">✅ Fully automated · weekly</span><span class="chip">90+ sources/issue</span></div>
+      </div>
+
+      <div class="card feat">
+        <div class="badge-row"><span class="num-badge life">L</span><span class="tag feat">Featured · The wow one</span></div>
+        <h3>Face-recognition: finding my kid in school photos</h3>
+        <div class="one">Auto-logs into the school portal, runs face recognition to pull the few shots my kid appears in out of dozens of class photos, then translates the teacher&rsquo;s English weekly note into &ldquo;what she learned + interest signals.&rdquo;</div>
+        <div class="why"><b>Wow + emotional double-hit:</b> &ldquo;AI helps a working parent not miss their kid&rsquo;s moments.&rdquo; (小管家 agent)</div>
+        <div class="meta"><span class="chip run">✅ 2× / week</span><span class="chip">Seesaw + face rec</span></div>
+      </div>
+
+      <div class="card feat">
+        <div class="badge-row"><span class="num-badge">Ind</span><span class="tag feat">Featured · Real business</span></div>
+        <h3>Running a friend&rsquo;s B&amp;B on a real PMS</h3>
+        <div class="one">Connects to a friend&rsquo;s ~10-unit Hangzhou B&amp;B PMS, auto-computes industry-grade metrics (occupancy / ADR / RevPAR / channel mix), produces weekly &amp; monthly reports — delivered the 2025 annual report (¥1.14M revenue).</div>
+        <div class="why"><b>Best proof AI can touch a real business:</b> not just chat — plugs into a live system and manages a friend&rsquo;s business at &ldquo;public-company-grade&rdquo; reporting. (小敏 agent)</div>
+        <div class="meta"><span class="chip run">✅ Auto-sync</span><span class="chip">2,000+ orders · ~1,500 reviews</span></div>
+      </div>
+
+      <div class="card feat">
+        <div class="badge-row"><span class="num-badge">W3</span><span class="tag feat">Featured · The sweet spot</span></div>
+        <h3>Multilingual market research (the anchor example)</h3>
+        <div class="one">Parallel desktop research across EN / KR / JP / CN into a formal Feishu doc (e.g. Starbucks Korea localization, Airbnb&rsquo;s China re-entry). Used to anchor the &ldquo;why fragmented time works&rdquo; story.</div>
+        <div class="why"><b>Deeper value beyond speed:</b> turns vague preliminary hunches into validated / evolved thinking — better decision quality, not just time saved. <span class="mult">~20× faster</span></div>
+        <div class="meta"><span class="chip">Analyst ~8–12h → me ~20–40min</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- WORK POOL -->
+  <div class="sec">
+    <div class="sec-h"><span class="ic">💼</span><h2>Work — the rest of the pool</h2><span class="cnt">bench</span></div>
+    <div class="grid">
+
+      <div class="card ph">
+        <div class="badge-row"><span class="num-badge">W8</span><span class="tag ph">Placeholder · to build</span></div>
+        <h3>Business Performance root-cause analysis</h3>
+        <div class="one">Feed AI the weekly dashboard (spreadsheet) and have it drill down through the cause tree: Total Nights ↑/↓ → Domestic vs Outbound → which Segment → Traffic vs Conversion. Pinpoints the real driver, layer by layer.</div>
+        <div class="why"><b>Most job-relevant of all:</b> colleagues stare at this dashboard daily but never have time to dig. This is &ldquo;AI as my data analyst doing root-cause.&rdquo; → leaning toward its own concrete slide. <b style="color:#b8860b">Needs a real (anonymized) drill-down example to make it land.</b></div>
+        <div class="meta"><span class="chip">On-demand · weekly</span><span class="chip">⚠️ slide TBD — placeholder</span></div>
+      </div>
+
+      <div class="card">
+        <div class="badge-row"><span class="num-badge">W2</span><span class="tag">Pool</span></div>
+        <h3>Auto-archiving Feishu meeting notes</h3>
+        <div class="one">After a meeting, notes auto-organize into &ldquo;summary + decisions + key quotes,&rdquo; archived and pushed as a Chinese brief. Dozens of strategy meetings archived.</div>
+        <div class="why"><b>Strongest pain resonance:</b> everyone wants it — Marketing / HR can use it immediately.</div>
+        <div class="meta"><span class="chip run">✅ Daily 19:00</span></div>
+      </div>
+
+      <div class="card">
+        <div class="badge-row"><span class="num-badge">W4</span><span class="tag">Pool</span></div>
+        <h3>Daily podcast / video digests</h3>
+        <div class="one">Each day, compresses long podcasts/videos into Chinese key points — 80+ episodes covered (Jensen Huang, Demis Hassabis, etc.).</div>
+        <div class="why"><b>Low-friction, high-frequency:</b> solves the universal &ldquo;want to listen, no time&rdquo; pain.</div>
+        <div class="meta"><span class="chip run">✅ Daily 18:00</span><span class="chip">80+ episodes</span></div>
+      </div>
+
+      <div class="card">
+        <div class="badge-row"><span class="num-badge">W5</span><span class="tag">Pool</span></div>
+        <h3>Exec presentation polishing (QBR / OKR / Offsite)</h3>
+        <div class="one">From building slides, to scoring a deck (8/10 + improvement notes), to designing workshop narrative arcs.</div>
+        <div class="why"><b>Close to a leader&rsquo;s daily reality:</b> AI as your &ldquo;presentation strategist.&rdquo;</div>
+        <div class="meta"><span class="chip">On-demand · frequent</span></div>
+      </div>
+
+      <div class="card">
+        <div class="badge-row"><span class="num-badge">W6</span><span class="tag">Pool</span></div>
+        <h3>Daily work summary + system health check</h3>
+        <div class="one">Each day auto-reviews the day&rsquo;s work, updates long-term memory, self-checks system status.</div>
+        <div class="why"><b>Shows &ldquo;always on duty&rdquo;:</b> explains how AI stays reliable over the long run.</div>
+        <div class="meta"><span class="chip run">✅ Daily 21:00</span></div>
+      </div>
+
+    </div>
+    <div class="note">💡 <b>W7 (B&amp;B reporting)</b> is listed up top under Featured — it&rsquo;s already a deep-dive slide. Its sibling sub-cases (review mining, customer SOP) are in the &ldquo;deep-dives&rdquo; section below.</div>
+  </div>
+
+  <!-- LIFE POOL -->
+  <div class="sec">
+    <div class="sec-h"><span class="ic">🏡</span><h2>Life — the pool</h2><span class="cnt">小管家 agent</span></div>
+    <div class="grid">
+
+      <div class="card">
+        <div class="badge-row"><span class="num-badge life">L8</span><span class="tag">Pool</span></div>
+        <h3>DIY color e-ink art frame</h3>
+        <div class="one">A desktop electronic museum: a new world masterpiece each day; auto-switches to my kids&rsquo; photos before their birthdays. Hardware + software, hand-tuned over a week.</div>
+        <div class="why"><b>Tangible &amp; cool:</b> software-meets-hardware that non-technical folks instantly find impressive. <span class="mult">~12× faster</span> than an engineer.</div>
+        <div class="meta"><span class="chip run">✅ Daily</span><span class="chip">Engineer ~30h → me ~2–3h</span></div>
+      </div>
+
+      <div class="card">
+        <div class="badge-row"><span class="num-badge life">L9</span><span class="tag">Pool</span></div>
+        <h3>Kids&rsquo; English course website</h3>
+        <div class="one">Built a full 46-lesson English course with 100 voiced audio clips + parent-child stories + quiz pages for my younger daughter.</div>
+        <div class="why"><b>Emotional resonance:</b> the warmth of AI helping a parent build education — non-technical parents feel it most. <span class="mult">~24× faster</span> (pinyin sibling project).</div>
+        <div class="meta"><span class="chip">One-off big project</span><span class="chip">1,694-line interactive page</span></div>
+      </div>
+
+      <div class="card">
+        <div class="badge-row"><span class="num-badge life">L10</span><span class="tag">Pool</span></div>
+        <h3>Western art appreciation companion</h3>
+        <div class="one">Send it a painting and it discusses — walked me from Chinese painting to Cézanne / Cubism / Renoir, annotating directly on the image to explain (see the story sample in the deck).</div>
+        <div class="why"><b>Charming + personalized:</b> AI doesn&rsquo;t just do tasks — it &ldquo;gets your taste.&rdquo;</div>
+        <div class="meta"><span class="chip">On-demand · frequent</span></div>
+      </div>
+
+      <div class="card">
+        <div class="badge-row"><span class="num-badge life">L11</span><span class="tag">Pool</span></div>
+        <h3>Categorized DCA + trading discipline</h3>
+        <div class="one">Daily watch on 3 ETFs flagging anomalies + disciplined execution of a $100K staged dollar-cost-averaging plan.</div>
+        <div class="why"><b>Practical &amp; numeric:</b> shows AI doing the &ldquo;against-human-nature&rdquo; discipline tasks. (finance → Life)</div>
+        <div class="meta"><span class="chip run">✅ Daily 05:10 / 05:30</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- LIFE HIGHLIGHTS (小管家) -->
+  <div class="sec">
+    <div class="sec-h"><span class="ic">✨</span><h2>Life highlights — more from 小管家</h2><span class="cnt">running daily for the whole family</span></div>
+    <div class="subs">
+      <div class="sub"><b>⭐ Proactive parenting/life intel</b><p>Every morning 8:30, pushes 3–4 timely tips (sunscreen for tomorrow&rsquo;s party, gift ideas, nutrition recipes, school-readiness methods). Rule: &ldquo;predict what you need but didn&rsquo;t ask.&rdquo; ✅ Daily 8:30</p></div>
+      <div class="sub"><b>🗺️ End-to-end family trip planning</b><p>From Xiaohongshu research → interactive mobile itinerary map (routes + transit times) → guide doc, all handled. 15+ destinations done.</p></div>
+      <div class="sub"><b>🧒 Custom AI learning pages for the kids</b><p>Age/language-tailored interactive lessons with real voice + cartoons (elder: Chinese poems/characters; younger: English + pinyin).</p></div>
+      <div class="sub"><b>🍽️ The &ldquo;expert&rdquo; food companion</b><p>Not just logging meals — points out blind spots in my reviews based on traditional Sichuan technique, into a visual food page.</p></div>
+      <div class="sub"><b>⏰ Evening proactive sweep</b><p>Scans the next 1–2 days each evening, proactively reminds (homework, rent, allergies, destination weather, conflicts). ~94% hit rate. ✅ Daily</p></div>
+      <div class="sub"><b>🏠 Airbnb stay-preference model</b><p>Analyzed 91 past stays + ~2,900 guest reviews to distill my home-selection preferences.</p></div>
+    </div>
+  </div>
+
+  <!-- INDUSTRY DEEP-DIVES (小敏) -->
+  <div class="sec">
+    <div class="sec-h"><span class="ic">🏨</span><h2>Industry deep-dives — more from 小敏</h2><span class="cnt">the B&amp;B agent</span></div>
+    <div class="subs">
+      <div class="sub"><b>📦 Order sync</b><p>Auto-syncs 2,000+ orders into Feishu sheets (weekly incremental).</p></div>
+      <div class="sub"><b>⭐ Review mining</b><p>Collected &amp; analyzed ~1,500 guest reviews → listing-optimization suggestions.</p></div>
+      <div class="sub"><b>🎧 Customer-service SOP</b><p>Read 758 customers / ~40K lines of chat to distill a service SOP.</p></div>
+      <div class="sub"><b>📣 Marketing toggle report</b><p>&ldquo;Ladder&rdquo; ad on/off weekly report — recommends which days to push paid promotion.</p></div>
+    </div>
+  </div>
+
+  <!-- NON-CASE DECK PIECES -->
+  <div class="sec">
+    <div class="sec-h"><span class="ic">🧩</span><h2>Deck pieces that aren&rsquo;t &ldquo;cases&rdquo;</h2><span class="cnt">narrative slides</span></div>
+    <div class="subs">
+      <div class="sub"><b>📈 Two shifts that change the math</b><p>Why it&rsquo;s possible now: ~1/10 the time + fragmented time becomes deep work.</p></div>
+      <div class="sub"><b>🎙️ Voice input (Typeless)</b><p>Back-tap → speak; real stats: 110h saved · 240K words · 151 wpm (≈3× typing). Now framed with relatable analogies.</p></div>
+      <div class="sub"><b>🔢 Numbers wall</b><p>92 days · 20+ automations · 4 weeklies · 15+ trip destinations · ~94% reminder hit-rate.</p></div>
+      <div class="sub"><b>🎯 Decision matrix (2×2)</b><p>Time × stake → hand to AI in the sweet spot (slow + simple + low-stake). &ldquo;Like a brilliant teenager.&rdquo;</p></div>
+      <div class="sub"><b>⚠️ Where it trips up</b><p>Real stumbles: wrong weekday, guessed kid&rsquo;s age, made up &ldquo;facts,&rdquo; forgets small instructions.</p></div>
+      <div class="sub"><b>💭 Is it worth babysitting?</b><p>Yes — it&rsquo;s an investment. Frustration is real, but it compounds; you control the dial. (newly added)</p></div>
+    </div>
+  </div>
+
+  <div class="ftr">
+    AI Practice · Case Catalog (Appendix) — companion to the <a class="deck-link" href="./">main deck</a>. Pick the stage cases here; coral = already featured.
+  </div>
+
+</div>
+<script data-goatcounter="https://ibread.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
