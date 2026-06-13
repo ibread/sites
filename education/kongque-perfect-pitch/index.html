@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>孔雀的绝对音感小课堂 🎵 每天5分钟</title>
+<style>
+  :root{
+    --do:#e74c3c; --re:#e67e22; --mi:#f1c40f; --fa:#2ecc71;
+    --sol:#3498db; --la:#9b59b6; --ti:#e84393;
+    --ink:#2c3e50; --soft:#7f8c8d; --bg:#fef9f3; --card:#fff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.6;padding:16px;max-width:760px;margin:0 auto}
+  h1{font-size:1.5rem;text-align:center;margin-bottom:4px}
+  .sub{text-align:center;color:var(--soft);font-size:.92rem;margin-bottom:18px}
+  .card{background:var(--card);border-radius:16px;padding:18px;margin-bottom:16px;
+    box-shadow:0 2px 12px rgba(0,0,0,.06)}
+  h2{font-size:1.12rem;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+  .why{background:#eaf4fd;border-left:4px solid var(--sol)}
+  .why p{font-size:.92rem;margin-bottom:6px}
+  /* Note buttons */
+  .notes{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:14px 0}
+  .note{border:none;border-radius:14px;color:#fff;font-weight:700;cursor:pointer;
+    width:84px;height:84px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    font-size:1.05rem;transition:transform .08s;box-shadow:0 3px 0 rgba(0,0,0,.15)}
+  .note:active{transform:translateY(3px);box-shadow:0 0 0 rgba(0,0,0,.15)}
+  .note small{font-weight:400;font-size:.72rem;opacity:.9;margin-top:2px}
+  .note .char{font-size:1.4rem;line-height:1}
+  .n-do{background:var(--do)} .n-re{background:var(--re)} .n-mi{background:var(--mi);color:#5a4500}
+  .n-fa{background:var(--fa)} .n-sol{background:var(--sol)} .n-la{background:var(--la)} .n-ti{background:var(--ti)}
+  .hint{font-size:.82rem;color:var(--soft);text-align:center;margin-top:6px}
+  /* Quiz */
+  .quizbox{text-align:center}
+  .bigbtn{background:var(--sol);color:#fff;border:none;border-radius:30px;padding:12px 26px;
+    font-size:1.05rem;font-weight:700;cursor:pointer;margin:6px}
+  .bigbtn.sec{background:#95a5a6}
+  .result{font-size:1.3rem;font-weight:700;margin-top:10px;min-height:34px}
+  .score{font-size:.9rem;color:var(--soft);margin-top:4px}
+  /* Weekly plan */
+  .day{border-bottom:1px dashed #e0d8cc;padding:10px 0}
+  .day:last-child{border-bottom:none}
+  .day b{color:var(--sol)}
+  .badge{display:inline-block;background:var(--mi);color:#5a4500;border-radius:8px;
+    padding:1px 8px;font-size:.78rem;font-weight:700;margin-left:6px}
+  .step{font-size:.92rem;margin:3px 0 3px 4px}
+  ol.plan{padding-left:22px}ol.plan li{margin:5px 0;font-size:.95rem}
+  .tip{background:#fdf6e3;border-left:4px solid var(--mi)}
+  .tip li{margin:5px 0 5px 18px;font-size:.92rem}
+  .stage{display:flex;gap:8px;margin:10px 0;flex-wrap:wrap}
+  .stage div{flex:1;min-width:130px;background:#f7f3ec;border-radius:10px;padding:8px 10px;font-size:.85rem}
+  .stage b{display:block;color:var(--do);margin-bottom:2px}
+  footer{text-align:center;color:var(--soft);font-size:.8rem;margin:18px 0 8px}
+  .toggle{text-align:center;margin-bottom:12px}
+  .toggle button{background:#fff;border:2px solid var(--sol);color:var(--sol);border-radius:20px;
+    padding:6px 16px;font-weight:700;cursor:pointer;margin:0 4px;font-size:.9rem}
+  .toggle button.on{background:var(--sol);color:#fff}
+  @media print{.note,.bigbtn,.toggle{box-shadow:none}.card{break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<h1>🎵 孔雀的绝对音感小课堂 🦚</h1>
+<p class="sub">每天 5 分钟 · 一周 7 天 · 在家用手机就能练</p>
+
+<div class="card why">
+  <h2>💡 这是给爸妈看的（30秒）</h2>
+  <p><b>绝对音感（perfect pitch）</b>= 不靠参照音，一听就知道这是哪个音（"这是 do / 这是 sol"）。</p>
+  <p>关键就两条：① <b>把音名当"颜色/角色"记</b>，不去算音程；② <b>每天短练、固定时间</b>，5分钟 &gt; 周末突击半小时。</p>
+  <p>策略：<b>先死磕 3 个音</b>（do-mi-sol），孔雀稳了再一个个加。点下面的音直接出声，没钢琴也能练。</p>
+</div>
+
+<div class="toggle">
+  <button id="tCN" class="on" onclick="setLang('cn')">唱名 do re mi</button>
+  <button id="tEN" onclick="setLang('en')">字母 C D E</button>
+</div>
+
+<!-- THE 7 NOTES -->
+<div class="card">
+  <h2>🎹 七个音 · 点一下就发声</h2>
+  <div class="notes" id="noteRow"></div>
+  <p class="hint">每个音有自己的颜色 + 小角色，帮孔雀"记住它长什么样"。先只练前 3 个（do红 / mi黄 / sol蓝）。</p>
+</div>
+
+<!-- QUIZ -->
+<div class="card quizbox">
+  <h2 style="justify-content:center">🎯 听音猜猜看</h2>
+  <p class="hint" id="qScope">当前练习范围：do · mi · sol（3个音）</p>
+  <div style="margin:10px 0">
+    <button class="bigbtn" onclick="playMystery()">🔊 放一个神秘音</button>
+    <button class="bigbtn sec" onclick="replay()">再听一次</button>
+  </div>
+  <div class="notes" id="answerRow"></div>
+  <div class="result" id="qResult"></div>
+  <div class="score" id="qScore">今天答对 0 / 0</div>
+  <div style="margin-top:10px">
+    <button class="bigbtn sec" style="font-size:.85rem;padding:8px 16px" onclick="cycleScope()">切换难度（3→5→7音）</button>
+  </div>
+</div>
+
+<!-- WEEKLY PLAN -->
+<div class="card">
+  <h2>📅 一周 7 天怎么练（每天5分钟）</h2>
+  <p class="hint" style="text-align:left;margin-bottom:8px">每天结构一样：<b>① 听+跟唱 2min → ② 听音猜 2min → ③ 找一个生活里的音 1min</b>。下面是每天的小变化，避免枯燥。</p>
+
+  <div class="day"><b>周一 · 认识朋友</b><span class="badge">do·mi·sol</span>
+    <div class="step">① 依次点 do-mi-sol，每个音边听边唱出名字 ×3</div>
+    <div class="step">② 听音猜：3个音模式，目标答对 5 个</div>
+    <div class="step">③ 找找看：家里哪个声音最像 do？（妈妈可哼一个让她猜）</div>
+  </div>
+  <div class="day"><b>周二 · 闭眼挑战</b><span class="badge">do·mi·sol</span>
+    <div class="step">① 跟唱 do-mi-sol ×3，第二遍闭上眼睛唱</div>
+    <div class="step">② 听音猜：闭眼听，先在心里说答案再点</div>
+    <div class="step">③ 唱一句她最爱的歌，找出里面的 sol</div>
+  </div>
+  <div class="day"><b>周三 · 加一个朋友</b><span class="badge">+re</span>
+    <div class="step">① 复习 do-mi-sol，再加 <b>re（橙）</b>，跟唱 do-re-mi-sol</div>
+    <div class="step">② 听音猜：切到5音模式试试，错了不要紧</div>
+    <div class="step">③ 让妈妈弹/哼 re，孔雀马上喊"re！"</div>
+  </div>
+  <div class="day"><b>周四 · 小考官</b><span class="badge">do·re·mi·sol</span>
+    <div class="step">① 角色互换：孔雀点音，让爸妈猜，她当老师纠正</div>
+    <div class="step">② 听音猜：5音模式，目标答对 6 个</div>
+    <div class="step">③ 唱名接龙：妈妈唱"do"，孔雀接"re"…</div>
+  </div>
+  <div class="day"><b>周五 · 集齐七色</b><span class="badge">+fa·la·ti</span>
+    <div class="step">① 七个音从低到高慢慢唱一遍（do到高do）</div>
+    <div class="step">② 听音猜：7音全开，挑战 mode！</div>
+    <div class="step">③ 用七个音随便编一句"今天的歌"</div>
+  </div>
+  <div class="day"><b>周六 · 找音游戏</b><span class="badge">生活实战</span>
+    <div class="step">① 全部复习一遍（爱唱哪几个先唱）</div>
+    <div class="step">② 听音猜：自由难度，比昨天多对1个就赢</div>
+    <div class="step">③ 出门版：门铃、微波炉"叮"、汽车提示音，猜是什么音</div>
+  </div>
+  <div class="day"><b>周日 · 唱给家人听</b><span class="badge">展示日</span>
+    <div class="step">① 给爸爸/妹妹表演："我能听出这是什么音！"</div>
+    <div class="step">② 听音猜：让家人出题，她答（最有成就感的一天）</div>
+    <div class="step">③ 一起回顾这周：哪个音最拿手？贴个小星星 ⭐</div>
+  </div>
+</div>
+
+<!-- STAGES -->
+<div class="card">
+  <h2>🚀 长期路线（别急，按月走）</h2>
+  <div class="stage">
+    <div><b>第1-2周</b>稳住 do·mi·sol 3个音，听音能 8/10 对</div>
+    <div><b>第3-4周</b>加 re·la，凑成5个</div>
+    <div><b>第2个月</b>补齐 fa·ti，七音全</div>
+    <div><b>第3个月+</b>换不同八度、加黑键(升降号)</div>
+  </div>
+  <p class="hint" style="text-align:left">⚠️ <b>宁可慢，不要乱</b>。一个音真正"记牢"（不用想就脱口而出）再加下一个。退步很正常，回到上一档巩固即可。</p>
+</div>
+
+<!-- PARENT TIPS -->
+<div class="card tip">
+  <h2>👩‍👧 给妈妈的小贴士</h2>
+  <ul>
+    <li><b>固定时间</b>：和某个日常绑定（如刷牙后/钢琴课前），最容易坚持</li>
+    <li><b>只夸过程</b>："你今天唱 sol 特别准！" 而不是"你好聪明"</li>
+    <li><b>错了别纠结</b>：直接再放一次正确音，让耳朵多听，不讲道理</li>
+    <li><b>每天同一个起点</b>：永远从中央 do 区域开始，建立"标准位置"记忆</li>
+    <li><b>她有天赋</b>：声乐老师说她音准好、有固定音感潜力，7岁半正是黄金窗口，坚持3个月会有明显变化</li>
+    <li><b>结合她爱的</b>：她最爱唱歌，把这个当"唱歌的超能力"来玩，不当任务</li>
+  </ul>
+</div>
+
+<footer>🏡 小管家 · 为孔雀定制 · 抓住 7-8 岁绝对音感黄金窗口<br>把这页存到桌面，每天点开练 5 分钟</footer>
+
+<script>
+// ---- note data: name, color class, char anchor, frequency (4th octave, middle) ----
+const NOTES=[
+  {cn:'do',en:'C',cls:'n-do',char:'🍎',word:'多多',f:261.63},
+  {cn:'re',en:'D',cls:'n-re',char:'🦊',word:'瑞瑞',f:293.66},
+  {cn:'mi',en:'E',cls:'n-mi',char:'🌟',word:'咪咪',f:329.63},
+  {cn:'fa',en:'F',cls:'n-fa',char:'🐸',word:'发发',f:349.23},
+  {cn:'sol',en:'G',cls:'n-sol',char:'💧',word:'索索',f:392.00},
+  {cn:'la',en:'A',cls:'n-la',char:'🍇',word:'拉拉',f:440.00},
+  {cn:'ti',en:'B',cls:'n-ti',char:'🌸',word:'西西',f:493.88},
+];
+let lang='cn';
+let scope=3; // 3,5,7
+const scopeMap={3:[0,2,4],5:[0,1,2,4,5],7:[0,1,2,3,4,5,6]};
+let right=0,total=0,mysteryIdx=null;
+
+// ---- Web Audio ----
+let ac=null;
+function tone(freq){
+  if(!ac) ac=new (window.AudioContext||window.webkitAudioContext)();
+  if(ac.state==='suspended') ac.resume();
+  const o=ac.createOscillator(),g=ac.createGain();
+  o.type='sine'; o.frequency.value=freq;
+  // soft piano-ish: triangle blend
+  const o2=ac.createOscillator(),g2=ac.createGain();
+  o2.type='triangle'; o2.frequency.value=freq;
+  o.connect(g); o2.connect(g2); g.connect(ac.destination); g2.connect(ac.destination);
+  const t=ac.currentTime;
+  g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(.28,t+.02);
+  g.gain.exponentialRampToValueAtTime(.001,t+1.1);
+  g2.gain.setValueAtTime(0,t); g2.gain.linearRampToValueAtTime(.12,t+.02);
+  g2.gain.exponentialRampToValueAtTime(.001,t+1.1);
+  o.start(t); o2.start(t); o.stop(t+1.15); o2.stop(t+1.15);
+}
+
+function label(n){return lang==='cn'?n.cn:n.en;}
+function setLang(l){lang=l;document.getElementById('tCN').classList.toggle('on',l==='cn');
+  document.getElementById('tEN').classList.toggle('on',l==='en');render();}
+
+function render(){
+  // top note row (full 7, dim out-of-scope)
+  const row=document.getElementById('noteRow');row.innerHTML='';
+  NOTES.forEach((n,i)=>{
+    const b=document.createElement('button');
+    b.className='note '+n.cls;
+    const inScope=scopeMap[scope].includes(i);
+    b.style.opacity=inScope?'1':'.35';
+    b.innerHTML=`<span class="char">${n.char}</span>${label(n)}<small>${n.word}</small>`;
+    b.onclick=()=>tone(n.f);
+    row.appendChild(b);
+  });
+  // answer row (only in-scope)
+  const ar=document.getElementById('answerRow');ar.innerHTML='';
+  scopeMap[scope].forEach(i=>{
+    const n=NOTES[i];
+    const b=document.createElement('button');
+    b.className='note '+n.cls;b.style.width='70px';b.style.height='70px';
+    b.innerHTML=`<span class="char" style="font-size:1.1rem">${n.char}</span>${label(n)}`;
+    b.onclick=()=>guess(i);
+    ar.appendChild(b);
+  });
+  document.getElementById('qScope').textContent='当前练习范围：'+
+    scopeMap[scope].map(i=>NOTES[i].cn).join(' · ')+`（${scope}个音）`;
+}
+
+function playMystery(){
+  const pool=scopeMap[scope];
+  mysteryIdx=pool[Math.floor(Math.random()*pool.length)];
+  document.getElementById('qResult').textContent='🤔 是哪个音？';
+  document.getElementById('qResult').style.color='#7f8c8d';
+  tone(NOTES[mysteryIdx].f);
+}
+function replay(){if(mysteryIdx!==null)tone(NOTES[mysteryIdx].f);else playMystery();}
+function guess(i){
+  if(mysteryIdx===null){playMystery();return;}
+  total++;
+  const res=document.getElementById('qResult');
+  if(i===mysteryIdx){right++;res.textContent='🎉 答对啦！是 '+label(NOTES[i]);res.style.color='#2ecc71';}
+  else{res.textContent='差一点～ 这是 '+label(NOTES[mysteryIdx])+'，再听一次';res.style.color='#e74c3c';
+    setTimeout(()=>tone(NOTES[mysteryIdx].f),400);}
+  document.getElementById('qScore').textContent=`今天答对 ${right} / ${total}`;
+  mysteryIdx=null;
+}
+function cycleScope(){scope=scope===3?5:scope===5?7:3;render();}
+
+render();
+</script>
+</body>
+</html>
