@@ -56,6 +56,10 @@
   .toggle button{background:#fff;border:2px solid var(--sol);color:var(--sol);border-radius:20px;
     padding:6px 16px;font-weight:700;cursor:pointer;margin:0 4px;font-size:.9rem}
   .toggle button.on{background:var(--sol);color:#fff}
+  #audioBanner{background:#fff3cd;border:2px solid #f1c40f;border-radius:12px;
+    padding:10px 14px;text-align:center;font-size:.92rem;font-weight:700;color:#7a5c00;
+    margin-bottom:12px;cursor:pointer}
+  .mutewarn{background:#fdecea;border-left:4px solid #e74c3c;font-size:.85rem}
   @media print{.note,.bigbtn,.toggle{box-shadow:none}.card{break-inside:avoid}}
 </style>
 </head>
@@ -70,6 +74,8 @@
   <p>关键就两条：① <b>把音名当"颜色/角色"记</b>，不去算音程；② <b>每天短练、固定时间</b>，5分钟 &gt; 周末突击半小时。</p>
   <p>策略：<b>先死磕 3 个音</b>（do-mi-sol），孔雀稳了再一个个加。点下面的音直接出声，没钢琴也能练。</p>
 </div>
+
+<div id="audioBanner" onclick="unlockAudio()">🔈 点一下先开启声音 · 手机记得调大音量</div>
 
 <div class="toggle">
   <button id="tCN" class="on" onclick="setLang('cn')">唱名 do re mi</button>
@@ -184,23 +190,48 @@ let scope=3; // 3,5,7
 const scopeMap={3:[0,2,4],5:[0,1,2,4,5],7:[0,1,2,3,4,5,6]};
 let right=0,total=0,mysteryIdx=null;
 
-// ---- Web Audio ----
-let ac=null;
+// ---- Web Audio (mobile-hardened) ----
+let ac=null, audioReady=false;
+function ensureAC(){
+  if(!ac){
+    try{ ac=new (window.AudioContext||window.webkitAudioContext)(); }
+    catch(e){ return null; }
+  }
+  return ac;
+}
+// Unlock on the very first user gesture (iOS Safari requirement)
+function unlockAudio(){
+  const c=ensureAC(); if(!c) return;
+  if(c.state==='suspended') c.resume();
+  // play a near-silent blip to fully unlock on iOS
+  try{
+    const o=c.createOscillator(),g=c.createGain();
+    o.connect(g); g.connect(c.destination);
+    g.gain.setValueAtTime(0.0001,c.currentTime);
+    o.start(c.currentTime); o.stop(c.currentTime+0.02);
+  }catch(e){}
+  audioReady=true;
+  const b=document.getElementById('audioBanner'); if(b) b.style.display='none';
+}
+// attach to first interaction anywhere
+['touchstart','touchend','mousedown','click','keydown'].forEach(ev=>{
+  document.addEventListener(ev,unlockAudio,{once:true,passive:true});
+});
+
 function tone(freq){
-  if(!ac) ac=new (window.AudioContext||window.webkitAudioContext)();
-  if(ac.state==='suspended') ac.resume();
-  const o=ac.createOscillator(),g=ac.createGain();
+  const c=ensureAC(); if(!c) return;
+  if(c.state==='suspended'){ c.resume(); }
+  const o=c.createOscillator(),g=c.createGain();
   o.type='sine'; o.frequency.value=freq;
-  // soft piano-ish: triangle blend
-  const o2=ac.createOscillator(),g2=ac.createGain();
+  const o2=c.createOscillator(),g2=c.createGain();
   o2.type='triangle'; o2.frequency.value=freq;
-  o.connect(g); o2.connect(g2); g.connect(ac.destination); g2.connect(ac.destination);
-  const t=ac.currentTime;
-  g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(.28,t+.02);
+  o.connect(g); o2.connect(g2); g.connect(c.destination); g2.connect(c.destination);
+  const t=c.currentTime;
+  g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(.32,t+.02);
   g.gain.exponentialRampToValueAtTime(.001,t+1.1);
-  g2.gain.setValueAtTime(0,t); g2.gain.linearRampToValueAtTime(.12,t+.02);
+  g2.gain.setValueAtTime(0,t); g2.gain.linearRampToValueAtTime(.14,t+.02);
   g2.gain.exponentialRampToValueAtTime(.001,t+1.1);
-  o.start(t); o2.start(t); o.stop(t+1.15); o2.stop(t+1.15);
+  o.start(t); o2.start(t); o.stop(t+1.2); o2.stop(t+1.2);
 }
 
 function label(n){return lang==='cn'?n.cn:n.en;}
