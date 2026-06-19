@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>🇫🇷 法语字母发音</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{--blue:#2457ff;--red:#ff4b5c;--cream:#fff8ee;--ink:#1f2937;--muted:#6b7280}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Hiragino Sans GB',sans-serif;background:linear-gradient(180deg,#eaf2ff 0%,#fff8ee 45%,#ffe9ef 100%);min-height:100vh;color:var(--ink);padding:16px 14px 36px}
+.app{max-width:720px;margin:0 auto}
+.hero{background:#fff;border-radius:28px;padding:22px 18px;margin-bottom:14px;box-shadow:0 12px 34px rgba(36,87,255,.14);position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;right:-40px;top:-50px;width:150px;height:150px;background:radial-gradient(circle,#2457ff 0 36%,#fff 37% 48%,#ff4b5c 49% 70%,transparent 71%);opacity:.12}
+h1{font-size:28px;line-height:1.15;margin-bottom:8px}.sub{font-size:14px;color:var(--muted);line-height:1.55}.pill{display:inline-flex;align-items:center;gap:6px;background:#eef4ff;color:#2457ff;border-radius:999px;padding:6px 10px;font-size:12px;font-weight:700;margin-bottom:12px}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}.btn{border:0;border-radius:16px;padding:14px 12px;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.08)}.btn.primary{background:var(--blue);color:#fff}.btn.light{background:#fff;color:var(--blue);border:2px solid #dbe7ff}.btn:active,.card:active{transform:scale(.97)}
+.tip{background:rgba(255,255,255,.72);border:1px solid rgba(36,87,255,.12);border-radius:18px;padding:12px 14px;font-size:13px;color:#526071;line-height:1.5;margin-bottom:14px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.card{background:#fff;border:0;border-radius:22px;padding:16px 12px;min-height:118px;box-shadow:0 8px 24px rgba(31,41,55,.08);cursor:pointer;text-align:left;position:relative;overflow:hidden}.card.playing{outline:4px solid rgba(36,87,255,.22);box-shadow:0 12px 30px rgba(36,87,255,.2)}.letter{font-size:44px;font-weight:900;line-height:1;color:var(--blue);letter-spacing:-1px}.name{font-size:19px;font-weight:800;margin-top:6px}.ipa{font-size:13px;color:var(--muted);margin-top:4px}.listen{position:absolute;right:12px;top:12px;background:#fff1f3;color:var(--red);font-size:18px;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center}.sample{font-size:12px;color:#8a6470;margin-top:8px;background:#fff6f8;border-radius:10px;padding:5px 7px;display:inline-block}
+.footer{text-align:center;color:#8b95a5;font-size:12px;margin-top:20px;line-height:1.6}.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:rgba(31,41,55,.92);color:#fff;padding:10px 14px;border-radius:999px;font-size:13px;opacity:0;pointer-events:none;transition:.25s;max-width:90%;white-space:nowrap}.toast.show{opacity:1}
+@media(min-width:620px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}.card{min-height:126px}h1{font-size:34px}.hero{padding:28px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <section class="hero">
+    <div class="pill">🇫🇷 French Alphabet · 点击听发音</div>
+    <h1>法语 26 个字母发音</h1>
+    <p class="sub">给孔雀和玥玥练习用：点任意字母，会用法语读出字母名。建议每天 3 分钟，先跟读，再随机点读。</p>
+    <div class="controls">
+      <button class="btn primary" id="playAll">▶️ 连续播放</button>
+      <button class="btn light" id="shuffle">🎲 随机抽一个</button>
+    </div>
+  </section>
+  <div class="tip">小提示：法语里 <b>U</b> 是圆唇的 /y/，<b>R</b> 是小舌音，<b>H</b> 通常不发音但字母名读 “ache”。</div>
+  <main class="grid" id="grid"></main>
+  <div class="footer">Made for Kongque & Yueyue 🏡<br>如果没有声音，请先确认手机没有静音，并点一次页面按钮。</div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const letters=[
+  ['A','a','/a/','comme avion'],['B','bé','/be/','comme bonbon'],['C','cé','/se/','comme citron'],['D','dé','/de/','comme dodo'],
+  ['E','e','/ə/','comme école'],['F','effe','/ɛf/','comme fleur'],['G','gé','/ʒe/','comme girafe'],['H','ache','/aʃ/','comme hôtel'],
+  ['I','i','/i/','comme île'],['J','ji','/ʒi/','comme jardin'],['K','ka','/ka/','comme kiwi'],['L','elle','/ɛl/','comme lune'],
+  ['M','emme','/ɛm/','comme maman'],['N','enne','/ɛn/','comme nounours'],['O','o','/o/','comme orange'],['P','pé','/pe/','comme papa'],
+  ['Q','cu','/ky/','comme question'],['R','erre','/ɛʁ/','comme robot'],['S','esse','/ɛs/','comme soleil'],['T','té','/te/','comme tortue'],
+  ['U','u','/y/','comme une'],['V','vé','/ve/','comme vélo'],['W','double vé','/dublə ve/','comme wagon'],['X','ixe','/iks/','comme xylophone'],
+  ['Y','i grec','/i ɡʁɛk/','comme yaourt'],['Z','zède','/zɛd/','comme zéro']
+];
+let voices=[];let current=null;
+function loadVoices(){voices=speechSynthesis.getVoices()} loadVoices(); speechSynthesis.onvoiceschanged=loadVoices;
+function frVoice(){return voices.find(v=>/fr[-_](FR|BE|CA|CH)/i.test(v.lang))||voices.find(v=>/^fr/i.test(v.lang))||null}
+function toast(t){const el=document.getElementById('toast');el.textContent=t;el.classList.add('show');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),1800)}
+function speak(name,card){
+  if(!('speechSynthesis' in window)){toast('这个浏览器不支持语音播放');return Promise.resolve()}
+  speechSynthesis.cancel();
+  document.querySelectorAll('.card').forEach(c=>c.classList.remove('playing'));
+  if(card) card.classList.add('playing'); current=card;
+  const u=new SpeechSynthesisUtterance(name); u.lang='fr-FR'; u.rate=.72; u.pitch=1.05; const v=frVoice(); if(v) u.voice=v;
+  return new Promise(res=>{u.onend=()=>{if(card)card.classList.remove('playing');res()};u.onerror=()=>{if(card)card.classList.remove('playing');toast('发音引擎暂时不可用');res()};speechSynthesis.speak(u)})
+}
+const grid=document.getElementById('grid');
+letters.forEach(([letter,name,ipa,sample])=>{
+  const b=document.createElement('button'); b.className='card'; b.setAttribute('aria-label',letter+' '+name);
+  b.innerHTML=`<div class="listen">🔊</div><div class="letter">${letter}</div><div class="name">${name}</div><div class="ipa">${ipa}</div><div class="sample">${sample}</div>`;
+  b.onclick=()=>speak(name,b); grid.appendChild(b);
+});
+document.getElementById('shuffle').onclick=()=>{const cards=[...document.querySelectorAll('.card')];const i=Math.floor(Math.random()*letters.length);speak(letters[i][1],cards[i])};
+document.getElementById('playAll').onclick=async()=>{const cards=[...document.querySelectorAll('.card')];for(let i=0;i<letters.length;i++){await speak(letters[i][1],cards[i]);await new Promise(r=>setTimeout(r,220));}}
+</script>
+<script data-goatcounter="https://ibread.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
