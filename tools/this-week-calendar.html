@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>家庭日程表 6月15日 - 6月21日</title>
+    <title>家庭日程表 6月22日 - 6月28日</title>
     <style>
         body {
             font-family: "Microsoft YaHei", Arial, sans-serif;
@@ -63,6 +63,37 @@
             font-size: 18px;
             white-space: nowrap;
         }
+        /* 孩子标识徽章（打印友好，替代 emoji） */
+        .kid {
+            display: inline-block;
+            min-width: 1.25em;
+            padding: 1px 4px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 13px;
+            line-height: 1.4;
+            text-align: center;
+            color: #fff;
+        }
+        .kid-q { background: #1a8a8a; }   /* 孔雀 = 青绿（方形） */
+        .kid-y {                            /* 玥玥 = 粉紫（圆形，好区分） */
+            background: #c2407a;
+            border-radius: 50%;
+            width: 1.6em;
+            height: 1.6em;
+            min-width: 0;
+            padding: 0;
+            line-height: 1.6em;
+        }
+        .legend {
+            text-align: center;
+            font-size: 13px;
+            color: #555;
+            margin: -6px 0 14px;
+        }
+        @media print {
+            .kid { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
         @media print {
             body {
                 background: white;
@@ -81,7 +112,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>📅 家庭日程表（6月15日 - 6月21日）</h1>
+        <h1>家庭日程表（6月22日 - 6月28日）</h1>
+        <div class="legend"><span class="kid kid-q">雀</span> 孔雀　<span class="kid kid-y">玥</span> 玥玥</div>
         <table>
             <thead>
                 <tr>
@@ -93,196 +125,190 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="weekday" rowspan="5">周一</td>
-                    <td class="time">15:45-15:50</td>
-                    <td class="item">🐎 接玥玥</td>
-                    <td class="caregiver">🐎</td>
+                    <td class="weekday" rowspan="6">周一</td>
+                    <td class="time">08:00-08:30</td>
+                    <td class="item"><span class="kid kid-q">雀</span> 孔雀 BSB夏令营</td>
+                    <td class="caregiver"><span class="kid kid-q">雀</span></td>
                     <td class="caregiver"></td>
                 </tr>
                 <tr>
-                    <td class="time">16:00-16:10</td>
-                    <td class="item">🦚 接孔雀 棕榈泉</td>
+                    <td class="time">15:30-15:40</td>
+                    <td class="item"><span class="kid kid-q">雀</span> 接孔雀 学校</td>
+                    <td class="caregiver"><span class="kid kid-q">雀</span></td>
                     <td class="caregiver"></td>
-                    <td class="caregiver">🦚</td>
+                </tr>
+                <tr>
+                    <td class="time">15:45-15:50</td>
+                    <td class="item"><span class="kid kid-y">玥</span> 接玥玥</td>
+                    <td class="caregiver"></td>
+                    <td class="caregiver"><span class="kid kid-y">玥</span></td>
                 </tr>
                 <tr>
                     <td class="time">16:00-16:45</td>
-                    <td class="item">🐎 玥玥钢琴课</td>
-                    <td class="caregiver">🐎</td>
-                    <td class="caregiver"></td>
+                    <td class="item"><span class="kid kid-y">玥</span> 玥玥钢琴课</td>
+                    <td class="caregiver"><span class="kid kid-y">玥</span>接</td>
+                    <td class="caregiver"><span class="kid kid-y">玥</span>送</td>
                 </tr>
                 <tr>
                     <td class="time">16:30-17:00</td>
-                    <td class="item">🦚 孔雀 数学+英文阅读 iPad</td>
+                    <td class="item"><span class="kid kid-q">雀</span> 孔雀 数学+英文阅读 iPad</td>
                     <td class="caregiver"></td>
-                    <td class="caregiver">🦚</td>
+                    <td class="caregiver"><span class="kid kid-q">雀</span></td>
                 </tr>
                 <tr>
                     <td class="time">17:10-18:40</td>
-                    <td class="item">🦚 孔雀舞蹈课</td>
-                    <td class="caregiver">🦚接</td>
-                    <td class="caregiver">🦚送</td>
+                    <td class="item"><span class="kid kid-q">雀</span> 孔雀舞蹈课</td>
+                    <td class="caregiver"><span class="kid kid-q">雀</span>接</td>
+                    <td class="caregiver"><span class="kid kid-q">雀</span>送</td>
                 </tr>
                 <tr>
-                    <td class="weekday" rowspan="4">周二</td>
-                    <td class="time">17:00-17:10</td>
-                    <td class="item">🦚 接孔雀 小区</td>
+                    <td class="weekday" rowspan="5">周二</td>
+                    <td class="time">08:00-08:30</td>
+                    <td class="item"><span class="kid kid-q">雀</span> 孔雀 BSB夏令营</td>
+                    <td class="caregiver"><span class="kid kid-q">雀</span></td>
                     <td class="caregiver"></td>
-                    <td class="caregiver">🦚</td>
+                </tr>
+                <tr>
+                    <td class="time">15:30-15:40</td>
+                    <td class="item"><span class="kid kid-q">雀</span> 接孔雀 学校</td>
+                    <td class="caregiver"><span class="kid kid-q">雀</span></td>
+                    <td class="caregiver"></td>
                 </tr>
                 <tr>
                     <td class="time">17:50-18:00</td>
-                    <td class="item">🐎 接玥玥</td>
-                    <td class="caregiver">🐎</td>
+                    <td class="item"><span class="kid kid-y">玥</span> 接玥玥</td>
+                    <td class="caregiver"><span class="kid kid-y">玥</span></td>
                     <td class="caregiver"></td>
                 </tr>
                 <tr>
                     <td class="time">18:00-18:50</td>
-                    <td class="item">🦚 孔雀 中文作业+Review英文Diary</td>
+                    <td class="item"><span class="kid kid-q">雀</span> 孔雀 中文作业+Review英文Diary</td>
                     <td class="caregiver"></td>
-                    <td class="caregiver">🦚</td>
+                    <td class="caregiver"><span class="kid kid-q">雀</span></td>
                 </tr>
                 <tr>
                     <td class="time">19:00-20:00</td>
-                    <td class="item">🦚 孔雀法语课iPad</td>
-                    <td class="caregiver">🦚</td>
+                    <td class="item"><span class="kid kid-q">雀</span> 孔雀法语课iPad</td>
+                    <td class="caregiver"><span class="kid kid-q">雀</span></td>
                     <td class="caregiver"></td>
                 </tr>
                 <tr>
                     <td class="weekday" rowspan="5">周三</td>
-                    <td class="time">15:30-15:40</td>
-                    <td class="item">🦚 接孔雀 学校</td>
-                    <td class="caregiver">🦚</td>
+                    <td class="time">08:30-15:30</td>
+                    <td class="item"><span class="kid kid-q">雀</span> 孔雀 BSB夏令营</td>
+                    <td class="caregiver"><span class="kid kid-q">雀</span></td>
                     <td class="caregiver"></td>
                 </tr>
                 <tr>
                     <td class="time">16:30-16:40</td>
-                    <td class="item">🐎 接玥玥</td>
+                    <td class="item"><span class="kid kid-y">玥</span> 接玥玥</td>
                     <td class="caregiver"></td>
-                    <td class="caregiver">🐎</td>
+                    <td class="caregiver"><span class="kid kid-y">玥</span></td>
                 </tr>
                 <tr>
                     <td class="time">17:00-18:00</td>
-                    <td class="item">🐎 玥玥骑马</td>
+                    <td class="item"><span class="kid kid-y">玥</span> 玥玥骑马</td>
                     <td class="caregiver"></td>
-                    <td class="caregiver">🐎</td>
+                    <td class="caregiver"><span class="kid kid-y">玥</span></td>
                 </tr>
                 <tr>
                     <td class="time">17:30-19:00</td>
-                    <td class="item">🦚 孔雀滑冰课 国贸</td>
-                    <td class="caregiver">🦚</td>
+                    <td class="item"><span class="kid kid-q">雀</span> 孔雀滑冰课 国贸</td>
+                    <td class="caregiver"><span class="kid kid-q">雀</span></td>
                     <td class="caregiver"></td>
                 </tr>
                 <tr>
                     <td class="time">19:00-19:25</td>
-                    <td class="item">🐎 玥玥钢琴课iPad（爸妈）</td>
+                    <td class="item"><span class="kid kid-y">玥</span> 玥玥钢琴课iPad（爸妈）</td>
                     <td class="caregiver"></td>
                     <td class="caregiver"></td>
                 </tr>
                 <tr>
-                    <td class="weekday" rowspan="7">周四</td>
-                    <td class="time">16:00-16:10</td>
-                    <td class="item">🦚 接孔雀 小区</td>
-                    <td class="caregiver">🦚</td>
-                    <td class="caregiver"></td>
-                </tr>
-                <tr>
-                    <td class="time">16:15-17:00</td>
-                    <td class="item">🦚 孔雀声乐课</td>
-                    <td class="caregiver">🦚</td>
-                    <td class="caregiver"></td>
-                </tr>
-                <tr>
-                    <td class="time">16:50-17:00</td>
-                    <td class="item">🐎 接玥玥</td>
-                    <td class="caregiver"></td>
-                    <td class="caregiver">🐎</td>
-                </tr>
-                <tr>
-                    <td class="time">17:00-18:00</td>
-                    <td class="item">🐎 玥玥跳舞</td>
-                    <td class="caregiver">🐎接</td>
-                    <td class="caregiver">🐎送</td>
-                </tr>
-                <tr>
-                    <td class="time">18:20-19:00</td>
-                    <td class="item">🦚 孔雀 中文作业</td>
-                    <td class="caregiver"></td>
-                    <td class="caregiver">🦚</td>
-                </tr>
-                <tr>
-                    <td class="time">18:36-21:09</td>
-                    <td class="item">🐎 全家 高铁去曲阜 G1269</td>
-                    <td class="caregiver"></td>
-                    <td class="caregiver"></td>
-                </tr>
-                <tr>
-                    <td class="time">21:30-12:00</td>
-                    <td class="item">🐎 全家 入住曲阜绿发JW万豪</td>
-                    <td class="caregiver"></td>
-                    <td class="caregiver"></td>
-                </tr>
-                <tr>
-                    <td class="weekday" rowspan="5">周五</td>
-                    <td class="time">00:00-23:59</td>
-                    <td class="item">🦚 Q 学校 孔雀放假</td>
-                    <td class="caregiver"></td>
+                    <td class="weekday" rowspan="6">周四</td>
+                    <td class="time">08:30-15:30</td>
+                    <td class="item"><span class="kid kid-q">雀</span> 孔雀 BSB夏令营</td>
+                    <td class="caregiver"><span class="kid kid-q">雀</span></td>
                     <td class="caregiver"></td>
                 </tr>
                 <tr>
                     <td class="time">15:30-15:40</td>
-                    <td class="item">🦚 接孔雀 学校</td>
-                    <td class="caregiver">🦚</td>
+                    <td class="item"><span class="kid kid-q">雀</span> 接孔雀 学校</td>
+                    <td class="caregiver"><span class="kid kid-q">雀</span></td>
+                    <td class="caregiver"></td>
+                </tr>
+                <tr>
+                    <td class="time">16:15-17:00</td>
+                    <td class="item"><span class="kid kid-q">雀</span> 孔雀声乐课</td>
+                    <td class="caregiver"><span class="kid kid-q">雀</span></td>
                     <td class="caregiver"></td>
                 </tr>
                 <tr>
                     <td class="time">16:50-17:00</td>
-                    <td class="item">🐎 接玥玥</td>
+                    <td class="item"><span class="kid kid-y">玥</span> 接玥玥</td>
                     <td class="caregiver"></td>
-                    <td class="caregiver">🐎</td>
+                    <td class="caregiver"><span class="kid kid-y">玥</span></td>
+                </tr>
+                <tr>
+                    <td class="time">17:00-18:00</td>
+                    <td class="item"><span class="kid kid-y">玥</span> 玥玥跳舞</td>
+                    <td class="caregiver"><span class="kid kid-y">玥</span>接</td>
+                    <td class="caregiver"><span class="kid kid-y">玥</span>送</td>
+                </tr>
+                <tr>
+                    <td class="time">18:20-19:00</td>
+                    <td class="item"><span class="kid kid-q">雀</span> 孔雀 中文作业</td>
+                    <td class="caregiver"></td>
+                    <td class="caregiver"><span class="kid kid-q">雀</span></td>
+                </tr>
+                <tr>
+                    <td class="weekday" rowspan="5">周五</td>
+                    <td class="time">08:30-15:30</td>
+                    <td class="item"><span class="kid kid-q">雀</span> 孔雀 BSB夏令营</td>
+                    <td class="caregiver"><span class="kid kid-q">雀</span></td>
+                    <td class="caregiver"></td>
+                </tr>
+                <tr>
+                    <td class="time">15:30-15:40</td>
+                    <td class="item"><span class="kid kid-q">雀</span> 接孔雀 学校</td>
+                    <td class="caregiver"><span class="kid kid-q">雀</span></td>
+                    <td class="caregiver"></td>
+                </tr>
+                <tr>
+                    <td class="time">16:50-17:00</td>
+                    <td class="item"><span class="kid kid-y">玥</span> 接玥玥</td>
+                    <td class="caregiver"></td>
+                    <td class="caregiver"><span class="kid kid-y">玥</span></td>
                 </tr>
                 <tr>
                     <td class="time">17:30-18:50</td>
-                    <td class="item">🦚 孔雀滑冰课</td>
-                    <td class="caregiver">🦚</td>
+                    <td class="item"><span class="kid kid-q">雀</span> 孔雀滑冰课</td>
+                    <td class="caregiver"><span class="kid kid-q">雀</span></td>
                     <td class="caregiver"></td>
                 </tr>
                 <tr>
                     <td class="time">17:30-18:50</td>
-                    <td class="item">🐎 玥玥滑冰课</td>
+                    <td class="item"><span class="kid kid-y">玥</span> 玥玥滑冰课</td>
                     <td class="caregiver"></td>
-                    <td class="caregiver">🐎</td>
+                    <td class="caregiver"><span class="kid kid-y">玥</span></td>
                 </tr>
                 <tr>
-                    <td class="weekday" rowspan="2">周六</td>
+                    <td class="weekday" rowspan="1">周六</td>
                     <td class="time">13:00-14:00</td>
-                    <td class="item">🦚 孔雀 写英文日记</td>
+                    <td class="item"><span class="kid kid-q">雀</span> 孔雀 写英文日记</td>
                     <td class="caregiver"></td>
                     <td class="caregiver"></td>
                 </tr>
                 <tr>
-                    <td class="time">14:00-12:00</td>
-                    <td class="item">🐎 全家 入住全季滕州龙泉广场店</td>
-                    <td class="caregiver"></td>
-                    <td class="caregiver"></td>
-                </tr>
-                <tr>
-                    <td class="weekday" rowspan="3">周日</td>
+                    <td class="weekday" rowspan="2">周日</td>
                     <td class="time">09:00-09:30</td>
-                    <td class="item">🦚 孔雀声乐课</td>
+                    <td class="item"><span class="kid kid-q">雀</span> 孔雀声乐课</td>
                     <td class="caregiver"></td>
                     <td class="caregiver"></td>
                 </tr>
                 <tr>
                     <td class="time">11:00-11:30</td>
-                    <td class="item">🐎 玥玥 钢琴课</td>
-                    <td class="caregiver">🐎</td>
-                    <td class="caregiver"></td>
-                </tr>
-                <tr>
-                    <td class="time">16:48-19:59</td>
-                    <td class="item">🐎 全家 高铁回北京 G886</td>
-                    <td class="caregiver"></td>
+                    <td class="item"><span class="kid kid-y">玥</span> 玥玥 钢琴课</td>
+                    <td class="caregiver"><span class="kid kid-y">玥</span></td>
                     <td class="caregiver"></td>
                 </tr>
             </tbody>
