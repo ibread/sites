@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Restaurant Menu</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', 'Noto Serif SC', sans-serif;
+    background: #1a1a1a;
+    color: #f5f0e8;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 50px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #333;
+  }
+
+  .header h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 2.2em;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    margin-bottom: 8px;
+  }
+
+  .header .subtitle {
+    font-size: 0.85em;
+    color: #888;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  .section-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.5em;
+    font-weight: 600;
+    text-align: center;
+    margin: 50px 0 30px;
+    position: relative;
+    color: #d4a853;
+  }
+  .section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 2px;
+    background: #d4a853;
+    margin: 12px auto 0;
+  }
+  .section-subtitle {
+    text-align: center;
+    color: #888;
+    font-size: 0.85em;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+  }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+    gap: 24px;
+  }
+
+  .menu-item {
+    background: #242424;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .menu-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  }
+
+  .menu-item-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+    background: #333;
+  }
+
+  .menu-item-body {
+    padding: 18px 20px 20px;
+  }
+
+  .menu-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+  }
+
+  .dish-name-en {
+    font-size: 1.05em;
+    font-weight: 600;
+    color: #f5f0e8;
+    letter-spacing: 0.02em;
+  }
+
+  .dish-name-cn {
+    font-size: 0.9em;
+    color: #d4a853;
+    margin-bottom: 6px;
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  .price {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #d4a853;
+    white-space: nowrap;
+  }
+
+  .ingredients-en {
+    font-size: 0.82em;
+    color: #999;
+    line-height: 1.5;
+    margin-bottom: 4px;
+  }
+
+  .ingredients-cn {
+    font-size: 0.8em;
+    color: #777;
+    line-height: 1.5;
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  .notice {
+    text-align: center;
+    color: #666;
+    font-size: 0.75em;
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 1px solid #333;
+    line-height: 1.8;
+  }
+
+  @media (max-width: 600px) {
+    .menu-grid {
+      grid-template-columns: 1fr;
+    }
+    .container { padding: 20px 12px; }
+    .header h1 { font-size: 1.6em; }
+    .menu-item-img { height: 180px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <h1>THE MENU</h1>
+    <div class="subtitle">Dinner · 晚市菜单</div>
+    <div style="margin-top:12px;color:#777;font-size:0.78em;letter-spacing:0.05em;">Real reference photos · 真实参考图（非餐厅官方出品图）</div>
+  </div>
+
+  <!-- STARTERS -->
+  <div class="section-title">Starters · 前菜</div>
+  <div class="menu-grid">
+
+    <div class="menu-item">
+      <img class="menu-item-img" src="./img/halibut-sashimi.jpg" alt="Halibut Sashimi" loading="lazy">
+      <div class="menu-item-body">
+        <div class="menu-item-header">
+          <span class="dish-name-en">Halibut Sashimi</span>
+          <span class="price">$23</span>
+        </div>
+        <div class="dish-name-cn">大比目鱼刺身</div>
+        <div class="ingredients-en">royal tioga cherries, charred avocado · masa rice cracker, sunflower salsa macha</div>
+        <div class="ingredients-cn">皇家蒂奥加樱桃、炭烧牛油果 · 玉米米饼、向日葵籽辣酱</div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img class="menu-item-img" src="./img/chicory-salad.jpg" alt="Chicory Salad" loading="lazy">
+      <div class="menu-item-body">
+        <div class="menu-item-header">
+          <span class="dish-name-en">Chicory Salad</span>
+          <span class="price">$21</span>
+        </div>
+        <div class="dish-name-cn">菊苣沙拉</div>
+        <div class="ingredients-en">black sesame hummus, strawberry · point reyes aged gouda, coco-rice brittle</div>
+        <div class="ingredients-cn">黑芝麻鹰嘴豆泥、草莓 · 波因特雷耶斯陈年高达芝士、椰子米脆</div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img class="menu-item-img" src="./img/pig-head-croquette.jpg" alt="Pig Head Croquette" loading="lazy">
+      <div class="menu-item-body">
+        <div class="menu-item-header">
+          <span class="dish-name-en">Pig Head Croquette</span>
+          <span class="price">$20</span>
+        </div>
+        <div class="dish-name-cn">猪头肉可乐饼</div>
+        <div class="ingredients-en">yellow peach, pistachio · shaved red cabbage, fish sauce caramel</div>
+        <div class="ingredients-cn">黄桃、开心果 · 红椰菜丝、鱼露焦糖酱</div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img class="menu-item-img" src="./img/grilled-zucchini.jpg" alt="Grilled Zucchini" loading="lazy">
+      <div class="menu-item-body">
+        <div class="menu-item-header">
+          <span class="dish-name-en">Grilled Zucchini</span>
+          <span class="price">$23</span>
+        </div>
+        <div class="dish-name-cn">烤西葫芦</div>
+        <div class="ingredients-en">point reyes tomarashi, costata romanesco · shishito chimi-churri, crispy quinoa</div>
+        <div class="ingredients-cn">波因特雷耶斯特制奶酪、罗马esco南瓜 · 辣椒青酱、脆藜麦</div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img class="menu-item-img" src="./img/calamari-ukoy.jpg" alt="Calamari Ukoy" loading="lazy">
+      <div class="menu-item-body">
+        <div class="menu-item-header">
+          <span class="dish-name-en">Calamari Ukoy</span>
+          <span class="price">$23</span>
+        </div>
+        <div class="dish-name-cn">鱿鱼乌科伊炸饼</div>
+        <div class="ingredients-en">shishito, green tomato, old bay · broccoli di ciccio, shiso ranch</div>
+        <div class="ingredients-cn">辣椒、绿番茄、老湾调味料 · 西兰花、紫苏牧场酱</div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img class="menu-item-img" src="./img/gulf-shrimp.jpg" alt="Gulf Shrimp" loading="lazy">
+      <div class="menu-item-body">
+        <div class="menu-item-header">
+          <span class="dish-name-en">Gulf Shrimp</span>
+          <span class="price">$27</span>
+        </div>
+        <div class="dish-name-cn">墨西哥湾虾</div>
+        <div class="ingredients-en">crispy polenta, x.o. butter, baby tatsoi · paprika aioli</div>
+        <div class="ingredients-cn">脆玉米粥、XO黄油酱、小塔菜 · 红椒蒜蓉蛋黄酱</div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img class="menu-item-img" src="./img/scallion-noodle.jpg" alt="Scallion Rice Noodle" loading="lazy">
+      <div class="menu-item-body">
+        <div class="menu-item-header">
+          <span class="dish-name-en">Scallion Rice Noodle</span>
+          <span class="price">$24</span>
+        </div>
+        <div class="dish-name-cn">葱油米线</div>
+        <div class="ingredients-en">sugar snap peas, sesame tofu · shiitake mushroom, black bean chili</div>
+        <div class="ingredients-cn">荷兰豆、芝麻豆腐 · 香菇、黑豆辣椒酱</div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img class="menu-item-img" src="./img/fried-rice.jpg" alt="Fried Rice" loading="lazy">
+      <div class="menu-item-body">
+        <div class="menu-item-header">
+          <span class="dish-name-en">Fried Rice</span>
+          <span class="price">$19</span>
+        </div>
+        <div class="dish-name-cn">炒饭</div>
+        <div class="ingredients-en">housemade spam, LYC kimchi · mushrooms, cured egg yolk</div>
+        <div class="ingredients-cn">自制午餐肉、LYC泡菜 · 蘑菇、腌蛋黄</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CUTS SECTION -->
+  <div class="section-title">Cherry Cuts · 精选肉排</div>
+  <div class="section-subtitle">Yacht Club Selects · 游艇俱乐部精选</div>
+  <div class="menu-grid">
+
+    <div class="menu-item">
+      <img class="menu-item-img" src="./img/black-cod.jpg" alt="Local Black Cod" loading="lazy">
+      <div class="menu-item-body">
+        <div class="menu-item-header">
+          <span class="dish-name-en">Local Black Cod</span>
+          <span class="price">$41</span>
+        </div>
+        <div class="dish-name-cn">本地银鳕鱼</div>
+        <div class="ingredients-en">tamarind butter sauce, heirloom beans · tumeric, curry leaves</div>
+        <div class="ingredients-cn">罗望子黄油酱、传家宝豆 · 姜黄、咖喱叶</div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img class="menu-item-img" src="./img/swordfish-katsu.jpg" alt="Swordfish Katsu" loading="lazy">
+      <div class="menu-item-body">
+        <div class="menu-item-header">
+          <span class="dish-name-en">Swordfish Katsu</span>
+          <span class="price">$46</span>
+        </div>
+        <div class="dish-name-cn">剑鱼排炸猪排风格</div>
+        <div class="ingredients-en">wasabi pea, white soy soubise · fresno chili, watermelon radish, fried leeks</div>
+        <div class="ingredients-cn">芥末豌豆、白酱油欧式酱 · 弗雷斯诺辣椒、西瓜萝卜、炸韭葱</div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img class="menu-item-img" src="./img/wagyu-zabuton.jpg" alt="American Wagyu Zabuton" loading="lazy">
+      <div class="menu-item-body">
+        <div class="menu-item-header">
+          <span class="dish-name-en">American Wagyu Zabuton</span>
+          <span class="price">$59</span>
+        </div>
+        <div class="dish-name-cn">美国和牛肩胛小排</div>
+        <div class="ingredients-en">shaved potato, toasted rice powder vinaigrette · herb salad, cloud ear mushroom</div>
+        <div class="ingredients-cn">土豆薄片、烤米粉油醋汁 · 香草沙拉、云耳</div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img class="menu-item-img" src="./img/fried-game-hen.jpg" alt="Fried Game Hen" loading="lazy">
+      <div class="menu-item-body">
+        <div class="menu-item-header">
+          <span class="dish-name-en">Fried Game Hen</span>
+          <span class="price">$37</span>
+        </div>
+        <div class="dish-name-cn">炸童子鸡</div>
+        <div class="ingredients-en">sweet & sour glaze, snowy cabbage · yuzu kosho ranch, pickled carrot</div>
+        <div class="ingredients-cn">糖醋汁、雪白卷心菜 · 柚子胡椒牧场酱、腌胡萝卜</div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img class="menu-item-img" src="./img/pork-shoulder-chop.jpg" alt="Pork Shoulder Chop" loading="lazy">
+      <div class="menu-item-body">
+        <div class="menu-item-header">
+          <span class="dish-name-en">Pork Shoulder Chop</span>
+          <span class="price">$46</span>
+        </div>
+        <div class="dish-name-cn">猪肩肉排</div>
+        <div class="ingredients-en">coachella corn, miso-braised cabbage · candied pecans, mustard seed jus</div>
+        <div class="ingredients-cn">科切拉玉米、味噌焖卷心菜 · 蜜糖山核桃、芥末籽肉汁</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="notice">
+    所有消费加收 6% 附加费，用于员工福利<br>
+    食用生鱼或未全熟的肉、禽、海鲜、贝类或蛋类可能增加食源性疾病风险<br>
+    <span style="color:#555">A 6% surcharge is added to all sales to assist in offsetting costs related to employee benefits.<br>
+    Consuming raw or undercooked meats, poultry, seafood, shellfish, or eggs may increase your risk of foodborne illness.</span>
+  </div>
+
+</div>
+</body>
+</html>
