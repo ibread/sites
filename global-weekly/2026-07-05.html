@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1a1a2e">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+  <title>🌐 Global Travel Weekly — Jun 29–Jul 5, 2026</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 52px; }
+    body { font-family: 'Source Serif 4', Georgia, serif; font-size: 15px; line-height: 1.5; background: #fafbfc; color: #1a1a2e; -webkit-font-smoothing: antialiased; }
+    .container { max-width: 720px; margin: 0 auto; padding: 0 20px 20px 20px; }
+    header { background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%); color: #fff; padding: 28px 20px; margin: 0 -20px 24px -20px; box-shadow: 0 4px 12px rgba(26, 26, 46, 0.15); position: relative; overflow: hidden; }
+    header h1 { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
+    header .dates { font-size: 14px; opacity: 0.85; }
+    header .back-link { position: absolute; top: 12px; right: 20px; color: rgba(255,255,255,0.7); text-decoration: none; font-size: 13px; }
+    header .back-link:hover { color: #fff; }
+    .page-nav { position: sticky; top: 0; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 8px 0; margin-bottom: 14px; border-bottom: 1px solid #e9ecef; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow-x: auto; white-space: nowrap; z-index: 100; }
+    .page-nav a { display: inline-block; padding: 6px 14px; margin: 0 3px; font-size: 13px; font-weight: 500; color: #6c757d; text-decoration: none; border-radius: 20px; transition: all 0.2s ease; }
+    .page-nav a:hover { background: #f1f3f5; color: #1a1a2e; }
+    .page-nav a.active { background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%); color: #fff; }
+    .section { margin-bottom: 16px; background: #ffffff; border-radius: 12px; padding: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.04); opacity: 0; transform: translateY(12px); animation: fadeUp 0.4s ease forwards; }
+    .section:nth-child(1) { animation-delay: 0.05s; }
+    .section:nth-child(2) { animation-delay: 0.1s; }
+    .section:nth-child(3) { animation-delay: 0.15s; }
+    .section:nth-child(4) { animation-delay: 0.2s; }
+    .section:nth-child(5) { animation-delay: 0.25s; }
+    .section:nth-child(6) { animation-delay: 0.3s; }
+    .section:nth-child(7) { animation-delay: 0.35s; }
+    .section:nth-child(8) { animation-delay: 0.4s; }
+    .section:nth-child(9) { animation-delay: 0.45s; }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    .section-header { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 20px; font-weight: 700; padding: 6px 0 6px 14px; margin-bottom: 10px; border-left: 4px solid; }
+    .section-header.signals { border-color: #e74c3c; background: linear-gradient(90deg, rgba(231,76,60,0.04) 0%, transparent 100%); }
+    .section-header.scorecard { border-color: #3498db; background: linear-gradient(90deg, rgba(52,152,219,0.04) 0%, transparent 100%); }
+    .section-header.implications { border-color: #27ae60; background: linear-gradient(90deg, rgba(39,174,96,0.04) 0%, transparent 100%); }
+    .section-header.patterns { border-color: #e67e22; background: linear-gradient(90deg, rgba(230,126,34,0.04) 0%, transparent 100%); }
+    .section-header.asia { border-color: #e63946; background: linear-gradient(90deg, rgba(230,57,70,0.04) 0%, transparent 100%); }
+    .section-header.americas { border-color: #3b5998; background: linear-gradient(90deg, rgba(59,89,152,0.04) 0%, transparent 100%); }
+    .section-header.emeaa { border-color: #9b59b6; background: linear-gradient(90deg, rgba(155,89,182,0.04) 0%, transparent 100%); }
+    .section-header.calendar { border-color: #f39c12; background: linear-gradient(90deg, rgba(243,156,18,0.04) 0%, transparent 100%); }
+    .section-header.sources { border-color: #6c757d; background: linear-gradient(90deg, rgba(108,117,125,0.04) 0%, transparent 100%); }
+    .key-numbers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+    .kpi-tile { background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%); border-radius: 10px; padding: 16px 12px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.04); }
+    .kpi-tile .big-number { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 36px; font-weight: 700; line-height: 1.1; margin-bottom: 4px; }
+    .kpi-tile .big-number.warm { color: #e07a5f; }
+    .kpi-tile .big-number.cool { color: #457b9d; }
+    .kpi-tile .big-number.red { color: #e63946; }
+    .kpi-tile .big-number.green { color: #2d936c; }
+    .kpi-tile .label { font-size: 12px; color: #6c757d; font-weight: 500; }
+    .news-item { padding: 8px 0; border-bottom: 1px solid #f1f3f5; font-size: 14px; color: #2d3436; line-height: 1.5; }
+    .news-item:last-child { border-bottom: none; }
+    .news-item strong { font-weight: 600; color: #1a1a2e; font-size: 15px; }
+    .stat { font-weight: 600; font-size: 14px; }
+    .stat.up { color: #2d936c; }
+    .stat.up-strong { color: #1a7a52; }
+    .stat.down { color: #dc3545; }
+    .stat.neutral { color: #e07a5f; }
+    .region-tag { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px; margin-right: 4px; }
+    .region-tag.asia { background: #fce4ec; color: #c62828; }
+    .region-tag.americas { background: #e3f2fd; color: #1565c0; }
+    .region-tag.emeaa { background: #f3e5f5; color: #7b1fa2; }
+    .region-tag.global { background: #e8f5e9; color: #2e7d32; }
+    .scorecard-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 10px; }
+    .score-col { background: #f8f9fa; border-radius: 10px; padding: 12px; border: 1px solid rgba(0,0,0,0.04); }
+    .score-col h4 { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; text-align: center; }
+    .score-col .metric { font-size: 13px; margin: 4px 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #f1f3f5; }
+    th { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); font-weight: 600; color: #495057; font-size: 12px; }
+    footer { margin-top: 32px; padding-top: 20px; border-top: 1px solid #e9ecef; font-size: 12px; color: #adb5bd; text-align: center; }
+    @media (max-width: 600px) { .key-numbers { grid-template-columns: repeat(2, 1fr); } .scorecard-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a href="../global-weekly/" class="back-link">← All Issues</a>
+      <h1>🌐 Global Markets Weekly</h1>
+      <div class="dates">Jun 29 – Jul 5, 2026 · Week 27</div>
+    </header>
+
+    <div style="background: linear-gradient(135deg, #f0f4f8 0%, #e8eef5 100%); border-radius: 12px; padding: 14px 18px; margin-bottom: 16px; display: flex; align-items: center; gap: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.06);">
+      <span style="font-size: 22px;">🎙️</span>
+      <div style="flex: 1;">
+        <div style="font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; color: #1a1a2e; margin-bottom: 6px;">Listen to this issue</div>
+        <audio controls preload="none" style="width: 100%; height: 36px;">
+          <source src="https://github.com/ibread/sites/releases/download/audio-assets/global-weekly-2026-07-05.mp3" type="audio/mpeg">
+        </audio>
+      </div>
+    </div>
+
+    <nav class="page-nav">
+      <a href="#signals">Global Signals</a>
+      <a href="#scorecard">Scorecard</a>
+      <a href="#implications">Airbnb</a>
+      <a href="#patterns">Patterns</a>
+      <a href="#asia">Asia</a>
+      <a href="#americas">Americas</a>
+      <a href="#emeaa">EMEAA</a>
+      <a href="#calendar">Calendar</a>
+      <a href="#sources">Sources</a>
+    </nav>
+
+    <!-- GLOBAL KEY SIGNALS -->
+    <div class="section" id="signals">
+      <div class="section-header signals">🔥 Global Key Signals</div>
+
+      <div class="key-numbers">
+        <div class="kpi-tile">
+          <div class="big-number green">72.2M</div>
+          <div class="label">US July 4th travelers — record, but growth stalls (+0.5% YoY)</div>
+        </div>
+        <div class="kpi-tile">
+          <div class="big-number green">+9.7%</div>
+          <div class="label">EU short-term-rental nights YoY, Q1 (144.3M, Eurostat)</div>
+        </div>
+        <div class="kpi-tile">
+          <div class="big-number red">−15%</div>
+          <div class="label">India outbound bookings expected drop (PM travel appeal)</div>
+        </div>
+      </div>
+
+      <div class="news-item">1. <strong>The West Asia war is now the single biggest force reshaping global travel — same shock, opposite outcomes by market.</strong> <span class="region-tag global">Global</span> Flight fears + fuel spikes are pushing travelers home everywhere, but the split is stark. UK staycations hit a historic tipping point — <span class="stat up-strong">46%</span> now prefer domestic vs 45% overseas — while luxury London inbound cratered (US visitors <span class="stat down">−22%</span>, Chinese <span class="stat down">−65%</span>, ~£2.8B/~$3.6B Middle-Eastern spend lost, Heathrow <span class="stat down">−18%</span>). India's PM Modi publicly urged citizens to defer non-essential foreign travel, expected to cut outbound <span class="stat down">~15%</span> at peak season. Australia's Qantas/Jetstar cut domestic capacity <span class="stat down">−5%</span> on an ~A$800M (~$520M) fuel blowout; TUI's UK summer revenue fell <span class="stat down">−10%</span>. Demand isn't vanishing — it's collapsing inward toward home.</div>
+
+      <div class="news-item">2. <strong>Border and visa policy has become the most powerful demand lever on the planet — more decisive than any marketing spend.</strong> <span class="region-tag global">Global</span> Japan's July 1 overhaul hiked single-entry visa fees <span class="stat neutral">+400%</span> (¥3,000→¥15,000/~$93) and tripled the departure tax — the first revision since 1978 — deliberately targeting China, India, and Vietnam while sparing visa-exempt Western/Korean markets. In the US, the WTTC warned proposed ESTA-country entry changes could cut arrivals <span class="stat down">−23.7%</span> (~4.7M fewer visitors) in a mega-event year. And across all 27 EU states, Reg 2024/1028 went fully live — every listing must now display a registration number and platforms must transmit data to authorities. Three continents, one lesson: policy friction is the new marketing.</div>
+
+      <div class="news-item">3. <strong>The domestic / near-home pivot is now the universal default across every region simultaneously.</strong> <span class="region-tag global">Global</span> US: <span class="stat up">63%</span> planning a domestic trip, social conversation about domestic vacations doubled YoY. France: <span class="stat up">&gt;40%</span> of summer bookings are &lt;500km from home (avg distance <span class="stat down">−30km</span> since 2023). Germany: nature travel growing 2× faster than city (Bodensee 4× in the Top 15). Italy: <span class="stat up">66%</span> choose domestic, 77% of families skip long-haul. Spain: 39% stay domestic on a flat €737 (~$795) budget. China: summer "village drift" to county-level stays mainstream. The value-vs-hotel argument has never been sharper — and rural/coastal supply is the constraint, not demand.</div>
+
+      <div class="news-item">4. <strong>Experience- and event-led travel has become the dominant demand trigger — the destination is now the show, not the map pin.</strong> <span class="region-tag global">Global</span> China concert-city bookings <span class="stat up">+60%</span> YoY (Trip.com); 62% of India's Gen Z plan music-led trips (76% discovered a city via a concert); Korea's K-culture travelers spend <span class="stat up-strong">$433 more</span> per person. Brazil's São João festival drew 2M tourists and R$2.5B (~$460M). The FIFA World Cup drove outbound searches up <span class="stat up">+400%</span> in LatAm and <span class="stat up-strong">3×</span> from China. This is precisely the trip type where unique stays + Experiences outperform commodity hotels — the case for the co-created stay keeps strengthening.</div>
+
+      <div class="news-item">5. <strong>The "flexibility arms race" has become the summer battleground as caution-driven bookers demand changeability.</strong> <span class="region-tag emeaa">EMEAA</span><span class="region-tag global">Global</span> Facing geopolitical uncertainty, Booking.com and TUI both launched "Plan B" products (free date/destination changes up to J-15); easyJet's "Book with Confidence" and Ryanair's flex policies are tracking <em>ahead</em> of last year while advance-package sellers lag. In France, "clarity of booking conditions" is now the #1 cited booking criterion. Meanwhile demand quietly compounds — EU platform nights hit 144.3M in Q1 (<span class="stat up">+9.7%</span> YoY, +16.6% vs 2024). The winner isn't the cheapest; it's the most changeable.</div>
+    </div>
+
+    <!-- REGIONAL SCORECARD -->
+    <div class="section" id="scorecard">
+      <div class="section-header scorecard">📊 Regional Scorecard</div>
+      <div class="scorecard-grid">
+        <div class="score-col">
+          <h4>🌏 Asia-Pacific</h4>
+          <div class="metric">🇰🇷 H1 arrivals: <span class="stat up">10M</span> (~1mo early)</div>
+          <div class="metric">🇰🇷 May card spend: <span class="stat up-strong">+47% YoY</span></div>
+          <div class="metric">🇯🇵 Visa fee: <span class="stat neutral">+400%</span> (Jul 1)</div>
+          <div class="metric">🇨🇳 Concert-city bookings: <span class="stat up">+60%</span></div>
+          <div class="metric">🇮🇳 Outbound: <span class="stat down">−15%</span> expected</div>
+        </div>
+        <div class="score-col">
+          <h4>🌎 Americas</h4>
+          <div class="metric">🇺🇸 July 4th: <span class="stat up">+0.5%</span> (72.2M record)</div>
+          <div class="metric">🇺🇸 ESTA risk: <span class="stat down">−23.7%</span> (WTTC)</div>
+          <div class="metric">🇧🇷 Foreign spend: <span class="stat up">+11% YoY</span></div>
+          <div class="metric">🇧🇷 Intl arrivals: <span class="stat up">~10M</span> (first ever)</div>
+          <div class="metric">🇲🇽 Summer hotel: <span class="stat up">+5.6%</span> (22.4M)</div>
+        </div>
+        <div class="score-col">
+          <h4>🌍 EMEAA</h4>
+          <div class="metric">🇪🇸 Jan–May: <span class="stat up-strong">+5.0%</span> (36.8M record)</div>
+          <div class="metric">🇪🇸 May alone: <span class="stat up">+9.5% YoY</span></div>
+          <div class="metric">🇬🇧 Staycation: <span class="stat neutral">46%</span> vs 45%</div>
+          <div class="metric">🇬🇧 TUI summer: <span class="stat down">−10% YoY</span></div>
+          <div class="metric">🇦🇺 Visitor spend: <span class="stat up">+20% YoY</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AIRBNB GLOBAL IMPLICATIONS -->
+    <div class="section" id="implications">
+      <div class="section-header implications">💡 Airbnb Global Implications</div>
+      <div class="news-item">1. <strong>The domestic / near-home pivot is Airbnb's most powerful global tailwind — and it's now synchronized across all three regions at once.</strong> UK lakes/coast (+12%), German Bodensee/Baltic, French gîtes &lt;500km, Italian borghi/Dolomites, US beaches (+30% searches), China county-level stays — every market is moving demand onto the exact long-tail rural/coastal supply hotels cannot replicate. Rural host acquisition and merchandising in these specific corridors is the highest-ROI investment on the board right now, worldwide.</div>
+
+      <div class="news-item">2. <strong>Match the flexibility arms race — or cede the caution-driven traveler of 2026.</strong> TUI and Booking's "Plan B", easyJet/Ryanair flex, and France's "clarity of booking conditions" as the #1 criterion all point one way. Airbnb's per-night, no-package model is naturally aligned, but flexible cancellation and transparent terms must be front-and-center in merchandising. In a geopolitically anxious summer, changeability is the product.</div>
+
+      <div class="news-item">3. <strong>Compliance readiness is now a pan-EMEAA supply-defense priority — and a genuine moat if executed before the August peak.</strong> EU Reg 2024/1028 is live everywhere at once (Spain NRA, Germany KVDG/Bundesnetzagentur, France loi Le Meur portal, Italy CIN/Partita IVA), alongside US SB 346 data-sharing and Japan's first criminal minpaku prosecutions. The near-term risk is non-compliant hosts self-deactivating in big cities. Airbnb's registration-verification infrastructure is a real advantage — but only if host onboarding to compliance is frictionless. Treat it as supply retention, not back-office admin.</div>
+
+      <div class="news-item">4. <strong>Experience-led demand is precisely Airbnb's structural right-to-win — and this week's data makes the case louder.</strong> India Gen Z (92% want a stay reflecting personal taste), K-culture travelers (+$433/person), China's immersive economy, World Cup and concert-driven trips. When the trip is about the experience — not generic lodging — unique stays + Experiences beat commodity hotels. The Summer 2026 product expansion (chefs, dining, AI trip-planning, World Cup packages, now live in DE/AU) is landing at exactly the right moment.</div>
+
+      <div class="news-item">5. <strong>Geopolitical rerouting creates capture windows in the receiving markets — structural, not cyclical.</strong> India→SE Asia, Australia→Asia (Japan/Bali/Thailand/Vietnam), US-inbound friction steering LatAm travelers toward Mexico (NYT), Chinese outbound redistributing to Korea/SEA as Japan pulls back. These are price-sensitive FIT travelers choosing unfamiliar destinations — exactly the audience that needs Airbnb's reviews, local-host guidance, and unique inventory. Cross-market supply messaging in the receiving markets should be a near-term priority.</div>
+    </div>
+
+    <!-- CROSS-REGION PATTERNS -->
+    <div class="section" id="patterns">
+      <div class="section-header patterns">🔄 Cross-Region Patterns</div>
+      <div class="news-item"><strong>🛂 Policy friction is the new marketing — and it's steering source-market mix on purpose.</strong> Japan's <span class="stat neutral">+400%</span> visa fee explicitly targets China/India/Vietnam while sparing Western/Korean markets; the US WTTC warns proposed ESTA changes could erase <span class="stat down">4.7M</span> arrivals in a World Cup year; the EU's Reg 2024/1028 registration mandate went live across all 27 states at once. India's outbound rerouted on a PM appeal; Korea-Japan and Taiwan repeat-visitor incentives (NT$8,000/~$250 from Jul 1) push the other way. Governments are no longer just regulating travel — they are actively engineering who travels where.</div>
+
+      <div class="news-item"><strong>✈️ Fuel and geopolitics are simultaneously constraining aviation capacity on three continents — the same shock, everywhere.</strong> Australia: Qantas/Jetstar <span class="stat down">−5%</span> domestic capacity on ~A$800M fuel blowout (domestic fares +10%, international +20%). UK/Europe: TUI cutting airline seats 4–5%, Heathrow long-haul <span class="stat down">−18%</span>. Brazil: domestic fares <span class="stat down">+11.2%</span> YoY (jet fuel +68.5%), even as LATAM adds 7,000 school-holiday flights. India: airlines cutting international capacity into peak season. Global IATA RPKs dipped <span class="stat down">−2.2%</span> in May, yet load factor hit a May-record 83.5% — constrained resilience. Reduced capacity = shorter trips, domestic preference, and drive-to STR opportunity.</div>
+
+      <div class="news-item"><strong>💰 K-shaped demand is crystallizing globally — premium trades up while the mass market squeezes down.</strong> Germany: "targeted luxury" rising (46%) even as VW weighs ~100,000 job cuts; France 4–5★ nights <span class="stat up">+5.9%</span> while agencies soften. Spain: flat €737 (~$795) domestic budgets but record inbound spend <span class="stat up">+6.2%</span>. US: bus/train/cruise the fastest-growing July 4th mode (<span class="stat up">+5.3%</span>) as cost-conscious travelers trade down, while beach-destination searches jump 30%+. Italy: Americans keep coming but "feel the price." Platforms must barbell — transparent value for the domestic squeeze, premium supply for the trade-up — or lose one half.</div>
+
+      <div class="news-item"><strong>🏡 "Dispersal" is emerging as the universal answer — to overtourism, to affordability, and to concentration risk alike.</strong> Spain ranks #1 in Europe for anti-tourism backlash while smashing arrival records; Florence extended its STR ban to 9 more districts. Northern-Spain "coolcations" (Asturias, Galicia), Italian borghi outside the Rome-Florence-Venice triangle, China's cool-weather + county-level surge, US secondary markets, and Korea's regional-airport arrivals (<span class="stat up">+32%</span>) all point the same way. Non-hotel is already 57.1% of Italian beds. Every market is discovering that distributed tourism is more sustainable, more profitable, and closer to what travelers actually want.</div>
+    </div>
+
+    <!-- ASIA HIGHLIGHTS -->
+    <div class="section" id="asia">
+      <div class="section-header asia">🌏 Asia Highlights</div>
+      <div class="news-item">• <strong>Japan's July 1 overhaul is the sharpest inbound pricing signal in Asia — visa fees <span class="stat neutral">+400%</span>, departure tax tripled</strong> — First revision since 1978, deliberately targeting China/India/Vietnam while sparing visa-exempt markets. With Chinese arrivals forecast to halve to 4.8M and Korea now Japan's #1 source market, demand is redistributing to Korea and SEA — a multi-year supply-planning signal, not a blip. <a href="https://ibread.github.io/sites/travel-weekly/travel-weekly-2026-07-05.html" target="_blank">[Full Asia report →]</a></div>
+      <div class="news-item">• <strong>Korea crossed 10M foreign arrivals in H1 — a full month early — as K-beauty/wellness becomes the breakout engine</strong> — May card spend topped ₩2.12T (~$1.55B, <span class="stat up">+47% YoY</span>); Seoul pharmacy spend by foreign cards <span class="stat up-strong">+206%</span>. Regional-airport arrivals <span class="stat up">+32%</span> — demand dispersing beyond Seoul. Domestic-guest deregulation (Busan 180-night sandbox) is the single biggest potential supply unlock in APAC.</div>
+      <div class="news-item">• <strong>Concert- and experience-led travel is now the dominant Asian summer trigger</strong> — China concert-city bookings <span class="stat up">+60%</span> YoY; 62% of India Gen Z plan music-led trips; Korea's K-culture travelers spend <span class="stat up-strong">$433 more</span> per person. China's summer transport season opened Jul 1 (10.1B rail trips projected) with inbound bookings <span class="stat up-strong">+600%</span> on Fliggy. Homestay bookings surging +45% daily as boutique county-level stays pre-sell out.</div>
+    </div>
+
+    <!-- AMERICAS HIGHLIGHTS -->
+    <div class="section" id="americas">
+      <div class="section-header americas">🌎 Americas Highlights</div>
+      <div class="news-item">• <strong>US July 4th hit a record 72.2M travelers — but growth nearly stalled at <span class="stat up">+0.5%</span> YoY</strong> — Road trips flat (61.4M), the breakout was bus/train/cruise (<span class="stat up">+5.3%</span>) as cost-conscious travelers traded down. Domestic-vacation social conversation doubled YoY; 63% planning a domestic trip. But WTTC warned proposed entry changes could cut inbound <span class="stat down">−23.7%</span> (~4.7M) — a direct risk to Airbnb's international-skewed urban supply. <a href="https://ibread.github.io/sites/americas-weekly/americas-weekly-2026-07-05.html" target="_blank">[Full Americas report →]</a></div>
+      <div class="news-item">• <strong>Brazil approaching its first-ever ~10M international visitors in 2026 — foreign spend already R$25B (<span class="stat up">+11% YoY</span>) Jan–May</strong> — May was the best on record (486K arrivals); Chinese arrivals <span class="stat up">+43%</span>. Embratur + Sebrae structured 101 international-ready experiences across 305 destinations, explicitly targeting higher-spend experience-seekers — directly aligned with Airbnb's differentiated inventory. Domestic tourism heading for R$106.9B (~$19.7B, +6.6%).</div>
+      <div class="news-item">• <strong>Mexico's World Cup reality check: host cities weaker while national summer targets <span class="stat up">+5.6%</span> (22.4M)</strong> — Mexico City and Guadalajara were the only 2 of 16 host cities with YoY air-booking declines. But leisure is rebounding (Holbox 50%→85%), Tulum relaunched as a wellness destination, and US entry friction is steering LatAm visitors toward Mexico (NYT) — an Airbnb supply-demand tailwind in CDMX and Cancún.</div>
+    </div>
+
+    <!-- EMEAA HIGHLIGHTS -->
+    <div class="section" id="emeaa">
+      <div class="section-header emeaa">🌍 EMEAA Highlights</div>
+      <div class="news-item">• <strong>The Iran war rewired European summer: UK staycation boom + luxury inbound collapse</strong> — For the first time <span class="stat up-strong">46%</span> of Brits prefer a staycation vs 45% overseas; lakes/lochs/riverside <span class="stat up">+12%</span>. But luxury London inbound cratered — US <span class="stat down">−22%</span>, Chinese <span class="stat down">−65%</span>, ~£2.8B (~$3.6B) Gulf spend lost, Heathrow <span class="stat down">−18%</span>. TUI UK summer revenue fell <span class="stat down">−10%</span>. <a href="https://ibread.github.io/sites/emeaa-weekly/emeaa-weekly-2026-07-05.html" target="_blank">[Full EMEAA report →]</a></div>
+      <div class="news-item">• <strong>Spain smashed records: <span class="stat up-strong">36.8M</span> international tourists Jan–May (<span class="stat up">+5.0%</span>), May alone <span class="stat up">+9.5%</span></strong> — Southern Europe now captures 11.71% of global summer travel intent (+2.47pp YoY). Yet Spain also ranks #1 in Europe for overtourism backlash — Barcelona and the Balearics tightening caps as northern "coolcation" coasts (Asturias, Galicia) gain. Deseasonalization and rural/interior supply are the structural fit for Airbnb.</div>
+      <div class="news-item">• <strong>EU short-term-rental regulation hit full force — one continent, one rulebook</strong> — Reg 2024/1028 is now live across all 27 states: mandatory registration numbers + platform data transmission. Spain (NRA), Germany (KVDG), France (loi Le Meur portal), Italy (CIN/Partita IVA) activated near-simultaneously. Yet demand keeps climbing — EU platform nights <span class="stat up-strong">+9.7%</span> to 144.3M in Q1. Australia inbound is strong too (visitor spend <span class="stat up">+20%</span>) as Aussies pivot outbound from the USA to Asia.</div>
+    </div>
+
+    <!-- GLOBAL TRAVEL CALENDAR -->
+    <div class="section" id="calendar">
+      <div class="section-header calendar">📅 Global Travel Calendar — Next 2 Weeks</div>
+      <table>
+        <thead>
+          <tr><th>Date</th><th>Region</th><th>Event</th><th>Impact</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Jul 9</td><td>🇧🇷 Americas</td><td>Constitutionalist Revolution Day (São Paulo)</td><td>Regional holiday; domestic travel within Brazil's largest state</td></tr>
+          <tr><td>Jul 14</td><td>🇫🇷 EMEAA</td><td>Fête Nationale (Bastille Day)</td><td>Major cultural + domestic demand driver nationwide</td></tr>
+          <tr><td>Jul 16</td><td>🇲🇽 Americas</td><td>Día de la Virgen del Carmen (Quintana Roo)</td><td>Regional holiday; Yucatán coastal travel</td></tr>
+          <tr><td>Jul 17</td><td>🇹🇼 Asia</td><td>Taiwan summer festival season (Hualien / Balloon Festival)</td><td>Domestic + inbound cultural tourism</td></tr>
+          <tr><td>Jul 19</td><td>🌐 Global</td><td>FIFA World Cup 2026 Final (MetLife Stadium, NJ)</td><td>Peak inbound event; outbound searches +400% LatAm, 3× China</td></tr>
+          <tr><td>Jul 24</td><td>🇲🇽 Americas</td><td>School summer holiday peak</td><td>Peak domestic travel through end of July</td></tr>
+          <tr><td>Jul 31</td><td>🇰🇷 Asia</td><td>숙박세일페스타 subsidy ends</td><td>Up to ₩70,000 (~$51) regional-stay coupons expire</td></tr>
+          <tr><td>Jul (month)</td><td>🇦🇺 EMEAA</td><td>Winter school-holiday domestic peak</td><td>Alpine + tropical demand; "quietcations" rising</td></tr>
+          <tr><td>Aug 3</td><td>🇨🇦 Americas</td><td>Civic Holiday (most provinces)</td><td>Domestic long-weekend travel</td></tr>
+          <tr><td>Aug 4</td><td>🇬🇧 EMEAA</td><td>UK summer school-holiday peak</td><td>Peak staycation + coastal/lakes demand</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SOURCES -->
+    <div class="section" id="sources">
+      <div class="section-header sources">📋 Sources</div>
+      <table>
+        <thead>
+          <tr><th>Region</th><th>Report</th><th>Coverage</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>🌏 Asia</td><td><a href="https://ibread.github.io/sites/travel-weekly/travel-weekly-2026-07-05.html" target="_blank">Asia Travel Weekly →</a></td><td>Jun 29 – Jul 5, 2026</td></tr>
+          <tr><td>🌎 Americas</td><td><a href="https://ibread.github.io/sites/americas-weekly/americas-weekly-2026-07-05.html" target="_blank">Americas Travel Weekly →</a></td><td>Jun 29 – Jul 5, 2026</td></tr>
+          <tr><td>🌍 EMEAA</td><td><a href="https://ibread.github.io/sites/emeaa-weekly/emeaa-weekly-2026-07-05.html" target="_blank">EMEAA Travel Weekly →</a></td><td>Jun 29 – Jul 5, 2026</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:12px; font-size:12px; color:#6c757d;">This synthesis report draws exclusively from the three regional weekly reports above. No independent data collection was performed.</p>
+    </div>
+
+    <footer>Powered by 🦞 Max (小可) | Synthesized from Asia, Americas &amp; EMEAA Travel Weekly | Jul 6, 2026</footer>
+
+  </div>
+
+  <script>
+    const navLinks = document.querySelectorAll('.page-nav a');
+    const sections = document.querySelectorAll('div.section[id]');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(l => l.classList.remove('active'));
+          const active = document.querySelector(`.page-nav a[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    sections.forEach(s => observer.observe(s));
+  </script>
+
+  <script data-goatcounter="https://ibread.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
