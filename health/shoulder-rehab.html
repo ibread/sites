@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>肩部复健 · 10 分钟弹力带训练 v2.2</title>
+<style>
+  :root{
+    --bg:#0f1216; --card:#171b21; --card2:#1d222a; --line:#262c36;
+    --txt:#e8ebf0; --sub:#9aa4b2; --accent:#4cc2ff; --accent2:#7ee787;
+    --warn:#ffb454; --danger:#ff6b6b; --radius:16px;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{margin:0;background:var(--bg);color:var(--txt);
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro","PingFang SC","Helvetica Neue",Arial,sans-serif;
+    line-height:1.55;padding:0 0 48px}
+  .wrap{max-width:680px;margin:0 auto;padding:0 16px}
+  header{padding:28px 16px 18px;text-align:center;background:linear-gradient(180deg,#1a2029,#0f1216)}
+  header h1{margin:0 0 4px;font-size:22px;letter-spacing:.3px}
+  header .v{display:inline-block;margin-top:6px;font-size:12px;color:var(--sub);
+    border:1px solid var(--line);border-radius:999px;padding:3px 10px}
+  .summary{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:16px 18px;margin:18px 0}
+  .summary h2{margin:0 0 10px;font-size:15px;color:var(--accent)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{font-size:13px;background:var(--card2);border:1px solid var(--line);
+    border-radius:999px;padding:5px 11px;color:var(--txt)}
+  .chip b{color:var(--accent2)}
+  .safety{display:flex;gap:10px;align-items:flex-start;background:rgba(255,107,107,.08);
+    border:1px solid rgba(255,107,107,.35);border-radius:12px;padding:11px 13px;margin:14px 0 0;font-size:13px;color:#ffd9d9}
+  .safety .ic{font-size:16px;line-height:1.3}
+  .flow{font-size:12.5px;color:var(--sub);text-align:center;margin:16px 0 4px}
+  .flow b{color:var(--accent)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    overflow:hidden;margin:16px 0;box-shadow:0 2px 14px rgba(0,0,0,.25)}
+  .card .hd{display:flex;align-items:center;gap:12px;padding:14px 16px 10px}
+  .num{flex:0 0 auto;width:34px;height:34px;border-radius:10px;background:var(--accent);
+    color:#04121b;font-weight:800;font-size:16px;display:flex;align-items:center;justify-content:center}
+  .card.er .num{background:var(--accent2);color:#062012}
+  .card.wall .num{background:var(--warn);color:#241500}
+  .ttl{flex:1;min-width:0}
+  .ttl .en{font-size:16px;font-weight:700;letter-spacing:.2px}
+  .ttl .cn{font-size:13px;color:var(--sub)}
+  .tag{font-size:11px;padding:3px 8px;border-radius:999px;white-space:nowrap;
+    border:1px solid var(--line);color:var(--sub)}
+  .card.er .tag{color:var(--accent2);border-color:rgba(126,231,135,.4)}
+  .video{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .body{padding:12px 16px 16px}
+  .row{display:flex;gap:10px;margin:9px 0;font-size:14px}
+  .row .k{flex:0 0 74px;color:var(--sub);font-size:12.5px;padding-top:1px}
+  .row .val{flex:1}
+  .cues{margin:6px 0 0;padding-left:2px;list-style:none}
+  .cues li{position:relative;padding-left:18px;margin:4px 0;font-size:13.5px}
+  .cues li:before{content:"›";position:absolute;left:2px;color:var(--accent);font-weight:700}
+  .dont{color:#ffc9c9}
+  .dont:before{content:"×"!important;color:var(--danger)!important}
+  .why{font-size:12.5px;color:var(--sub);background:var(--card2);border-radius:10px;
+    padding:9px 12px;margin-top:10px;border-left:3px solid var(--accent)}
+  .src{font-size:11px;color:#5b6472;margin-top:8px}
+  .src a{color:#6f7c8c}
+  footer{text-align:center;font-size:11.5px;color:#5b6472;margin-top:26px;padding:0 16px}
+  @media (max-width:420px){.ttl .en{font-size:15px}}
+</style>
+</head>
+<body>
+<header>
+  <h1>肩部复健 · 弹力带 10 分钟</h1>
+  <div>站姿 · 仅需弹力带 + 一面墙</div>
+  <span class="v">v2.2 · timed · 每动作 30s × 3 组</span>
+</header>
+
+<div class="wrap">
+
+  <div class="summary">
+    <h2>🎯 怎么做</h2>
+    <div class="chips">
+      <span class="chip">每个动作 <b>30 秒</b></span>
+      <span class="chip">组间休息 <b>10 秒</b></span>
+      <span class="chip"><b>3 组</b>循环</span>
+      <span class="chip">热身 30s + 收尾 30s</span>
+      <span class="chip">总计 <b>≈10 分钟</b></span>
+      <span class="chip">轻阻力弹力带</span>
+    </div>
+    <div class="safety">
+      <span class="ic">⚠️</span>
+      <span><b>复健原则</b>：疼痛控制在 <b>0–2/10</b>，全程<b>不耸肩</b>、慢速控制。若出现锐痛、麻木、刺痛或明显耸肩代偿 → 立即停止。</span>
+    </div>
+  </div>
+
+  <div class="flow">动作顺序：<b>唤醒肩胛</b> → <b>外旋 ×3（复健核心）</b> → <b>活动度收尾</b></div>
+
+  <!-- 1 -->
+  <div class="card">
+    <div class="hd">
+      <div class="num">1</div>
+      <div class="ttl"><div class="en">Band Pull-Apart</div><div class="cn">弹力带扩胸</div></div>
+      <div class="tag">肩胛激活</div>
+    </div>
+    <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/mHWlgqPvyxI?rel=0" title="Band Pull-Apart" loading="lazy" allowfullscreen></iframe></div>
+    <div class="body">
+      <div class="row"><div class="k">动作</div><div class="val">双手握带、手臂在体前伸直平举，向两侧拉开，挤压肩胛骨。</div></div>
+      <ul class="cues">
+        <li>手臂保持伸直、与地面平行</li>
+        <li>想象两肩胛之间夹住一支铅笔</li>
+        <li class="dont">别耸肩、别含胸、别肋骨外翻</li>
+      </ul>
+      <div class="why">给外旋打底：先把肩胛后收下沉的肌肉唤醒，后面外旋才不会靠斜方肌代偿。</div>
+      <div class="src">演示：Sports Rehab Expert (PT) · 无固定点，双手握带即可</div>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="card er">
+    <div class="hd">
+      <div class="num">2</div>
+      <div class="ttl"><div class="en">Standing External Rotation · 0°</div><div class="cn">站姿外旋（肘贴身）</div></div>
+      <div class="tag">外旋</div>
+    </div>
+    <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/i8NobLntYpM?rel=0" title="Standing External Rotation 0 degrees" loading="lazy" allowfullscreen></iframe></div>
+    <div class="body">
+      <div class="row"><div class="k">动作</div><div class="val">大臂夹紧贴腰、肘 90°，前臂由体前向外转开；带子另一端用对侧手拉住固定在肚前。</div></div>
+      <ul class="cues">
+        <li>肘部像被夹住一样贴住身体（可夹一条毛巾卷）</li>
+        <li>只转前臂，慢出慢回</li>
+        <li class="dont">大臂别抬起、别离开身体</li>
+      </ul>
+      <div class="why">复健外旋最基础的一档，直接练冈下肌/小圆肌，0° 位最安全。</div>
+      <div class="src">演示：Peak Form Health Center · 弹力带 · 自锚或门上固定皆可</div>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="card er">
+    <div class="hd">
+      <div class="num">3</div>
+      <div class="ttl"><div class="en">90/90 External Rotation</div><div class="cn">高位外旋（举手位）</div></div>
+      <div class="tag">外旋 · 进阶</div>
+    </div>
+    <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/WsyoCFK6mzw?rel=0" title="90/90 External Rotation" loading="lazy" allowfullscreen></iframe></div>
+    <div class="body">
+      <div class="row"><div class="k">动作</div><div class="val">大臂抬到肩高、肘弯 90° 呈"举手/门框"位，前臂向上、向后外旋。</div></div>
+      <ul class="cues">
+        <li>大臂始终与肩同高、与地面平行</li>
+        <li>幅度不够就先降低大臂高度（不必强求）</li>
+        <li class="dont">别塌肩、别用甩的</li>
+      </ul>
+      <div class="why">练高举位的外旋控制——日常够高处、骑马握缰这类动作都用得上。</div>
+      <div class="src">演示：MGH Orthopaedics（麻省总医院骨科）· 弹力带 · 90° 标准示范</div>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="card wall">
+    <div class="hd">
+      <div class="num">4</div>
+      <div class="ttl"><div class="en">Banded Wall Crawl + ER</div><div class="cn">贴墙爬手 + 外旋</div></div>
+      <div class="tag">活动度 · 用墙</div>
+    </div>
+    <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/1ZVEaqmKftc?rel=0" title="Banded Wall Walks" loading="lazy" allowfullscreen></iframe></div>
+    <div class="body">
+      <div class="row"><div class="k">动作</div><div class="val">面对墙，带子套住双手保持外旋张力，手指沿墙小步交替向上"爬"，到舒适高度再爬下来。</div></div>
+      <ul class="cues">
+        <li>带子始终微微向外撑（保持外旋）</li>
+        <li>只爬到不痛的高度，量力而行</li>
+        <li class="dont">别耸肩顶上去、别憋气</li>
+      </ul>
+      <div class="why">闭链（手撑墙）更稳，一边找回上举活动度、一边练肩袖，复健期很友好。</div>
+      <div class="src">演示：Dr. Beau Beard · Banded Wall Walks · 弹力带 + 墙</div>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="card wall">
+    <div class="hd">
+      <div class="num">5</div>
+      <div class="ttl"><div class="en">Wall Slide (W → Y)</div><div class="cn">靠墙滑臂</div></div>
+      <div class="tag">肩胛 · 收尾</div>
+    </div>
+    <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/k_zZ6XB9jds?rel=0" title="Y Wall Slide" loading="lazy" allowfullscreen></iframe></div>
+    <div class="body">
+      <div class="row"><div class="k">动作</div><div class="val">背/前臂贴墙成"W"，沿墙面向上滑到"Y"，再控制着滑回。全程前臂尽量贴墙。</div></div>
+      <ul class="cues">
+        <li>下巴微收、腰别拱、肋骨收住</li>
+        <li>前臂贴不住墙没关系，贴到你能贴的程度</li>
+        <li class="dont">别靠腰发力、别耸肩</li>
+      </ul>
+      <div class="why">练肩胛上回旋 + 上举活动度，收尾把整个肩带"归位"。</div>
+      <div class="src">演示：[P]rehab · Y Wall Slide · 徒手 + 墙（此动作可不用带子）</div>
+    </div>
+  </div>
+
+  <footer>
+    肩部复健训练指南 v2.2 · 仅供个人复健参考，如有伤情请遵医嘱<br>
+    动作演示来自各理疗/骨科机构公开视频
+  </footer>
+</div>
+</body>
+</html>
