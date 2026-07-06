@@ -44,8 +44,20 @@
   .tag{font-size:11px;padding:3px 8px;border-radius:999px;white-space:nowrap;
     border:1px solid var(--line);color:var(--sub)}
   .card.er .tag{color:var(--accent2);border-color:rgba(126,231,135,.4)}
-  .video{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-  .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  /* video thumbnail -> opens YouTube */
+  .video{position:relative;display:block;width:100%;aspect-ratio:16/9;background:#000;
+    border-top:1px solid var(--line);text-decoration:none}
+  .video img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .video .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    width:60px;height:60px;background:rgba(200,30,30,.92);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;box-shadow:0 3px 14px rgba(0,0,0,.5)}
+  .video .play:after{content:"";border-left:20px solid #fff;border-top:12px solid transparent;
+    border-bottom:12px solid transparent;margin-left:5px}
+  .yt-btn{display:flex;align-items:center;justify-content:center;gap:8px;
+    background:#c1272d;color:#fff;text-decoration:none;font-weight:600;font-size:14px;
+    padding:11px;border-bottom:1px solid var(--line)}
+  .yt-btn:active{background:#a11f24}
+  .yt-btn .ytmark{font-weight:800;letter-spacing:.5px}
   .body{padding:12px 16px 16px}
   .row{display:flex;gap:10px;margin:9px 0;font-size:14px}
   .row .k{flex:0 0 74px;color:var(--sub);font-size:12.5px;padding-top:1px}
@@ -88,6 +100,7 @@
     </div>
   </div>
 
+  <div class="flow">▶ 点缩略图或红色按钮 → 直接打开 YouTube 看演示</div>
   <div class="flow">动作顺序：<b>唤醒肩胛</b> → <b>外旋 ×3（复健核心）</b> → <b>活动度收尾</b></div>
 
   <!-- 1 -->
@@ -97,7 +110,10 @@
       <div class="ttl"><div class="en">Band Pull-Apart</div><div class="cn">弹力带扩胸</div></div>
       <div class="tag">肩胛激活</div>
     </div>
-    <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/mHWlgqPvyxI?rel=0" title="Band Pull-Apart" loading="lazy" allowfullscreen></iframe></div>
+    <a class="video" href="https://www.youtube.com/watch?v=mHWlgqPvyxI" target="_blank" rel="noopener">
+      <img src="https://i.ytimg.com/vi/mHWlgqPvyxI/hqdefault.jpg" alt="Band Pull-Apart demo">
+      <span class="play"></span></a>
+    <a class="yt-btn" href="https://www.youtube.com/watch?v=mHWlgqPvyxI" target="_blank" rel="noopener"><span class="ytmark">▶ 在 YouTube 打开</span></a>
     <div class="body">
       <div class="row"><div class="k">动作</div><div class="val">双手握带、手臂在体前伸直平举，向两侧拉开，挤压肩胛骨。</div></div>
       <ul class="cues">
@@ -117,7 +133,10 @@
       <div class="ttl"><div class="en">Standing External Rotation · 0°</div><div class="cn">站姿外旋（肘贴身）</div></div>
       <div class="tag">外旋</div>
     </div>
-    <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/i8NobLntYpM?rel=0" title="Standing External Rotation 0 degrees" loading="lazy" allowfullscreen></iframe></div>
+    <a class="video" href="https://www.youtube.com/watch?v=i8NobLntYpM" target="_blank" rel="noopener">
+      <img src="https://i.ytimg.com/vi/i8NobLntYpM/hqdefault.jpg" alt="Standing External Rotation demo">
+      <span class="play"></span></a>
+    <a class="yt-btn" href="https://www.youtube.com/watch?v=i8NobLntYpM" target="_blank" rel="noopener"><span class="ytmark">▶ 在 YouTube 打开</span></a>
     <div class="body">
       <div class="row"><div class="k">动作</div><div class="val">大臂夹紧贴腰、肘 90°，前臂由体前向外转开；带子另一端用对侧手拉住固定在肚前。</div></div>
       <ul class="cues">
@@ -137,7 +156,10 @@
       <div class="ttl"><div class="en">90/90 External Rotation</div><div class="cn">高位外旋（举手位）</div></div>
       <div class="tag">外旋 · 进阶</div>
     </div>
-    <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/WsyoCFK6mzw?rel=0" title="90/90 External Rotation" loading="lazy" allowfullscreen></iframe></div>
+    <a class="video" href="https://www.youtube.com/watch?v=WsyoCFK6mzw" target="_blank" rel="noopener">
+      <img src="https://i.ytimg.com/vi/WsyoCFK6mzw/hqdefault.jpg" alt="90/90 External Rotation demo">
+      <span class="play"></span></a>
+    <a class="yt-btn" href="https://www.youtube.com/watch?v=WsyoCFK6mzw" target="_blank" rel="noopener"><span class="ytmark">▶ 在 YouTube 打开</span></a>
     <div class="body">
       <div class="row"><div class="k">动作</div><div class="val">大臂抬到肩高、肘弯 90° 呈"举手/门框"位，前臂向上、向后外旋。</div></div>
       <ul class="cues">
@@ -157,7 +179,10 @@
       <div class="ttl"><div class="en">Banded Wall Crawl + ER</div><div class="cn">贴墙爬手 + 外旋</div></div>
       <div class="tag">活动度 · 用墙</div>
     </div>
-    <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/1ZVEaqmKftc?rel=0" title="Banded Wall Walks" loading="lazy" allowfullscreen></iframe></div>
+    <a class="video" href="https://www.youtube.com/watch?v=1ZVEaqmKftc" target="_blank" rel="noopener">
+      <img src="https://i.ytimg.com/vi/1ZVEaqmKftc/hqdefault.jpg" alt="Banded Wall Walks demo">
+      <span class="play"></span></a>
+    <a class="yt-btn" href="https://www.youtube.com/watch?v=1ZVEaqmKftc" target="_blank" rel="noopener"><span class="ytmark">▶ 在 YouTube 打开</span></a>
     <div class="body">
       <div class="row"><div class="k">动作</div><div class="val">面对墙，带子套住双手保持外旋张力，手指沿墙小步交替向上"爬"，到舒适高度再爬下来。</div></div>
       <ul class="cues">
@@ -177,7 +202,10 @@
       <div class="ttl"><div class="en">Wall Slide (W → Y)</div><div class="cn">靠墙滑臂</div></div>
       <div class="tag">肩胛 · 收尾</div>
     </div>
-    <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/k_zZ6XB9jds?rel=0" title="Y Wall Slide" loading="lazy" allowfullscreen></iframe></div>
+    <a class="video" href="https://www.youtube.com/watch?v=k_zZ6XB9jds" target="_blank" rel="noopener">
+      <img src="https://i.ytimg.com/vi/k_zZ6XB9jds/hqdefault.jpg" alt="Y Wall Slide demo">
+      <span class="play"></span></a>
+    <a class="yt-btn" href="https://www.youtube.com/watch?v=k_zZ6XB9jds" target="_blank" rel="noopener"><span class="ytmark">▶ 在 YouTube 打开</span></a>
     <div class="body">
       <div class="row"><div class="k">动作</div><div class="val">背/前臂贴墙成"W"，沿墙面向上滑到"Y"，再控制着滑回。全程前臂尽量贴墙。</div></div>
       <ul class="cues">
