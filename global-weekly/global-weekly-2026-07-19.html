@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1a1a2e">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+  <title>🌐 Global Markets Weekly — Jul 13–19, 2026</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 52px; }
+    body { font-family: 'Source Serif 4', Georgia, serif; font-size: 15px; line-height: 1.5; background: #fafbfc; color: #1a1a2e; -webkit-font-smoothing: antialiased; }
+    .container { max-width: 720px; margin: 0 auto; padding: 0 20px 20px 20px; }
+    header { background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%); color: #fff; padding: 28px 20px; margin: 0 -20px 24px -20px; box-shadow: 0 4px 12px rgba(26, 26, 46, 0.15); position: relative; overflow: hidden; }
+    header h1 { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
+    header .dates { font-size: 14px; opacity: 0.85; }
+    header .back-link { position: absolute; top: 12px; right: 20px; color: rgba(255,255,255,0.7); text-decoration: none; font-size: 13px; }
+    header .back-link:hover { color: #fff; }
+    .page-nav { position: sticky; top: 0; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 8px 0; margin-bottom: 14px; border-bottom: 1px solid #e9ecef; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow-x: auto; white-space: nowrap; z-index: 100; }
+    .page-nav a { display: inline-block; padding: 6px 14px; margin: 0 3px; font-size: 13px; font-weight: 500; color: #6c757d; text-decoration: none; border-radius: 20px; transition: all 0.2s ease; }
+    .page-nav a:hover { background: #f1f3f5; color: #1a1a2e; }
+    .page-nav a.active { background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%); color: #fff; }
+    .section { margin-bottom: 16px; background: #ffffff; border-radius: 12px; padding: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.04); opacity: 0; transform: translateY(12px); animation: fadeUp 0.4s ease forwards; }
+    .section:nth-child(1) { animation-delay: 0.05s; }
+    .section:nth-child(2) { animation-delay: 0.1s; }
+    .section:nth-child(3) { animation-delay: 0.15s; }
+    .section:nth-child(4) { animation-delay: 0.2s; }
+    .section:nth-child(5) { animation-delay: 0.25s; }
+    .section:nth-child(6) { animation-delay: 0.3s; }
+    .section:nth-child(7) { animation-delay: 0.35s; }
+    .section:nth-child(8) { animation-delay: 0.4s; }
+    .section:nth-child(9) { animation-delay: 0.45s; }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    .section-header { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 20px; font-weight: 700; padding: 6px 0 6px 14px; margin-bottom: 10px; border-left: 4px solid; }
+    .section-header.signals { border-color: #e74c3c; background: linear-gradient(90deg, rgba(231,76,60,0.04) 0%, transparent 100%); }
+    .section-header.scorecard { border-color: #3498db; background: linear-gradient(90deg, rgba(52,152,219,0.04) 0%, transparent 100%); }
+    .section-header.implications { border-color: #27ae60; background: linear-gradient(90deg, rgba(39,174,96,0.04) 0%, transparent 100%); }
+    .section-header.patterns { border-color: #e67e22; background: linear-gradient(90deg, rgba(230,126,34,0.04) 0%, transparent 100%); }
+    .section-header.asia { border-color: #e63946; background: linear-gradient(90deg, rgba(230,57,70,0.04) 0%, transparent 100%); }
+    .section-header.americas { border-color: #3b5998; background: linear-gradient(90deg, rgba(59,89,152,0.04) 0%, transparent 100%); }
+    .section-header.emeaa { border-color: #9b59b6; background: linear-gradient(90deg, rgba(155,89,182,0.04) 0%, transparent 100%); }
+    .section-header.calendar { border-color: #f39c12; background: linear-gradient(90deg, rgba(243,156,18,0.04) 0%, transparent 100%); }
+    .section-header.sources { border-color: #6c757d; background: linear-gradient(90deg, rgba(108,117,125,0.04) 0%, transparent 100%); }
+    .key-numbers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+    .kpi-tile { background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%); border-radius: 10px; padding: 16px 12px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.04); }
+    .kpi-tile .big-number { font-family: 'DM Sans', -apple-system, sans-serif; font-size: 36px; font-weight: 700; line-height: 1.1; margin-bottom: 4px; }
+    .kpi-tile .big-number.warm { color: #e07a5f; }
+    .kpi-tile .big-number.cool { color: #457b9d; }
+    .kpi-tile .big-number.red { color: #e63946; }
+    .kpi-tile .big-number.green { color: #2d936c; }
+    .kpi-tile .label { font-size: 12px; color: #6c757d; font-weight: 500; }
+    .news-item { padding: 8px 0; border-bottom: 1px solid #f1f3f5; font-size: 14px; color: #2d3436; line-height: 1.5; }
+    .news-item:last-child { border-bottom: none; }
+    .news-item strong { font-weight: 600; color: #1a1a2e; font-size: 15px; }
+    .stat { font-weight: 600; font-size: 14px; }
+    .stat.up { color: #2d936c; }
+    .stat.up-strong { color: #1a7a52; }
+    .stat.down { color: #dc3545; }
+    .stat.neutral { color: #e07a5f; }
+    .region-tag { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px; margin-right: 4px; }
+    .region-tag.asia { background: #fce4ec; color: #c62828; }
+    .region-tag.americas { background: #e3f2fd; color: #1565c0; }
+    .region-tag.emeaa { background: #f3e5f5; color: #7b1fa2; }
+    .region-tag.global { background: #e8f5e9; color: #2e7d32; }
+    .scorecard-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 10px; }
+    .score-col { background: #f8f9fa; border-radius: 10px; padding: 12px; border: 1px solid rgba(0,0,0,0.04); }
+    .score-col h4 { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; text-align: center; }
+    .score-col .metric { font-size: 13px; margin: 4px 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #f1f3f5; }
+    th { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); font-weight: 600; color: #495057; font-size: 12px; }
+    footer { margin-top: 32px; padding-top: 20px; border-top: 1px solid #e9ecef; font-size: 12px; color: #adb5bd; text-align: center; }
+    @media (max-width: 600px) { .key-numbers { grid-template-columns: repeat(2, 1fr); } .scorecard-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a href="../global-weekly/" class="back-link">← All Issues</a>
+      <h1>🌐 Global Markets Weekly</h1>
+      <div class="dates">Jul 13 – Jul 19, 2026 · Week 29</div>
+    </header>
+
+    <div style="background: linear-gradient(135deg, #f0f4f8 0%, #e8eef5 100%); border-radius: 12px; padding: 14px 18px; margin-bottom: 16px; display: flex; align-items: center; gap: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.06);">
+      <span style="font-size: 22px;">🎙️</span>
+      <div style="flex: 1;">
+        <div style="font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; color: #1a1a2e; margin-bottom: 6px;">Listen to this issue</div>
+        <audio controls preload="none" style="width: 100%; height: 36px;">
+          <source src="https://github.com/ibread/sites/releases/download/audio-assets/global-weekly-2026-07-19.mp3" type="audio/mpeg">
+        </audio>
+      </div>
+    </div>
+
+    <nav class="page-nav">
+      <a href="#signals">Global Signals</a>
+      <a href="#scorecard">Scorecard</a>
+      <a href="#implications">Airbnb</a>
+      <a href="#patterns">Patterns</a>
+      <a href="#asia">Asia</a>
+      <a href="#americas">Americas</a>
+      <a href="#emeaa">EMEAA</a>
+      <a href="#calendar">Calendar</a>
+      <a href="#sources">Sources</a>
+    </nav>
+
+    <!-- GLOBAL KEY SIGNALS -->
+    <div class="section" id="signals">
+      <div class="section-header signals">🔥 Global Key Signals</div>
+
+      <div class="key-numbers">
+        <div class="kpi-tile">
+          <div class="big-number red">−56%</div>
+          <div class="label">China arrivals to Japan H1 — collapse turns Japan inbound negative (−2.0%)</div>
+        </div>
+        <div class="kpi-tile">
+          <div class="big-number green">+20.4%</div>
+          <div class="label">China H1 foreign inbound (22.9M); 77.7% arrive visa-free</div>
+        </div>
+        <div class="kpi-tile">
+          <div class="big-number warm">+26.5%</div>
+          <div class="label">US airfare YoY; avg summer trip now $4,069 (+17%)</div>
+        </div>
+      </div>
+
+      <div class="news-item">1. <strong>Geopolitics has become the biggest single mover of demand this week — China's redirected outbound is reshaping the entire Asia map.</strong> <span class="region-tag asia">Asia</span> China arrivals to Japan collapsed <span class="stat down">−56.4%</span> in H1 amid political tension, pushing Japan's total inbound negative for the first time since COVID (<span class="stat down">−2.0%</span>, ~21.08M; June −6.8%, third straight monthly drop). That demand is flowing to Korea (May Chinese visitors 563,600; Korea–China air rights expanded for the first time in 7 years) — while the Iran/Middle East crisis simultaneously reroutes European tourists into Italy (<span class="stat up">+4.43%</span>) and Spain. Political shock, not price, is now the dominant redistribution force across two continents.</div>
+
+      <div class="news-item">2. <strong>China's inbound machine keeps accelerating on visa-free policy — the clearest structural growth story in global travel.</strong> <span class="region-tag asia">Asia</span> 22.91M foreign inbound arrivals in H1 (<span class="stat up">+20.4%</span>), of which <span class="stat up-strong">77.7%</span> entered visa-free. Demand is diffusing well beyond gateway cities — Yiwu inbound air tickets +60%, Greek arrivals up nearly 10×. As China codifies open-facilitation and the US deters (<span class="stat down">−1.8%</span> overseas arrivals in June, ~100-day visa delays), the two biggest markets keep diverging in opposite directions.</div>
+
+      <div class="news-item">3. <strong>The affordability squeeze hit a new peak — travel inflation is now the defining consumer story across every region.</strong> <span class="region-tag global">Global</span> US average summer trip costs surged to <span class="stat neutral">$4,069</span> (+17%) as airfare jumped <span class="stat down">+26.5%</span> and lodging +4.8%; 57% say travel costs more, yet 56% still travel. Spain moves to double STR/hotel VAT (<span class="stat neutral">10%→21%</span>); Korea's strong won drove "L.I.T.E." light-spend short-haul; Japan's weak yen cut outbound <span class="stat down">−8.8%</span>. Demand is proving resilient but is barbelling — trading down on cost, protecting the trip.</div>
+
+      <div class="news-item">4. <strong>"Experience over product" is now the dominant traveler profile on three continents — the co-created-stay thesis keeps compounding.</strong> <span class="region-tag global">Global</span> China 4+ day deep trips leapt to <span class="stat up">47.1%</span> of summer bookings (from 28.4%), Meituan local resort-stay orders +124% on "松弛感" slow travel, and Skyscanner named "local life experience travel" the year's shift. In the US, Deloitte confirms premium and mood/wellness trips outpacing bucket-list sightseeing. When the trip is about the experience, distinctive stays beat commodity hotels.</div>
+
+      <div class="news-item">5. <strong>STR regulation crested into hard fees and caps — supply economics tightened across EMEAA right at peak.</strong> <span class="region-tag emeaa">EMEAA</span> Spain moved to double accommodation VAT to <span class="stat neutral">21%</span> atop mandatory NRA registration; Airbnb's <span class="stat neutral">15.5%</span> host-only fee goes mandatory EU-wide from October; Barcelona capped visitors at 16M and France imposed daily site caps. The World Cup windfall also underwhelmed a second week — Mexico's WC economic impact came in <span class="stat down">−7%</span> below forecast. Regulation now removes and re-prices supply exactly as demand peaks.</div>
+    </div>
+
+    <!-- REGIONAL SCORECARD -->
+    <div class="section" id="scorecard">
+      <div class="section-header scorecard">📊 Regional Scorecard</div>
+      <div class="scorecard-grid">
+        <div class="score-col">
+          <h4>🌏 Asia-Pacific</h4>
+          <div class="metric">🇯🇵 H1 inbound: <span class="stat down">−2.0%</span> (21.08M)</div>
+          <div class="metric">🇨🇳 H1 foreign inbound: <span class="stat up">22.9M</span> (+20.4%)</div>
+          <div class="metric">🇨🇳 Deep 4+ day trips: <span class="stat up-strong">47.1%</span></div>
+          <div class="metric">🇰🇷 Regional-airport arrivals: <span class="stat up">1.57M</span></div>
+          <div class="metric">🇯🇵 China arrivals: <span class="stat down">−56.4%</span></div>
+        </div>
+        <div class="score-col">
+          <h4>🌎 Americas</h4>
+          <div class="metric">🇺🇸 June overseas inbound: <span class="stat down">−1.8%</span></div>
+          <div class="metric">🇺🇸 Airfare YoY: <span class="stat down">+26.5%</span></div>
+          <div class="metric">🇨🇦 Trips to US vs '24: <span class="stat down">−28.7%</span></div>
+          <div class="metric">🇲🇽 May intl visitors: <span class="stat up">+5.3%</span> (8.35M)</div>
+          <div class="metric">🇧🇷 H1 intl tourists: <span class="stat up">5.26M</span> (record)</div>
+        </div>
+        <div class="score-col">
+          <h4>🌍 EMEAA</h4>
+          <div class="metric">🇪🇸 Summer spend: <span class="stat up">+10%</span> (&gt;€64B)</div>
+          <div class="metric">🇪🇸 VAT hike: <span class="stat down">10→21%</span></div>
+          <div class="metric">🇮🇹 H1 arrivals: <span class="stat up">+4.43%</span></div>
+          <div class="metric">🏠 EU host fee: <span class="stat neutral">15.5%</span> (Oct)</div>
+          <div class="metric">🇬🇧 Ryanair June pax: <span class="stat up">21M</span> (+7%)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AIRBNB GLOBAL IMPLICATIONS -->
+    <div class="section" id="implications">
+      <div class="section-header implications">💡 Airbnb Global Implications</div>
+      <div class="news-item">1. <strong>Longer, deeper, local is the exact demand shape that favors whole-home over hotels — and it's synchronizing globally.</strong> China's rural homestay 2+ night stays rose 11pts ("Country Stay" replacing checklist tourism), 4+ day deep trips hit 47%, Korea's F-1-D workation visa (up to 3 years) keeps expanding, and US Deloitte data show premium/experience trips outpacing sightseeing. Every one of these is a structural tilt toward full-home rental. Merchandising longer stays and distinctive rural/local supply is the highest-ROI global play.</div>
+
+      <div class="news-item">2. <strong>The cost-squeeze is Airbnb's core pitch — whole-home value vs. inflating hotel rates has never been more timely.</strong> US average trips at <span class="stat neutral">$4,069</span> with 53% cutting other spending to fund travel; airfare +26.5%, lodging +4.8%. The kitchen/laundry/space savings of whole-home stays is a direct answer. Barbell the message: transparent value for the squeezed majority, distinctive supply for the premium trade-up that keeps holding (India, Korea wellness, China deep trips).</div>
+
+      <div class="news-item">3. <strong>China's redirected outbound is a once-in-a-cycle Korea (and Europe) supply opportunity — position now.</strong> With 1,488 China–Japan flights cancelled and Chinese arrivals to Japan −56%, demand is flowing to Korea (May Chinese visitors 563,600; air rights expanded first time in 7 years) and record 1.57M regional-airport arrivals landing beyond Seoul. Simultaneously the Iran crisis reroutes European demand into Italy/Spain. Airbnb should accelerate non-Seoul Korea supply and Italian/Spanish coastal onboarding ahead of the inflow.</div>
+
+      <div class="news-item">4. <strong>Compliance and fee readiness is now a pan-EMEAA host-economics defense — before the August peak.</strong> Spanish hosts face a potential 11pp VAT jump on top of NRA registration; Italian and EU-wide hosts absorb the mandatory <span class="stat neutral">15.5%</span> host-only fee from October. Both erode net yield simultaneously. Airbnb should model the total cost stack for hosts, communicate transparently, and lean on Smart Pricing/tools to protect yield — turning frictionless compliance into a retention moat rather than back-office admin.</div>
+
+      <div class="news-item">5. <strong>Content platforms are the emerging inbound demand funnel — distinctive, photogenic stays win the discovery layer.</strong> Xiaohongshu is now shaping foreign trip-planning into China (Zhangzhou volcanic-island notes +300%, reverse-Sanya niche coasts surging) with an IPO expected this year. As discovery shifts from search to social content, Airbnb's differentiated, visually distinctive supply is structurally advantaged — merchandising and photography quality become demand-generation levers, not just conversion polish.</div>
+    </div>
+
+    <!-- CROSS-REGION PATTERNS -->
+    <div class="section" id="patterns">
+      <div class="section-header patterns">🔄 Cross-Region Patterns</div>
+      <div class="news-item"><strong>🌍 Geopolitics has overtaken price as the dominant demand-redistribution force.</strong> China's −56% collapse into Japan flooded Korea and reopened 7-year-frozen air rights; the Iran/Middle East crisis rerouted European tourists into Italy (+4.43%) and Spain; the US keeps deterring inbound (−1.8% June, 100-day visa delays) while China codifies open facilitation (77.7% visa-free). Same lever — national posture and geopolitical shock — is now engineering who travels where at a scale that dwarfs pricing effects.</div>
+
+      <div class="news-item"><strong>💰 Travel inflation hit a synchronized new high — resilient demand is barbelling everywhere.</strong> US summer trips $4,069 (+17%), airfare +26.5%; Spain moving VAT to 21%; Korea's strong won drove "L.I.T.E." light-spend trips; Japan's weak yen cut outbound −8.8%; UK August packages now cheaper than March across 53 of 71 destinations. The consumer protects the trip but trades down on cost — favoring value-tier, near-home and whole-home stays for the squeezed majority, premium for the resilient top.</div>
+
+      <div class="news-item"><strong>🧭 "Experience over product / local life" is now the universal traveler default.</strong> China deep 4+ day trips 47.1%, Meituan slow-travel resort orders +124%, Skyscanner's "local life experience travel"; US Deloitte mood/wellness/premium outpacing bucket-list; Europe's "coolcation" pivot to cooler interior towns (Arras +24%, Pau +22%). Demand is moving off landmarks and onto lived-in, distinctive, off-gateway experiences — precisely the long-tail supply hotels cannot replicate.</div>
+
+      <div class="news-item"><strong>🏠 STR regulation crested from registration into hard fees, VAT and caps — re-pricing supply at peak.</strong> Spain's proposed 21% VAT + NRA registration, Airbnb's mandatory 15.5% EU host-only fee from October, Barcelona's 16M-visitor cap and France's daily site caps all landed at once. The World Cup windfall also underwhelmed again — Mexico's WC economic impact came in −7% below forecast, US June arrivals still fell despite FIFA. The lesson holds: bet on structural experience demand; treat one-off mega-events and expanding supply constraints as the base case for host economics.</div>
+    </div>
+
+    <!-- ASIA HIGHLIGHTS -->
+    <div class="section" id="asia">
+      <div class="section-header asia">🌏 Asia Highlights</div>
+      <div class="news-item">• <strong>Japan's inbound turns negative for the first time since COVID as China arrivals crater −56%</strong> — JNTO data (Jul 15) showed ~21.08M H1 visitors, <span class="stat down">−2.0%</span> YoY (June −6.8%, third straight monthly drop), driven by a <span class="stat down">−56.4%</span> collapse in Chinese arrivals amid geopolitical tension. Korea, Taiwan and the US partly offset. <a href="https://ibread.github.io/sites/travel-weekly/travel-weekly-2026-07-19.html" target="_blank">[Full Asia report →]</a></div>
+      <div class="news-item">• <strong>China's inbound machine accelerates — 22.9M foreign arrivals, 77.7% visa-free</strong> — H1 foreign inbound rose <span class="stat up">+20.4%</span>, with demand diffusing beyond gateways (Yiwu inbound air +60%, Greek arrivals ~10×). Deep 4+ day trips leapt to <span class="stat up">47.1%</span> of summer bookings and Meituan slow-travel resort orders rose +124% — the "experience over product" traveler is now the dominant Asian profile.</div>
+      <div class="news-item">• <strong>Korea captures China's redirected demand — record 1.57M regional-airport arrivals</strong> — With 1,488 China–Japan flights cancelled, demand flowed to Korea (May Chinese visitors 563,600; air rights expanded first time in 7 years). A record 1.57M regional-airport foreign arrivals show it landing beyond Seoul. A Korean FTC complaint naming Airbnb over overbooking is a compliance flag to get ahead of.</div>
+    </div>
+
+    <!-- AMERICAS HIGHLIGHTS -->
+    <div class="section" id="americas">
+      <div class="section-header americas">🌎 Americas Highlights</div>
+      <div class="news-item">• <strong>World Cup inbound windfall disappoints — US overseas arrivals fell 1.8% in June despite FIFA</strong> — NTTO data show total overseas arrivals <span class="stat down">−1.8%</span> YoY to 2.8M. UK arrivals jumped ~17% on World Cup fans but couldn't offset weakness from ticket prices, 100-day visa delays and macro drag. Mexico's WC economic impact came in <span class="stat down">−7%</span> below forecast. <a href="https://ibread.github.io/sites/americas-weekly/americas-weekly-2026-07-19.html" target="_blank">[Full Americas report →]</a></div>
+      <div class="news-item">• <strong>Travel inflation hits new highs — airfare +26.5%, average summer trip $4,069</strong> — Summer costs surged <span class="stat neutral">+17%</span> YoY; 57% say travel costs more, yet 56% still plan a trip. The resilient-but-squeezed consumer is barbelling — value/near-home for the majority, premium for the top — a direct opening for Airbnb whole-home value messaging.</div>
+      <div class="news-item">• <strong>Canada's US boycott persists (−28.7% vs 2024); Brazil hits a record H1</strong> — Canadian trips to the US remain <span class="stat down">−28.7%</span> below June 2024, fueling a C$141B domestic tourism economy (67% cite political climate). Brazil welcomed a record <span class="stat up">5.26M</span> international tourists in H1 with 411K+ European arrivals (20-year high), and Mexico's Los Cabos is adding 6 luxury brands in 18 months.</div>
+    </div>
+
+    <!-- EMEAA HIGHLIGHTS -->
+    <div class="section" id="emeaa">
+      <div class="section-header emeaa">🌍 EMEAA Highlights</div>
+      <div class="news-item">• <strong>Spain's regulatory hammer swings again — STR/hotel VAT set to double to 21%</strong> — Spain is moving to raise accommodation VAT from 10% to the full <span class="stat down">21%</span>, stacking on the mandatory NRA registration live since July 2025. It lands as summer tourist spend rises <span class="stat up">+10%</span> (&gt;€64B). <a href="https://ibread.github.io/sites/emeaa-weekly/emeaa-weekly-2026-07-19.html" target="_blank">[Full EMEAA report →]</a></div>
+      <div class="news-item">• <strong>Airbnb makes its 15.5% host-only fee mandatory across Europe from October</strong> — The simplified host-only commission (<span class="stat neutral">15.5%</span>) goes EU-wide by October 2026, removing the split-fee option. Italian operators — especially Sardinia and high-value coastal markets — are warned of compressed yields, a structural monetization shift landing right at peak season.</div>
+      <div class="news-item">• <strong>Geopolitics reroutes European demand; "coolcation" becomes the dominant summer behavior</strong> — The Iran/Middle East crisis diverted tourists into Italy (H1 arrivals <span class="stat up">+4.43%</span>, inbound volume +21.1%) and Spain (+4.2% Q2). Heat + inflation pushed travelers to cooler interior towns (Arras +24%, Pau +22%), while overtourism controls hardened into caps (Barcelona 16M, Venice access fee across 60 days).</div>
+    </div>
+
+    <!-- GLOBAL TRAVEL CALENDAR -->
+    <div class="section" id="calendar">
+      <div class="section-header calendar">📅 Global Travel Calendar — Next 2 Weeks</div>
+      <table>
+        <thead>
+          <tr><th>Date</th><th>Region</th><th>Event</th><th>Impact</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Jul 20</td><td>🇯🇵 Asia</td><td>Marine Day (Umi no Hi)</td><td>Japan peak domestic weekend; OTA flash sales cluster</td></tr>
+          <tr><td>Jul 24</td><td>🇲🇽 Americas</td><td>School summer holiday peak</td><td>Peak domestic travel through end of July</td></tr>
+          <tr><td>Jul 31</td><td>🇰🇷 Asia</td><td>숙박세일페스타 subsidy window</td><td>Regional-stay coupons drive late-July domestic demand</td></tr>
+          <tr><td>Aug 2</td><td>🇨🇦 Americas</td><td>WestJet CUPE strike risk (99.4% vote)</td><td>Potential Civic-Holiday-weekend air disruption</td></tr>
+          <tr><td>Aug 3</td><td>🇨🇦 Americas</td><td>Civic Holiday (most provinces)</td><td>Domestic long-weekend travel</td></tr>
+          <tr><td>Aug 4</td><td>🇬🇧 EMEAA</td><td>UK summer school-holiday peak</td><td>Peak staycation + coastal/lakes demand</td></tr>
+          <tr><td>Aug (month)</td><td>🇪🇸 EMEAA</td><td>Southern Europe peak arrivals</td><td>Spain/Italy demand peak meets tightening STR supply</td></tr>
+          <tr><td>Aug (month)</td><td>🇦🇺 EMEAA</td><td>Winter school-holiday domestic peak</td><td>Tiny-house + alpine demand; "quietcations" rising</td></tr>
+          <tr><td>Aug 15</td><td>🇰🇷 Asia</td><td>Liberation Day</td><td>Korea holiday cluster disperses late-summer domestic travel</td></tr>
+          <tr><td>Oct 1</td><td>🇪🇺 EMEAA</td><td>Airbnb 15.5% host-only fee mandatory</td><td>EU-wide host-economics shift; yield compression</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SOURCES -->
+    <div class="section" id="sources">
+      <div class="section-header sources">📋 Sources</div>
+      <table>
+        <thead>
+          <tr><th>Region</th><th>Report</th><th>Coverage</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>🌏 Asia</td><td><a href="https://ibread.github.io/sites/travel-weekly/travel-weekly-2026-07-19.html" target="_blank">Asia Travel Weekly →</a></td><td>Jul 13 – Jul 19, 2026</td></tr>
+          <tr><td>🌎 Americas</td><td><a href="https://ibread.github.io/sites/americas-weekly/americas-weekly-2026-07-19.html" target="_blank">Americas Travel Weekly →</a></td><td>Jul 13 – Jul 19, 2026</td></tr>
+          <tr><td>🌍 EMEAA</td><td><a href="https://ibread.github.io/sites/emeaa-weekly/emeaa-weekly-2026-07-19.html" target="_blank">EMEAA Travel Weekly →</a></td><td>Jul 13 – Jul 19, 2026</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:12px; font-size:12px; color:#6c757d;">This synthesis report draws exclusively from the three regional weekly reports above. No independent data collection was performed.</p>
+    </div>
+
+    <footer>Powered by 🦞 Max (小可) | Synthesized from Asia, Americas &amp; EMEAA Travel Weekly | Jul 20, 2026</footer>
+
+  </div>
+
+  <script>
+    const navLinks = document.querySelectorAll('.page-nav a');
+    const sections = document.querySelectorAll('div.section[id]');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(l => l.classList.remove('active'));
+          const active = document.querySelector(`.page-nav a[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    sections.forEach(s => observer.observe(s));
+  </script>
+
+  <script data-goatcounter="https://ibread.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
