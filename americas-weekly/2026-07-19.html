@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1a1a2e">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+  <title>🌎 Americas Travel Weekly — Jul 13–19, 2026</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 52px; }
+    body { font-family: 'Source Serif 4', Georgia, serif; font-size: 15px; line-height: 1.5; background: #fafbfc; color: #1a1a2e; -webkit-font-smoothing: antialiased; }
+    .container { max-width: 720px; margin: 0 auto; padding: 0 20px 20px 20px; }
+    header { background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%); color: #fff; padding: 28px 20px; margin: 0 -20px 24px -20px; box-shadow: 0 4px 12px rgba(26,26,46,0.15); position: relative; overflow: hidden; }
+    header h1 { font-family: 'DM Sans', sans-serif; font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
+    header .dates { font-size: 14px; opacity: 0.85; }
+    header .back-link { position: absolute; top: 12px; right: 20px; color: rgba(255,255,255,0.7); text-decoration: none; font-size: 13px; }
+    header .back-link:hover { color: #fff; }
+    .page-nav { position: sticky; top: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: 8px 0; margin-bottom: 14px; border-bottom: 1px solid #e9ecef; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow-x: auto; white-space: nowrap; z-index: 100; }
+    .page-nav a { display: inline-block; padding: 6px 14px; margin: 0 3px; font-size: 13px; font-weight: 500; color: #6c757d; text-decoration: none; border-radius: 20px; transition: all 0.2s ease; }
+    .page-nav a:hover { background: #f1f3f5; color: #1a1a2e; }
+    .page-nav a.active { background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%); color: #fff; }
+    .section { margin-bottom: 16px; background: #fff; border-radius: 12px; padding: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.04); opacity: 0; transform: translateY(12px); animation: fadeUp 0.4s ease forwards; }
+    .section:nth-child(1){animation-delay:0.05s} .section:nth-child(2){animation-delay:0.1s} .section:nth-child(3){animation-delay:0.15s} .section:nth-child(4){animation-delay:0.2s} .section:nth-child(5){animation-delay:0.25s} .section:nth-child(6){animation-delay:0.3s} .section:nth-child(7){animation-delay:0.35s} .section:nth-child(8){animation-delay:0.4s} .section:nth-child(9){animation-delay:0.45s} .section:nth-child(10){animation-delay:0.5s}
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    .section-header { font-family: 'DM Sans', sans-serif; font-size: 20px; font-weight: 700; padding: 6px 0 6px 14px; margin-bottom: 10px; border-left: 4px solid; }
+    .section-header.us { border-color: #3b5998; background: linear-gradient(90deg,rgba(59,89,152,0.04) 0%,transparent 100%); }
+    .section-header.canada { border-color: #dc3545; background: linear-gradient(90deg,rgba(220,53,69,0.04) 0%,transparent 100%); }
+    .section-header.brazil { border-color: #2d936c; background: linear-gradient(90deg,rgba(45,147,108,0.04) 0%,transparent 100%); }
+    .section-header.mexico { border-color: #e07a5f; background: linear-gradient(90deg,rgba(224,122,95,0.04) 0%,transparent 100%); }
+    .section-header.competitor { border-color: #9b59b6; background: linear-gradient(90deg,rgba(155,89,182,0.04) 0%,transparent 100%); }
+    .section-header.implications { border-color: #27ae60; background: linear-gradient(90deg,rgba(39,174,96,0.04) 0%,transparent 100%); }
+    .section-header.sources { border-color: #6c757d; background: linear-gradient(90deg,rgba(108,117,125,0.04) 0%,transparent 100%); }
+    .section-header.holidays { border-color: #f39c12; background: linear-gradient(90deg,rgba(243,156,18,0.04) 0%,transparent 100%); }
+    .key-numbers { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 20px; }
+    .kpi-tile { background: linear-gradient(135deg,#f8f9fa 0%,#fff 100%); border-radius: 10px; padding: 16px 12px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.04); }
+    .kpi-tile .big-number { font-family: 'DM Sans',sans-serif; font-size: 36px; font-weight: 700; line-height: 1.1; margin-bottom: 4px; }
+    .kpi-tile .big-number.red { color: #e63946; }
+    .kpi-tile .big-number.green { color: #2d936c; }
+    .kpi-tile .big-number.warm { color: #e07a5f; }
+    .kpi-tile .label { font-size: 12px; color: #6c757d; font-weight: 500; }
+    .market-summary { font-size: 14px; font-weight: 500; padding: 14px; margin-bottom: 12px; background: #f0f2f5; color: #1a1a2e; border-radius: 10px; border-left: 4px solid; }
+    .market-summary p { margin: 5px 0; line-height: 1.55; }
+    .market-summary.us { border-color: #3b5998; }
+    .market-summary.canada { border-color: #dc3545; }
+    .market-summary.brazil { border-color: #2d936c; }
+    .market-summary.mexico { border-color: #e07a5f; }
+    .news-item { padding: 8px 0; border-bottom: 1px solid #f1f3f5; font-size: 14px; color: #2d3436; line-height: 1.55; }
+    .news-item:last-child { border-bottom: none; }
+    .news-item strong { font-weight: 600; color: #1a1a2e; font-size: 14.5px; }
+    .stat { font-weight: 600; font-size: 14px; }
+    .stat.up { color: #2d936c; }
+    .stat.up-strong { color: #1a7a52; }
+    .stat.down { color: #dc3545; }
+    .stat.neutral { color: #e07a5f; }
+    .news-item a { color: #6c757d; text-decoration: none; font-size: 12px; margin-left: 4px; }
+    .news-item a:hover { color: #1a1a2e; text-decoration: underline; }
+    .key-signals .news-item { padding: 12px 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #f1f3f5; }
+    th { background: linear-gradient(135deg,#f8f9fa 0%,#e9ecef 100%); font-weight: 600; color: #495057; font-size: 12px; }
+    footer { margin-top: 32px; padding-top: 20px; border-top: 1px solid #e9ecef; font-size: 12px; color: #adb5bd; text-align: center; }
+    .cal-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 8px; }
+    .cal-month-title { font-weight: 700; font-size: 14px; color: #1a1a2e; margin-bottom: 6px; text-align: center; }
+    .cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 2px; font-size: 11px; text-align: center; }
+    .cal-header { font-weight: 600; color: #6c757d; padding: 4px; }
+    .cal-day { padding: 5px 2px; border-radius: 4px; min-height: 30px; }
+    .cal-day.empty { background: transparent; }
+    .cal-day.holiday-us { background: #e3f2fd; }
+    .cal-day.holiday-ca { background: #ffebee; }
+    .cal-day.holiday-br { background: #e8f5e9; }
+    .cal-day.holiday-mx { background: #fff3e0; }
+    .cal-day.today { border: 2px solid #1a1a2e; font-weight: 700; }
+    .cal-day .flag { font-size: 9px; display: block; }
+    .cal-legend { margin-top: 12px; font-size: 12px; line-height: 1.9; color: #495057; background: #f8f9fa; border-radius: 8px; padding: 10px 12px; }
+    @media (max-width: 600px) { .cal-wrapper { grid-template-columns: 1fr; } .key-numbers { grid-template-columns: repeat(2,1fr); } }
+  </style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <a href="../americas-weekly/" class="back-link">← All Issues</a>
+    <h1>🌎 Americas Travel Weekly</h1>
+    <div class="dates">Jul 13 – Jul 19, 2026</div>
+  </header>
+
+  <div style="background: linear-gradient(135deg, #f0f4f8 0%, #e8eef5 100%); border-radius: 12px; padding: 14px 18px; margin-bottom: 16px; display: flex; align-items: center; gap: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.06);">
+    <span style="font-size: 22px;">🎙️</span>
+    <div style="flex: 1;">
+      <div style="font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; color: #1a1a2e; margin-bottom: 6px;">Listen to this issue</div>
+      <audio controls preload="none" style="width: 100%; height: 36px;">
+        <source src="https://github.com/ibread/sites/releases/download/audio-assets/americas-weekly-2026-07-19.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+  </div>
+
+  <div style="background: linear-gradient(135deg, #f0f4f8 0%, #e8eef5 100%); border-radius: 12px; padding: 14px 18px; margin-bottom: 16px; display: flex; align-items: center; gap: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.06);">
+    <span style="font-size: 22px;">🎙️</span>
+    <div style="flex: 1;">
+      <div style="font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; color: #1a1a2e; margin-bottom: 6px;">Listen to this issue</div>
+      <audio controls preload="none" style="width: 100%; height: 36px;">
+        <source src="https://github.com/ibread/sites/releases/download/audio-assets/americas-weekly-2026-07-19.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+  </div>
+
+  <nav class="page-nav">
+    <a href="#signals">Key Signals</a>
+    <a href="#implications">Airbnb</a>
+    <a href="#competitors">Competitors</a>
+    <a href="#us">US</a>
+    <a href="#canada">Canada</a>
+    <a href="#brazil">Brazil</a>
+    <a href="#mexico">Mexico</a>
+    <a href="#holidays">Holidays</a>
+    <a href="#sources">Sources</a>
+  </nav>
+
+  <!-- KEY SIGNALS -->
+  <div class="section key-signals" id="signals">
+    <div class="section-header" style="border-left:4px solid #e74c3c;background:linear-gradient(90deg,rgba(231,76,60,0.04) 0%,transparent 100%);">🔥 KEY SIGNALS THIS WEEK</div>
+    <div class="key-numbers">
+      <div class="kpi-tile">
+        <div class="big-number red">-1.8%</div>
+        <div class="label">US overseas inbound YoY (June)<br>2.8M arrivals; World Cup disappoints</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="big-number red">-28.7%</div>
+        <div class="label">Canadian trips to US vs June 2024<br>boycott structurally intact</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="big-number green">+5.3%</div>
+        <div class="label">Mexico intl visitors in May 2026<br>8.35M; Q1 total +10.2%</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="big-number warm">+17%</div>
+        <div class="label">US summer vacation costs YoY<br>avg trip $4,069; airfare +26.5%</div>
+      </div>
+    </div>
+
+    <div class="news-item">1. <strong>World Cup inbound windfall disappoints: US overseas arrivals fell 1.8% in June despite FIFA</strong> — NTTO data show total overseas arrivals to the US declined <span class="stat down">1.8% YoY</span> to 2.8M in June, continuing the prior June's 3.4% decline. UK arrivals jumped ~17% on World Cup fans but couldn't offset broad weakness from ticket prices, visa delays exceeding 100 days at some consulates, and macro pressure. NYC slashed its projected hotel revenue bump from $300M to ~$165M; hotels discounted ~30% off peak. The mega-event playbook delivered far less than billed for inbound tourism. <a href="https://skift.com/2026/07/14/world-cup-inbound-travel-decline-june/" target="_blank">Skift</a> | <a href="https://skift.com/2026/07/17/world-cup-impact-on-travel-industry/" target="_blank">Skift/NYC analysis</a></div>
+
+    <div class="news-item">2. <strong>Travel inflation at new highs: US airfare +26.5% YoY, average summer trip costs $4,069</strong> — Summer vacation costs surged <span class="stat down">+17% YoY</span> as airfare climbed 26.5% (NerdWallet July tracker; BLS data show +20.7% through April) and lodging rose 4.8%. Average trip budget hit $4,069. 57% of Americans say travel costs more — yet 56% still plan a summer trip, reflecting remarkably resilient demand. To cope, 53% are cutting other spending (shopping top at 19%, dining 12%). Cancel For Any Reason insurance nearly doubled from 6.9% to 13.5%, signaling rising trip-disruption anxiety. <a href="https://www.travelerstoday.com/articles/60403/20260716/summer-vacation-costs-jump-17-how-save-money-right-now.htm" target="_blank">Travelers Today</a> | <a href="https://www.aol.com/articles/summer-2026-travel-outlook-where-121500000.html" target="_blank">AOL/Squaremouth</a></div>
+
+    <div class="news-item">3. <strong>Canada's US boycott persists (-28.7% vs 2024) while domestic tourism booms toward C$141B (~US$103B)</strong> — Canadian-resident trips to the US rose 3.2% YoY in June to 1.7M — but remain <span class="stat down">28.7% below June 2024</span>, driven by a base-year effect, not genuine recovery (auto -29.6%, air -25.0%). 67% of boycotters cite the political climate (Leger). The structural diversion is fueling Canada's domestic boom: Destination Canada projects C$141B (~US$103B) in 2026, <span class="stat up">+6% YoY</span>. WestJet's 99.4% strike vote for Aug 2 adds acute near-term disruption risk. <a href="https://skift.com/2026/07/13/canadian-travel-to-the-u-s-is-rising-again-still-down-almost-29-from-2024/" target="_blank">Skift</a> | <a href="https://www.theglobeandmail.com/business/commentary/article-us-travel-boycott-canada-summer-tourism-industry/" target="_blank">Globe and Mail</a></div>
+
+    <div class="news-item">4. <strong>Mexico: Cancún soars to 89% occupancy while Tulum crisis deepens; Sectur projects MX$883B summer impact</strong> — A tale of two destinations in Quintana Roo: Cancún projects occupancy up to 89% for summer, while Tulum's taxi operators report worst crisis in years (sargassum, extortion, <span class="stat down">-30%</span> archaeological site visits). Sectur's national projection: 22.4M hotel tourists (<span class="stat up">+5.6%</span>), MX$883B (~US$47B) economic impact for Jul 20–Aug 30. Post-World Cup, Sectur launched "Vinieron por el Mundial, volverán por México" to convert FIFA visitors into repeat tourists. <a href="https://www.jornada.com.mx/2026/07/19/economia/014n1eco" target="_blank">La Jornada</a> | <a href="https://www.reportur.com/agencias/2026/07/16/campana-de-sectur-vinieron-por-el-mundial-volveran-por-mexico/" target="_blank">Reportur</a></div>
+  </div>
+
+  <!-- AIRBNB IMPLICATIONS -->
+  <div class="section" id="implications">
+    <div class="section-header implications">💡 AIRBNB AMERICAS IMPLICATIONS</div>
+    <div class="news-item">1. <strong>Cost-squeeze travelers are Airbnb's core pitch: whole-home value vs. inflating hotel rates</strong> — With average US trips costing $4,069 and 53% of travelers cutting other spending to fund summer travel, the kitchen/laundry/space savings of Airbnb whole-home stays has never been more timely. Lodging inflation at 4.8% favors price-comparative messaging, while Deloitte data showing 31% of summer travel concentrating in July signals peak timing for families who save on dining in. The growing premium segment (longer trips +40%, better locations +29%) also aligns with Airbnb's distinctive inventory. <a href="https://www.travelagewest.com/Industry-Insight/Business-Features/summer-2026-travel-trends" target="_blank">TravelAge West/Deloitte</a></div>
+    <div class="news-item">2. <strong>Canada's redirected travel budgets are a supply and demand opening</strong> — 93% of Canadians say they're willing to change habits to reduce overtourism (Intrepid/Wakefield), and overseas trips are growing +4.9% YoY. Canadians actively seeking non-US alternatives are prime Airbnb candidates for unique supply in European cities, Japan, Mexico, and Central America. WestJet's looming August strike could convert planned air travelers into last-minute drive-to guests at Airbnb cottage-country and BC interior properties. The Parks Canada Strong Pass driving national-parks demand is an Airbnb-adjacent signal. <a href="https://www.newswire.ca/news-releases/new-research-reveals-canadian-travellers-are-looking-beyond-ai-social-media-and-overcrowded-destinations-815947366.html" target="_blank">Intrepid/Newswire</a></div>
+    <div class="news-item">3. <strong>Mexico's post-World Cup conversion campaign and Los Cabos luxury wave = supply onboarding window</strong> — Sectur's "Vinieron por el Mundial, volverán por México" targets FIFA attendees for return visits; Mexico welcomed 8.35M international visitors in May alone (+5.3%). Los Cabos is adding 6 luxury brands (Aman, St. Regis, Grand Hyatt) in 18 months, signaling premium demand surge. Tulum's distress means differentiated Airbnb supply in Oaxaca, Yucatan, CDMX, and non-sargassum coastal Mexico can capture the guest who wants to return but seeks something beyond the crowded resort corridor. <a href="https://www.reportur.com/hoteles/2026/07/19/los-cabos-aman-st-regis-hyatt-entre-6-marcas-de-lujo-que-abriran/" target="_blank">Reportur/Los Cabos</a></div>
+  </div>
+
+  <!-- COMPETITOR WATCH -->
+  <div class="section" id="competitors">
+    <div class="section-header competitor">🏢 COMPETITOR &amp; PLATFORM WATCH</div>
+    <div class="news-item"><strong>Allegiant signs exclusive 12-month deal with Expedia — its first OTA partnership ever</strong> — Allegiant (566 routes, 124 US cities), long an OTA holdout, signed an exclusive 12-month deal with Expedia to distribute its full network. A significant signal: leisure-focused, no-frills carriers see value in OTA reach for new-customer acquisition despite historical aversion. PhocusWire/BTIG study notes AI travel tools remain rudimentary — the near-term OTA risk is margin squeeze, not disintermediation. <a href="https://skift.com/2026/07/17/allegiant-long-an-ota-holdout-signs-an-exclusive-deal-with-expedia/" target="_blank">Skift</a></div>
+    <div class="news-item"><strong>Travel + Leisure Co. acquires Yes&amp; Vacations and Spinnaker Resorts for $343M</strong> — Timeshare/leisure giant bets $343M on Maui and Hilton Head, expanding owned-experience travel. Mirrors the broader consolidation trend: sector players are acquiring supply and demand simultaneously rather than relying on OTA distribution. <a href="https://skift.com/2026/07/15/travel-leisure-buys-into-maui-and-hilton-head-in-343-million-deal/" target="_blank">Skift</a></div>
+    <div class="news-item"><strong>Ari Emanuel assembling live-tourism conglomerate spanning 3 companies</strong> — Skift reports Emanuel is building demand-origination infrastructure across three companies that create trip demand without branding as travel firms. Like IP-driven event travel (sports, music, cultural), this plays the upstream "why travel" layer rather than fulfillment. Demand-origination at scale reshapes where accommodation bookings flow. <a href="https://skift.com/2026/07/18/ari-emanuel-is-assembling-a-live-tourism-conglomerate/" target="_blank">Skift</a></div>
+  </div>
+
+  <!-- US -->
+  <div class="section" id="us">
+    <div class="section-header us">🇺🇸 United States</div>
+    <div class="market-summary us">
+      <p>• <strong>World Cup underdelivers on inbound, outperforms in host cities:</strong> Overseas arrivals <span class="stat down">-1.8% YoY</span> in June (2.8M). NYC revenue projection slashed $300M → $165M. But Philadelphia RevPAR spiked <span class="stat up-strong">+52%</span> on match weekends — within-market surge masked national softness. <a href="https://skift.com/2026/07/17/world-cup-impact-on-travel-industry/" target="_blank">Skift</a></p>
+      <p>• <strong>US domestic leisure remains the lone vertical above 2019:</strong> USTA projects $909B in inflation-adjusted domestic leisure spending — the only travel category surpassing pre-pandemic levels. Staycation demand <span class="stat up">+34%</span>. <a href="https://www.travelerstoday.com/articles/60400/20260716/key-west-tops-us-staycation-search-domestic-travel-demand-surges-34.htm" target="_blank">Travelers Today/USTA</a></p>
+      <p>• <strong>Airfare surge and Asian corridor bright spot:</strong> NerdWallet July tracker: airfare <span class="stat down">+26.5% YoY</span>. ITA June data show US-Middle East travel <span class="stat down">-3.6%</span> (1.1M) but Asia <span class="stat up">+1.2%</span> (2.8M) — Asia is one of the few positive inbound corridors. <a href="https://www.familytravel.org/2026/07/16/international-trade-administration-releases-june-2026-data/" target="_blank">ITA/FTA</a></p>
+    </div>
+    <div class="news-item"><strong>Delta strips premium perks; main-cabin RASM surpassed premium cabin in Q2</strong> — Delta cut perks from premium seats as competition eroded front-cabin pricing — main-cabin unit revenue exceeded premium in Q2, a rare reversal that Bloomberg Intelligence flagged as an earnings negative. United posted record Q2 revenue and added 56 net aircraft (vs Delta's 15), but fuel volatility since July dented Q3 adjusted EPS by $1.12. Airline earnings divergence sharpens as summer demand tests capacity discipline. <a href="https://www.latimes.com/business/story/2026-07-13/delta-strips-perks-from-premium-seats-as-flyers-chase-first-class-deals" target="_blank">LA Times</a></div>
+    <div class="news-item"><strong>Passion travel surge: Kyrgyzstan +135%, Australia +58%; Europe averages $12,730/trip for Americans</strong> — Airalo data reveal Americans leaning into adventure and interest-based travel. Breakout destinations: Kyrgyzstan (+135%), Australia (+58%), Czech Republic. Europe still dominates long-haul despite price extremes — Greece averaged $12,730/trip (up from $9,737 YoY), Norway +34% to $14,950/trip. The affluent experiential traveler is increasingly uncorrelated with broader affordability headwinds. <a href="https://www.travelagewest.com/Industry-Insight/Business-Features/summer-2026-travel-trends" target="_blank">TravelAge West</a></div>
+    <div class="news-item"><strong>Virginia Beach shifts to influencer-led marketing to reach Gen Z/Millennials</strong> — Virginia Beach adopted a creator-economy marketing strategy, replacing traditional advertising with authentic influencer content. Reflects broad US destination playbook shift: social-first, authenticity-over-production — the type of travel demand that flows to Airbnb inventory rather than hotel brands. <a href="https://travel-leisure.news-articles.net/content/2026/07/14/virginia-beach-shifts-to-influencer-led-marketing-to-attract-modern-travelers.html" target="_blank">Travel + Leisure News</a></div>
+  </div>
+
+  <!-- CANADA -->
+  <div class="section" id="canada">
+    <div class="section-header canada">🇨🇦 Canada</div>
+    <div class="market-summary canada">
+      <p>• <strong>WestJet strike looms over August civic long weekend:</strong> CUPE Local 8125 (5,000+ flight attendants) voted <span class="stat down">99.4%</span> in favor of strike over unpaid ground-duty hours. Possible walkout from Aug 2 threatens ~560 flights/day at summer peak. <a href="https://www.cbc.ca/news/business/westjet-flight-attendants-vote-9.7270271" target="_blank">CBC News</a></p>
+      <p>• <strong>Canada's tourism economy on track for C$141B (~US$103B), +6% YoY:</strong> Destination Canada projects structural boom driven by redirected domestic demand + growing inbound. Vancouver leads on FIFA World Cup 2026 mega-events and international investment. <a href="https://www.theglobeandmail.com/business/commentary/article-us-travel-boycott-canada-summer-tourism-industry/" target="_blank">Globe and Mail</a></p>
+      <p>• <strong>June: 5.5M international arrivals; Canadian returns from US still -28.7% vs 2024:</strong> StatCan records 5.5M total arrivals in June and 2.6M Canadian returns (+2.0% YoY). US air travel by Canadians remains structurally depressed; overseas trips grew <span class="stat up">+4.9% YoY</span> in March. <a href="https://www150.statcan.gc.ca/n1/daily-quotidien/260713/dq260713a-eng.htm" target="_blank">Statistics Canada</a></p>
+    </div>
+    <div class="news-item"><strong>Canada Strong Pass (Jun 19–Sep 7) accelerating national-parks staycation demand</strong> — Parks Canada's free/discounted access initiative is running through September 7, channeling domestic demand into natural parks, hiking, camping, and Indigenous tourism as a federal response to the US boycott. Drive-to supply in BC, Alberta, and Ontario cottage country benefits directly from this government-sponsored demand stimulus. <a href="https://parks.canada.ca/voyage-travel" target="_blank">Parks Canada</a></div>
+    <div class="news-item"><strong>Air Transat opens London Gatwick–Ottawa nonstop, 3x/week through Oct 23</strong> — New gateway targets peak summer/early-autumn UK demand and positions Ottawa for international visitor growth. Combined with WestJet's Vancouver FIFA surge, Canada's international connectivity is expanding even as transborder routes contract. <a href="https://www.travelandtourworld.com/news/article/psr889sbrk9q/" target="_blank">Travel And Tour World</a></div>
+    <div class="news-item"><strong>Immigration shift: Parents &amp; Grandparents Program pause pushes family reunification to Super Visa long-stays</strong> — Canada's revised 2026 immigration framework paused the PGP program, reshaping family-reunification travel for diaspora markets (India, China, Philippines, Nigeria) toward Super Visa pathways and extended visits. Creates multi-week/month stay demand that whole-home Airbnb supply serves better than hotels. <a href="https://www.travelandtourworld.com/news/article/0asx9q8ivmkh/" target="_blank">Travel And Tour World</a></div>
+  </div>
+
+  <!-- BRAZIL -->
+  <div class="section" id="brazil">
+    <div class="section-header brazil">🇧🇷 Brazil (Brasil)</div>
+    <div class="market-summary brazil">
+      <p>• <strong>Record international arrivals H1 2026:</strong> Brazil received 5.26M international tourists Jan–Jun 2026, second-best ever for the period, with record air arrivals. International spend hit US$4.8B (~R$24.3B) through May — <span class="stat up">all-time record</span>. <a href="https://diariodoturismo.com.br/brasil-supera-52-milhoes-de-turistas-internacionais-e-bate-recorde-de-chegadas-aereas/" target="_blank">Diário do Turismo</a></p>
+      <p>• <strong>European visitor wave: largest in 20 years</strong> — Embratur reports 411,000+ European tourists in the first seasonal wave — biggest European inflow in two decades. New routes (TAP Curitiba–Lisbon, LATAM GRU–Cape Town, GRU–Ushuaia, GRU–Punta Cana) are fueling connectivity expansion. <a href="https://www.travelandtourworld.com/news/article/cji4ebw6u6cx/" target="_blank">Travel And Tour World</a></p>
+      <p>• <strong>Visa liberalization broadening market access:</strong> China visa exemption extended through end of 2026; India–Brazil bilateral extended to 10-year validity with 90-day stays. Both markets represent high-value, long-haul inbound opportunity. <a href="https://www.travelandtourworld.com/news/article/bao4spd93k3c/" target="_blank">Travel And Tour World</a></p>
+    </div>
+    <div class="news-item"><strong>BeFly/Flytour Consolidadora loses 70+ staff in July consolidation wave</strong> — Brazil's travel distribution sector shows stress: 70+ executives and commercial staff departed BeFly/Flytour Consolidadora since early July; new leadership structure named. CVC Corp reported Q1 2026 adjusted net loss of R$63.1M (~US$11.3M), reversing a R$24M profit the prior year. Brazil's OTA/consolidator landscape is in structural reshaping — an Airbnb host acquisition window. <a href="https://www.panrotas.com.br/mercado/consolidadoras/2026/07/flytour-consolidadora-define-nova-estrutura-de-lideranca-apos-saidas-conheca-os-nomes_230251.html" target="_blank">PANROTAS</a></div>
+    <div class="news-item"><strong>Azul leads Brazil punctuality (Cirium June) and launches new long-haul premium class</strong> — Azul topped Brazil's on-time performance in June and announced a new premium class on long-haul international routes (positioned between Azul Business and Economy), plus resumed Belo Horizonte–Curaçao service. LATAM launched a new Mega Promo with fares from R$178 (~US$32), installable in 12x no-interest on LATAM Pass Itaú card. Domestic air competition is intensifying through both product and price. <a href="https://www.mercadoeeventos.com.br/noticias/aviacao/azul-conquista-lideranca-em-pontualidade-entre-aereas-brasileiras-em-junho/" target="_blank">Mercado &amp; Eventos</a></div>
+    <div class="news-item"><strong>Fortaleza, Paraty, and Chapada destinations lead July domestic search; Pix hits 35.78% of experience bookings</strong> — KAYAK data show Fortaleza among the most-searched domestic July destinations; Paraty is hosting the FLIP literary festival (Jul 22–26) plus multiple cultural events; Chapada dos Veadeiros and Guimarães lead winter-getaway searches. Structurally, Pix captured 35.78% of experience-sector ticket sales in July's first week — Brazil's payments ecosystem accelerating cashless travel booking. <a href="https://www.mercadoeeventos.com.br/brasil/ceara-reune-praias-cultura-e-lazer-para-atrair-turistas-nas-ferias-de-julho/" target="_blank">Mercado &amp; Eventos</a></div>
+  </div>
+
+  <!-- MEXICO -->
+  <div class="section" id="mexico">
+    <div class="section-header mexico">🇲🇽 Mexico (México)</div>
+    <div class="market-summary mexico">
+      <p>• <strong>Sectur projects summer boom: 22.4M hotel tourists (+5.6%), MX$883B (~US$47B) impact (Jul 20–Aug 30):</strong> National hotel occupancy projected at 65% (+2pp YoY). But performance is sharply bifurcated — Cancún at 89%, Quintana Roo broadly below 60%. <a href="https://www.jornada.com.mx/2026/07/19/economia/014n1eco" target="_blank">La Jornada</a></p>
+      <p>• <strong>World Cup economic impact below forecast: US$2.54B (-7%), 0.12% of GDP:</strong> Deloitte found Mexico's FIFA 2026 delivered US$2.54B (~MX$47.8B), 7% below projection due to lower tourist arrivals than expected. CDMX generated US$548M in value-added — 35% below forecast. Official narratives overestimated conversion. <a href="https://forbes.com.mx/reducen-impacto-del-mundial-en-mexico-por-menos-turistas/" target="_blank">Forbes México</a></p>
+      <p>• <strong>International arrivals strong: 8.35M in May (+5.3%), 26.2M in Q1 (+10.2%):</strong> INEGI confirms Mexico's inbound momentum is robust on official metrics, even as Open Jaw cites fuel costs and security perceptions as headwinds behind the headline numbers. <a href="https://en.expresstv.ma/2026/07/mexico-welcomes-8-35-million-foreign-tourists-in-may-up-5-3/" target="_blank">Express TV/INEGI</a></p>
+    </div>
+    <div class="news-item"><strong>Los Cabos: 6 luxury brands (Aman, St. Regis, Grand Hyatt, Delano, others) opening in 18 months</strong> — Los Cabos is entering a luxury expansion wave with marquee international hotel brands, real estate developments, wellness projects, and golf courses all opening within 18 months. Premium supply surge creates competition — and a clear signal of where high-end demand is concentrating. Airbnb distinctive villas and signature homes in Los Cabos benefit from this demand-activating brand halo. <a href="https://www.reportur.com/hoteles/2026/07/19/los-cabos-aman-st-regis-hyatt-entre-6-marcas-de-lujo-que-abriran/" target="_blank">Reportur</a></div>
+    <div class="news-item"><strong>Volaris leads H1 with 15.8M passengers (+5.8%); Aeroméxico shrinks while Copa grows +16% in July</strong> — Volaris is Mexico's clear air traffic leader in H1 2026, gaining share as Aeroméxico cuts capacity. Copa grew 16% in July; Viva Aerobus dropped 2.4% passengers (84.6% load factor) with ASMs cut 4.1%. Mexicana added 4 new AIFA routes (now 17 national destinations). Aeroméxico made Monterrey–Paris permanent from October — signaling confidence in premium outbound. <a href="https://a21.com.mx/destacadas/2026/07/14/reportan-aeromexico-viva-y-volaris-incremento-de-1-03-del-trafico-de-pasajeros/" target="_blank">A21</a></div>
+    <div class="news-item"><strong>Pueblos Mágicos and hidden rivers dominate Gen Z domestic search; CDMX summer spend MX$17B (~US$905M)</strong> — Valle de Bravo, Zacatlán, and Chignahuapan top proximity-escape searches from CDMX. TikTok-viral content (rivers near Xico, Veracruz; cheap balnearios) is driving young-traveler interest in nature and budget experiences. CDMX's summer period (Jul 16–Aug 30) projects MX$17B+ (~US$905M) in economic impact with 61.63% hotel occupancy and 8.2% growth — but Canirac notes benefits were uneven between businesses during the World Cup. <a href="https://www.tusbuenasnoticias.com/noticias/turismo/2026/07/15/62179-pueblos-magicos-mas-buscados-en-el-verano-2026-en-mexico" target="_blank">Tus Buenas Noticias</a></div>
+  </div>
+
+  <!-- HOLIDAYS -->
+  <div class="section" id="holidays">
+    <div class="section-header holidays">📅 UPCOMING HOLIDAYS &amp; TRAVEL PEAKS</div>
+    <div class="cal-wrapper">
+      <div>
+        <div class="cal-month-title">July 2026</div>
+        <div class="cal-grid">
+          <div class="cal-header">Su</div><div class="cal-header">Mo</div><div class="cal-header">Tu</div><div class="cal-header">We</div><div class="cal-header">Th</div><div class="cal-header">Fr</div><div class="cal-header">Sa</div>
+          <div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day">1</div><div class="cal-day">2</div><div class="cal-day">3</div><div class="cal-day">4</div>
+          <div class="cal-day">5</div><div class="cal-day">6</div><div class="cal-day">7</div><div class="cal-day">8</div><div class="cal-day">9</div><div class="cal-day">10</div><div class="cal-day">11</div>
+          <div class="cal-day">12</div><div class="cal-day">13</div><div class="cal-day">14</div><div class="cal-day">15</div><div class="cal-day">16</div><div class="cal-day">17</div><div class="cal-day">18</div>
+          <div class="cal-day today">19</div><div class="cal-day holiday-mx">20<span class="flag">🇲🇽</span></div><div class="cal-day">21</div><div class="cal-day holiday-br">22<span class="flag">🇧🇷</span></div><div class="cal-day">23</div><div class="cal-day holiday-br">24<span class="flag">🇧🇷</span></div><div class="cal-day holiday-br">25<span class="flag">🇧🇷</span></div>
+          <div class="cal-day holiday-br">26<span class="flag">🇧🇷</span></div><div class="cal-day">27</div><div class="cal-day">28</div><div class="cal-day">29</div><div class="cal-day">30</div><div class="cal-day">31</div><div class="cal-day empty"></div>
+        </div>
+      </div>
+      <div>
+        <div class="cal-month-title">August 2026</div>
+        <div class="cal-grid">
+          <div class="cal-header">Su</div><div class="cal-header">Mo</div><div class="cal-header">Tu</div><div class="cal-header">We</div><div class="cal-header">Th</div><div class="cal-header">Fr</div><div class="cal-header">Sa</div>
+          <div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day">1</div>
+          <div class="cal-day holiday-ca">2<span class="flag">🇨🇦</span></div><div class="cal-day holiday-ca">3<span class="flag">🇨🇦</span></div><div class="cal-day">4</div><div class="cal-day">5</div><div class="cal-day">6</div><div class="cal-day">7</div><div class="cal-day">8</div>
+          <div class="cal-day">9</div><div class="cal-day">10</div><div class="cal-day">11</div><div class="cal-day">12</div><div class="cal-day">13</div><div class="cal-day">14</div><div class="cal-day">15</div>
+          <div class="cal-day holiday-br">16<span class="flag">🇧🇷</span></div><div class="cal-day">17</div><div class="cal-day">18</div><div class="cal-day">19</div><div class="cal-day">20</div><div class="cal-day">21</div><div class="cal-day">22</div>
+          <div class="cal-day">23</div><div class="cal-day">24</div><div class="cal-day">25</div><div class="cal-day">26</div><div class="cal-day">27</div><div class="cal-day">28</div><div class="cal-day">29</div>
+          <div class="cal-day">30</div><div class="cal-day holiday-us">31<span class="flag">🇺🇸</span></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div>
+        </div>
+      </div>
+    </div>
+    <div class="cal-legend">
+      🇲🇽 Jul 20 — Mexico summer vacation season opens (Sectur official start)<br>
+      🇧🇷 Jul 22–26 — FLIP Literary Festival, Paraty (major domestic travel event)<br>
+      🇨🇦 Aug 2–3 — Canada Civic Holiday long weekend (WestJet strike risk)<br>
+      🇧🇷 Aug 16 — São Paulo Quadricentennial (city anniversary, local peak)<br>
+      🇺🇸 Aug 31 — Labor Day long weekend approaches (peak end-of-summer)<br>
+      <span style="background:#e3f2fd;padding:2px 6px;border-radius:3px;">■</span> US &nbsp; <span style="background:#ffebee;padding:2px 6px;border-radius:3px;">■</span> Canada &nbsp; <span style="background:#e8f5e9;padding:2px 6px;border-radius:3px;">■</span> Brazil &nbsp; <span style="background:#fff3e0;padding:2px 6px;border-radius:3px;">■</span> Mexico &nbsp; <span style="border:2px solid #1a1a2e;padding:2px 6px;border-radius:3px;font-weight:700;">■</span> Today
+    </div>
+  </div>
+
+  <!-- SOURCES -->
+  <div class="section" id="sources">
+    <div class="section-header sources">📋 SOURCES AUDIT</div>
+    <table>
+      <tr><th>Market</th><th>Source</th><th>Item</th><th>Date</th></tr>
+      <tr><td>🇺🇸 US</td><td><a href="https://skift.com/2026/07/14/world-cup-inbound-travel-decline-june/" target="_blank">Skift</a></td><td>US overseas arrivals -1.8% YoY, June NTTO data</td><td>Jul 14</td></tr>
+      <tr><td>🇺🇸 US</td><td><a href="https://skift.com/2026/07/17/world-cup-impact-on-travel-industry/" target="_blank">Skift</a></td><td>NYC hotel revenue projection slashed $300M→$165M</td><td>Jul 17</td></tr>
+      <tr><td>🇺🇸 US</td><td><a href="https://www.travelerstoday.com/articles/60403/20260716/summer-vacation-costs-jump-17-how-save-money-right-now.htm" target="_blank">Travelers Today</a></td><td>Summer costs +17% YoY, avg trip $4,069</td><td>Jul 16</td></tr>
+      <tr><td>🇺🇸 US</td><td><a href="https://www.nerdwallet.com/travel/learn/travel-price-tracker" target="_blank">NerdWallet</a></td><td>Airfare +26.5% YoY, lodging +4.8%</td><td>Jul 15</td></tr>
+      <tr><td>🇺🇸 US</td><td><a href="https://www.aol.com/articles/summer-2026-travel-outlook-where-121500000.html" target="_blank">AOL/Squaremouth</a></td><td>CFAR insurance 6.9%→13.5%; 53% cutting spend</td><td>Jul 16</td></tr>
+      <tr><td>🇺🇸 US</td><td><a href="https://www.travelagewest.com/Industry-Insight/Business-Features/summer-2026-travel-trends" target="_blank">TravelAge West/Deloitte</a></td><td>31% travel in July; premium segment growth</td><td>Jul 17</td></tr>
+      <tr><td>🇺🇸 US</td><td><a href="https://www.travelerstoday.com/articles/60400/20260716/key-west-tops-us-staycation-search-domestic-travel-demand-surges-34.htm" target="_blank">Travelers Today/USTA</a></td><td>$909B domestic leisure; staycation +34%</td><td>Jul 16</td></tr>
+      <tr><td>🇺🇸 US</td><td><a href="https://www.latimes.com/business/story/2026-07-13/delta-strips-perks-from-premium-seats-as-flyers-chase-first-class-deals" target="_blank">LA Times</a></td><td>Delta premium vs main-cabin RASM reversal</td><td>Jul 13</td></tr>
+      <tr><td>🇺🇸 US</td><td><a href="https://skift.com/2026/07/17/allegiant-long-an-ota-holdout-signs-an-exclusive-deal-with-expedia/" target="_blank">Skift</a></td><td>Allegiant–Expedia 12-month exclusive deal</td><td>Jul 17</td></tr>
+      <tr><td>🇨🇦 CA</td><td><a href="https://www.cbc.ca/news/business/westjet-flight-attendants-vote-9.7270271" target="_blank">CBC News</a></td><td>WestJet CUPE 99.4% strike vote; Aug 2 risk</td><td>Jul 15</td></tr>
+      <tr><td>🇨🇦 CA</td><td><a href="https://skift.com/2026/07/13/canadian-travel-to-the-u-s-is-rising-again-still-down-almost-29-from-2024/" target="_blank">Skift</a></td><td>Canadian trips to US -28.7% vs June 2024</td><td>Jul 13</td></tr>
+      <tr><td>🇨🇦 CA</td><td><a href="https://www.theglobeandmail.com/business/commentary/article-us-travel-boycott-canada-summer-tourism-industry/" target="_blank">Globe and Mail</a></td><td>C$141B tourism economy; 67% boycott political</td><td>Jul 19</td></tr>
+      <tr><td>🇨🇦 CA</td><td><a href="https://www150.statcan.gc.ca/n1/daily-quotidien/260713/dq260713a-eng.htm" target="_blank">Statistics Canada</a></td><td>5.5M June arrivals; 2.6M Canadian returns +2%</td><td>Jul 13</td></tr>
+      <tr><td>🇨🇦 CA</td><td><a href="https://www.newswire.ca/news-releases/new-research-reveals-canadian-travellers-are-looking-beyond-ai-social-media-and-overcrowded-destinations-815947366.html" target="_blank">Intrepid/Newswire</a></td><td>93% Canadians willing to change travel habits</td><td>Jul 15</td></tr>
+      <tr><td>🇧🇷 BR</td><td><a href="https://diariodoturismo.com.br/brasil-supera-52-milhoes-de-turistas-internacionais-e-bate-recorde-de-chegadas-aereas/" target="_blank">Diário do Turismo</a></td><td>5.26M international tourists H1; air record</td><td>Jul 18</td></tr>
+      <tr><td>🇧🇷 BR</td><td><a href="https://www.travelandtourworld.com/news/article/cji4ebw6u6cx/" target="_blank">Travel And Tour World</a></td><td>411K+ European tourists; 20-year high</td><td>Jul 19</td></tr>
+      <tr><td>🇧🇷 BR</td><td><a href="https://www.panrotas.com.br/mercado/consolidadoras/2026/07/flytour-consolidadora-define-nova-estrutura-de-lideranca-apos-saidas-conheca-os-nomes_230251.html" target="_blank">PANROTAS</a></td><td>BeFly/Flytour 70+ staff departures in July</td><td>Jul 17</td></tr>
+      <tr><td>🇧🇷 BR</td><td><a href="https://www.panrotas.com.br/mercado/operadoras/2026/07/fabio-mader-completa-6-meses-como-ceo-e-acelera-transformacao-da-cvc-corp-veja-novidades_230292.html" target="_blank">PANROTAS</a></td><td>CVC Corp Q1 loss R$63.1M (~US$11.3M)</td><td>Jul 18</td></tr>
+      <tr><td>🇲🇽 MX</td><td><a href="https://www.jornada.com.mx/2026/07/19/economia/014n1eco" target="_blank">La Jornada</a></td><td>22.4M tourists +5.6%; MX$883B summer projection</td><td>Jul 19</td></tr>
+      <tr><td>🇲🇽 MX</td><td><a href="https://forbes.com.mx/reducen-impacto-del-mundial-en-mexico-por-menos-turistas/" target="_blank">Forbes México</a></td><td>World Cup economic impact US$2.54B, -7% vs forecast</td><td>Jul 17</td></tr>
+      <tr><td>🇲🇽 MX</td><td><a href="https://www.reportur.com/hoteles/2026/07/19/los-cabos-aman-st-regis-hyatt-entre-6-marcas-de-lujo-que-abriran/" target="_blank">Reportur</a></td><td>Los Cabos: 6 luxury brands opening in 18 months</td><td>Jul 19</td></tr>
+      <tr><td>🇲🇽 MX</td><td><a href="https://www.reportur.com/agencias/2026/07/16/campana-de-sectur-vinieron-por-el-mundial-volveran-por-mexico/" target="_blank">Reportur</a></td><td>Sectur "Vinieron por el Mundial" retention campaign</td><td>Jul 16</td></tr>
+      <tr><td>🇲🇽 MX</td><td><a href="https://en.expresstv.ma/2026/07/mexico-welcomes-8-35-million-foreign-tourists-in-may-up-5-3/" target="_blank">Express TV/INEGI</a></td><td>8.35M international visitors May +5.3%; Q1 +10.2%</td><td>Jul 13</td></tr>
+      <tr><td>Global</td><td><a href="https://skift.com/2026/07/15/travel-leisure-buys-into-maui-and-hilton-head-in-343-million-deal/" target="_blank">Skift</a></td><td>T+L Co. acquires Yes& + Spinnaker for $343M</td><td>Jul 15</td></tr>
+      <tr><td>Global</td><td><a href="https://skift.com/2026/07/18/ari-emanuel-is-assembling-a-live-tourism-conglomerate/" target="_blank">Skift</a></td><td>Ari Emanuel live-tourism conglomerate build</td><td>Jul 18</td></tr>
+    </table>
+  </div>
+
+  <footer>Powered by 🦞 Max (小可) | Sources as of Jul 19, 2026 | <a href="../americas-weekly/" style="color:#adb5bd;">All Issues</a></footer>
+</div>
+
+<script>
+  const navLinks = document.querySelectorAll('.page-nav a');
+  const sections = document.querySelectorAll('.section[id]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector('.page-nav a[href="#' + entry.target.id + '"]');
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.2, rootMargin: '-52px 0px 0px 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+<script data-goatcounter="https://ibread.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
