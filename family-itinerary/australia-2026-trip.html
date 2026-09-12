@@ -41,8 +41,8 @@ header p{font-size:12px;opacity:.85;margin-top:3px}
 <a class="home" href="index.html">🗺️ 行程</a>
 </header>
 <div class="cities">
-<button id="c-syd" class="on" onclick="selCity('syd')">🌉 悉尼 9/26–9/30</button>
-<button id="c-bne" onclick="selCity('bne')">🐨 布里斯班 9/30–10/4</button>
+<button id="c-syd" class="on" onclick="selCity('syd')">🌉 悉尼 9/26–10/1</button>
+<button id="c-bne" onclick="selCity('bne')">🐨 布里斯班 10/1–10/5</button>
 </div>
 <div class="tabs" id="tabs"></div>
 <div class="layout">
@@ -55,81 +55,444 @@ const COLORS={food:'#dcfce7',attraction:'#dbeafe',kids:'#fef9c3',hotel:'#e0e7ff'
 const DAYC=['#e11d48','#16a34a','#2563eb','#d97706','#7c3aed','#0891b2'];
 
 const DATA={
- syd:{center:[-33.860,151.210],zoom:13,
-  days:[
-   {t:'总览',spots:[
-     {n:'悉尼机场 SYD',e:'✈️',ty:'transport',la:-33.9399,lo:151.1753,d:'9/26 19:25 落地（OZ601）'},
-     {n:'悉尼香格里拉酒店 Shangri-La Sydney',e:'🏨',ty:'hotel',la:-33.8591,lo:151.2088,d:'已定住宿 · The Rocks 岩石区，176 Cumberland St；步行可达环形码头'},
-     {n:'悉尼歌剧院 Sydney Opera House',e:'🎭',ty:'attraction',la:-33.8568,lo:151.2153,d:'Wild Things 儿童艺术节 · ZOOOM 9/26–9/29'},
-     {n:'塔龙加动物园 Taronga Zoo',e:'🦘',ty:'kids',la:-33.8434,lo:151.2413,d:'港湾渡轮抵达，安排完整一天；Sky Safari 整修中，预计 2027 年底重开'},
-     {n:'达令港 Darling Harbour',e:'🎡',ty:'attraction',la:-33.8737,lo:151.1998,d:'SEA LIFE 水族馆 + Darling Quarter 儿童游乐场'},
-     {n:'岩石区 The Rocks',e:'🏘️',ty:'attraction',la:-33.8586,lo:151.2098,d:'酒店门口的历史街区，可看海港大桥'}
-   ]},
-   {t:'9/26 抵达',spots:[
-     {n:'悉尼机场 SYD',e:'✈️',ty:'transport',la:-33.9399,lo:151.1753,d:'19:25 落地（OZ601）；建议直接打车/预约接机至酒店，避免带娃拖行李换乘'},
-     {n:'悉尼香格里拉酒店 Shangri-La Sydney',e:'🏨',ty:'hotel',la:-33.8591,lo:151.2088,d:'入住、休整；晚餐以酒店或 The Rocks 附近简餐为主'}
-   ]},
-   {t:'9/27 海港+ZOOOM',spots:[
-     {n:'悉尼香格里拉酒店 Shangri-La Sydney',e:'🏨',ty:'hotel',la:-33.8591,lo:151.2088,d:'上午从酒店步行出发，路线平缓、便于 Amy 控制脚踝负荷'},
-     {n:'岩石区 The Rocks',e:'🏘️',ty:'attraction',la:-33.8586,lo:151.2098,d:'上午慢逛历史街区、看海港大桥；按孩子节奏随时休息'},
-     {n:'环形码头 Circular Quay',e:'⛴️',ty:'transport',la:-33.8611,lo:151.2134,d:'午餐后沿港湾步行至歌剧院；也是次日去塔龙加的渡轮出发点'},
-     {n:'悉尼歌剧院 Sydney Opera House',e:'🎭',ty:'kids',la:-33.8568,lo:151.2153,d:'建议订 ZOOOM 13:00 场（约 40 分钟）；演后可参加艺术家交流；注意现场可能有频闪'}
-   ]},
-   {t:'9/28 塔龙加动物园',spots:[
-     {n:'悉尼香格里拉酒店 Shangri-La Sydney',e:'🏨',ty:'hotel',la:-33.8591,lo:151.2088,d:'早餐后步行约 10 分钟至环形码头'},
-     {n:'环形码头 Circular Quay',e:'⛴️',ty:'transport',la:-33.8611,lo:151.2134,d:'乘公共渡轮前往 Taronga Zoo Wharf；以当天时刻表为准'},
-     {n:'塔龙加动物园 Taronga Zoo',e:'🦘',ty:'kids',la:-33.8434,lo:151.2413,d:'完整一天：优先澳洲动物、海豹/企鹅与儿童假期活动；Sky Safari 施工停运，改园内步行和接驳安排'},
-     {n:'环形码头 Circular Quay',e:'🌇',ty:'attraction',la:-33.8611,lo:151.2134,d:'傍晚渡轮返航看港湾日落，回酒店休息'}
-   ]},
-   {t:'9/29 达令港',spots:[
-     {n:'悉尼香格里拉酒店 Shangri-La Sydney',e:'🏨',ty:'hotel',la:-33.8591,lo:151.2088,d:'上午从酒店出发，打车约 10 分钟或步行结合轻轨前往达令港'},
-     {n:'SEA LIFE Sydney Aquarium',e:'🐠',ty:'kids',la:-33.8696,lo:151.2016,d:'上午主活动：儒艮、鲨鱼与企鹅展区；春假建议预订首场入馆'},
-     {n:'Darling Quarter 儿童游乐场',e:'🛝',ty:'kids',la:-33.8731,lo:151.2010,d:'午餐后放电；若天气热可缩短，留足回酒店休息时间'},
-     {n:'Barangaroo Reserve 巴兰加鲁保护区',e:'🌿',ty:'attraction',la:-33.8627,lo:151.2019,d:'体力允许再去：海港边轻松散步；不作为硬性打卡'}
-   ]},
-   {t:'9/30 转场',spots:[
-     {n:'悉尼香格里拉酒店 Shangri-La Sydney',e:'🏨',ty:'hotel',la:-33.8591,lo:151.2088,d:'退房；悉尼→布里斯班航班待订，建议预留充足机场时间'},
-     {n:'悉尼机场 SYD',e:'✈️',ty:'transport',la:-33.9399,lo:151.1753,d:'飞往布里斯班；抵达后前往 W Brisbane 办理入住'}
-   ]}
-  ],
-  notes:['✅ 悉尼三天按「一日一个核心体验 + 就近轻松活动」安排：海港艺术节 / 动物园 / 水族馆与游乐场。','⚠️ 9/28–10/9 是 NSW 春假；ZOOOM、SEA LIFE 和塔龙加门票建议先订。','⚠️ 塔龙加 Sky Safari 正在升级施工，预计 2027 年底重开；不按缆车安排动线。','🍽️ 点餐前核对：孔雀避核桃、桃子和山药；玥玥避开心果、腰果和山药。']
- },
- bne:{center:[-27.475,152.995],zoom:12,
-  days:[
-   {t:'总览',spots:[
-     {n:'布里斯班机场 BNE',e:'✈️',ty:'transport',la:-27.3842,lo:153.1175,d:'9/30 抵达 · 10/5 CX156 飞香港'},
-     {n:'W Brisbane 布里斯班 W 酒店',e:'🏨',ty:'hotel',la:-27.4678,lo:153.0181,d:'已定住宿 · 81 North Quay，CBD 河岸；到 South Bank 约 10 分钟车程'},
-     {n:'南岸公园 South Bank',e:'🌴',ty:'attraction',la:-27.4785,lo:153.0230,d:'人工沙滩泳池、摩天轮、Brisbane 字母牌'},
-     {n:'QAGOMA 昆士兰美术馆',e:'🎨',ty:'kids',la:-27.4712,lo:153.0170,d:'儿童创意中心免费，室内避晒'},
-     {n:'Lone Pine 考拉保护区',e:'🐨',ty:'kids',la:-27.5333,lo:152.9690,d:'市区西南 12km；2024/7 起已取消抱考拉，只能贴身合影'},
-     {n:"Bluey's World",e:'🐶',ty:'kids',la:-27.4300,lo:153.0730,d:'Hamilton Northshore，沉浸式剧场，必须官网提前订场次票'},
-     {n:'摩顿岛 Tangalooma（备选）',e:'🐬',ty:'attraction',la:-27.1800,lo:153.3700,d:'渡轮单程 75–90 分钟，需整整一天'}
-   ]},
-   {t:'10/1 南岸+美术馆',spots:[
-     {n:'南岸公园 South Bank',e:'🌴',ty:'attraction',la:-27.4785,lo:153.0230,d:'上午：草坪、Streets Beach、Brisbane 字母牌、摩天轮'},
-     {n:'河岸午餐',e:'🍽️',ty:'food',la:-27.4760,lo:153.0205,d:'中午在 South Bank 河边餐厅吃饭'},
-     {n:'QAGOMA 昆士兰美术馆',e:'🎨',ty:'kids',la:-27.4712,lo:153.0170,d:'下午：儿童创意中心，室内避午后暴晒；离南岸步行 5 分钟'}
-   ]},
-   {t:'10/2 考拉园',spots:[
-     {n:'Lone Pine 考拉保护区',e:'🐨',ty:'kids',la:-27.5333,lo:152.9690,d:'整天。Cultural Centre 有直达大巴，也可坐船前往；袋鼠可投喂'}
-   ]},
-   {t:"10/3 Bluey's World",spots:[
-     {n:"Bluey's World",e:'🐶',ty:'kids',la:-27.4300,lo:153.0730,d:'离市区约 20 分钟车程；沉浸式体验约 1.5 小时，需选场次'},
-     {n:'Northshore Hamilton 河岸',e:'🍦',ty:'food',la:-27.4340,lo:153.0700,d:'结束后河边餐饮区吃饭'}
-   ]},
-   {t:'备选 摩顿岛',spots:[
-     {n:'Holt Street Wharf 渡轮码头',e:'⛴️',ty:'transport',la:-27.4180,lo:153.1010,d:'Tangalooma 渡轮出发点'},
-     {n:'Tangalooma 度假村',e:'🐬',ty:'attraction',la:-27.1800,lo:153.3700,d:'喂野生海豚、沙丘滑沙、沉船浮潜'}
-   ]},
-   {t:'10/4 自由活动',spots:[
-     {n:'W Brisbane 布里斯班 W 酒店',e:'🏨',ty:'hotel',la:-27.4678,lo:153.0181,d:'不赶行程：酒店泳池/河岸散步，作为天气或体力的弹性日'}
-   ]},
-   {t:'10/5 返程',spots:[
-     {n:'布里斯班机场 BNE',e:'✈️',ty:'transport',la:-27.3842,lo:153.1175,d:'CX156 飞香港 → CX390 回北京；从 W Brisbane 出发，预留国际航班值机时间'}
-   ]}
-  ],
-  notes:['⚠️ 9/19–10/4 是昆州春假高峰，Bluey\'s World 和 Lone Pine 都要提前订票，Bluey 最先订。','⚠️ 摩顿岛一去就是整天，目前只有转场日/回程日有空，大概率放弃；除非砍掉一项。','💡 抱考拉需去黄金海岸 Currumbin / Paradise Country，但已定不去黄金海岸。']
- }
+  "syd": {
+    "center": [
+      -33.86,
+      151.21
+    ],
+    "zoom": 13,
+    "days": [
+      {
+        "t": "总览",
+        "spots": [
+          {
+            "n": "悉尼香格里拉酒店 Shangri-La Sydney",
+            "e": "🏨",
+            "ty": "hotel",
+            "la": -33.8591,
+            "lo": 151.2088,
+            "d": "The Rocks 岩石区，176 Cumberland St。10/1转城已确认，住宿起止日期需以最新订单核对；区域有坡，不把酒店到码头描述为全程平路。"
+          },
+          {
+            "n": "9/12最新悠闲版 · 日序为建议",
+            "e": "📅",
+            "ty": "attraction",
+            "d": "9/27观鲸、9/28动物园、9/29海滩、9/30市区＋鱼市场、10/1转布里斯班。每天一个核心体验；咖啡/brunch是餐饮备选，不是额外打卡任务。旧ZOOOM与水族馆安排暂存备选，不视为已取消预订。"
+          },
+          {
+            "n": "塔龙加动物园 Taronga Zoo",
+            "e": "🦘",
+            "ty": "kids",
+            "la": -33.8434,
+            "lo": 151.2413,
+            "d": "当天唯一核心项目；可打车至上方正门，或渡轮抵达后核对接驳。园内有坡，按体力挑重点；Sky Safari停运，不纳入动线。"
+          },
+          {
+            "n": "悉尼鱼市场 Sydney Fish Market（新馆）",
+            "e": "🐟",
+            "ty": "food",
+            "d": "市区日慢午餐，建议留1.5–2小时。2026/1/19已搬入新馆，导航使用最新官网地点。园区07:00–22:00，各商铺时间不同。<a href=\"https://www.sydneyfishmarket.com.au/\" target=\"_blank\" rel=\"noopener\">官网与到达方式</a>"
+          }
+        ]
+      },
+      {
+        "t": "9/26 抵达",
+        "spots": [
+          {
+            "n": "悉尼机场 SYD",
+            "e": "✈️",
+            "ty": "transport",
+            "la": -33.9399,
+            "lo": 151.1753,
+            "d": "19:25 落地（OZ601）；建议直接打车/预约接机至酒店，避免带娃拖行李换乘"
+          },
+          {
+            "n": "悉尼香格里拉酒店 Shangri-La Sydney",
+            "e": "🏨",
+            "ty": "hotel",
+            "la": -33.8591,
+            "lo": 151.2088,
+            "d": "入住、休整；晚餐以酒店或 The Rocks 附近简餐为主"
+          }
+        ]
+      },
+      {
+        "t": "9/27 观鲸·建议",
+        "spots": [
+          {
+            "n": "出海观鲸（待选船班）",
+            "e": "🐋",
+            "ty": "attraction",
+            "d": "9/27暂定；按海况可与后几天互换。船后休息，不为凑每日一家咖啡店横穿市区。当天咖啡留作酒店/码头附近随意选择，不新增必打卡店。"
+          },
+          {
+            "n": "环形码头 Circular Quay",
+            "e": "⛴️",
+            "ty": "transport",
+            "la": -33.8611,
+            "lo": 151.2134,
+            "d": "观鲸船具体登船点以订单为准，不把所有运营商都当成同一码头。约2–2.5小时船程，交通候船共留半天。"
+          },
+          {
+            "n": "悉尼香格里拉酒店 Shangri-La Sydney",
+            "e": "🏨",
+            "ty": "hotel",
+            "la": -33.8591,
+            "lo": 151.2088,
+            "d": "The Rocks 岩石区，176 Cumberland St。10/1转城已确认，住宿起止日期需以最新订单核对；区域有坡，不把酒店到码头描述为全程平路。"
+          }
+        ]
+      },
+      {
+        "t": "9/28 动物园·建议",
+        "spots": [
+          {
+            "n": "Kingswood Coffee · Circular Quay",
+            "e": "☕",
+            "ty": "food",
+            "d": "9/28周一动物园日备选：若从Circular Quay乘渡轮，去码头时短绕买咖啡；如打车直达动物园就跳过。周一至五07:00–16:00，周末休息。偏咖啡，不代替完整brunch。<br>Underwood Street, Circular Quay, Sydney · <a href=\"https://kingswoodcoffee.online/pages/find-a-shop\" target=\"_blank\" rel=\"noopener\">官网</a> · <a href=\"https://www.google.com/maps/search/?api=1&amp;query=Kingswood%20Coffee%20%C2%B7%20Circular%20Quay%20Underwood%20Street%2C%20Circular%20Quay%2C%20Sydney\" target=\"_blank\" rel=\"noopener\">查地图</a>"
+          },
+          {
+            "n": "塔龙加动物园 Taronga Zoo",
+            "e": "🦘",
+            "ty": "kids",
+            "la": -33.8434,
+            "lo": 151.2413,
+            "d": "当天唯一核心项目；可打车至上方正门，或渡轮抵达后核对接驳。园内有坡，按体力挑重点；Sky Safari停运，不纳入动线。"
+          },
+          {
+            "n": "悉尼香格里拉酒店 Shangri-La Sydney",
+            "e": "🏨",
+            "ty": "hotel",
+            "la": -33.8591,
+            "lo": 151.2088,
+            "d": "The Rocks 岩石区，176 Cumberland St。10/1转城已确认，住宿起止日期需以最新订单核对；区域有坡，不把酒店到码头描述为全程平路。"
+          }
+        ]
+      },
+      {
+        "t": "9/29 海滩·建议",
+        "spots": [
+          {
+            "n": "海滩日（Bondi / Balmoral / Manly 待选）",
+            "e": "🏖️",
+            "ty": "attraction",
+            "d": "每天只选一个海滩。Big Bus蓝线仅到Bondi及North Bondi；Balmoral打车，Manly坐渡轮。若不选Bondi，bills仅保留备选，不专程绕过去。海况、旗帜与开放状态当天复核。"
+          },
+          {
+            "n": "bills 邦迪店",
+            "e": "☕",
+            "ty": "food",
+            "d": "海滩日首选 brunch：若选 Bondi，蓝线下车后到店，吃完再玩沙。每日07:00开门；早餐菜单至12:00，白天以现场排队为主，不保证即到即坐。<br>79 Hall Street, Bondi Beach · <a href=\"https://www.bills.com.au/bondi-beach\" target=\"_blank\" rel=\"noopener\">官网</a> · <a href=\"https://www.google.com/maps/search/?api=1&amp;query=bills%20%E9%82%A6%E8%BF%AA%E5%BA%97%2079%20Hall%20Street%2C%20Bondi%20Beach\" target=\"_blank\" rel=\"noopener\">查地图</a>"
+          }
+        ]
+      },
+      {
+        "t": "9/30 市区·建议",
+        "spots": [
+          {
+            "n": "Big Bus 红线（可选）",
+            "e": "🚌",
+            "ty": "transport",
+            "d": "市区游约90分钟整圈。与鱼市场慢午餐搭配；若选择Single O完整brunch，减少红线乘坐/下车点，不把两顿长餐和所有咖啡店塞进一天。"
+          },
+          {
+            "n": "悉尼鱼市场 Sydney Fish Market（新馆）",
+            "e": "🐟",
+            "ty": "food",
+            "d": "市区日慢午餐，建议留1.5–2小时。2026/1/19已搬入新馆，导航使用最新官网地点。园区07:00–22:00，各商铺时间不同。<a href=\"https://www.sydneyfishmarket.com.au/\" target=\"_blank\" rel=\"noopener\">官网与到达方式</a>"
+          },
+          {
+            "n": "当天咖啡只选一家",
+            "e": "☕",
+            "ty": "food",
+            "d": "不绕路优先Kingswood市区分店；想专门吃brunch选Single O，想精品咖啡选Jibbi；Black Star为甜点替换项。完整门店及营业时间见「咖啡备选」标签。"
+          }
+        ]
+      },
+      {
+        "t": "☕ 咖啡备选",
+        "spots": [
+          {
+            "n": "bills 邦迪店",
+            "e": "☕",
+            "ty": "food",
+            "d": "海滩日首选 brunch：若选 Bondi，蓝线下车后到店，吃完再玩沙。每日07:00开门；早餐菜单至12:00，白天以现场排队为主，不保证即到即坐。<br>79 Hall Street, Bondi Beach · <a href=\"https://www.bills.com.au/bondi-beach\" target=\"_blank\" rel=\"noopener\">官网</a> · <a href=\"https://www.google.com/maps/search/?api=1&amp;query=bills%20%E9%82%A6%E8%BF%AA%E5%BA%97%2079%20Hall%20Street%2C%20Bondi%20Beach\" target=\"_blank\" rel=\"noopener\">查地图</a>"
+          },
+          {
+            "n": "Kingswood Coffee · Circular Quay",
+            "e": "☕",
+            "ty": "food",
+            "d": "9/28周一动物园日备选：若从Circular Quay乘渡轮，去码头时短绕买咖啡；如打车直达动物园就跳过。周一至五07:00–16:00，周末休息。偏咖啡，不代替完整brunch。<br>Underwood Street, Circular Quay, Sydney · <a href=\"https://kingswoodcoffee.online/pages/find-a-shop\" target=\"_blank\" rel=\"noopener\">官网</a> · <a href=\"https://www.google.com/maps/search/?api=1&amp;query=Kingswood%20Coffee%20%C2%B7%20Circular%20Quay%20Underwood%20Street%2C%20Circular%20Quay%2C%20Sydney\" target=\"_blank\" rel=\"noopener\">查地图</a>"
+          },
+          {
+            "n": "Single O · Surry Hills",
+            "e": "☕",
+            "ty": "food",
+            "d": "9/30市区日的brunch替换选项；与Jibbi二选一，不连续打卡。从The Rocks需往南绕，不是鱼市场门口。若选慢brunch，缩短/放弃红线整圈，鱼市场午餐可延后。周一至五07:00–15:00，周末08:00–15:00。<br>60–64 Reservoir Street, Surry Hills · <a href=\"https://singleo.com.au/pages/cafes\" target=\"_blank\" rel=\"noopener\">官网</a> · <a href=\"https://www.google.com/maps/search/?api=1&amp;query=Single%20O%20%C2%B7%20Surry%20Hills%2060%E2%80%9364%20Reservoir%20Street%2C%20Surry%20Hills\" target=\"_blank\" rel=\"noopener\">查地图</a>"
+          },
+          {
+            "n": "JIBBI STUDIO / Jibbi Coffee",
+            "e": "☕",
+            "ty": "food",
+            "d": "已加入精品咖啡备选，不当成完整brunch。9/30只有本来就到Surry Hills/Central一带时去；与Single O互替。周一至五07:30–16:00，周六08:00–16:00，周日08:00–15:30。<br>Shop 2, 216–224 Commonwealth Street, Surry Hills · <a href=\"https://www.jibbijug.com/copy-of-goodie-gear\" target=\"_blank\" rel=\"noopener\">官网</a> · <a href=\"https://www.google.com/maps/search/?api=1&amp;query=JIBBI%20STUDIO%20/%20Jibbi%20Coffee%20Shop%202%2C%20216%E2%80%93224%20Commonwealth%20Street%2C%20Surry%20Hills\" target=\"_blank\" rel=\"noopener\">查地图</a>"
+          },
+          {
+            "n": "Black Star Pastry · Sydney CBD",
+            "e": "☕",
+            "ty": "food",
+            "d": "市区日咖啡/甜点替换项，不叠加在其他咖啡店之后。周一至五08:00–18:00，周末09:00–18:00。⚠️ 招牌西瓜蛋糕含杏仁与开心果，店方提示交叉接触风险；不是无坚果食品，去掉表面坚果不等于安全。<br>Ground Floor, The Galeries, Shop 26/500 George Street, Sydney · <a href=\"https://www.blackstarpastry.com/locations\" target=\"_blank\" rel=\"noopener\">官网</a> · <a href=\"https://www.google.com/maps/search/?api=1&amp;query=Black%20Star%20Pastry%20%C2%B7%20Sydney%20CBD%20Ground%20Floor%2C%20The%20Galeries%2C%20Shop%2026/500%20George%20Street%2C%20Sydney\" target=\"_blank\" rel=\"noopener\">查地图</a> · <a href=\"https://www.blackstarpastry.com/product/strawberry-watermelon-cake\" target=\"_blank\" rel=\"noopener\">配料与过敏原</a>"
+          },
+          {
+            "n": "Deux Frères Pintxos & Bar（另存正餐备选）",
+            "e": "🍽️",
+            "ty": "food",
+            "d": "截图同名悉尼店为西班牙/巴斯克小食餐酒馆，不属于咖啡/brunch。可作动物园回程或市区日的晚餐替代，不加成第二个项目。周一至六11:30起，周日休息；截图未标分店，按官网悉尼店核对。<br>6 Loftus Lane, Sydney · <a href=\"https://www.lentrecotegroup.com.au/deuxfreres\" target=\"_blank\" rel=\"noopener\">官网</a> · <a href=\"https://www.google.com/maps/search/?api=1&amp;query=Deux%20Fr%C3%A8res%20Pintxos%20%26%20Bar%EF%BC%88%E5%8F%A6%E5%AD%98%E6%AD%A3%E9%A4%90%E5%A4%87%E9%80%89%EF%BC%89%206%20Loftus%20Lane%2C%20Sydney\" target=\"_blank\" rel=\"noopener\">查地图</a>"
+          }
+        ]
+      },
+      {
+        "t": "10/1 转场",
+        "spots": [
+          {
+            "n": "悉尼香格里拉酒店 Shangri-La Sydney",
+            "e": "🏨",
+            "ty": "hotel",
+            "la": -33.8591,
+            "lo": 151.2088,
+            "d": "The Rocks 岩石区，176 Cumberland St。10/1转城已确认，住宿起止日期需以最新订单核对；区域有坡，不把酒店到码头描述为全程平路。"
+          },
+          {
+            "n": "悉尼→布里斯班",
+            "e": "✈️",
+            "ty": "transport",
+            "d": "10/1转城（已按9/12最新确认修正）；航班时刻待核实，当天以退房、交通、入住为主。"
+          }
+        ]
+      },
+      {
+        "t": "旧案景点备选",
+        "spots": [
+          {
+            "n": "悉尼歌剧院 Sydney Opera House",
+            "e": "🎭",
+            "ty": "kids",
+            "la": -33.8568,
+            "lo": 151.2153,
+            "d": "建议订 ZOOOM 13:00 场（约 40 分钟）；演后可参加艺术家交流；注意现场可能有频闪"
+          },
+          {
+            "n": "SEA LIFE Sydney Aquarium",
+            "e": "🐠",
+            "ty": "kids",
+            "la": -33.8696,
+            "lo": 151.2016,
+            "d": "上午主活动：儒艮、鲨鱼与企鹅展区；春假建议预订首场入馆"
+          },
+          {
+            "n": "Darling Quarter 儿童游乐场",
+            "e": "🛝",
+            "ty": "kids",
+            "la": -33.8731,
+            "lo": 151.201,
+            "d": "午餐后放电；若天气热可缩短，留足回酒店休息时间"
+          }
+        ]
+      }
+    ],
+    "notes": [
+      "✅ 9/27–9/30四个完整白天；10/1才去布里斯班。日序为建议，不代表船票、餐位或景点已预订。",
+      "☕ 每天最多一家，而不是每天必须一家。观鲸日可留白；动物园日只喝顺路咖啡，不跨城追brunch。",
+      "📍 咖啡备选优先显示可核验的地址与导航链接；未核验精确坐标的门店不在地图上乱落点。",
+      "⚠️ 餐饮营业时间9/12按官网核对，出发前复查。坚果过敏者须逐店确认配料、器具及交叉接触；西瓜蛋糕明确含杏仁/开心果。",
+      "⚠️ 新旧酒店日期与已有票务另核对；本次没有改订单、取消活动或新增景点日历。"
+    ]
+  },
+  "bne": {
+    "center": [
+      -27.475,
+      152.995
+    ],
+    "zoom": 12,
+    "days": [
+      {
+        "t": "总览",
+        "spots": [
+          {
+            "n": "布里斯班机场 BNE",
+            "e": "✈️",
+            "ty": "transport",
+            "la": -27.3842,
+            "lo": 153.1175,
+            "d": "10/1 抵达 · 10/5 CX156 飞香港（具体时刻以订单为准）"
+          },
+          {
+            "n": "W Brisbane 布里斯班 W 酒店",
+            "e": "🏨",
+            "ty": "hotel",
+            "la": -27.4678,
+            "lo": 153.0181,
+            "d": "已定住宿 · 81 North Quay，CBD 河岸；到 South Bank 约 10 分钟车程"
+          },
+          {
+            "n": "南岸公园 South Bank",
+            "e": "🌴",
+            "ty": "attraction",
+            "la": -27.4785,
+            "lo": 153.023,
+            "d": "人工沙滩泳池、摩天轮、Brisbane 字母牌"
+          },
+          {
+            "n": "QAGOMA 昆士兰美术馆",
+            "e": "🎨",
+            "ty": "kids",
+            "la": -27.4712,
+            "lo": 153.017,
+            "d": "儿童创意中心免费，室内避晒"
+          },
+          {
+            "n": "Lone Pine 考拉保护区",
+            "e": "🐨",
+            "ty": "kids",
+            "la": -27.5333,
+            "lo": 152.969,
+            "d": "市区西南 12km；2024/7 起已取消抱考拉，只能贴身合影"
+          },
+          {
+            "n": "Bluey's World",
+            "e": "🐶",
+            "ty": "kids",
+            "la": -27.43,
+            "lo": 153.073,
+            "d": "Hamilton Northshore，沉浸式剧场，必须官网提前订场次票"
+          },
+          {
+            "n": "摩顿岛 Tangalooma（备选）",
+            "e": "🐬",
+            "ty": "attraction",
+            "la": -27.18,
+            "lo": 153.37,
+            "d": "渡轮单程 75–90 分钟，需整整一天"
+          }
+        ]
+      },
+      {
+        "t": "10/1 抵达·轻松备选",
+        "spots": [
+          {
+            "n": "南岸公园 South Bank",
+            "e": "🌴",
+            "ty": "attraction",
+            "la": -27.4785,
+            "lo": 153.023,
+            "d": "抵达时间和体力允许时再选，不要求全部完成。上午：草坪、Streets Beach、Brisbane 字母牌、摩天轮"
+          },
+          {
+            "n": "河岸午餐",
+            "e": "🍽️",
+            "ty": "food",
+            "la": -27.476,
+            "lo": 153.0205,
+            "d": "抵达时间和体力允许时再选，不要求全部完成。中午在 South Bank 河边餐厅吃饭"
+          },
+          {
+            "n": "QAGOMA 昆士兰美术馆",
+            "e": "🎨",
+            "ty": "kids",
+            "la": -27.4712,
+            "lo": 153.017,
+            "d": "抵达时间和体力允许时再选，不要求全部完成。下午：儿童创意中心，室内避午后暴晒；离南岸步行 5 分钟"
+          }
+        ]
+      },
+      {
+        "t": "10/2 考拉园",
+        "spots": [
+          {
+            "n": "Lone Pine 考拉保护区",
+            "e": "🐨",
+            "ty": "kids",
+            "la": -27.5333,
+            "lo": 152.969,
+            "d": "整天。Cultural Centre 有直达大巴，也可坐船前往；袋鼠可投喂"
+          }
+        ]
+      },
+      {
+        "t": "10/3 Bluey's World",
+        "spots": [
+          {
+            "n": "Bluey's World",
+            "e": "🐶",
+            "ty": "kids",
+            "la": -27.43,
+            "lo": 153.073,
+            "d": "离市区约 20 分钟车程；沉浸式体验约 1.5 小时，需选场次"
+          },
+          {
+            "n": "Northshore Hamilton 河岸",
+            "e": "🍦",
+            "ty": "food",
+            "la": -27.434,
+            "lo": 153.07,
+            "d": "结束后河边餐饮区吃饭"
+          }
+        ]
+      },
+      {
+        "t": "备选 摩顿岛",
+        "spots": [
+          {
+            "n": "Holt Street Wharf 渡轮码头",
+            "e": "⛴️",
+            "ty": "transport",
+            "la": -27.418,
+            "lo": 153.101,
+            "d": "Tangalooma 渡轮出发点"
+          },
+          {
+            "n": "Tangalooma 度假村",
+            "e": "🐬",
+            "ty": "attraction",
+            "la": -27.18,
+            "lo": 153.37,
+            "d": "喂野生海豚、沙丘滑沙、沉船浮潜"
+          }
+        ]
+      },
+      {
+        "t": "10/4 自由活动",
+        "spots": [
+          {
+            "n": "W Brisbane 布里斯班 W 酒店",
+            "e": "🏨",
+            "ty": "hotel",
+            "la": -27.4678,
+            "lo": 153.0181,
+            "d": "不赶行程：酒店泳池/河岸散步，作为天气或体力的弹性日"
+          }
+        ]
+      },
+      {
+        "t": "10/5 返程",
+        "spots": [
+          {
+            "n": "布里斯班机场 BNE",
+            "e": "✈️",
+            "ty": "transport",
+            "la": -27.3842,
+            "lo": 153.1175,
+            "d": "CX156 飞香港 → CX390 回北京；从 W Brisbane 出发，预留国际航班值机时间"
+          }
+        ]
+      }
+    ],
+    "notes": [
+      "⚠️ 9/19–10/4 是昆州春假高峰，Bluey's World 和 Lone Pine 都要提前订票，Bluey 最先订。",
+      "⚠️ 摩顿岛一去就是整天，目前只有转场日/回程日有空，大概率放弃；除非砍掉一项。",
+      "💡 抱考拉需去黄金海岸 Currumbin / Paradise Country，但已定不去黄金海岸。"
+    ]
+  }
 };
 
 let city='syd',day=0,map,layer;
@@ -150,19 +513,21 @@ function selDay(i){day=i;renderTabs();render();}
 
 function render(){
  const cfg=DATA[city],dd=cfg.days[day],sp=dd.spots,col=DAYC[day%DAYC.length];
+ const geo=sp.filter(s=>Number.isFinite(s.la)&&Number.isFinite(s.lo));
  layer.clearLayers();
  let html='';
  if(!sp.length){html='<div class="note">这一天还没排内容 —— 想去什么直接告诉我，我加进来。</div>';}
  sp.forEach((s,i)=>{
   html+=`<div class="item"><div class="num" style="background:${col}">${i+1}</div><div><div class="tt">${s.e} ${s.n}</div><div class="dd">${s.d}</div></div></div>`;
+  if(!Number.isFinite(s.la)||!Number.isFinite(s.lo))return;
   L.marker([s.la,s.lo],{icon:L.divIcon({className:'',html:`<div class="marker" style="background:${COLORS[s.ty]}">${s.e}</div>`,iconSize:[32,32],iconAnchor:[16,16]})})
    .bindPopup(`<b>${s.e} ${s.n}</b><br>${s.d}`).addTo(layer);
   L.marker([s.la,s.lo],{icon:L.divIcon({className:'location-label',html:`<div class="label-content">${i+1} ${s.n}</div>`,iconSize:[150,20],iconAnchor:[75,-18]})}).addTo(layer);
  });
- if(sp.length>1){L.polyline(sp.map(s=>[s.la,s.lo]),{color:col,weight:2,dashArray:'5,6',opacity:.7}).addTo(layer);}
+ if(geo.length>1){L.polyline(geo.map(s=>[s.la,s.lo]),{color:col,weight:2,dashArray:'5,6',opacity:.7}).addTo(layer);}
  if(day===0){html+=cfg.notes.map(n=>`<div class="note">${n}</div>`).join('');}
  document.getElementById('sidebar').innerHTML=html;
- if(sp.length){const b=L.latLngBounds(sp.map(s=>[s.la,s.lo]));map.fitBounds(b,{padding:[30,30],paddingTopLeft:[30,80],paddingBottomRight:[30,30],maxZoom:14});}
+ if(geo.length){const b=L.latLngBounds(geo.map(s=>[s.la,s.lo]));map.fitBounds(b,{padding:[30,30],paddingTopLeft:[30,80],paddingBottomRight:[30,30],maxZoom:14});}
  else{map.setView(cfg.center,cfg.zoom);}
 }
 window.onload=()=>{renderTabs();setTimeout(()=>{map.invalidateSize();render();},200);};
