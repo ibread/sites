@@ -29,9 +29,18 @@ header p{font-size:12px;opacity:.85;margin-top:3px}
 .dd{font-size:11.5px;color:#666;margin-top:2px;line-height:1.45}
 .note{background:#fff8e6;border-left:3px solid #d4a843;padding:8px 10px;font-size:11.5px;color:#6b5a2a;margin:8px 6px;border-radius:4px;line-height:1.5}
 .marker{width:32px;height:32px;border-radius:50%;color:#333;font-size:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.2);border:2px solid #fff}
-.location-label .label-content{font-size:11px;font-weight:600;color:#1a365d;background:rgba(255,255,255,.9);border-radius:4px;padding:1px 4px;text-align:center;white-space:nowrap;display:inline-block}
+.location-label{pointer-events:none}.location-label .label-content{font-size:11px;font-weight:600;color:#1a365d;background:rgba(255,255,255,.9);border-radius:4px;padding:1px 4px;text-align:center;white-space:nowrap;display:inline-block}
 @media(min-width:680px){.layout{flex-direction:row}#map{order:1;flex:1}.sidebar{order:2;width:340px}}
 @media(max-width:679px){.sidebar{order:1;max-height:42vh}#map{order:2}}
+
+.spot-focus{border:0;background:none;padding:0;text-align:left;font:inherit;color:inherit;cursor:pointer}
+.spot-focus:hover,.spot-focus:focus-visible{color:#2563eb;text-decoration:underline}
+.item.selected{background:#eff6ff;border-radius:6px}
+.venue-status{display:inline-block;background:#fff1d6;color:#8a4200;font-weight:600;padding:2px 5px;border-radius:4px;margin:3px 0}
+.map-help{margin-top:0}.map-help strong{display:block}
+.marker-number{position:absolute;top:-6px;left:-6px;background:#1a365d;color:white;font-size:10px;line-height:15px;min-width:15px;border-radius:8px;text-align:center}
+.venue-anchor{position:absolute;width:6px;height:6px;border:1px solid white;border-radius:50%;background:#1a365d;transform:translate(-50%,-50%);pointer-events:none}.label-leader{position:absolute;height:1px;background:#64748b;opacity:.6;transform-origin:left center;pointer-events:none}.option-label .label-content{position:relative;width:140px;white-space:normal;font-size:10px;line-height:12px;padding:3px 4px;box-shadow:0 1px 4px #0002}
+.leaflet-popup-content{overflow-wrap:anywhere;max-height:240px;overflow-y:auto}
 </style>
 </head>
 <body>
@@ -217,39 +226,82 @@ const DATA={
             "n": "bills 邦迪店",
             "e": "☕",
             "ty": "food",
-            "d": "海滩日首选 brunch：若选 Bondi，蓝线下车后到店，吃完再玩沙。每日07:00开门；早餐菜单至12:00，白天以现场排队为主，不保证即到即坐。<br>79 Hall Street, Bondi Beach · <a href=\"https://www.bills.com.au/bondi-beach\" target=\"_blank\" rel=\"noopener\">官网</a> · <a href=\"https://www.google.com/maps/search/?api=1&amp;query=bills%20%E9%82%A6%E8%BF%AA%E5%BA%97%2079%20Hall%20Street%2C%20Bondi%20Beach\" target=\"_blank\" rel=\"noopener\">查地图</a>"
+            "d": "海滩日首选 brunch：若选 Bondi，蓝线下车后到店，吃完再玩沙。每日07:00开门；早餐菜单至12:00，白天以现场排队为主，不保证即到即坐。<br>79 Hall Street, Bondi Beach · <a href=\"https://www.bills.com.au/bondi-beach\" target=\"_blank\" rel=\"noopener\">官网</a> · <a href=\"https://www.google.com/maps/search/?api=1&amp;query=bills%20%E9%82%A6%E8%BF%AA%E5%BA%97%2079%20Hall%20Street%2C%20Bondi%20Beach\" target=\"_blank\" rel=\"noopener\">查地图</a>",
+            "id": "bills",
+            "la": -33.8898493,
+            "lo": 151.2720552,
+            "a": "79 Hall Street, Bondi Beach",
+            "src": "https://www.bills.com.au/bondi-beach",
+            "geoSource": "https://maps.app.goo.gl/PJ9tEdCuP89tFMz19",
+            "label": "bills · Bondi"
           },
           {
             "n": "Kingswood Coffee · Circular Quay",
             "e": "☕",
             "ty": "food",
-            "d": "9/28周一动物园日备选：若从Circular Quay乘渡轮，去码头时短绕买咖啡；如打车直达动物园就跳过。周一至五07:00–16:00，周末休息。偏咖啡，不代替完整brunch。<br>Underwood Street, Circular Quay, Sydney · <a href=\"https://kingswoodcoffee.online/pages/find-a-shop\" target=\"_blank\" rel=\"noopener\">官网</a> · <a href=\"https://www.google.com/maps/search/?api=1&amp;query=Kingswood%20Coffee%20%C2%B7%20Circular%20Quay%20Underwood%20Street%2C%20Circular%20Quay%2C%20Sydney\" target=\"_blank\" rel=\"noopener\">查地图</a>"
+            "d": "9/28周一动物园日备选：若从Circular Quay乘渡轮，去码头时短绕买咖啡；如打车直达动物园就跳过。周一至五07:00–16:00，周末休息。偏咖啡，不代替完整brunch。<br>Underwood Street, Circular Quay, Sydney · <a href=\"https://kingswoodcoffee.online/pages/find-a-shop\" target=\"_blank\" rel=\"noopener\">官网</a> · <a href=\"https://www.google.com/maps/search/?api=1&amp;query=Kingswood%20Coffee%20%C2%B7%20Circular%20Quay%20Underwood%20Street%2C%20Circular%20Quay%2C%20Sydney\" target=\"_blank\" rel=\"noopener\">查地图</a>",
+            "id": "kingswood",
+            "la": -33.8624485,
+            "lo": 151.2086956,
+            "a": "Underwood Street, Circular Quay, Sydney",
+            "src": "https://kingswoodcoffee.online/pages/find-a-shop",
+            "geoSource": "https://maps.app.goo.gl/hk1e6cUVYxoemapr9",
+            "label": "Kingswood · Circular Quay"
           },
           {
             "n": "Single O · Surry Hills",
             "e": "☕",
             "ty": "food",
-            "d": "9/30市区日的brunch替换选项；与Jibbi二选一，不连续打卡。从The Rocks需往南绕，不是鱼市场门口。若选慢brunch，缩短/放弃红线整圈，鱼市场午餐可延后。周一至五07:00–15:00，周末08:00–15:00。<br>60–64 Reservoir Street, Surry Hills · <a href=\"https://singleo.com.au/pages/cafes\" target=\"_blank\" rel=\"noopener\">官网</a> · <a href=\"https://www.google.com/maps/search/?api=1&amp;query=Single%20O%20%C2%B7%20Surry%20Hills%2060%E2%80%9364%20Reservoir%20Street%2C%20Surry%20Hills\" target=\"_blank\" rel=\"noopener\">查地图</a>"
+            "d": "9/30市区日的brunch替换选项；与Jibbi二选一，不连续打卡。从The Rocks需往南绕，不是鱼市场门口。若选慢brunch，缩短/放弃红线整圈，鱼市场午餐可延后。周一至五07:00–15:00，周末08:00–15:00。<br>60–64 Reservoir Street, Surry Hills · <a href=\"https://singleo.com.au/pages/cafes\" target=\"_blank\" rel=\"noopener\">官网</a> · <a href=\"https://www.google.com/maps/search/?api=1&amp;query=Single%20O%20%C2%B7%20Surry%20Hills%2060%E2%80%9364%20Reservoir%20Street%2C%20Surry%20Hills\" target=\"_blank\" rel=\"noopener\">查地图</a>",
+            "id": "singleo",
+            "la": -33.8810973,
+            "lo": 151.2096465,
+            "a": "60–64 Reservoir Street, Surry Hills",
+            "src": "https://singleo.com.au/pages/cafes",
+            "geoSource": "https://maps.app.goo.gl/hsrNTLRxE7Rjwswx9",
+            "label": "Single O · Surry Hills"
           },
           {
             "n": "JIBBI STUDIO / Jibbi Coffee",
             "e": "☕",
             "ty": "food",
-            "d": "已加入精品咖啡备选，不当成完整brunch。9/30只有本来就到Surry Hills/Central一带时去；与Single O互替。周一至五07:30–16:00，周六08:00–16:00，周日08:00–15:30。<br>Shop 2, 216–224 Commonwealth Street, Surry Hills · <a href=\"https://www.jibbijug.com/copy-of-goodie-gear\" target=\"_blank\" rel=\"noopener\">官网</a> · <a href=\"https://www.google.com/maps/search/?api=1&amp;query=JIBBI%20STUDIO%20/%20Jibbi%20Coffee%20Shop%202%2C%20216%E2%80%93224%20Commonwealth%20Street%2C%20Surry%20Hills\" target=\"_blank\" rel=\"noopener\">查地图</a>"
+            "d": "已加入精品咖啡备选，不当成完整brunch。9/30只有本来就到Surry Hills/Central一带时去；与Single O互替。周一至五07:30–16:00，周六08:00–16:00，周日08:00–15:30。<br>Shop 2, 216–224 Commonwealth Street, Surry Hills · <a href=\"https://www.jibbijug.com/copy-of-goodie-gear\" target=\"_blank\" rel=\"noopener\">官网</a> · <a href=\"https://www.google.com/maps/search/?api=1&amp;query=JIBBI%20STUDIO%20/%20Jibbi%20Coffee%20Shop%202%2C%20216%E2%80%93224%20Commonwealth%20Street%2C%20Surry%20Hills\" target=\"_blank\" rel=\"noopener\">查地图</a>",
+            "id": "jibbi",
+            "la": -33.8835643,
+            "lo": 151.2101979,
+            "a": "Shop 2, 216–224 Commonwealth Street, Surry Hills",
+            "src": "https://maps.apple.com/place?place-id=I2CDD269C989B6EA8",
+            "geoSource": "https://maps.apple.com/place?place-id=I2CDD269C989B6EA8",
+            "label": "JIBBI Coffee"
           },
           {
             "n": "Black Star Pastry · Sydney CBD",
             "e": "☕",
             "ty": "food",
-            "d": "市区日咖啡/甜点替换项，不叠加在其他咖啡店之后。周一至五08:00–18:00，周末09:00–18:00。⚠️ 招牌西瓜蛋糕含杏仁与开心果，店方提示交叉接触风险；不是无坚果食品，去掉表面坚果不等于安全。<br>Ground Floor, The Galeries, Shop 26/500 George Street, Sydney · <a href=\"https://www.blackstarpastry.com/locations\" target=\"_blank\" rel=\"noopener\">官网</a> · <a href=\"https://www.google.com/maps/search/?api=1&amp;query=Black%20Star%20Pastry%20%C2%B7%20Sydney%20CBD%20Ground%20Floor%2C%20The%20Galeries%2C%20Shop%2026/500%20George%20Street%2C%20Sydney\" target=\"_blank\" rel=\"noopener\">查地图</a> · <a href=\"https://www.blackstarpastry.com/product/strawberry-watermelon-cake\" target=\"_blank\" rel=\"noopener\">配料与过敏原</a>"
+            "d": "市区日咖啡/甜点替换项，不叠加在其他咖啡店之后。周一至五08:00–18:00，周末09:00–18:00。⚠️ 招牌西瓜蛋糕含杏仁与开心果，店方提示交叉接触风险；不是无坚果食品，去掉表面坚果不等于安全。<br>Ground Floor, The Galeries, Shop 26/500 George Street, Sydney · <a href=\"https://www.blackstarpastry.com/locations\" target=\"_blank\" rel=\"noopener\">官网</a> · <a href=\"https://www.google.com/maps/search/?api=1&amp;query=Black%20Star%20Pastry%20%C2%B7%20Sydney%20CBD%20Ground%20Floor%2C%20The%20Galeries%2C%20Shop%2026/500%20George%20Street%2C%20Sydney\" target=\"_blank\" rel=\"noopener\">查地图</a> · <a href=\"https://www.blackstarpastry.com/product/strawberry-watermelon-cake\" target=\"_blank\" rel=\"noopener\">配料与过敏原</a>",
+            "id": "blackstar",
+            "la": -33.8724566,
+            "lo": 151.2078496,
+            "a": "Shop 26, Ground Floor, The Galeries, 500 George Street, Sydney",
+            "src": "https://www.blackstarpastry.com/locations",
+            "geoSource": "https://www.google.com/maps/place/Black+Star+Pastry+Sydney+CBD/@-33.8724566,151.2052747,17z/data=!3m1!4b1!4m6!3m5!1s0x6b12ae256e22b1d9:0x979c15352d2484ff!8m2!3d-33.8724566!4d151.2078496",
+            "label": "Black Star Pastry · CBD"
           },
           {
             "n": "Deux Frères Pintxos & Bar（另存正餐备选）",
             "e": "🍽️",
             "ty": "food",
-            "d": "截图同名悉尼店为西班牙/巴斯克小食餐酒馆，不属于咖啡/brunch。可作动物园回程或市区日的晚餐替代，不加成第二个项目。周一至六11:30起，周日休息；截图未标分店，按官网悉尼店核对。<br>6 Loftus Lane, Sydney · <a href=\"https://www.lentrecotegroup.com.au/deuxfreres\" target=\"_blank\" rel=\"noopener\">官网</a> · <a href=\"https://www.google.com/maps/search/?api=1&amp;query=Deux%20Fr%C3%A8res%20Pintxos%20%26%20Bar%EF%BC%88%E5%8F%A6%E5%AD%98%E6%AD%A3%E9%A4%90%E5%A4%87%E9%80%89%EF%BC%89%206%20Loftus%20Lane%2C%20Sydney\" target=\"_blank\" rel=\"noopener\">查地图</a>"
+            "d": "截图同名悉尼店为西班牙/巴斯克小食餐酒馆，不属于咖啡/brunch。可作动物园回程或市区日的晚餐替代，不加成第二个项目。周一至六11:30起，周日休息；截图未标分店，按官网悉尼店核对。<br>6 Loftus Lane, Sydney · <a href=\"https://www.lentrecotegroup.com.au/deuxfreres\" target=\"_blank\" rel=\"noopener\">官网</a> · <a href=\"https://www.google.com/maps/search/?api=1&amp;query=Deux%20Fr%C3%A8res%20Pintxos%20%26%20Bar%EF%BC%88%E5%8F%A6%E5%AD%98%E6%AD%A3%E9%A4%90%E5%A4%87%E9%80%89%EF%BC%89%206%20Loftus%20Lane%2C%20Sydney\" target=\"_blank\" rel=\"noopener\">查地图</a>",
+            "id": "deux",
+            "la": -33.862787,
+            "lo": 151.210835,
+            "a": "6 Loftus Lane, Sydney",
+            "src": "https://www.lentrecotegroup.com.au/deuxfreres",
+            "geoSource": "https://www.timeout.com/sydney/bars/deux-freres",
+            "label": "Deux Frères Pintxos & Bar"
           }
-        ]
+        ],
+        "mapMode": "options"
       },
       {
         "t": "10/1 转场",
@@ -290,8 +342,76 @@ const DATA={
             "e": "⛴️",
             "ty": "attraction",
             "d": "【同事提供／未核实】仅作备选，不代表已安排或预订。作为曼利的替换项；同事推荐多伊尔餐厅 Doyles 的炸鱼薯条，吃饭后视体力到盖普悬崖 The Gap 看太平洋。Doyles 的具体门店／堂食或外带按动线确认；悬崖区域带孩子保持安全距离。 营业、价格、交通及开放情况采用前复核；不沿用旧报价或步行分钟。<br><a href=\"https://www.google.com/maps/search/?api=1&amp;query=Watsons%20Bay%20Wharf%20Sydney\" target=\"_blank\" rel=\"noopener\">沃森湾码头地图</a> · <a href=\"https://www.google.com/maps/search/?api=1&amp;query=Doyles%20Watsons%20Bay%20Sydney\" target=\"_blank\" rel=\"noopener\">Doyles地图</a> · <a href=\"https://www.google.com/maps/search/?api=1&amp;query=The%20Gap%20Watsons%20Bay%20Sydney\" target=\"_blank\" rel=\"noopener\">The Gap地图</a>"
+          },
+          {
+            "n": "雨果餐厅 Hugos Manly",
+            "e": "🍽️",
+            "ty": "food",
+            "d": "同事推荐的曼利码头餐厅；与 Shelly Beach 船屋二选一即可。",
+            "id": "hugos",
+            "la": -33.7998382,
+            "lo": 151.2838223,
+            "a": "Shop 1, Manly Wharf, East Esplanade, Manly",
+            "src": "https://hugosmanly.com.au/",
+            "geoSource": "https://hellomanly.com.au/listing/hugos-manly/",
+            "label": "Hugos Manly"
+          },
+          {
+            "n": "船屋餐厅 The Boathouse · Shelly Beach",
+            "e": "🍽️",
+            "ty": "food",
+            "d": "按原文“Shelly Beach 沙滩边”锁定此店，不是其他 Boathouse 分店；是否开放及现场入座政策采用前复查。",
+            "id": "boathouse",
+            "la": -33.8011014,
+            "lo": 151.2982855,
+            "a": "Shelly Beach, 1 Marine Parade, Manly",
+            "src": "https://www.sydney.com/destinations/sydney/sydney-north/manly/food-and-drink/the-boathouse-shelly-beach",
+            "geoSource": "https://www.sydney.com/destinations/sydney/sydney-north/manly/food-and-drink/the-boathouse-shelly-beach",
+            "label": "The Boathouse · Shelly"
+          },
+          {
+            "n": "摄氏咖啡 Celsius Coffee & Dining · Kirribilli",
+            "e": "☕",
+            "ty": "food",
+            "d": "原文指 Kirribilli 码头水上咖啡馆，非同名其他门店；只选顺路的一顿。",
+            "id": "celsius",
+            "la": -33.849389,
+            "lo": 151.22029,
+            "a": "Kirribilli Wharf, 1/2 Holbrook Avenue, Kirribilli",
+            "src": "https://www.celsiuscoffeeco.com/",
+            "geoSource": "https://concreteplayground.com/sydney/restaurants/celsius-coffee-co",
+            "label": "Celsius · Kirribilli"
+          },
+          {
+            "n": "多伊尔 Doyles on the Beach（堂食候选）",
+            "e": "🍽️",
+            "ty": "food",
+            "d": "原文只说“Doyles on the beach”，未明确堂食或外带。此点为官网堂食餐厅；另列码头外带店，两点都是实际门店，不代表已选定分店。",
+            "id": "doyles-beach",
+            "la": -33.8428953,
+            "lo": 151.2818157,
+            "a": "11 Marine Parade, Watsons Bay（GPS：3 Cliff Street）",
+            "src": "https://www.doyles.com.au/",
+            "geoSource": "https://www.google.com/maps/place/Doyles+on+the+Beach+Restaurant/@-33.8428953,151.2818157,17z/data=!3m1!4b1!4m6!3m5!1s0x6b12ac8a46843cbd:0x27f25c4d5bb4e209!8m2!3d-33.8428953!4d151.2818157!16s%2Fg%2F1tdh405c",
+            "status": "分店待选",
+            "label": "Doyles · Beach 堂食候选"
+          },
+          {
+            "n": "多伊尔 Doyles on the Wharf（外带候选）",
+            "e": "🐟",
+            "ty": "food",
+            "d": "官网外带炸鱼薯条门店；可买走后到海边吃。与 Doyles on the Beach 为同一条推荐的两种候选，不是新增必去餐厅。",
+            "id": "doyles-wharf",
+            "la": -33.8434538,
+            "lo": 151.2816696,
+            "a": "Fishermans Wharf, Watsons Bay",
+            "src": "https://www.doyles.com.au/doyles-on-the-wharf-takeaway/take-away-bistro-menu/",
+            "geoSource": "https://www.google.com/maps/place/Doyles+on+the+Wharf/@-33.8434538,151.2771635,17z/data=!4m10!1m2!2m1!1sDoyles+on+the+Wharf+Watsons+Bay!3m6!1s0x6b12ac6196ac0001:0xa99f4bb421d661e3!8m2!3d-33.8434538!4d151.2816696!15sCh9Eb3lsZXMgb24gdGhlIFdoYXJmIFdhdHNvbnMgQmF5IgOIAQFaISIfZG95bGVzIG9uIHRoZSB3aGFyZiB3YXRzb25zIGJheZIBF2Zpc2hfYW5kX2NoaXBzX3Rha2Vhd2F5mgFEQ2k5RFFVbFJRVU52WkVOb2RIbGpSamx2VDJwbmVVeFdVbEJTVmtaSVRWZGFOVlZFYkRWWFJrMTBWMFpDTTJKWFl4QULgAQD6AQQIPRA0!16s%2Fg%2F12m9j64f9",
+            "status": "分店待选",
+            "label": "Doyles · Wharf 外带候选"
           }
-        ]
+        ],
+        "mapMode": "options"
       },
       {
         "t": "🏖️ 东岸海滩备选",
@@ -313,8 +433,75 @@ const DATA={
             "e": "🍽️",
             "ty": "food",
             "d": "【同事提供／未核实】仅作备选，不代表已安排或预订。同事推荐五家，按所到海滩只选一家：冰山意式餐厅酒吧 Icebergs Dining Room and Bar（楼上精致餐饮）；冰山俱乐部小馆 The Bergs bistro（楼下休闲候选）；北邦迪的斯皮多斯咖啡馆 Speedos、北邦迪鱼餐厅 North Bondi Fish；到勃朗特可查三只蓝鸭餐厅 Three Blue Ducks。店铺存续、分店、获奖与价格比较未核实，尤其 Bronte 店先核对再前往；点餐确认坚果配料及交叉接触。 营业、价格、交通及开放情况采用前复核；不沿用旧报价或步行分钟。<br><a href=\"https://www.google.com/maps/search/?api=1&amp;query=Icebergs%20Dining%20Room%20and%20Bar%20Bondi%20Sydney\" target=\"_blank\" rel=\"noopener\">Icebergs Dining Room and Bar地图</a> · <a href=\"https://www.google.com/maps/search/?api=1&amp;query=The%20Bergs%20Bistro%20Bondi%20Icebergs%20Sydney\" target=\"_blank\" rel=\"noopener\">The Bergs bistro地图</a> · <a href=\"https://www.google.com/maps/search/?api=1&amp;query=Speedos%20Cafe%20North%20Bondi%20Sydney\" target=\"_blank\" rel=\"noopener\">Speedos地图</a> · <a href=\"https://www.google.com/maps/search/?api=1&amp;query=North%20Bondi%20Fish%20Sydney\" target=\"_blank\" rel=\"noopener\">North Bondi Fish地图</a> · <a href=\"https://www.google.com/maps/search/?api=1&amp;query=Three%20Blue%20Ducks%20Bronte%20Sydney\" target=\"_blank\" rel=\"noopener\">Three Blue Ducks（Bronte待核实）地图</a>"
+          },
+          {
+            "n": "冰山意式餐厅 Icebergs Dining Room and Bar（楼上）",
+            "e": "🍽️",
+            "ty": "food",
+            "d": "楼上独立经营的意式精致餐饮，不能与楼下 The Bergs Bistro 混同。两店同楼，地图图标错开显示，实际地址不变。",
+            "id": "icebergs",
+            "la": -33.8952808,
+            "lo": 151.2744143,
+            "a": "Top level, 1 Notts Avenue, Bondi Beach",
+            "src": "https://idrb.com/dining-room/",
+            "geoSource": "https://www.sydney.com/destinations/sydney/sydney-east/bondi/food-and-drink/icebergs-dining-room-and-bar-bondi",
+            "label": "Icebergs Dining Room 楼上"
+          },
+          {
+            "n": "冰山俱乐部 The Bergs Bistro（俱乐部层）",
+            "e": "🍽️",
+            "ty": "food",
+            "d": "同楼的俱乐部餐饮，非楼上 Icebergs Dining Room；按官网从 Notts Avenue 街面进入。相邻图标为可点击性错开，实际店址坐标不变。",
+            "id": "bergs",
+            "la": -33.8950891,
+            "lo": 151.2743049,
+            "a": "Clubhouse, 1 Notts Avenue, Bondi Beach（Notts Avenue 街面入口）",
+            "src": "https://icebergs.com.au/the-bergs-bistro/",
+            "geoSource": "https://www.google.com/maps/place/Bondi+Icebergs+Swimming+CLUB+-+The+Bergs+Bistro/@-33.8950891,151.27173,17z/data=!3m1!4b1!4m6!3m5!1s0x6b12ad9b561ded51:0x5309da638654fabe!8m2!3d-33.8950891!4d151.2743049!16s%2Fm%2F012smxvm",
+            "label": "The Bergs Bistro 俱乐部层"
+          },
+          {
+            "n": "斯皮多斯咖啡 Speedos Café",
+            "e": "☕",
+            "ty": "food",
+            "d": "同事推荐的北邦迪早餐／午餐候选；与 North Bondi Fish 按口味二选一。",
+            "id": "speedos",
+            "la": -33.8905685,
+            "lo": 151.2828645,
+            "a": "126 Ramsgate Avenue, North Bondi",
+            "src": "https://www.sydney.com/destinations/sydney/sydney-east/bondi/food-and-drink/speedos",
+            "geoSource": "https://www.sydney.com/destinations/sydney/sydney-east/bondi/food-and-drink/speedos",
+            "label": "Speedos Café"
+          },
+          {
+            "n": "北邦迪鱼餐厅 North Bondi Fish",
+            "e": "🐟",
+            "ty": "food",
+            "d": "北邦迪海鲜餐饮候选；点餐与儿童入场政策以店方当天答复为准。",
+            "id": "north-bondi-fish",
+            "la": -33.8903744,
+            "lo": 151.2826601,
+            "a": "120 Ramsgate Avenue, North Bondi",
+            "src": "https://www.sydney.com/destinations/sydney/sydney-east/bondi/food-and-drink/north-bondi-fish",
+            "geoSource": "https://www.sydney.com/destinations/sydney/sydney-east/bondi/food-and-drink/north-bondi-fish",
+            "label": "North Bondi Fish"
+          },
+          {
+            "n": "三只蓝鸭 Three Blue Ducks · Bronte（已闭店旧址）",
+            "e": "⚠️",
+            "ty": "food",
+            "d": "原文指 Bronte 店，但该店已于2021年关闭。仅保留旧址供识别过时推荐，不可作为本次用餐目的地，也不擅自换成 Rosebery 分店。",
+            "id": "three-blue-ducks",
+            "la": -33.9062489,
+            "lo": 151.2642107,
+            "a": "原址 141–143 Macpherson Street, Bronte",
+            "src": "https://www.smh.com.au/goodfood/eating-out/three-blue-ducks-in-bronte-closes-but-rosebery-set-to-expand-with-a-new-bar-20211027-h1zfip.html",
+            "geoSource": "https://concreteplayground.com/sydney/restaurants/three-blue-ducks",
+            "status": "已闭店 · 仅旧址",
+            "label": "Three Blue Ducks · 已闭店"
           }
-        ]
+        ],
+        "mapMode": "options"
       },
       {
         "t": "🌉 大桥岩石区备选",
@@ -348,8 +535,75 @@ const DATA={
             "e": "🥂",
             "ty": "food",
             "d": "【同事提供／未核实】仅作备选，不代表已安排或预订。歌剧院酒吧 Opera Bar 偏轻松；本尼朗餐厅 Bennelong 偏精致餐饮，可近看歌剧院与海港大桥。只选一家；吧台能否直接入座、订位要求及儿童政策均待核实，不保证 walk-in。 营业、价格、交通及开放情况采用前复核；不沿用旧报价或步行分钟。<br><a href=\"https://www.google.com/maps/search/?api=1&amp;query=Opera%20Bar%20Sydney%20Opera%20House\" target=\"_blank\" rel=\"noopener\">Opera Bar地图</a> · <a href=\"https://www.google.com/maps/search/?api=1&amp;query=Bennelong%20Sydney%20Opera%20House\" target=\"_blank\" rel=\"noopener\">Bennelong地图</a>"
+          },
+          {
+            "n": "战争财富酒吧 Fortune of War",
+            "e": "🍺",
+            "ty": "food",
+            "d": "同事三家历史酒吧之一；“最古老”为店方说法，未作历史排名核定。带孩子先核实未成年人用餐规定。",
+            "id": "fortune",
+            "la": -33.8603744,
+            "lo": 151.2084656,
+            "a": "137 George Street, The Rocks",
+            "src": "https://www.fortuneofwar.com.au/",
+            "geoSource": "https://www.google.com/maps/place/Fortune+of+War+-+Sydney's+Oldest+Pub/@-33.8603744,151.2084656,17z/data=!3m1!4b1!4m6!3m5!1s0x6b12ae42f25dba35:0xd2e6dcb41a69205!8m2!3d-33.8603744!4d151.2084656!16s%2Fg%2F11gslxyvw5",
+            "label": "Fortune of War"
+          },
+          {
+            "n": "纳尔逊勋爵酒吧 Lord Nelson Brewery Hotel",
+            "e": "🍺",
+            "ty": "food",
+            "d": "同事推荐的酒店酒吧／酿酒坊；只选一家，不安排三店连喝。儿童入场与餐饮服务采用前确认。",
+            "id": "lord-nelson",
+            "la": -33.8581052,
+            "lo": 151.203284,
+            "a": "19 Kent Street, The Rocks",
+            "src": "https://www.sydney.com/destinations/sydney/sydney-city/the-rocks/food-and-drink/lord-nelson-brewery",
+            "geoSource": "https://www.sydney.com/destinations/sydney/sydney-city/the-rocks/food-and-drink/lord-nelson-brewery",
+            "label": "Lord Nelson Brewery"
+          },
+          {
+            "n": "滑铁卢英雄酒吧 Hero of Waterloo",
+            "e": "🍺",
+            "ty": "food",
+            "d": "同事推荐的历史酒吧；走私隧道为历史介绍／传说，不代表随时开放参观。带孩子先核实入场规定。",
+            "id": "hero",
+            "la": -33.8577401,
+            "lo": 151.2058271,
+            "a": "81 Lower Fort Street, Millers Point",
+            "src": "https://www.sydney.com/destinations/sydney/sydney-city/walsh-bay/food-and-drink/the-hero-waterloo",
+            "geoSource": "https://www.sydney.com/destinations/sydney/sydney-city/walsh-bay/food-and-drink/the-hero-waterloo",
+            "label": "Hero of Waterloo"
+          },
+          {
+            "n": "歌剧院酒吧 Opera Bar（装修期间室外服务）",
+            "e": "🥂",
+            "ty": "food",
+            "d": "2026/9/26 官网称室内餐区装修，室外仍营业，由 Terrace Bar／Winnie’s 提供餐饮；实际服务区域与开放状态出发前再核对。",
+            "id": "opera-bar",
+            "la": -33.858537934693,
+            "lo": 151.21350371422,
+            "a": "Lower Concourse, Sydney Opera House",
+            "src": "https://operabar.com.au/",
+            "geoSource": "https://www.sydney.com/destinations/sydney/sydney-city/city-centre/food-and-drink/opera-bar",
+            "status": "室内装修 · 室外服务请复查",
+            "label": "Opera Bar · 室内装修"
+          },
+          {
+            "n": "本尼朗餐厅 Bennelong",
+            "e": "🥂",
+            "ty": "food",
+            "d": "歌剧院内精致餐饮；与 Opera Bar 为替换项。吧台是否接受 walk-in、订位与儿童政策须另查，不承诺直接入座。",
+            "id": "bennelong",
+            "la": -33.85756,
+            "lo": 151.214688,
+            "a": "Sydney Opera House, Bennelong Point",
+            "src": "https://www.bennelong.com.au/",
+            "geoSource": "https://www.bennelong.com.au/",
+            "label": "Bennelong"
           }
-        ]
+        ],
+        "mapMode": "options"
       },
       {
         "t": "🛍️ 购物备选",
@@ -401,7 +655,7 @@ const DATA={
     "notes": [
       "✅ 9/27–9/30四个完整白天；10/1才去布里斯班。日序为建议，不代表船票、餐位或景点已预订。",
       "☕ 每天最多一家，而不是每天必须一家。观鲸日可留白；动物园日只喝顺路咖啡，不跨城追brunch。",
-      "📍 咖啡备选优先显示可核验的地址与导航链接；未核验精确坐标的门店不在地图上乱落点。",
+      "📍 咖啡／同事餐饮备选已逐店上图；切标签自动缩放，点店名或图标看详情。Doyles 两分店待选，Three Blue Ducks Bronte 仅标已闭店旧址；备选不连成游览路线。",
       "⚠️ 餐饮营业时间9/12按官网核对，出发前复查。坚果过敏者须逐店确认配料、器具及交叉接触；西瓜蛋糕明确含杏仁/开心果。",
       "⚠️ 新旧酒店日期与已有票务另核对；本次没有改订单、取消活动或新增景点日历。"
     ]
@@ -593,7 +847,7 @@ const DATA={
   }
 };
 
-let city='syd',day=0,map,layer;
+let city='syd',day=0,map,layer,spotMarkers=new Map(),optionMarkers=[];
 map=L.map('map').setView(DATA.syd.center,DATA.syd.zoom);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; OpenStreetMap contributors',maxZoom:19}).addTo(map);
 layer=L.layerGroup().addTo(map);
@@ -608,26 +862,87 @@ function renderTabs(){
   `<button class="${i===day?'on':''}" onclick="selDay(${i})">${d.t}</button>`).join('');
 }
 function selDay(i){day=i;renderTabs();render();}
-
+function venueDetails(s){
+ return `${s.status?`<div class="venue-status">${s.status}</div><br>`:''}${s.d}${s.a?`<br><b>📍 ${s.a}</b><br><small>地址／坐标核对：2026/9/26 · <a href="${s.src}" target="_blank" rel="noopener">店址来源</a> · <a href="${s.geoSource}" target="_blank" rel="noopener">坐标来源</a></small>`:''}`;
+}
+function highlightSpot(i){
+ document.querySelectorAll('#sidebar .item').forEach(el=>el.classList.toggle('selected',Number(el.dataset.spot)===i));
+}
+function focusSpot(i){
+ const marker=spotMarkers.get(i);if(!marker)return;
+ highlightSpot(i);map.setView(marker.getLatLng(),Math.max(map.getZoom(),16),{animate:false});marker.openPopup();
+}
+// Offset only icon/label pixels, never the actual venue coordinates. This also
+// keeps nearby venues (including the two Icebergs floors) independently clickable.
+function arrangeOptionLabels(){
+ if(!optionMarkers.length)return;
+ const size=map.getSize(),placed=[],groups=[];
+ optionMarkers.forEach(r=>{
+  r.p=map.latLngToContainerPoint(r.marker.getLatLng());
+  const group=groups.find(g=>g.some(x=>x.p.distanceTo(r.p)<38));
+  if(group)group.push(r);else groups.push([r]);
+ });
+ groups.forEach(g=>g.forEach((r,j)=>{
+  const angle=2*Math.PI*j/g.length,dx=g.length>1?Math.round(24*Math.cos(angle)):0,dy=g.length>2?Math.round(24*Math.sin(angle)):0;
+  r.display=L.point(r.p.x+dx,r.p.y+dy);
+  const icon=r.marker.getIcon();icon.options.iconAnchor=[16-dx,16-dy];r.marker.setIcon(icon);
+  if(dx||dy){
+   const stem=document.createElement('span');stem.className='label-leader';
+   stem.style.cssText=`left:16px;top:16px;width:${Math.hypot(dx,dy)}px;transform:rotate(${Math.atan2(-dy,-dx)}rad)`;
+   const anchor=document.createElement('span');anchor.className='venue-anchor';anchor.style.cssText=`left:${16-dx}px;top:${16-dy}px`;
+   r.marker.getElement().prepend(stem);r.marker.getElement().append(anchor);
+  }
+ }));
+ const intersects=(a,b)=>a.x<b.x+b.w+4&&a.x+a.w+4>b.x&&a.y<b.y+b.h+4&&a.y+a.h+4>b.y;
+ const blocked=optionMarkers.map(r=>({x:r.display.x-20,y:r.display.y-23,w:40,h:43}));
+ blocked.push({x:0,y:0,w:45,h:80}); // Leaflet zoom controls
+ optionMarkers.forEach(r=>{
+  const content=r.label.getElement().querySelector('.label-content');
+  const w=140,h=content.offsetHeight,candidates=[];
+  for(let y=4;y+h<size.y-20;y+=10)for(let x=4;x+w<size.x-4;x+=10){
+   const c={x,y,w,h};
+   if(!blocked.some(b=>intersects(c,b))&&!placed.some(b=>intersects(c,b)))candidates.push(c);
+  }
+  const distance=c=>Math.hypot(c.x+w/2-r.display.x,c.y+h/2-r.display.y);
+  candidates.sort((a,b)=>distance(a)-distance(b));
+  const pos=candidates[0]||{x:r.display.x-w/2,y:r.display.y-h-25,w,h};placed.push(pos);
+  const labelIcon=r.label.getIcon();labelIcon.options.iconAnchor=[r.p.x-pos.x,r.p.y-pos.y];r.label.setIcon(labelIcon);
+  // A subtle name callout, not a route between venues.
+  const dx=r.display.x-pos.x-w/2,dy=r.display.y-pos.y-h/2;
+  const leader=document.createElement('span');leader.className='label-leader';
+  leader.style.cssText=`left:${w/2}px;top:${h/2}px;width:${Math.hypot(dx,dy)}px;transform:rotate(${Math.atan2(dy,dx)}rad)`;
+  r.label.getElement().prepend(leader);
+ });
+}
+map.on('zoomend moveend resize',arrangeOptionLabels);
 function render(){
- const cfg=DATA[city],dd=cfg.days[day],sp=dd.spots,col=DAYC[day%DAYC.length];
+ const cfg=DATA[city],dd=cfg.days[day],sp=dd.spots,col=DAYC[day%DAYC.length],options=dd.mapMode==='options';
  const geo=sp.filter(s=>Number.isFinite(s.la)&&Number.isFinite(s.lo));
- layer.clearLayers();
- let html='';
+ map.closePopup();layer.clearLayers();spotMarkers.clear();optionMarkers=[];
+ let html='',background='';
+ if(options)html=`<div class="note map-help"><strong>📍 ${geo.length} 个店址标记 · 仅备选，不是游览路线</strong>点店名可定位并打开详情；切换标签自动显示本组全部点。编号与列表对应，相邻图标会避让，小圆点标真实店址；细线仅为标注引线，并非游览路线。${day===8?' Doyles 原文未明确堂食／外带，两个实际分店均列为待选。':''}${day===9?' ⚠️ Three Blue Ducks Bronte 已闭店，仅标旧址，请勿前往用餐。':''}${day===10?' Opera Bar 室内装修，室外服务出发前再确认。':''}</div>`;
  if(!sp.length){html='<div class="note">这一天还没排内容 —— 想去什么直接告诉我，我加进来。</div>';}
  sp.forEach((s,i)=>{
-  html+=`<div class="item"><div class="num" style="background:${col}">${i+1}</div><div><div class="tt">${s.e} ${s.n}</div><div class="dd">${s.d}</div></div></div>`;
-  if(!Number.isFinite(s.la)||!Number.isFinite(s.lo))return;
-  L.marker([s.la,s.lo],{icon:L.divIcon({className:'',html:`<div class="marker" style="background:${COLORS[s.ty]}">${s.e}</div>`,iconSize:[32,32],iconAnchor:[16,16]})})
-   .bindPopup(`<b>${s.e} ${s.n}</b><br>${s.d}`).addTo(layer);
-  L.marker([s.la,s.lo],{icon:L.divIcon({className:'location-label',html:`<div class="label-content">${i+1} ${s.n}</div>`,iconSize:[150,20],iconAnchor:[75,-18]})}).addTo(layer);
+  const mapped=Number.isFinite(s.la)&&Number.isFinite(s.lo),details=venueDetails(s),number=options?geo.indexOf(s)+1:i+1;
+  if(options&&!mapped){background+=`<div class="item"><div><div class="tt">${s.e} ${s.n}</div><div class="dd">${s.d}</div></div></div>`;return;}
+  html+=`<div class="item" data-spot="${i}"><div class="num" style="background:${col}">${number}</div><div><div class="tt">${mapped?`<button type="button" class="spot-focus" onclick="focusSpot(${i})" aria-label="在地图查看 ${s.n}">${s.e} ${s.n} <span>📍 定位</span></button>`:`${s.e} ${s.n}`}</div><div class="dd">${details}</div></div></div>`;
+  if(!mapped)return;
+  const marker=L.marker([s.la,s.lo],{title:s.n,alt:s.n,icon:L.divIcon({className:'',html:`<div class="marker" style="background:${COLORS[s.ty]}">${options?`<span class="marker-number">${number}</span>`:''}${s.e}</div>`,iconSize:[32,32],iconAnchor:[16,16]})})
+   .bindPopup(`<b>${s.e} ${s.n}</b><br>${details}`,{maxWidth:280}).addTo(layer);
+  marker.on('popupopen',()=>highlightSpot(i));spotMarkers.set(i,marker);
+  const label=L.marker([s.la,s.lo],{interactive:false,keyboard:false,icon:L.divIcon({className:`location-label${options?' option-label':''}`,html:`<div class="label-content">${number} ${options?s.e+' ':''}${options?s.label:s.n}</div>`,iconSize:[options?140:150,20],iconAnchor:[75,-18]})}).addTo(layer);
+  if(options)optionMarkers.push({marker,label});
  });
- if(geo.length>1){L.polyline(geo.map(s=>[s.la,s.lo]),{color:col,weight:2,dashArray:'5,6',opacity:.7}).addTo(layer);}
+ if(background)html+=`<details class="note"><summary>同事原始路线背景（仅备选）</summary>${background}</details>`;
+ if(!options&&geo.length>1){L.polyline(geo.map(s=>[s.la,s.lo]),{color:col,weight:2,dashArray:'5,6',opacity:.7}).addTo(layer);}
  if(day===0){html+=cfg.notes.map(n=>`<div class="note">${n}</div>`).join('');}
- document.getElementById('sidebar').innerHTML=html;
- if(geo.length){const b=L.latLngBounds(geo.map(s=>[s.la,s.lo]));map.fitBounds(b,{padding:[30,30],paddingTopLeft:[30,80],paddingBottomRight:[30,30],maxZoom:14});}
- else{map.setView(cfg.center,cfg.zoom);}
+ const sidebar=document.getElementById('sidebar');sidebar.innerHTML=html;sidebar.scrollTop=0;
+ map.invalidateSize({pan:false});
+ if(geo.length){const b=L.latLngBounds(geo.map(s=>[s.la,s.lo]));map.fitBounds(b,{paddingTopLeft:options?[65,85]:[30,80],paddingBottomRight:options?[65,85]:[30,30],maxZoom:options?16:14,animate:false});}
+ else{map.setView(cfg.center,cfg.zoom,{animate:false});}
+ arrangeOptionLabels();
 }
+
 window.onload=()=>{renderTabs();setTimeout(()=>{map.invalidateSize();render();},200);};
 </script>
 <script data-goatcounter="https://ibread.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
