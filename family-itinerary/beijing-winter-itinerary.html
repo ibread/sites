@@ -125,7 +125,7 @@ dialog{width:min(580px,calc(100% - 24px));max-height:90vh;max-height:90dvh;borde
 const $ = id => document.getElementById(id);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let lang = new URLSearchParams(location.search).get('lang') === 'zh' ? 'zh' : 'en';
-let activeTab = 'overview', selectedPlace = 'forbidden-city', detailId = null, provider = 'leaflet', overviewExtent = 'city';
+let activeTab = 'overview', selectedPlace = 'forbidden-city', detailId = null, provider = 'google', overviewExtent = 'city';
 let leafletMap = null, leafletMarkers = null;
 const photos = JSON.parse($('beijing-photo-data').textContent);
 const text = obj => obj?.[lang] || obj?.en || '';
@@ -308,7 +308,7 @@ function renderSidebar(){
  $('sidebar').innerHTML=html;$('sidebar').setAttribute('aria-label',tr('Itinerary','行程'));
 }
 const checked=new Set();
-function selectTab(id){activeTab=id;if(places[id]) selectedPlace=id;else if(id==='hotels')selectedPlace='rosewood';else if(id==='shows')selectedPlace='ncpa';else if(id==='xian')selectedPlace='terracotta';else selectedPlace='forbidden-city';if(id==='overview'||id==='hotels')provider='leaflet';renderTabs();renderSidebar();$('sidebar').scrollTop=0;updateMap();}
+function selectTab(id){activeTab=id;if(places[id]) selectedPlace=id;else if(id==='hotels')selectedPlace='rosewood';else if(id==='shows')selectedPlace='ncpa';else if(id==='xian')selectedPlace='terracotta';else selectedPlace='forbidden-city';renderTabs();renderSidebar();$('sidebar').scrollTop=0;updateMap();}
 function photoHtml(id){
  const p=places[id],photo=photos[id];
  if(!photo?.src) return `<div class="photo-pending" data-photo-key="${id}">${tr('Photo awaiting final source integration.','照片待最终来源整合。')}</div>`;
@@ -329,21 +329,32 @@ function renderDetail(){
 }
 function openPlace(id){selectedPlace=id;detailId=id;updateMap();renderDetail();$('placeDialog').showModal();$('placeDialog').scrollTop=0;}
 function googleSearchUrl(p){return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(p.query);}
+const myMapsId='1ZmmHWkbpWO2CvCpryIrIyB20tD5uhHk';
+function myMapsUrl(view='embed'){
+ const params=new URLSearchParams({mid:myMapsId,hl:tr('en','zh-CN')});
+ if(activeTab==='hotels'){params.set('ll','39.9305,116.4394');params.set('z','12');}
+ else{params.set('ll','40.16,116.45');params.set('z','9');}
+ return 'https://www.google.com/maps/d/'+view+'?'+params;
+}
 function mapError(){$('mapNote').textContent=tr('OSM map unavailable. Use the Open map link or switch to Google.','OSM地图不可用。请打开地图链接或切换Google。');}
 const extentControl=document.createElement('div');extentControl.className='map-extent';extentControl.innerHTML='<button id="cityExtent" type="button"></button><button id="allExtent" type="button"></button>';$('leafletMap').parentElement.appendChild(extentControl);
 function updateMap(){
  const p=places[selectedPlace];
- const multi=provider==='leaflet'&&(activeTab==='overview'||activeTab==='hotels');
+ const collection=activeTab==='overview'||activeTab==='hotels';
+ const myMaps=provider==='google'&&collection;
+ const multi=provider==='leaflet'&&collection;
  extentControl.hidden=!(multi&&activeTab==='overview');
  $('cityExtent').textContent=tr('City / hotels','市区 / 酒店');$('allExtent').textContent=tr('All stops','全部地点');$('cityExtent').setAttribute('aria-pressed',String(overviewExtent==='city'));$('allExtent').setAttribute('aria-pressed',String(overviewExtent==='all'));
  $('googleBtn').setAttribute('aria-pressed',String(provider==='google'));$('leafletBtn').setAttribute('aria-pressed',String(provider==='leaflet'));
  $('googleMap').hidden=provider!=='google';$('leafletMap').hidden=provider!=='leaflet';
+ $('mapPlace').hidden=myMaps;
  $('mapPlace').textContent=emojis[p.id]+' '+text(p.name)+' · '+tr('Details ›','详情 ›');
- $('mapLink').textContent=tr('Open map ↗','打开地图 ↗');$('mapLink').href=provider==='google'?googleSearchUrl(p):'https://www.openstreetmap.org/search?query='+encodeURIComponent(p.query);
+ $('mapLink').textContent=tr('Open map ↗','打开地图 ↗');$('mapLink').href=myMaps?myMapsUrl('viewer'):provider==='google'?googleSearchUrl(p):'https://www.openstreetmap.org/search?query='+encodeURIComponent(p.query);
  if(provider==='google'){
-  const src='https://www.google.com/maps?q='+encodeURIComponent(p.query)+'&z='+(p.zoom||14)+'&hl='+tr('en','zh-CN')+'&output=embed';
+  const src=myMaps?myMapsUrl():'https://www.google.com/maps?q='+encodeURIComponent(p.query)+'&z='+(p.zoom||14)+'&hl='+tr('en','zh-CN')+'&output=embed';
+  $('googleMap').title=myMaps?tr('Google My Maps · Beijing sights and hotels','Google My Maps · 北京景点与酒店'):tr('Google Maps · selected place','Google Maps · 当前地点');
   if($('googleMap').getAttribute('src')!==src)$('googleMap').src=src;
-  $('mapNote').textContent=tr('One place at a time · No route lines. If Google is unavailable, try OSM.','每次一个地点 · 不画路线。Google不可用时可切换OSM。');
+  $('mapNote').textContent=myMaps?tr('My Maps: Beijing sights + H1–H5 hotels; optional Xi’an layer off. Map markers and webpage cards open separate details, not synced. If unavailable, try OSM.','My Maps：北京景点＋H1–H5酒店；西安备选图层默认关闭。地图标记与网页卡片各自显示详情，不联动。不可用时请切换OSM。'):tr('One place at a time · No route lines. If Google is unavailable, try OSM.','每次一个地点 · 不画路线。Google不可用时可切换OSM。');
  }else{
   $('googleMap').removeAttribute('src');
   if(!window.L){mapError();return;}
@@ -355,7 +366,7 @@ function updateMap(){
   if(multi){
    const frameIds=activeTab==='hotels'?hotelIds:overviewExtent==='all'?ids:[...anchorIds.filter(id=>id!=='mutianyu'),...hotelIds,'lama-temple'];
    leafletMap.fitBounds(frameIds.map(id=>[places[id].lat,places[id].lng]),{paddingTopLeft:[22,42],paddingBottomRight:[22,48],maxZoom:14,animate:false});
-   $('mapNote').textContent=activeTab==='hotels'?tr('H1–H5: hotels · Tap a pin for details. Approximate building locations. Google shows one selected place.','H1–H5：酒店 · 点标记看详情。建筑近似定位；Google每次显示一个地点。'):tr('Purple H1–H5: hotels · City view by default; All stops includes Great Wall, Summer Palace & 798. Google: one place.','紫色H1–H5：酒店 · 默认市区视图；「全部地点」含长城、颐和园、798。Google仅单点。');
+   $('mapNote').textContent=activeTab==='hotels'?tr('H1–H5: hotels · Tap an OSM pin for webpage details. Approximate building locations.','H1–H5：酒店 · 点OSM标记看网页详情。建筑近似定位。'):tr('Purple H1–H5: hotels · City view by default; All stops includes Great Wall, Summer Palace & 798.','紫色H1–H5：酒店 · 默认市区视图；「全部地点」含长城、颐和园、798。');
   }else if(Number.isFinite(p.lat)){
    leafletMap.setView([p.lat,p.lng],p.zoom);
    $('mapNote').textContent=tr('Approximate location for orientation, not turn-by-turn navigation.','近似方位示意，不作为逐步导航。');
