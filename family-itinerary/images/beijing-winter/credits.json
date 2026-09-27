@@ -79,5 +79,32 @@
     "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
     "description": "Panorama of the Terracotta Army, Pit 1",
     "note": "Resized/compressed; photo is illustrative and may show another season or a historical performance."
+  },
+  "summer-palace": {
+    "src": "images/beijing-winter/summer-palace.jpg",
+    "credit": "xiquinhosilva",
+    "source": "https://commons.wikimedia.org/wiki/File:Longevity_Hill_of_the_Summer_Palace.jpg",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "description": "Longevity Hill of the Summer Palace in Beijing, China",
+    "note": "Resized/compressed. Reference photo; season, gallery display and appearance may differ during your visit."
+  },
+  "lama-temple": {
+    "src": "images/beijing-winter/lama-temple.jpg",
+    "credit": "Charlie fong冯成",
+    "source": "https://commons.wikimedia.org/wiki/File:Yonghe_Temple_entrance.jpg",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "description": "Yonghe Temple entrance",
+    "note": "Resized/compressed. Reference photo; season, gallery display and appearance may differ during your visit."
+  },
+  "798-art": {
+    "src": "images/beijing-winter/798-art.jpg",
+    "credit": "Leeluv",
+    "source": "https://commons.wikimedia.org/wiki/File:Space-gallery_798-art-district.jpg",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "description": "798 Space gallery at the art district of Beijing",
+    "note": "Resized/compressed. Reference photo; season, gallery display and appearance may differ during your visit."
   }
 }
