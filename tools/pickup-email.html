@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Que's Pickup Schedule</title>
+<title>Que &amp; Yue's Pickup Schedule</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,system-ui,sans-serif;background:#f8f9fa;padding:20px;max-width:500px;margin:0 auto}
@@ -25,16 +25,16 @@ h1{font-size:1.2em;margin-bottom:4px}
 </head>
 <body>
 <div class="card">
-<h1>📧 Que's Pickup Schedule</h1>
+<h1>📧 Que &amp; Yue's Pickup Schedule</h1>
 <div class="week" id="week-range"></div>
 <div id="schedule"></div>
 </div>
 <a class="btn btn-mailto" id="mailto-btn" href="#">📨 Send Email to Teachers</a>
-<p class="note">Opens your default email app with everything pre-filled</p>
+<p class="note">Optional reference draft: the 9/28–9/30 absence was already notified and acknowledged. No need to resend unchanged. Opens your email app; nothing is sent automatically.</p>
 
 <script>
 // This file is auto-generated. Update via generate_pickup_page.py
-const data = {"weekRange": "Week of 9/21 - 9/25 · 待核对草稿：周一时间、周二/三接送待确认；请勿直接发送", "days": [{"label": "Mon (9/21)", "action": "Pick up from school", "type": "school"}, {"label": "Tue (9/22)", "action": "TBD — confirm before sending", "type": ""}, {"label": "Wed (9/23)", "action": "TBD — confirm before sending", "type": ""}, {"label": "Thu (9/24)", "action": "Pick up from school", "type": "school"}, {"label": "Fri (9/25)", "action": "Absent (a holiday)", "type": "absent"}], "mailto": "mailto:meera.cholera@bsbsanlitun.com,sltbus@bsbsanlitun.com?subject=Que%27s%20schedule%20for%20the%20upcoming%20week%20%289%2F21%20-%209%2F25%29&body=Dear%20Ms%20Meera%20and%20Emma%2C%0D%0A%0D%0AI%20hope%20you%20had%20a%20great%20weekend.%0D%0A%0D%0AHere%20is%20Que%27s%20schedule%20for%20next%20week%3A%0D%0A%0D%0A%E2%80%A2%20Monday%20%289%2F21%29%3A%20picked%20up%20from%20school%0D%0A%E2%80%A2%20Tuesday%20through%20Wednesday%20%289%2F22%20-%209%2F23%29%3A%20%5BTODO%3A%20No%20pickup%20info%5D%0D%0A%E2%80%A2%20Thursday%20%289%2F24%29%3A%20picked%20up%20from%20school%0D%0A%E2%80%A2%20Friday%20%289%2F25%29%3A%20absent%20%28a%20holiday%29%0D%0A%0D%0AThank%20you%20for%20your%20assistance.%0D%0A%0D%0ABest%20regards%2C%0D%0A%0D%0AAmy", "gmail": "https://mail.google.com/mail/?view=cm&to=meera.cholera%40bsbsanlitun.com%2Csltbus%40bsbsanlitun.com&su=Que%27s%20schedule%20for%20the%20upcoming%20week%20%289%2F21%20-%209%2F25%29&body=Dear%20Ms%20Meera%20and%20Emma%2C%0A%0AI%20hope%20you%20had%20a%20great%20weekend.%0A%0AHere%20is%20Que%27s%20schedule%20for%20next%20week%3A%0A%0A%E2%80%A2%20Monday%20%289%2F21%29%3A%20picked%20up%20from%20school%0A%E2%80%A2%20Tuesday%20through%20Wednesday%20%289%2F22%20-%209%2F23%29%3A%20%5BTODO%3A%20No%20pickup%20info%5D%0A%E2%80%A2%20Thursday%20%289%2F24%29%3A%20picked%20up%20from%20school%0A%E2%80%A2%20Friday%20%289%2F25%29%3A%20absent%20%28a%20holiday%29%0A%0AThank%20you%20for%20your%20assistance.%0A%0ABest%20regards%2C%0A%0AAmy"};
+const data = {"weekRange": "Week of 9/28 - 10/2", "days": [{"label": "Mon (9/28)", "action": "Family trip; no bus either way", "type": "absent"}, {"label": "Tue (9/29)", "action": "Family trip; no bus either way", "type": "absent"}, {"label": "Wed (9/30)", "action": "Family trip; no bus either way", "type": "absent"}, {"label": "Thu (10/1)", "action": "School closed (National Day)", "type": "absent"}, {"label": "Fri (10/2)", "action": "School closed (National Day)", "type": "absent"}], "mailto": "mailto:meera.cholera@bsbsanlitun.com,mumbi.mulenga@bsbsanlitun.com,sltbus@bsbsanlitun.com?subject=Que%20and%20Yue%27s%20schedule%20for%20the%20upcoming%20week%20%289/28%20-%2010/2%29&body=Dear%20Ms%20Cholera%2C%20Ms%20Mulenga%20and%20Emma%2C%0D%0A%0D%0AI%20hope%20you%20had%20a%20great%20weekend.%0D%0A%0D%0AFor%20reference%2C%20here%20is%20next%20week%27s%20schedule%20for%20Que%20%28Y3%20Badgers%29%20and%20Yue%20%28Y1%20Jaguars%29%3A%0D%0A%0D%0A%E2%80%A2%20Monday%20through%20Wednesday%20%289/28%20-%209/30%29%3A%20absent%20due%20to%20our%20family%20trip%2C%20as%20previously%20notified.%20Neither%20child%20will%20take%20the%20school%20bus%20in%20either%20direction%20on%20these%20dates.%0D%0A%E2%80%A2%20Thursday%20through%20Friday%20%2810/1%20-%2010/2%29%3A%20school%20closed%20for%20the%20National%20Day%20holiday%3B%20no%20school%20pickup%20or%20school%20bus%20required.%0D%0A%0D%0AThank%20you%20for%20acknowledging%20our%20earlier%20notice%20and%20for%20your%20assistance.%0D%0A%0D%0ABest%20regards%2C%0D%0A%0D%0AAmy", "gmail": "https://mail.google.com/mail/?view=cm&to=meera.cholera%40bsbsanlitun.com%2Cmumbi.mulenga%40bsbsanlitun.com%2Csltbus%40bsbsanlitun.com&su=Que%20and%20Yue%27s%20schedule%20for%20the%20upcoming%20week%20%289/28%20-%2010/2%29&body=Dear%20Ms%20Cholera%2C%20Ms%20Mulenga%20and%20Emma%2C%0A%0AI%20hope%20you%20had%20a%20great%20weekend.%0A%0AFor%20reference%2C%20here%20is%20next%20week%27s%20schedule%20for%20Que%20%28Y3%20Badgers%29%20and%20Yue%20%28Y1%20Jaguars%29%3A%0A%0A%E2%80%A2%20Monday%20through%20Wednesday%20%289/28%20-%209/30%29%3A%20absent%20due%20to%20our%20family%20trip%2C%20as%20previously%20notified.%20Neither%20child%20will%20take%20the%20school%20bus%20in%20either%20direction%20on%20these%20dates.%0A%E2%80%A2%20Thursday%20through%20Friday%20%2810/1%20-%2010/2%29%3A%20school%20closed%20for%20the%20National%20Day%20holiday%3B%20no%20school%20pickup%20or%20school%20bus%20required.%0A%0AThank%20you%20for%20acknowledging%20our%20earlier%20notice%20and%20for%20your%20assistance.%0A%0ABest%20regards%2C%0A%0AAmy"};
 
 document.getElementById('week-range').textContent = data.weekRange;
 
