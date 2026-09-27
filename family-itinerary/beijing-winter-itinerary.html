@@ -15,6 +15,8 @@ header{background:linear-gradient(135deg,#1a365d,#2d5a87);color:white;padding:12
 #map{order:1;flex:1;min-width:0;min-height:0;position:relative;background:#eae9e3;display:flex;flex-direction:column}.map-toolbar{background:#fffdf8;display:flex;justify-content:space-between;align-items:center;padding:6px 10px;gap:8px;flex-shrink:0;border-bottom:1px solid #e7e1d6}.provider-toggle{display:flex;gap:3px}.provider-toggle button{border:0;border-radius:5px;background:transparent;padding:5px 9px;color:#1a365d;font-size:12px}.provider-toggle button[aria-pressed=true]{background:#1a365d;color:white}.map-toolbar a{font-size:12px}.map-stage{flex:1;min-height:0;position:relative}#googleMap,#leafletMap{position:absolute;inset:0;border:0;width:100%;height:100%}#leafletMap{z-index:1}.map-caption{position:absolute;bottom:25px;left:10px;right:10px;z-index:500;display:flex;align-items:center;gap:8px;pointer-events:none}.map-caption button{pointer-events:auto;background:#fffffff2;border:1px solid #ded7c9;padding:8px 12px;border-radius:8px;box-shadow:0 2px 8px #0002;max-width:100%;text-align:left;color:#1a365d}.map-note{padding:4px 10px;background:#fffdf8;font-size:11px;color:#68727c;flex-shrink:0}.pin{width:30px;height:30px;display:grid;place-items:center;background:#dbeafe;border:2px solid white;border-radius:50%;box-shadow:0 2px 6px #0003;font-size:17px}.leaflet-tooltip{font:12px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
 dialog{width:min(580px,calc(100% - 24px));max-height:90vh;max-height:90dvh;border:0;padding:0;border-radius:12px;color:#263344;box-shadow:0 15px 60px #0005}dialog::backdrop{background:#10203099}.detail-header{position:sticky;top:0;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;background:#1a365d;color:white;z-index:2}.detail-header h2{font-size:17px;margin:0}.detail-actions{display:flex;gap:6px;flex-shrink:0}.detail-actions button{background:#ffffff22;border:1px solid #ffffff55;border-radius:7px;color:#fff;padding:5px 9px}.detail-body{padding:14px 18px 20px}.detail-body p{margin:10px 0}.detail-body h3{font-size:14px;margin:16px 0 7px}.detail-body ul{padding-left:20px;margin:6px 0}.detail-body li{margin:6px 0}figure{margin:0}.place-photo{display:block;width:100%;height:240px;object-fit:contain;background:#eee}figcaption{font-size:10px;line-height:1.5;padding:6px 14px;color:#6c747c;background:#f7f5f0}.photo-pending{padding:20px 16px;background:#f7f5f0;color:#68727c;font-size:12px}.video{border-top:1px solid #e7e1d6;margin-top:15px;padding-top:12px}.video a{font-weight:650}.detail-links{display:flex;gap:14px;flex-wrap:wrap;margin-top:15px;font-size:12px}
 @media(max-width:679px){header{padding:10px 12px;align-items:flex-start}header h1{font-size:17px}header p{font-size:11px;max-width:245px}.header-actions{gap:4px}.header-actions>*{padding:5px 7px}.layout{flex-direction:column}.sidebar{order:1;width:100%;max-height:40vh;max-height:40dvh;flex:0 0 auto;box-shadow:0 2px 10px #0001}#map{order:2;flex:1;min-height:120px}.place-photo{height:205px}dialog{max-height:94dvh}.tab{padding:9px 10px}.detail-header{padding:10px 12px}.detail-header h2{font-size:16px}}
+.hotel-card{border-left:3px solid #7654a2}.hotel-card .spot{padding:0;background:none}.hotel-card .number-badge{background:#7654a2}.hotel-card .detail-links{margin-top:8px}.hotel-rate{font-size:12px;color:#7654a2;font-weight:650}.pin.hotel-pin{background:#ede3fa;color:#583982;border-color:#7654a2;width:34px;height:34px;font-size:12px;font-weight:800}.map-extent{position:absolute;right:10px;top:10px;z-index:500;display:flex;gap:4px}.map-extent button{background:#fffffff2;color:#1a365d;border:1px solid #cfc8ba;border-radius:6px;padding:6px 9px;font-size:12px}.map-extent button[aria-pressed=true]{background:#1a365d;color:#fff}
+@media(max-width:679px) and (max-height:700px){.sidebar{max-height:28dvh}.pin.hotel-pin{width:26px;height:26px;margin:4px;font-size:10px}.map-note{font-size:10px}.map-caption{bottom:22px}.map-caption button{padding:5px 8px;font-size:11px}}
 </style>
 </head>
 <body>
@@ -123,8 +125,8 @@ dialog{width:min(580px,calc(100% - 24px));max-height:90vh;max-height:90dvh;borde
 const $ = id => document.getElementById(id);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let lang = new URLSearchParams(location.search).get('lang') === 'zh' ? 'zh' : 'en';
-let activeTab = 'overview', selectedPlace = 'forbidden-city', detailId = null, provider = 'google';
-let leafletMap = null, leafletMarker = null;
+let activeTab = 'overview', selectedPlace = 'forbidden-city', detailId = null, provider = 'leaflet', overviewExtent = 'city';
+let leafletMap = null, leafletMarkers = null;
 const photos = JSON.parse($('beijing-photo-data').textContent);
 const text = obj => obj?.[lang] || obj?.en || '';
 const tr = (en,zh) => lang === 'zh' ? zh : en;
@@ -250,16 +252,28 @@ const candidates = [
   }
 ];
 const candidateIds = candidates.map(p=>p.id);
+// WGS84: OSM named hotel POIs; Mandarin uses its in-hotel restaurant POI as an approximate building reference.
+const hotels = [
+ {id:'rosewood',name:{en:'Rosewood Beijing',zh:'北京瑰丽酒店'},area:{en:'Hujialou · CBD (not Sanlitun)',zh:'呼家楼 · CBD（不是三里屯）'},address:{en:'Jing Guang Centre, Hujialou, Chaoyang District, Beijing 100020',zh:'北京市朝阳区呼家楼京广中心，100020'},summary:{en:'A refined CBD base with a strong dining and wellness offering. Best if the hotel itself is part of the holiday; allow car journeys for the historic sights.',zh:'餐饮与康体配套丰富的CBD酒店，适合把酒店体验也当作假期一部分；前往老城景点需预留车程。'},lat:39.9188259,lng:116.4545206,zoom:15,query:'Rosewood Beijing Jing Guang Centre Hujialou',slug:'beijing-rosewood',url:'https://www.rosewoodhotels.com/en/beijing/overview/location',coordinateSource:'https://www.openstreetmap.org/node/13851754401'},
+ {id:'intercontinental',name:{en:'InterContinental Beijing Sanlitun',zh:'北京三里屯通盈中心洲际酒店'},area:{en:'Sanlitun · restaurants & shopping',zh:'三里屯 · 餐饮与购物'},address:{en:'No. 1 South Sanlitun Road, Chaoyang District, Beijing 100027',zh:'北京市朝阳区南三里屯路1号，100027'},summary:{en:'A modern base beside Sanlitun’s dining and shopping. Best for an easy choice of restaurants after sightseeing; request a quiet room if that matters.',zh:'位于三里屯餐饮购物区，白天游览后找餐厅方便；若重视安静，可提前提出客房需求。'},lat:39.9312369,lng:116.4487857,zoom:15,query:'InterContinental Beijing Sanlitun No 1 South Sanlitun Road',slug:'intercontinental-beijing-sanlitun',url:'https://www.ihg.com/intercontinental/hotels/gb/en/beijing/peghe/hoteldetail',coordinateSource:'https://www.openstreetmap.org/node/6813781743'},
+ {id:'mandarin',name:{en:'Mandarin Oriental Wangfujing, Beijing',zh:'北京王府井文华东方酒店'},area:{en:'Wangfujing · historic city base',zh:'王府井 · 老城游览基地'},address:{en:'269 Wangfujing Street, Dongcheng District, Beijing 100006 · above WF CENTRAL',zh:'北京市东城区王府井大街269号，王府中环上层，100006'},summary:{en:'An intimate luxury hotel above WF CENTRAL, with terrace views toward the Forbidden City. Of these three, the most convenient base for the palace and central historic sights; room views vary.',zh:'王府中环上层的精品奢华酒店，露台可望故宫。三家中更便于游览故宫及老城中心；具体客房景观因房型而异。'},lat:39.9121190,lng:116.4040009,zoom:15,query:'Mandarin Oriental Wangfujing Beijing 269 Wangfujing Street',slug:'mandarin-oriental-wangfujing-beijing',url:'https://www.mandarinoriental.com/en/beijing/wangfujing',coordinateSource:'https://www.openstreetmap.org/node/11304310969'}
+];
+const hotelIds=hotels.map(p=>p.id);
+const bookingUrl=p=>'https://www.booking.com/hotel/cn/'+p.slug+'.html?'+new URLSearchParams({checkin:'2026-12-19',checkout:'2026-12-24',group_adults:'2',no_rooms:'1',group_children:'0',selected_currency:'CNY'});
+const stayLabel=()=>tr('Dec 19 (Sat)–24 (Thu), 2026 · 5 nights · 1 room, 2 adults · CNY','2026/12/19（周六）–24（周四）· 5晚 · 1间房、2成人 · 人民币');
+const rateLabel=()=>tr('CNY / room / night: date-specific rate not verified','人民币 / 间 / 晚：未核到指定日期房价');
+function hotelLinks(p){return `<div class="detail-links"><a data-booking="${p.id}" href="${esc(bookingUrl(p))}" target="_blank" rel="noopener">${tr('Check dates on Booking.com ↗','Booking.com 查指定日期 ↗')}</a><a href="${esc(p.url)}" target="_blank" rel="noopener">${tr('Hotel website ↗','酒店官网 ↗')}</a></div>`;}
 const emojis = {'forbidden-city':'🏯',mutianyu:'⛰️',hutongs:'🏘️','temple-heaven':'⛩️',ncpa:'🎼',chaoyang:'🤸',laoshe:'🍵',liyuan:'🎭',terracotta:'🏺','summer-palace':'🏞️','lama-temple':'🛕','798-art':'🎨'};
 const colors = ['#c15e42','#578659','#517baf','#94689a'];
 const places = Object.fromEntries(days.filter(d=>anchorIds.includes(d.id)).map((d,i)=>[d.id,{...d,name:d.place,video:verifiedVideos[i]}]));
 shows.forEach((s,i)=>{places[showIds[i]]={...s,id:showIds[i],query:['National Centre for the Performing Arts 2 West Chang’an Avenue Beijing','Chaoyang Theatre Beijing','Lao She Teahouse Beijing','Liyuan Theatre Beijing'][i],summary:s.best};});
 places.terracotta={id:'terracotta',name:{en:'Terracotta Warriors',zh:'兵马俑'},query:'Terracotta Warriors Xi’an',summary:xianVariant.intro,note:xianVariant.caution};
 candidates.forEach(p=>{places[p.id]=p;});
+hotels.forEach(p=>{places[p.id]=p;emojis[p.id]='🏨';});
 const list = items => '<ul>'+items.map(item=>'<li>'+esc(item)+'</li>').join('')+'</ul>';
 function placeButton(id,sub){const p=places[id];return `<button type="button" class="spot" data-place="${id}"><span class="number-badge" style="--day-color:${colors[anchorIds.indexOf(id)]||'#9b7834'}">${anchorIds.includes(id)?anchorIds.indexOf(id)+1:emojis[id]}</span><span class="spot-info"><span class="spot-name">${anchorIds.includes(id)?emojis[id]+' ':''}${esc(text(p.name))}</span><span class="spot-desc">${esc(sub||text(p.summary))}</span></span><span class="arrow" aria-hidden="true">›</span></button>`;}
 function renderTabs(){
- const tabs=[['overview',tr('Overview','总览')],...days.map(d=>[d.id,text(d.date)]),['shows',tr('Shows','演出')],['xian',tr('Xi’an option','西安备选')],['checklist',tr('Checklist','预约清单')]];
+ const tabs=[['overview',tr('Overview','总览')],['hotels',tr('Hotels','住宿')],...days.map(d=>[d.id,text(d.date)]),['shows',tr('Shows','演出')],['xian',tr('Xi’an option','西安备选')],['checklist',tr('Checklist','预约清单')]];
  $('tabs').innerHTML=tabs.map(([id,label])=>`<button type="button" class="tab ${activeTab===id?'active':''}" data-tab="${id}" aria-current="${activeTab===id?'page':'false'}">${esc(label)}</button>`).join('');
  $('tabs').setAttribute('aria-label',tr('Itinerary tabs','行程标签'));
 }
@@ -269,6 +283,10 @@ function renderSidebar(){
   html=`<p class="muted">${tr('About 4½ sightseeing days: four main sights, plus a flexible half-day. Tap a place for photos, tips and an English video.','约4天半游览：四个主景点，另留半天灵活安排。点击地点看照片、提示和英语视频。')}</p><button class="candidate-jump" type="button" data-candidates>${tr('See 3 candidates ↓','查看3个备选地点 ↓')}</button>`;
   html+=days.map(d=>`<article class="day-card"><h3>${esc(text(d.date))}</h3>${places[d.id]?placeButton(d.id,d.chips[lang][0]):`<button type="button" class="spot" data-tab="${d.id}"><span class="spot-info"><span class="spot-name">${esc(text(d.short))}</span><span class="spot-desc">${esc(text(d.summary))}</span></span><span class="arrow">›</span></button>`}</article>`).join('');
   html+=`<section id="candidates" aria-labelledby="candidatesTitle"><h2 id="candidatesTitle">${tr('Candidates · 3 optional stops','Candidates · 3个备选地点')}</h2><p class="muted">${tr('Pick one for the spare half-day, or swap with a main sight. No need to fit in all three. Times below are visit estimates, excluding travel.','选一个填补空余半天，或替换某个主景点，不用全部加上。以下时长为参观估算，不含往返交通。')}</p><div class="day-card">${candidates.map(p=>placeButton(p.id,text(p.duration)+' · '+text(p.fit))).join('')}</div></section><p class="muted">${tr('Planning draft · No bookings made.','规划草稿 · 尚未预订。')}</p>`;
+ }else if(activeTab==='hotels'){
+  html=`<h2>${tr('Three hotel options','三家住宿备选')}</h2><p class="muted">${stayLabel()}</p><p class="notice">${tr('Live prices could not be verified. This does not mean sold out. Links include the dates above; recheck dates, guests and CNY after opening.','未能核实实时房价，不代表售罄。链接已带入上述日期；打开后请再次确认日期、人数和人民币币种。')}</p>`;
+  html+=hotels.map((p,i)=>`<article class="panel hotel-card" data-hotel="${p.id}"><button class="spot" type="button" data-place="${p.id}"><span class="number-badge">H${i+1}</span><span class="spot-info"><span class="spot-name">${esc(text(p.name))}</span><span class="spot-desc">${esc(text(p.area))}</span></span><span class="arrow">›</span></button><p>${esc(text(p.summary))}</p><p class="muted">${esc(text(p.address))}</p><p class="hotel-rate">${rateLabel()}</p>${hotelLinks(p)}</article>`).join('');
+  html+=`<p class="muted">${tr('Checked Sun, Sep 27, 2026. Room type, taxes, breakfast and cancellation terms remain unverified. Two adults is a comparison assumption, not the whole family; confirm extra rooms, child ages and connecting rooms separately. No bookings made.','核查于2026/9/27（周日）。房型、税费、早餐及取消条款尚未核定。2成人仅为比价口径，不代表全家入住人数；额外房间、儿童年龄与连通房另行确认。尚未预订。')}</p>`;
  }else if(day){
   html=`<h2>${esc(text(day.date))}</h2>`;
   if(places[day.id]){
@@ -288,7 +306,7 @@ function renderSidebar(){
  $('sidebar').innerHTML=html;$('sidebar').setAttribute('aria-label',tr('Itinerary','行程'));
 }
 const checked=new Set();
-function selectTab(id){activeTab=id;if(places[id]) selectedPlace=id;else if(id==='shows')selectedPlace='ncpa';else if(id==='xian')selectedPlace='terracotta';else selectedPlace='forbidden-city';renderTabs();renderSidebar();$('sidebar').scrollTop=0;updateMap();}
+function selectTab(id){activeTab=id;if(places[id]) selectedPlace=id;else if(id==='hotels')selectedPlace='rosewood';else if(id==='shows')selectedPlace='ncpa';else if(id==='xian')selectedPlace='terracotta';else selectedPlace='forbidden-city';if(id==='overview'||id==='hotels')provider='leaflet';renderTabs();renderSidebar();$('sidebar').scrollTop=0;updateMap();}
 function photoHtml(id){
  const p=places[id],photo=photos[id];
  if(!photo?.src) return `<div class="photo-pending" data-photo-key="${id}">${tr('Photo awaiting final source integration.','照片待最终来源整合。')}</div>`;
@@ -297,20 +315,25 @@ function photoHtml(id){
 function renderDetail(){
  const p=places[detailId];if(!p)return;
  $('detailTitle').textContent=text(p.name);$('detailLang').textContent=tr('中文','EN');$('detailLang').setAttribute('aria-label',tr('切换到中文','Switch to English'));$('closeDetail').setAttribute('aria-label',tr('Close details','关闭详情'));
- let html=photoHtml(p.id)+`<div class="detail-body">${p.date?`<p class="muted">${esc(text(p.date))} · 2026</p>`:''}<p>${esc(text(p.summary))}</p>`;
+ let html=(hotelIds.includes(p.id)?'':photoHtml(p.id))+`<div class="detail-body">${p.date?`<p class="muted">${esc(text(p.date))} · 2026</p>`:''}<p>${esc(text(p.summary))}</p>`;
+ if(hotelIds.includes(p.id))html+=`<p><strong>${esc(text(p.area))}</strong></p><p>${esc(text(p.address))}</p><p class="muted">${stayLabel()}</p><p class="hotel-rate">${rateLabel()}</p><p class="notice">${tr('No reliable quote for these dates. Availability, room type, taxes, breakfast and cancellation terms must be checked on Booking.com. Recheck the dates, guests and currency if the link resets them. No bookings made.','未取得这些日期的可靠报价。库存、房型、税费、早餐及取消规则须在Booking.com确认；若链接重置了条件，请重新选择日期、人数和币种。尚未预订。')}</p>${hotelLinks(p)}<p class="muted">${tr('Approximate hotel-building pin, not an entrance or navigation point.','酒店建筑近似定位，不作为入口或导航点。')} <a href="${esc(p.coordinateSource)}" target="_blank" rel="noopener">${tr('Map reference ↗','地图参考 ↗')}</a></p>`;
  if(p.duration) html+=`<p class="muted">${esc(text(p.duration))} · ${tr('Suggested visit, excluding travel','建议参观时长，不含交通')}</p><p><strong>${tr('Best fit: ','适合：')}</strong>${esc(text(p.fit))}</p>`;
  if(p.reserve){html+=`<h3>${tr('Booking & access','预约与通行')}</h3>${list(p.reserve[lang])}<h3>${tr('Comfort tips','舒适度提示')}</h3>${list(p.comfort[lang])}`;}
  if(p.note) html+=`<h3>${tr('Before you book','预订前确认')}</h3><p class="notice">${esc(text(p.note))}</p>`;
  if(p.video) html+=`<div class="video"><a href="${esc(p.video.url)}" target="_blank" rel="noopener">▶ ${esc(text(p.video.title))} · ${tr('Watch in English ↗','观看英语视频 ↗')}</a><p class="muted">${esc(text(p.video.note))}</p><p class="muted">${tr('English narration verified. Other seasons; not current ticketing advice.','已核验英语讲解。拍摄季节不同，不作当前票务依据。')}</p></div>`;
- else html+=`<div class="video muted">${tr('No English-language video verified for this venue yet.','此场馆暂无已核验的英语讲解视频。')}</div>`;
+ else if(!hotelIds.includes(p.id))html+=`<div class="video muted">${tr('No English-language video verified for this venue yet.','此场馆暂无已核验的英语讲解视频。')}</div>`;
  html+=`<div class="detail-links"><a href="${esc(googleSearchUrl(p))}" target="_blank" rel="noopener">Google Maps ↗</a>${p.url?`<a href="${esc(p.url)}" target="_blank" rel="noopener">${tr('Official information / calendar ↗','官方介绍 / 排期 ↗')}</a>`:''}</div></div>`;
  $('detailContent').innerHTML=html;
 }
 function openPlace(id){selectedPlace=id;detailId=id;updateMap();renderDetail();$('placeDialog').showModal();$('placeDialog').scrollTop=0;}
 function googleSearchUrl(p){return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(p.query);}
 function mapError(){$('mapNote').textContent=tr('OSM map unavailable. Use the Open map link or switch to Google.','OSM地图不可用。请打开地图链接或切换Google。');}
+const extentControl=document.createElement('div');extentControl.className='map-extent';extentControl.innerHTML='<button id="cityExtent" type="button"></button><button id="allExtent" type="button"></button>';$('leafletMap').parentElement.appendChild(extentControl);
 function updateMap(){
  const p=places[selectedPlace];
+ const multi=provider==='leaflet'&&(activeTab==='overview'||activeTab==='hotels');
+ extentControl.hidden=!(multi&&activeTab==='overview');
+ $('cityExtent').textContent=tr('City / hotels','市区 / 酒店');$('allExtent').textContent=tr('All stops','全部地点');$('cityExtent').setAttribute('aria-pressed',String(overviewExtent==='city'));$('allExtent').setAttribute('aria-pressed',String(overviewExtent==='all'));
  $('googleBtn').setAttribute('aria-pressed',String(provider==='google'));$('leafletBtn').setAttribute('aria-pressed',String(provider==='leaflet'));
  $('googleMap').hidden=provider!=='google';$('leafletMap').hidden=provider!=='leaflet';
  $('mapPlace').textContent=emojis[p.id]+' '+text(p.name)+' · '+tr('Details ›','详情 ›');
@@ -322,10 +345,16 @@ function updateMap(){
  }else{
   $('googleMap').removeAttribute('src');
   if(!window.L){mapError();return;}
-  if(!leafletMap){leafletMap=L.map('leafletMap',{scrollWheelZoom:false,fadeAnimation:false});L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(leafletMap);}
-  if(leafletMarker){leafletMarker.remove();leafletMarker=null;}
-  if(Number.isFinite(p.lat)){
-   leafletMarker=L.marker([p.lat,p.lng],{title:text(p.name),icon:L.divIcon({className:'',html:`<div class="pin">${emojis[p.id]}</div>`,iconSize:[30,30],iconAnchor:[15,15]})}).addTo(leafletMap).bindTooltip(esc(text(p.name)),{permanent:true,direction:'top',offset:[0,-17]}).on('click',()=>openPlace(p.id));
+  if(!leafletMap){leafletMap=L.map('leafletMap',{scrollWheelZoom:false,fadeAnimation:false,zoomSnap:.25});L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(leafletMap);}
+  if(!leafletMarkers)leafletMarkers=L.layerGroup().addTo(leafletMap);leafletMarkers.clearLayers();
+  const ids=multi?(activeTab==='hotels'?hotelIds:[...anchorIds,...candidateIds,...hotelIds]):[p.id];
+  ids.filter(id=>Number.isFinite(places[id].lat)).forEach(id=>{const q=places[id],hotel=hotelIds.includes(id),n=hotelIds.indexOf(id)+1;L.marker([q.lat,q.lng],{title:text(q.name),icon:L.divIcon({className:hotel?'hotel-marker':'place-marker',html:`<div class="pin ${hotel?'hotel-pin':''}">${hotel?'H'+n:emojis[id]}</div>`,iconSize:hotel?[34,34]:[30,30],iconAnchor:hotel?[17,17]:[15,15]})}).addTo(leafletMarkers).bindTooltip(esc(text(q.name)),{permanent:!multi,direction:'top',offset:[0,-17]}).on('click',()=>openPlace(id));});
+  leafletMap.invalidateSize();
+  if(multi){
+   const frameIds=activeTab==='hotels'?hotelIds:overviewExtent==='all'?ids:[...anchorIds.filter(id=>id!=='mutianyu'),...hotelIds,'lama-temple'];
+   leafletMap.fitBounds(frameIds.map(id=>[places[id].lat,places[id].lng]),{paddingTopLeft:[22,42],paddingBottomRight:[22,48],maxZoom:14,animate:false});
+   $('mapNote').textContent=activeTab==='hotels'?tr('H1–H3: hotels · Tap a pin for details. Approximate building locations. Google shows one selected place.','H1–H3：酒店 · 点标记看详情。建筑近似定位；Google每次显示一个地点。'):tr('Purple H1–H3: hotels · City view by default; All stops includes Great Wall, Summer Palace & 798. Google: one place.','紫色H1–H3：酒店 · 默认市区视图；「全部地点」含长城、颐和园、798。Google仅单点。');
+  }else if(Number.isFinite(p.lat)){
    leafletMap.setView([p.lat,p.lng],p.zoom);
    $('mapNote').textContent=tr('Approximate location for orientation, not turn-by-turn navigation.','近似方位示意，不作为逐步导航。');
   }else{
@@ -346,6 +375,7 @@ $('sidebar').addEventListener('click',e=>{if(e.target.closest('[data-candidates]
 $('sidebar').addEventListener('change',e=>{const key=e.target.dataset.check;if(key)e.target.checked?checked.add(key):checked.delete(key);});
 $('langToggle').onclick=toggleLang;$('detailLang').onclick=toggleLang;
 $('googleBtn').onclick=()=>{provider='google';updateMap();};$('leafletBtn').onclick=()=>{provider='leaflet';updateMap();};
+$('cityExtent').onclick=()=>{overviewExtent='city';updateMap();};$('allExtent').onclick=()=>{overviewExtent='all';updateMap();};
 $('mapPlace').onclick=()=>openPlace(selectedPlace);
 $('closeDetail').onclick=()=>$('placeDialog').close();
 $('placeDialog').addEventListener('close',()=>{detailId=null;});
