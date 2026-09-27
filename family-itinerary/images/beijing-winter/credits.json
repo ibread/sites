@@ -1,0 +1,83 @@
+{
+  "forbidden-city": {
+    "src": "images/beijing-winter/forbidden-city.jpg",
+    "credit": "Gisling",
+    "source": "https://commons.wikimedia.org/wiki/File:Hall_of_Supreme_Harmony.JPG",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "description": "Hall of Supreme Harmony in the Forbidden City in Beijing, 2008",
+    "note": "Resized/compressed; photo is illustrative and may show another season or a historical performance."
+  },
+  "mutianyu": {
+    "src": "images/beijing-winter/mutianyu.jpg",
+    "credit": "Velatrix",
+    "source": "https://commons.wikimedia.org/wiki/File:Great_Wall_of_China_July_2006.JPG",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "description": "The Great Wall of China at Mutianyu, near Beijing, in July 2006.",
+    "note": "Resized/compressed; photo is illustrative and may show another season or a historical performance."
+  },
+  "hutongs": {
+    "src": "images/beijing-winter/hutongs.jpg",
+    "credit": "Francesco Bini",
+    "source": "https://commons.wikimedia.org/wiki/File:Pechino,_Shichahai,_hutong_tra_i_parchi_bei_hai_e_jing_shan,_vialetto_interno.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "description": "Shichahai Subdistrict",
+    "note": "Resized/compressed; photo is illustrative and may show another season or a historical performance."
+  },
+  "temple-heaven": {
+    "src": "images/beijing-winter/temple-heaven.jpg",
+    "credit": "Fong Chen",
+    "source": "https://commons.wikimedia.org/wiki/File:Hall_of_Prayer_for_Good_Harvest.JPG",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "description": "The Hall of Prayer for Good Harvest at the Temple of Heaven in Beijing. April，2010",
+    "note": "Resized/compressed; photo is illustrative and may show another season or a historical performance."
+  },
+  "ncpa": {
+    "src": "images/beijing-winter/ncpa.jpg",
+    "credit": "Another Believer",
+    "source": "https://commons.wikimedia.org/wiki/File:201611_Beijing_National_Centre_for_the_Performing_Arts_exterior_2.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "description": "Beijing (November 2016)",
+    "note": "Resized/compressed; photo is illustrative and may show another season or a historical performance."
+  },
+  "chaoyang": {
+    "src": "images/beijing-winter/chaoyang.jpg",
+    "credit": "Alex Yang",
+    "source": "https://commons.wikimedia.org/wiki/File:Chaoyang_Theatre_Beijing_China.jpg",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "description": "Chaoyang Theatre stages Chinese acrobatics and Beijing opera performances.",
+    "note": "Resized/compressed; photo is illustrative and may show another season or a historical performance."
+  },
+  "laoshe": {
+    "src": "images/beijing-winter/laoshe.jpg",
+    "credit": "Bridget Coila from New Orleans, USA",
+    "source": "https://commons.wikimedia.org/wiki/File:Lao_She_Teahouse_12-13-07_175_(2128605446).jpg",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "description": "12-13-07 175",
+    "note": "Resized/compressed; photo is illustrative and may show another season or a historical performance."
+  },
+  "liyuan": {
+    "src": "images/beijing-winter/liyuan.jpg",
+    "credit": "d'n'c https://www.flickr.com/people/fukagawa/",
+    "source": "https://commons.wikimedia.org/wiki/File:Peking_opera_Liyuan_Theatre_3.jpg",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "description": "A en:Peking opera performance at Liyuan Theatre (梨园剧场)",
+    "note": "Resized/compressed; photo is illustrative and may show another season or a historical performance."
+  },
+  "terracotta": {
+    "src": "images/beijing-winter/terracotta.jpg",
+    "credit": "Serge Duchemin / Nataraja",
+    "source": "https://commons.wikimedia.org/wiki/File:Guerriers_Xian.jpg",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "description": "Panorama of the Terracotta Army, Pit 1",
+    "note": "Resized/compressed; photo is illustrative and may show another season or a historical performance."
+  }
+}
